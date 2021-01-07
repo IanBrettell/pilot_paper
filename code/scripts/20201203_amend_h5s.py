@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+# example bash script: python ~/Documents/Repositories/pilot_paper/code/scripts/20201203_amend_h5s.py /Users/brettell/Desktop/labeled-data/20190616_1717_icab_icab_L_q4_novel_object/CollectedData_ian_brettell.h5
+
 # Import libraries
 import sys
 import os

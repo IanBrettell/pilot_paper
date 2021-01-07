@@ -36,14 +36,14 @@ QUADRANTS = ["q1", "q2", "q3", "q4"]
 
 rule all:
     input:
-        expand("split/{assay}/{sample}_{quadrant}_{assay}.mp4",
-            assay = ASSAYS,
+        expand("split/{sample}_{quadrant}_{assay}.mp4",
             sample = SAMPLES.index,
-            quadrant = QUADRANTS),
-        expand("split/{assay}/{sample}_{quadrant}_{assay}",
+            quadrant = QUADRANTS,
+            assay = ASSAYS),
+        expand("idtrackerai/session_{sample}_{quadrant}_{assay}/trajectories_wo_gaps.npy",
             sample = SAMPLES.index,
-            assay = ASSAYS,
-            quadrant = QUADRANTS)
+            quadrant = QUADRANTS,
+            assay = ASSAYS)
 
 rule split:
     input:
@@ -59,10 +59,21 @@ rule split:
 
 rule track:
     input:
-        "split/{assay}/{sample}_{quadrant}_{assay}.mp4"
+        "split/{sample}_{quadrant}_{assay}.mp4"
+#    params:
+#        intensity = [SAMPLES.loc["{sample}", 'intensity_floor'], SAMPLES.loc["{sample}", 'intensity_ceiling']],
+#        area = [SAMPLES.loc["{sample}", 'area_floor'], SAMPLES.loc["{sample}", 'area_ceiling']],
+#        range = [0, SAMPLES.loc["{sample}", 'of_video_length']] if "{assay}" == "open_field" else [0, SAMPLES.loc["{sample}", 'no_video_length']],
+#        session_name = "{sample}_{quadrant}_{assay}"
     output:
-        directory("idtrackerai/session_{sample}")
+        "idtrackerai/session_{sample}_{quadrant}_{assay}/trajectories_wo_gaps.npy"
     singularity:
         config["idtrackerai_cont"]
+#    conda:
+#        config["idtrackerai_env"]
     shell:
-        "config["track_script"] {sample}"
+        """
+        set +u
+        . activate idtrackerai
+        {config[track_script]} {config[samples_file]} {input[0]}
+        """

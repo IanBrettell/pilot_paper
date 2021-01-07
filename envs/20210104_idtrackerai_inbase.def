@@ -1,0 +1,104 @@
+Bootstrap: docker
+From: nvidia/cuda:10.0-runtime-ubuntu18.04
+
+#%files # creates the following error, but keep for future reference
+#FATAL:   container creation failed: unable to copy files to container fs: while copying #[idtrackerai_gpu.yaml] to /tmp/rootfs-03f466ec-3ec3-11eb-a984-12bdfa016557/idtrackerai_gpu.yaml: exit
+#    /hps/research1/birney/users/ian/pilot/idtrackerai_gpu.yaml
+
+%environment
+    export LC_ALL="en_US.UTF-8"
+    export LC_CTYPE="en_US.UTF-8"
+    export PATH="/opt/conda/bin:$PATH"
+#    export PATH="/opt/conda/envs/idtrackerai/bin:$PATH"
+
+    # Add NVIDIA paths (created in %post)
+
+#    export PATH=$PATH:"/nvbin:$PATH"
+#    export LD_LIBRARY_PATH="/nvlib:$LD_LIBRARY_PATH"
+
+    # Add CUDA paths
+
+#    CPATH="/usr/local/cuda/include:$CPATH"
+#    CUDA_HOME="/usr/local/cuda"
+#    export PATH=$PATH:/usr/local/cuda/bin
+#    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64/:/usr/local/cuda-10.0/compat/
+
+    echo ". /opt/conda/etc/profile.d/conda.sh" >> $SINGULARITY_ENVIRONMENT
+#    echo ". activate idtrackerai" >> $SINGULARITY_ENVIRONMENT
+
+%post
+    apt-get update && apt-get -y upgrade
+    apt-get -y install \
+      build-essential \
+      wget \
+      bzip2 \
+      ca-certificates \
+      libglib2.0-0 \
+      libxext6 \
+      libsm6 \
+      libxrender1 \
+      git \
+      locales \
+      curl
+    rm -rf /var/lib/apt/lists/*
+    apt-get clean
+
+    # Set locale
+
+    locale-gen en_US.UTF-8
+
+#    # Mount paths to Nvidia driver file (added to env above)
+#
+#    mkdir /nvlib /nvbin
+#
+
+    # Install libnvidia-container
+
+    DIST=$(. /etc/os-release; echo $ID$VERSION_ID)
+    curl -s -L https://nvidia.github.io/libnvidia-container/gpgkey | \
+      apt-key add -
+    curl -s -L https://nvidia.github.io/libnvidia-container/$DIST/libnvidia-container.list | \
+      tee /etc/apt/sources.list.d/libnvidia-container.list
+    apt-get update
+
+    apt-get -y install libnvidia-container1 \
+      libnvidia-container-tools
+
+    # Install Miniconda
+
+    wget -c https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+    /bin/bash Miniconda3-latest-Linux-x86_64.sh -bfp /opt/conda
+    . /opt/conda/etc/profile.d/conda.sh
+#    export PATH="/opt/conda/bin:$PATH"
+    # Conda configuration of channels from .condarc file
+    conda config --file /.condarc --add channels defaults
+    conda config --file /.condarc --add channels conda-forge
+    conda update conda
+
+#    # Install conda env from idtrackerai_gpu.yaml file (doesn't work, but keep for future reference)
+#
+#    echo ". /opt/conda/etc/profile.d/conda.sh" >> $SINGULARITY_ENVIRONMENT
+#    echo "conda activate $(head -1 idtrackerai_gpu.yaml | cut -d' ' -f2)" >> $SINGULARITY_ENVIRONMENT
+#    /opt/conda/bin/conda env create -n idtrackerai -f /hps/research1/birney/users/ian/pilot/idtrackerai_gpu.yaml
+
+    # Activate env and install dependencies
+
+    . /opt/conda/etc/profile.d/conda.sh
+#    conda create -n idtrackerai python=3.6
+#    conda activate idtrackerai
+    conda install python=3.6
+#    # install pip because otherwise the line after throws this error: /.build-script-post: 61: /.build-script-post: pip: not found
+#    conda install -c anaconda pip
+    conda list
+    python3 -m pip install idtrackerai==3.0.24
+    conda install tensorflow-gpu=1.13
+
+    echo ". /opt/conda/etc/profile.d/conda.sh" >> $SINGULARITY_ENVIRONMENT
+#    echo ". activate idtrackerai" >> $SINGULARITY_ENVIRONMENT
+
+    ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh
+
+#%runscript # doesn't activate env on opening shell, but keep for future reference
+#    . /opt/conda/etc/profile.d/conda.sh
+#    . activate idtrackerai
+#    exec /bin/bash "$@"

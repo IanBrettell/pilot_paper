@@ -6,3 +6,9 @@ split_script:
     "scripts/20201111_split_videos.py"
 python_env:
     "envs/pilot_py.yml"
+idtrackerai_cont:
+    "sing_conts/20210104_idtrackerai_test.sif"
+idtrackerai_env:
+    "envs/20210104_idtrackerai.yml"
+track_script:
+    "pilot_paper/code/snakemake/scripts/20201216_track.sh"

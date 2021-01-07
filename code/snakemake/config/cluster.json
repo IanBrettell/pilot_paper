@@ -5,7 +5,9 @@
         "n" : "1",
         "name" : "{rule}.{wildcards}",
         "output" : "log/{rule}_{wildcards}.out",
-        "error" : "log/{rule}_{wildcards}.err"
+        "error" : "log/{rule}_{wildcards}.err",
+        "project" : "gpu",
+        "gpu" : "-"
     },
     "split" :
     {

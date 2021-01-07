@@ -1,4 +1,4 @@
-sample,date,time,tank_side,of_start,of_end,no_start,no_end,fps,adj_top,adj_bottom,adj_left,adj_right,of_vidlen,no_vidlen,intensity_floor,intensity_ceiling,area_floor,area_ceiling
+sample,date,time,tank_side,of_start,of_end,no_start,no_end,fps,adj_top,adj_bottom,adj_left,adj_right,of_video_length,no_video_length,intensity_floor,intensity_ceiling,area_floor,area_ceiling
 20190611_1331_icab_icab_R,20190611,1331,R,1723,20000,20892,39458,30,0,5,5,10,18277,18566,0,155,80,200
 20190611_1410_icab_kaga_R,20190611,1410,R,2380,21791,22584,42226,30,0,5,5,10,19411,19642,0,155,80,200
 20190611_1454_icab_hni_R,20190611,1454,R,2815,21698,22351,40727,30,0,7,7,10,18883,18376,0,155,80,200
