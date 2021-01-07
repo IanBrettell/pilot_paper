@@ -1190,3 +1190,12 @@ deeplabcut.extract_outlier_frames(config_path, videofile_path, outlieralgorithm=
 deeplabcut.extract_outlier_frames(config_path, videofile_path, outlieralgorithm='fitting')
 # refine labels
 ```
+
+# idtrackerai on cluster
+
+```{bash}
+# Create conda env and export yaml
+
+```
+
+# Pull csvs and work

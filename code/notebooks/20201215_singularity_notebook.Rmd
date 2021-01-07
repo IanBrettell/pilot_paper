@@ -498,6 +498,13 @@ bsub -P gpu -gpu - -Is \
   "singularity shell \
     --nv \
     test_latest.sif"
+# WORKS!
+mv test_latest.sif sing_conts/idtrackerai_cont.sif
+
+bsub -P gpu -gpu - -Is \
+  "singularity shell \
+    --nv \
+    sing_conts/idtrackerai_cont.sif"
     
 bsub -P gpu -gpu - -Is \
   "singularity shell \
@@ -508,5 +515,68 @@ bsub -P gpu -gpu - -Is \
   "singularity shell \
     --nv \
     test3_latest.sif"       
+```
+
+*20210104*
+
+
+Do we even need singularity? 
+
+```{bash}
+bsub -P gpu -gpu - -Is \
+  "singularity shell \
+    --nv \
+    docker://continuumio/miniconda3:4.5.11"
+```
+
+Error message: 
+CreateCondaEnvironmentException:
+The 'conda' command is not available inside your singularity container image. Snakemake mounts your conda installation into singularity. Sometimes, this can fail because of shell restrictions. It has been tested to work with docker://ubuntu, but it e.g. fails with docker://bash 
+
+Try to get conda activated within env
+
+```{bash}
+# Create container
+singularity build \
+  --remote sing_conts/20210104_idtrackerai_test.sif \
+  pilot_paper/envs/20210104_idtrackerai.def
+  
+# Enter shell  
+bsub -P gpu -gpu - -Is \
+  "singularity shell \
+    --nv \
+    sing_conts/20210104_idtrackerai_test.sif"
+    
+# Activate environment 
+. activate idtrackerai
+
+# Export .yaml (which includes the right CUDA packages)
+conda env export > pilot_paper/code/snakemake/envs/20210104_idtrackerai.yml
+
+# Test within shell on GPU node
+bsub -P gpu -gpu - -Is bash
+conda create -n test -f pilot_paper/code/snakemake/envs/20210104_idtrackerai.yml
+#Installing pip dependencies: failed
+
+#CondaError: KeyboardInterrupt
+
+# So can't create the conda env within the shell, therefore unlikely that snakemake will be able to do it.
+```
+
+Try adding activate in bash script:
+
+```
+activate does not accept more than one argument:
+['bash', '-c', 'set -euo pipefail;  . activate idtrackerai\n        pilot_paper/code/snakemake/scripts/20201216_track.sh pilot_paper/code/snakemake/config/samples_test.csv split/20190612_1355_icab_ho5_R_q2_novel_object.mp4']
+```
+
+Try setting up idtrackerai in the base env so that it doesn't need to activate
+```{bash}
+singularity build \
+  --remote sing_conts/20210104_idtrackerai_inbase.sif \
+  pilot_paper/envs/20210104_idtrackerai_inbase.def
+# Fails on line:
+# pip install idtrackerai==3.0.24:
+# /.build-script-post: 63: /.build-script-post: pip: not found  
 ```
 

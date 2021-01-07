@@ -98,7 +98,7 @@ idtrackerai terminal_mode \
   
 # Second vid to run concurrently  
 sample=20190613_1307_icab_hdr_R_q4_novel_object
-input_video=$(echo split/novel_object/$sample'.mp4')
+input_video=$(echo split/$sample'.mp4')
 
 idtrackerai terminal_mode \
   --_video $input_video \
@@ -109,5 +109,18 @@ idtrackerai terminal_mode \
   --_nblobs 2 \
   --_session $sample \
   --exec track_video  
+  
+sample=20190613_1307_icab_hdr_R_q3_novel_object
+input_video=$(echo split/$sample'.mp4')
+
+idtrackerai terminal_mode \
+  --_video $input_video \
+  --_bgsub 'True' \
+  --_intensity [0,155] \
+  --_area [80,200] \
+  --_range [0,18500] \
+  --_nblobs 2 \
+  --_session $sample \
+  --exec track_video   
 ```
 

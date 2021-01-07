@@ -63,6 +63,9 @@ snakemake \
   -pn
   
 # For GPU jobs
+# note: must load singularity first on sending node:
+module load singularity
+
 snakemake \
   --jobs 5000 \
   --latency-wait 100 \
@@ -72,6 +75,8 @@ snakemake \
   --rerun-incomplete \
   --use-conda \
   --use-singularity \
-  -s pilot_paper/code/snakemake/snakefile.py \
+  --singularity-args "--bind /hps/research1/birney/users/ian/pilot --nv" \
+  -s pilot_paper/code/snakemake/Snakefile \
   -pn
+
 ```
