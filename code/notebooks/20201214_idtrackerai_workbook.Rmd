@@ -124,3 +124,10 @@ idtrackerai terminal_mode \
   --exec track_video   
 ```
 
+## Now not working again.
+
+Remove the output of one of the successful jobs out of the `videos` directory so that we can see whether it will work again.
+
+```{r, engine='bash'}
+rclone move google_drive_ebi:pilot_paper/idtrackerai/videos/session_20190611_1410_icab_kaga_R_q3_novel_object google_drive_ebi:pilot_paper/idtrackerai/session_20190611_1410_icab_kaga_R_q3_novel_object
+```
