@@ -1,0 +1,13 @@
+---
+title: "Google Cloud notebook"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+    keep_md: true
+    pandoc_args: ["--lua-filter=color-text.lua"]
+    highlight: breezedark 
+---
+
+

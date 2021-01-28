@@ -9,7 +9,7 @@ editor_options:
 
 # Train with DLC
 
-Pilot videos here: `/nfs/ftp/private/birney-res-ftp/upload/medaka/videos/ian_pilot/all`
+Pilot videos here: s
 
 **NOTE** exclusion of `20190613_1156_icab_kaga_R` because file is corrupted.
 **NOTE** exclusion of `20190616_1227_icab_kaga_R_q3` because quadrant is empty.
@@ -19,7 +19,6 @@ Pilot videos here: `/nfs/ftp/private/birney-res-ftp/upload/medaka/videos/ian_pil
 ```{bash, eval = F}
 bsub -M 10000 -P gpu -gpu - -Is bash
 ```
-
 
 ## Install DeepLabCut on local
 
@@ -1191,11 +1190,77 @@ deeplabcut.extract_outlier_frames(config_path, videofile_path, outlieralgorithm=
 # refine labels
 ```
 
-# idtrackerai on cluster
 
-```{bash}
-# Create conda env and export yaml
+*20210118* 
 
+# Working with the Cloud 
+
+Following meeting with Cloud consultants, need to carry out the following actions: 
+
+1. Copy over the videos and provide to Cloud consultants
+2. Provide metadata document with video parameters
+3. Provide script to run `idtrackerai`
+
+Put all in a dir in Google Drive and share:
+`google_drive_ebi:pilot_paper/medaka_cloud_pilot`
+
+## Copy over videos and provide to Cloud consultants
+
+* 78 original videos here: 
+  - **NOTE** exclusion of `20190613_1156_icab_kaga_R` because file is corrupted.
+  - **NOTE** exclusion of `20190616_1227_icab_kaga_R_q3` because quadrant is empty.
+  
+Number of videos: `r 78 * 4 * 2 - 8 - 2`
+  - **614 total**
+  
+Copy over to new directory
+```{r, engine='bash'}
+# Make directory
+rclone mkdir google_drive_ebi:pilot_paper/medaka_cloud_pilot/videos
+
+# Copy videos
+rclone copy --include "*.mp4" \
+  google_drive_ebi:pilot_paper/idtrackerai/videos \
+  google_drive_ebi:pilot_paper/medaka_cloud_pilot/videos
 ```
 
-# Pull csvs and work
+## Provide metadata document with video parameters
+
+```{python}
+import pandas as pd 
+
+# Read in file
+df = pd.read_csv('/Users/brettell/Documents/Repositories/pilot_paper/data/samples_pairs.csv')
+
+# Set `area_ceiling` as 450
+df['area_ceiling'] = 450
+
+# Create column with test fish
+df['test_line'] = df['sample'].map(lambda sample: sample.split("_")[3])
+
+# Pull out random 5 samples for each test line to get best `int_ceiling`
+for line in df['test_line'].unique():
+  # get target rows
+  line_sample = df.loc[df['test_line'] == line]['sample'].sample(5)
+  # print
+  print(line_sample)
+
+# Looks like the best for all of them is 175.
+df['int_ceiling'] = 175
+
+# Write file
+df.to_csv('/Users/brettell/Documents/Repositories/pilot_paper/data/20210118_paramaters.csv', index = False)
+```
+
+## Provide script to run
+
+Copy over to new directory, edited and saved as:
+`google_drive_ebi:pilot_paper/medaka_cloud_pilot/20210118_idtrackerai_notebook.ipynb`
+
+
+
+
+
+
+
+
