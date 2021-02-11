@@ -1,0 +1,151 @@
+[DEBUG   ] confapp.settings_manager                 + SETTINGS: pyforms.settings                  idtrackerai_app.b[INFO    ] idtrackerai_app.base_idtrackerai         Local seconfapp.settings_manager - [DEBUG   ] confapp.settings_manager                 + SETTINGS: idtrackidtrackerai_app.base_idtrackerai - INFO - TE[INFO    ] idtrackerai_app.base_idtrackerai         TENSORFLOW DEVICES: [_DeviceAttributes(/job:localhost/replica:0/task:0/device:CPU:0, CPU, 268435456, 8098901074580921084), _DeviceAttributes(/job:localhost/replica:0/task:0/device:XLA_GPU:0, XLA_GPU, 17179869184, 16597235081145272981), _DeviceAttributes(/job:localhost/replica:0/task:0/device:XLA_GPU:1, XLA_GPU, 17179869184, 14397511229154708794), _DeviceAttributes(/job:localhost/replica:0/task:0/device:XLA_GPU:2, XLA_GPU, 17179869184, 14345222792013411544), _DeviceAttributes(/job:localhost/replica:0/task:0/device:XLA_GPU:3, XLA_GPU, 17179869184, 6472130321756841403), _DeviceAttributes(/job:localhost/replica:0/task:0/device:XLA_CPU:0, XLA_CPU, 17179869184, 882546692316247250), _DeviceAttributes(/job:localhost/replica:0/task:0/device:GPU:0, GPU, 14910206772, 12428689898088907022), _DeviceAttributes(/job:localhost/replica:0/task:0/device:GPU:1, GPU, 14910206772, 2081953464900981184), _DeviceAttributes(/job:localhost/replica:0/task:0/device:GPU:2, GPU, 14910206772, 15162617212246550868), _DeviceAttributes(/job:localhost/replica:0/task:0//usr/local/lib/python3.6/dist-packages/pyforms_termina[DEBUG   ] /usr/local/lib/python3.6/dist-packages/pyforms_terminal/bas/usr/local/lib/python3.6/dist-packages/pyforms_terminal[DEBUG   ] /usr/local/lib/python3.6/dist-packages/pyforms_terminal/basewidget.py [                   /usr/local/lib/python3.6/dist-packages/pyforms_terminal/[DEBUG   ] /usr/local/lib/python3.6/dist-packages/pyforms_terminal/basewidget.py [                         Video]: [/home/jo/usr/local/lib/python3.6/dist-packages/pyforms_terminal/b[DEBUG   ] /usr/local/lib/python3.6/dist-packages/pyforms_terminal/basewidget.py [Video file. Note: overwrite the _video parameter defined in the json. Nice to have to /usr/local/lib/python3.6/dist-packages/pyforms_terminal/ba[DEBUG   ] /usr/local/lib/python3.6/dist-packages/pyforms_termin/usr/local/lib/python3.6/dist-packages/pyforms_terminal/bas[DEBUG   ] /usr/local/lib/python3.6/dist-packages/pyforms_term__main__.video - DEBUG - Video object init
+__main__.video - DEBUG - Video(open_multiple_files=False)
+__main__.py_utils - INFO - Setting MKL library to use single thread
+__main__.segmentation_utils - DEBUG - one single video, computing bkg in parallel from single video
+__main__.segmentation_utils - DEBUG - Adding from starting frame 0 to background
+__main__.segmentation_utils - DEBUG - Frame 0
+__main__.segmentation_utils - DEBUG - Adding from starting frame 500 to background
+__main__.segmentation_utils - DEBUG - Frame 500
+__main__.segmentation_utils - DEBUG - Adding from starting frame 1000 to background
+__main__.segmentation_utils - DEBUG - Frame 1000
+__main__.segmentation_utils - DEBUG - Adding from starting frame 1500 to background
+__main__.segmentation_utils - DEBUG - Frame 1500
+__main__.segmentation_utils - DEBUG - Adding from starting frame 2000 to background
+__main__.segmentation_utils - DEBUG - Frame 2000
+__main__.segmentation_utils - DEBUG - Adding from starting frame 2500 to background
+__main__.segmentation_utils - DEBUG - Frame 2500
+__main__.segmentation_utils - DEBUG - Adding from starting frame 3000 to background
+__main__.segmentation_utils - DEBUG - Frame 3000
+__main__.segmentation_utils - DEBUG - Adding from starting frame 3500 to background
+__main__.segmentation_utils - DEBUG - Frame 3500
+__main__.segmentation_utils - DEBUG - Adding from starting frame 4000 to background
+__main__.segmentation_utils - DEBUG - Frame 4000
+__main__.segmentation_utils - DEBUG - Adding from starting frame 4500 to background
+__main__.segmentation_utils - DEBUG - Frame 4500
+__main__.segmentation_utils - DEBUG - Adding from starting frame 5000 to background
+__main__.segmentation_utils - DEBUG - Frame 5000
+__main__.segmentation_utils - DEBUG - Adding from starting frame 5500 to background
+__main__.segmentation_utils - DEBUG - Frame 5500
+__main__.segmentation_utils - DEBUG - Adding from starting frame 6000 to background
+__main__.segmentation_utils - DEBUG - Frame 6000
+__main__.segmentation_utils - DEBUG - Adding from starting frame 6500 to background
+__main__.segmentation_utils - DEBUG - Frame 6500
+__main__.segmentation_utils - DEBUG - Adding from starting frame 7000 to background
+__main__.segmentation_utils - DEBUG - Frame 7000
+__main__.segmentation_utils - DEBUG - Adding from starting frame 7500 to background
+__main__.segmentation_utils - DEBUG - Frame 7500
+__main__.segmentation_utils - DEBUG - Adding from starting frame 8000 to background
+__main__.segmentation_utils - DEBUG - Frame 8000
+__main__.segmentation_utils - DEBUG - Adding from starting frame 8500 to background
+__main__.segmentation_utils - DEBUG - Frame 8500
+__main__.segmentation_utils - DEBUG - Adding from starting frame 9000 to background
+__main__.segmentation_utils - DEBUG - Frame 9000
+__main__.segmentation_utils - DEBUG - Adding from starting frame 9500 to background
+__main__.segmentation_utils - DEBUG - Frame 9500
+__main__.segmentation_utils - DEBUG - Adding from starting frame 10000 to background
+__main__.segmentation_utils - DEBUG - Frame 10000
+__main__.segmentation_utils - DEBUG - Adding from starting frame 10500 to background
+__main__.segmentation_utils - DEBUG - Frame 10500
+__main__.segmentation_utils - DEBUG - Adding from starting frame 11000 to background
+__main__.segmentation_utils - DEBUG - Frame 11000
+__main__.segmentation_utils - DEBUG - Adding from starting frame 11500 to background
+__main__.segmentation_utils - DEBUG - Frame 11500
+__main__.segmentation_utils - DEBUG - Adding from starting frame 12000 to background
+__main__.segmentation_utils - DEBUG - Frame 12000
+__main__.segmentation_utils - DEBUG - Adding from starting frame 12500 to background
+__main__.segmentation_utils - DEBUG - Frame 12500
+__main__.segmentation_utils - DEBUG - Adding from starting frame 13000 to background
+__main__.segmentation_utils - DEBUG - Frame 13000
+__main__.segmentation_utils - DEBUG - Adding from starting frame 13500 to background
+__main__.segmentation_utils - DEBUG - Frame 13500
+__main__.segmentation_utils - DEBUG - Adding from starting frame 14000 to background
+__main__.segmentation_utils - DEBUG - Frame 14000
+__main__.segmentation_utils - DEBUG - Adding from starting frame 14500 to background
+__main__.segmentation_utils - DEBUG - Frame 14500
+__main__.segmentation_utils - DEBUG - Adding from starting frame 15000 to background
+__main__.segmentation_utils - DEBUG - Frame 15000
+__main__.segmentation_utils - DEBUG - Adding from starting frame 15500 to background
+__main__.segmentation_utils - DEBUG - Frame 15500
+__main__.segmentation_utils - DEBUG - Adding from starting frame 16000 to background
+__main__.segmentation_utils - DEBUG - Frame 16000
+__main__.segmentation_utils - DEBUG - Adding from starting frame 16500 to background
+__main__.segmentation_utils - DEBUG - Frame 16500
+__main__.segmentation_utils - DEBUG - Adding from starting frame 17000 to background
+__main__.segmentation_utils - DEBUG - Frame 17000
+__main__.segmentation_utils - DEBUG - Adding from starting frame 17500 to background
+__main__.segmentation_utils - DEBUG - Frame 17500
+__main__.segmentation_utils - DEBUG - Adding from starting frame 18000 to background
+__main__.segmentation_utils - DEBUG - Frame 18000
+__main__.segmentation_utils - DEBUG - Finished parallel loop for bkg subtraction
+__main__.py_utils - INFO - Setting MKL library to use multiple threads
+/usr/local/lib/python3.6/dist-packages/pyforms_terminal/basewidget.py - DEBUG - [           Subtract background]: [True]
+/usr/local/lib/python3.6/dist-packages/pyforms_terminal/basewidget.py - DEBUG - [            Check segmentation]: [False]
+/usr/local/lib/python3.6/dist-packages/pyforms_terminal/basewidget.py - DEBUG - [          Resolution reduction]: [1.0]
+/usr/local/lib/python3.6/dist-packages/pyforms_terminal/basewidget.py - DEBUG - [          Intensity thresholds]: [[0, 175]]
+/usr/local/lib/python3.6/dist-packages/pyforms_terminal/basewidget.py - DEBUG - [               Area thresholds]: [[80, 450]]
+/usr/local/lib/python3.6/dist-packages/pyforms_terminal/basewidget.py - DEBUG - [             Tracking interval]: [[0, 18277]]
+/usr/local/lib/python3.6/dist-packages/pyforms_terminal/basewidget.py - DEBUG - [             Number of animals]: [2.0]
+/usr/local/lib/python3.6/dist-packages/pyforms_terminal/basewidget.py - DEBUG - [            Tracking intervals]: [None]
+/usr/local/lib/python3.6/dist-packages/pyforms_terminal/basewidget.py - DEBUG - [                      Multiple]: [False]
+/usr/local/lib/python3.6/dist-packages/pyforms_terminal/basewidget.py - DEBUG - [      Track without identities]: [False]
+/usr/local/lib/python3.6/dist-packages/pyforms_terminal/basewidget.py - DEBUG - --------- END LOADING TERMINAL PARAMS ---------
+/usr/local/lib/python3.6/dist-packages/pyforms_terminal/basewidget.py - DEBUG - --------- FIELDS FINAL VALUES ---------
+/usr/local/lib/python3.6/dist-packages/pyforms_terminal/basewidget.py - DEBUG - [                      _session]: [20190611_1331_icab_icab_R_q1_open_field]
+/usr/local/lib/python3.6/dist-packages/pyforms_terminal/basewidget.py - DEBUG - [                        _video]: [/home/jovyan/videos/20190611_1331_icab_icab_R_q1_open_field.mp4]
+/usr/local/lib/python3.6/dist-packages/pyforms_terminal/basewidget.py - DEBUG - [                   _video_path]: [None]
+/usr/local/lib/python3.6/dist-packages/pyforms_terminal/basewidget.py - DEBUG - [                     _applyroi]: [False]
+/usr/local/lib/python3.6/dist-packages/pyforms_terminal/basewidget.py - DEBUG - [                          _roi]: [None]
+/usr/local/lib/python3.6/dist-packages/pyforms_terminal/basewidget.py - DEBUG - [                        _bgsub]: [True]
+/usr/local/lib/python3.6/dist-packages/pyforms_terminal/basewidget.py - DEBUG - [                     _chcksegm]: [False]
+/usr/local/lib/python3.6/dist-packages/pyforms_terminal/basewidget.py - DEBUG - [                    _resreduct]: [1.0]
+/usr/local/lib/python3.6/dist-packages/pyforms_terminal/basewidget.py - DEBUG - [                    _intensity]: [[0, 175]]
+/usr/local/lib/python3.6/dist-packages/pyforms_terminal/basewidget.py - DEBUG - [                         _area]: [[80, 450]]
+/usr/local/lib/python3.6/dist-packages/pyforms_terminal/basewidget.py - DEBUG - [                        _range]: [[0, 18277]]
+/usr/local/lib/python3.6/dist-packages/pyforms_terminal/basewidget.py - DEBUG - [                       _nblobs]: [2.0]
+/usr/local/lib/python3.6/dist-packages/pyforms_terminal/basewidget.py - DEBUG - [                     _progress]: [None]
+/usr/local/lib/python3.6/dist-packages/pyforms_terminal/basewidget.py - DEBUG - [                     _rangelst]: [None]
+/usr/local/lib/python3.6/dist-packages/pyforms_terminal/basewidget.py - DEBUG - [               _multiple_range]: [False]
+/usr/local/lib/python3.6/dist-packages/pyforms_terminal/basewidget.py - DEBUG - [                       _no_ids]: [False]
+/usr/local/lib/python3.6/dist-packages/pyforms_terminal/basewidget.py - DEBUG - --------- END FIELDS FINAL VALUES ---------
+__main__.video - DEBUG - Video object init
+__main__.video - DEBUG - Video(open_multiple_files=False)
+__main__.video - INFO - the folder /home/jovyan/videos/session_20190611_1331_icab_icab_R_q1_open_field has been created
+idtrackerai_app.base_idtrackerai - DEBUG - create Chosen_Video
+__main__.video - DEBUG - Video object init
+__main__.video - DEBUG - Video(open_multiple_files=False)
+idtrackerai_app.base_idtrackerai - DEBUG - before init PreprocessingPreviewAPI
+idtrackerai_app.base_idtrackerai - DEBUG - pre object: <idtrackerai.preprocessing_preview_api.PreprocessingPreviewAPI object at 0x7f1b579a6f28>
+idtrackerai_app.base_idtrackerai - DEBUG - call: init_preview
+idtrackerai.preprocessing_preview_api - DEBUG - init_preview
+idtrackerai.preprocessing_preview_api - DEBUG - init_preproc_parameters
+idtrackerai.preprocessing_preview_api - DEBUG - init_segment_zero
+idtrackerai_app.base_idtrackerai - DEBUG - call: init_preproc_parameters
+idtrackerai.preprocessing_preview_api - DEBUG - init_preproc_parameters
+idtrackerai_app.base_idtrackerai - DEBUG - call: segment
+idtrackerai.preprocessing_preview_api - DEBUG - segment
+idtrackerai.preprocessing_preview_api - DEBUG - segment 1
+idtrackerai.preprocessing_preview_api - DEBUG - segment 2
+__main__.video - INFO - saving video object in /home/jovyan/videos/session_20190611_1331_icab_icab_R_q1_open_field/video_object.npy
+__main__.video - DEBUG - Video.save(open_multiple_files=False)
+idtrackerai_app.base_idtrackerai - DEBUG - call: compute_list_of_blobs
+__main__.py_utils - INFO - Setting MKL library to use single thread
+__main__.segmentation - INFO - There is only one path, segmenting by frame indices
+                        Video object init
+[DEBUG   ] __main__.video                           Video(open_multiple_files=False)
+[DEBUG   ] idtrackerai_app.base_idtrackerai         before init PreprocessingPreviewAPI
+[DEBUG   ] idtrackerai_app.base_idtrackerai         pre object: <idtrackerai.preprocessing_preview_api.PreprocessingPreviewAPI object at 0x7f1b579a6f28>
+[DEBUG   ] idtrackerai_app.base_idtrackerai         call: init_preview
+[DEBUG   ] idtrackerai.preprocessing_preview_api    init_preview
+[DEBUG   ] idtrackerai.preprocessing_preview_api    init_preproc_parameters
+[DEBUG   ] idtrackerai.preprocessing_preview_api    init_segment_zero
+[DEBUG   ] idtrackerai_app.base_idtrackerai         call: init_preproc_parameters
+[DEBUG   ] idtrackerai.preprocessing_preview_api    init_preproc_parameters
+[DEBUG   ] idtrackerai_app.base_idtrackerai         call: segment
+[DEBUG   ] idtrackerai.preprocessing_preview_api    segment
+[DEBUG   ] idtrackerai.preprocessing_preview_api    segment 1
+[DEBUG   ] idtrackerai.preprocessing_preview_api    segment 2
+[INFO    ] __main__.video                           saving video object in /home/jovyan/videos/session_20190611_1331_icab_icab_R_q1_open_field/video_object.npy
+[DEBUG   ] __main__.video                           Video.save(open_multiple_files=False)
+[DEBUG   ] idtrackerai_app.base_idtrackerai         call: compute_list_of_blobs
+[INFO    ] __main__.py_utils                        Setting MKL library to use single thread
+[INFO    ] __main__.segmentation                    There is only one path, segmenting by frame indices
