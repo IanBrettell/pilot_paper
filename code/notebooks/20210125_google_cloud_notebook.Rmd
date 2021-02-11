@@ -10,4 +10,603 @@ output:
     highlight: breezedark 
 ---
 
+# Setup 
+
+Link to `Medaka Cloud Pilot` project on Google Cloud: <https://console.cloud.google.com/home/dashboard?project=medaka-cloud-pilot>.
+
+Storage here in `medaka-video-store`: <https://console.cloud.google.com/storage/browser/medaka-video-store;tab=objects?forceOnBucketsSortingFiltering=false&project=medaka-cloud-pilot&prefix=&forceOnObjectsSortingFiltering=false>.
+
+## How to run GPUs on Google Cloud
+
+<https://cloud.google.com/container-optimized-os/docs/how-to/run-gpus>
+
+## Build Docker container
+
+```{bash}
+# Standard
+docker build -t \
+    eu.gcr.io/medaka-cloud-pilot/idtrackerai:standard \
+    pilot_paper/envs/google_cloud/standard
+    
+# Kubeflow
+docker build -t \
+    eu.gcr.io/medaka-cloud-pilot/idtrackerai:kubeflow \
+    pilot_paper/envs/google_cloud/kubeflow
+    
+# NVIDIA-tensorflow
+docker build -t \
+    eu.gcr.io/medaka-cloud-pilot/idtrackerai:kubeflow-official-base \
+    pilot_paper/envs/google_cloud/kubeflow_official_with_idtrackerai
+```
+
+## Push Docker container
+
+```{bash}
+gcloud docker -- push \
+    eu.gcr.io/medaka-cloud-pilot/idtrackerai:standard
+    
+gcloud docker -- push \
+    eu.gcr.io/medaka-cloud-pilot/idtrackerai:kubeflow    
+    
+gcloud docker -- push \
+    eu.gcr.io/medaka-cloud-pilot/idtrackerai:kubeflow-official-base     
+```
+
+## Run the application
+
+```{bash}
+kubectl create deployment \
+    idtrackerai \
+    --image=eu.gcr.io/medaka-cloud-pilot/idtrackerai:v1
+```
+
+## List running containers
+
+```{bash, eval = F}
+# Currently running
+docker ps 
+# Previously run
+docker ps -a
+```
+
+## Enter interactive shell
+
+```{bash}
+# start running
+docker run -td --runtime=nvidia eu.gcr.io/medaka-cloud-pilot/idtrackerai:standard
+# Used to work, but no longer:
+# docker: Error response from daemon: Unknown runtime specified nvidia.
+# Try:
+docker run -td --gpus all eu.gcr.io/medaka-cloud-pilot/idtrackerai:v1
+# Doesn't work either.
+docker run -td eu.gcr.io/medaka-cloud-pilot/idtrackerai:standard
+# run `docker ps` to get CONTAINER ID
+docker exec -it <container_id> bash
+```
+
+*20210129*
+
+* Create new VM instance from template:
+  - Source template: `gke-medaka-gcp-1-gpu-pool-1-6ea350cc`
+  - Name: `gke-medaka-gcp-1-gpu-pool-1-6ea350cc-1`
+  - Zone: `europe-west2-a`
+  - Machine: `n1-highmem-32`
+  - GPU: 4 x Tesla T4
+  - Boot disk: Public image Deep LearningI IMage: TensorFlow 1.15 m62 CUDA 110
+    + `c0-deeplearning-tf-1-15-cu110-v20210121-debian-10` 
+    
+Could create via command line like this:
+```{bash}
+export IMAGE_FAMILIY="c0-deeplearning-tf-1-15-cu110-v20210121-debian-10"
+export ZONE="europe-west2-a"
+export INSTANCE_NAME="gke-medaka-gcp-1-gpu-pool-1-6ea350cc-1"
+gcloud compute instances create $INSTANCE_NAME \
+    --zone=$ZONE \
+    --image-family=$IMAGE_FAMILY \
+    --image-project=deeplearning-platform-release \
+    --maintenance-policy=TERMINATE \
+    --accelerator='type=nvidia-tesla-t4,count=4' \
+    --metadata='install-nvidia-driver=True'
+```
+
+  
+* Machine learning tutorial here: <https://cloud.google.com/compute/docs/tutorials/ml-inference-t4?hl=en-GB>
+
+More here: <https://cloud.google.com/deep-learning-vm>
+
+Connect to instance from CloudShell
+```{bash}
+gcloud compute ssh gke-medaka-gcp-1-gpu-pool-1-6ea350cc-1
+# or with port to use Jupyter Notebooks
+gcloud compute ssh \
+  gke-medaka-gcp-1-gpu-pool-1-6ea350cc-1 \
+  --zone europe-west2-a \
+  -- \
+  -L 8080:localhost:8080
+```
+
+Connect to instance from local
+```{bash}
+# Setup Cloud SDK
+## Follow installation process here: <https://cloud.google.com/sdk/docs/install>
+## Set name and project by running
+./google-cloud-sdk/bin/gcloud init 
+## Or manually:
+gcloud auth login 
+gcloud config set project medaka-cloud-pilot 
+# Then open with port
+gcloud compute ssh \
+  gke-medaka-gcp-1-gpu-pool-1-6ea350cc-1 \
+  --zone europe-west2-a \
+  -- \
+  -L 8080:localhost:8080
+
+```
+
+Transfer files from Google storage
+```{bash}
+gsutil -m cp -r gs://medaka-video-store/videos .
+```
+
+Install `idtrackerai`
+
+Following Google qwiklab tutorial Learning `TensorFlow: the Hello World of Machine Learning`
+
+```{bash}
+sudo apt update
+sudo apt install python3-pip
+sudo pip3 install -U virtualenv  # system-wide install
+
+# create a virtualenv
+virtualenv --system-site-packages -p python3 ./venv
+
+# activate
+source ./venv/bin/activate  # sh, bash, ksh, or zsh
+
+```
+
+Following Google qwiklab tutorial `Creating a virtual machine`
+
+```{bash}
+# Clink on the VM instance `SSH`
+# In the browser window, get root access
+sudo su -
+# Update OS
+apt-get update
+# Install `NGINX`
+apt-get install nginx -y
+# Confirm it's running
+ps auwx | grep nginx
+# Clink on 'External IP' in the VM instance to see the webpage
+```
+
+Creating a VM from the command line
+```{bash}
+gcloud compute instances create gcelab2 --machine-type n1-standard-2 --zone us-central1-c
+
+```
+
+Trying to run `idtrackerai` directly on GPU node gives this error:
+`locale.Error: unsupported locale setting`
+
+Trying to run `idtrackerai` inside `venv` on GPU node gives this error:
+`locale.Error: unsupported locale setting`
+
+Only works inside docker container, but doesn't engage GPUs.
+
+
+# Kubeflow
+
+## Setup 
+
+Following guide here: <https://www.kubeflow.org/docs/gke/>
+
+### Setup GCP
+
+Enable APIs
+
+```{bash}
+gcloud services enable \
+  compute.googleapis.com \
+  container.googleapis.com \
+  iam.googleapis.com \
+  servicemanagement.googleapis.com \
+  cloudresourcemanager.googleapis.com \
+  ml.googleapis.com \
+  meshconfig.googleapis.com
+```
+
+Initialize project to prepare it for Anthos Service Mesh installation
+
+```{bash}
+PROJECT_ID=medaka-cloud-pilot
+
+# May need to create a tmp-cluster if you get the following error:
+#Identity Pool does not exist (medaka-cloud-pilot.svc.id.goog)
+# See fixes here: <https://github.com/kubeflow/website/issues/2121>
+gcloud beta container clusters create tmp-cluster \
+  --release-channel regular \
+  --workload-pool=${PROJECT_ID}.svc.id.goog \
+  --zone=europe-west2-a
+  
+gcloud beta container clusters delete tmp-cluster  
+
+curl --request POST \
+  --header "Authorization: Bearer $(gcloud auth print-access-token)" \
+  --data '' \
+  https://meshconfig.googleapis.com/v1alpha1/projects/${PROJECT_ID}:initialize
+```
+
+### Set up OAuth for Cloud IAP
+
+Follow steps here: <https://www.kubeflow.org/docs/gke/deploy/oauth-setup/>
+
+Saved App name as `idtrackerai-pilot`
+
+OAuth client ID: `idtrackerai-app-oath-client`
+
+Client ID: `667970886556-386f5u4q1h5ofea5h2n05puarf637rlp.apps.googleusercontent.com`
+
+Client secret: `W5qUlmJOfuhzuslqm8rHMG_w`
+
+### Set up management cluster
+
+```{bash}
+# Install `gcloud` components
+sudo apt-get install kubectl google-cloud-sdk-kpt google-cloud-sdk google-cloud-sdk
+
+sudo apt-get update && sudo apt-get --only-upgrade install \
+  google-cloud-sdk-app-engine-grpc \
+  google-cloud-sdk-datastore-emulator \
+  google-cloud-sdk-cloud-build-local \
+  google-cloud-sdk-kpt google-cloud-sdk-bigtable-emulator \
+  google-cloud-sdk-datalab google-cloud-sdk-skaffold \
+  google-cloud-sdk-app-engine-python-extras \
+  google-cloud-sdk-app-engine-python kubectl \
+  google-cloud-sdk google-cloud-sdk-local-extract \
+  google-cloud-sdk-app-engine-go \
+  google-cloud-sdk-firestore-emulator \
+  google-cloud-sdk-anthos-auth \
+  google-cloud-sdk-app-engine-java \
+  google-cloud-sdk-pubsub-emulator \
+  google-cloud-sdk-spanner-emulator \
+  google-cloud-sdk-kubectl-oidc \
+  google-cloud-sdk-cbt \
+  google-cloud-sdk-minikube \
+  google-cloud-sdk-config-connector
+
+# Install `kustomize`
+## Detect your OS and download corresponding latest Kustomize binary
+curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
+## Add the kustomize package to your $PATH env variable
+sudo mv ./kustomize /usr/local/bin/kustomize
+
+# Install `yq`
+VERSION=3.3.0
+BINARY=yq_linux_amd64
+sudo wget https://github.com/mikefarah/yq/releases/download/${VERSION}/${BINARY} -O /usr/bin/yq &&\
+  sudo chmod +x /usr/bin/yq
+  
+  
+# Set up environment variables
+MGMT_PROJECT=medaka-cloud-pilot
+MGMT_DIR=mgmt_cluster_config
+MGMT_NAME=mgmt-cluster
+LOCATION=europe-west2-a
+
+# Set up management cluster
+## Fetch the management blueprint to current directory
+kpt pkg get https://github.com/kubeflow/gcp-blueprints.git/management@v1.2.0 "${MGMT_DIR}"
+## Change to Kubeflow directory
+cd "${MGMT_DIR}"
+## Fetch upstream management package
+make get-pkg
+## Use kpt to set values for the name, project, and location of your management cluster:
+kpt cfg set -R . name "${MGMT_NAME}"
+kpt cfg set -R . gcloud.core.project "${MGMT_PROJECT}"
+kpt cfg set -R . location "${LOCATION}"
+## Create or apply the management cluster
+make apply-cluster
+## Create a kubectl context for the management cluster, it will be named ${MGMT_NAME}:
+make create-context
+## Install the Cloud Config Connector:
+make apply-kcc
+##This step:
+#Installs Config Connector in your cluster, and
+#Creates the Google Cloud service account ${MGMT_NAME}-cnrm-system@${MGMT_PROJECT}.iam.gserviceaccount.com.
+
+# Authorize Cloud Config Connector for each managed project
+## Set the managed project
+MANAGED_PROJECT=medaka-cloud-pilot
+kpt cfg set ./instance managed-project "${MANAGED_PROJECT}"
+## Update the policy
+gcloud beta anthos apply ./instance/managed-project/iam.yaml
+```
+
+### Deploy Kubeflow
+
+```{bash}
+# Set variables
+KF_NAME=<name of your Kubeflow cluster>
+KF_PROJECT=<the project where you deploy your Kubeflow cluster>
+KF_DIR=<path to your Kubeflow configuration directory>
+MGMT_NAME=<name of your management cluster>
+MGMTCTXT="${MGMT_NAME}"
+
+# 
+```
+
+Need to change OAuth 
+
+# Try `Kubeflow Pipelines Standalone` 
+
+Info here: <https://www.kubeflow.org/docs/pipelines/installation/standalone-deployment/#configure-kubectl>
+
+## Configure `kubectl` to talk to the cluster
+
+### Set up defaults
+
+```{bash}
+gcloud config set project medaka-cloud-pilot
+gcloud config set compute/zone europe-west2-a
+# Update 
+sudo apt-get install kubectl google-cloud-sdk-kpt google-cloud-sdk google-cloud-sdk
+
+sudo apt-get update && sudo apt-get --only-upgrade install \
+  google-cloud-sdk-app-engine-grpc \
+  google-cloud-sdk-datastore-emulator \
+  google-cloud-sdk-cloud-build-local \
+  google-cloud-sdk-kpt google-cloud-sdk-bigtable-emulator \
+  google-cloud-sdk-datalab google-cloud-sdk-skaffold \
+  google-cloud-sdk-app-engine-python-extras \
+  google-cloud-sdk-app-engine-python kubectl \
+  google-cloud-sdk google-cloud-sdk-local-extract \
+  google-cloud-sdk-app-engine-go \
+  google-cloud-sdk-firestore-emulator \
+  google-cloud-sdk-anthos-auth \
+  google-cloud-sdk-app-engine-java \
+  google-cloud-sdk-pubsub-emulator \
+  google-cloud-sdk-spanner-emulator \
+  google-cloud-sdk-kubectl-oidc \
+  google-cloud-sdk-cbt \
+  google-cloud-sdk-minikube \
+  google-cloud-sdk-config-connector
+```
+
+### Attach pre-made cluster
+
+Follow guide here: <https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl#generate_kubeconfig_entry>
+
+```{bash}
+gcloud container clusters get-credentials medaka-gcp-1
+# View current context
+kubectl config current-context
+# View `kubeconfig`
+kubectl config view
+# Run against specific cluster
+kubectl run my-app --image gcr.io/my-bucket/my-app:1.0 --cluster my-new-cluster
+
+```
+
+### Deploy Kubeflow Pipelines
+
+```{bash}
+export PIPELINE_VERSION=1.3.0
+kubectl apply -k "github.com/kubeflow/pipelines/manifests/kustomize/cluster-scoped-resources?ref=$PIPELINE_VERSION"
+kubectl wait --for condition=established --timeout=60s crd/applications.app.k8s.io
+kubectl apply -k "github.com/kubeflow/pipelines/manifests/kustomize/env/dev?ref=$PIPELINE_VERSION"
+
+```
+
+*20210204* 
+
+Meeting with Cloud Consultants
+
+
+How to create KB project:
+
+* Use Gitlab to create project
+  - CI framework to build automated CICD (continuous integration continuous delivery)
+  - Instructions and tutorial on creating CICD here: <https://tsi-ccdoc.readthedocs.io/en/master>
+  - EBI repo here: <https://gitlab.ebi.ac.uk/>
+  - Online help here: <https://gitlab.ebi.ac.uk/help/ci/yaml/README.md>
+  - Gihub trying to do that with GitActions, but they have only just started.
+  - Could also run a bash script; essentially what CICD is doing, but with a `yaml` script.
+  - Changes will run the whole project again.
+* Then create Kubeflow pipeline
+* Kubernetes cluster working on top of Compute Engine VMs
+* Sitting on top of Kubernetes is Kubeflow
+* Then pipeline on top of that
+* Autoscaling replicates the VMs
+* In services and Ingress, you want to look at the istiingress gateway, whcih is a load balancer. Attached to port 8080-.
+* Items are the services and ingress (containers) in the pods that communicate with each other.
+* Namespace is a Kubernetes concept. Divides the containers into different logical groups.
+* Many tutorials on Kubernetes: look at ResOps training: <https://bit.ly/resops-2020> 
+
+* If using custom container, need to follow Kubeflow guidance on setting it up: <https://www.kubeflow.org/docs/notebooks/custom-notebook/>
+
+* Attach persistent disk
+
+* Can connect to Jupyter notebook via bash.
+
+* To run the pipeline: Dataset Lifecycle Framework <https://github.com/IBM/dataset-lifecycle-framework>
+* Follow instruction on Kubernetes or Minikube. Presents a storage object as a file.
+* In Kubeflow, in Data Volumes, add the storage object file.
+* Could use distributed training.
+
+## Deploy Dataset Lifecycle Framework
+
+From here <https://github.com/IBM/dataset-lifecycle-framework>
+
+```{bash}
+# Install DLF (necessary?)
+git clone https://github.com/IBM/dataset-lifecycle-framework.git
+cd dataset-lifecycle-framework
+make deployment
+
+# install
+kubectl apply -f https://raw.githubusercontent.com/IBM/dataset-lifecycle-framework/master/release-tools/manifests/dlf.yaml
+
+# Create dataset
+kubectl create -f pilot_paper/envs/google_cloud/kubeflow/medaka-video-store_dlf.yaml -n brettell
+# If you want to delete:
+kubectl delete -f pilot_paper/envs/google_cloud/kubeflow/medaka-video-store_dlf.yaml -n brettell
+```
+
+*20210210*
+
+Start Kubeflow notebook server and run on pilot videos
+
+Settings for notebook server:
+
+Name: `true-20210211`
+Image: `eu.gcr.io/medaka-cloud-pilot/idtrackerai:kubeflow`
+CPU: `2.0` Memory: `20Gi`
+Workspace volume: New: `workspace-proper-20210210` Size: `100Gi`
+GPUs: `4` Vendor: `NVIDIA`
+
+On terminal:
+```{bash}
+# Clone repo
+git clone https://github.com/brettellebi/pilot_paper.git
+
+# Install `gsutil`
+curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-327.0.0-linux-x86_64.tar.gz
+tar -xvf google-cloud-sdk-327.0.0-linux-x86_64.tar.gz
+./google-cloud-sdk/install.sh
+rm google-cloud-sdk-327.0.0-linux-x86_64.tar.gz
+
+# Copy over files
+gsutil -m cp -r gs://medaka-video-store/videos .
+# Keeps hanging up before it's completed. (Only happens if not given enough CPU/RAM/memory) Ugh. Do them in batches:
+gsutil -m cp -r gs://medaka-video-store/videos/20190615* videos/
+
+# Finishes half of the processing, but then produces this error:
+#Could not create cudnn handle: CUDNN_STATUS_NOT_INITIALIZED
+# Failed to get convolution algorithm. This is probably because cuDNN failed to initialize
+# Issue discussed here:
+#https://github.com/tensorflow/tensorflow/issues/24828
+# and here
+# https://forums.developer.nvidia.com/t/failed-to-get-convolution-algorithm-this-is-probably-because-cudnn-failed-to-initialize/67147/24
+```
+
+
+
+Try with conda on standard Tensorflow image
+
+```{bash}
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+chmod +x Miniconda3-latest-Linux-x86_64.sh
+./Miniconda3-latest-Linux-x86_64.sh
+rm Miniconda3-latest-Linux-x86_64.sh
+
+conda create -y -n idtrackerai python=3.6
+conda activate idtrackerai
+pip install idtrackerai[gpu]
+
+sample=20190616_1622_icab_ho5_L_q2_open_field
+input_video=$(echo videos/$sample'.mp4')
+
+idtrackerai terminal_mode \
+  --_video $input_video \
+  --_bgsub 'True' \
+  --_intensity [0,175] \
+  --_area [80,450] \
+  --_range [0,18643] \
+  --_nblobs 2 \
+  --_session $sample \
+  --exec track_video
+  
+# WORKS!
+
+# Send to bucket
+## Login as brettell@ebi.ac.uk
+gcloud auth login
+## Copy files
+gsutil -m cp -r \
+  videos/session_20190616_1622_icab_ho5_L_q2_open_field \
+  gs://medaka-video-store/results
+# Needed to authorise - followed instructions here
+#https://stackoverflow.com/a/61053473
+
+```
+
+Full script to process in terminal
+
+```{bash}
+# Clone repo
+git clone https://github.com/brettellebi/pilot_paper.git
+
+# Install `gsutil`
+curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-327.0.0-linux-x86_64.tar.gz
+tar -xvf google-cloud-sdk-327.0.0-linux-x86_64.tar.gz
+./google-cloud-sdk/install.sh
+rm google-cloud-sdk-327.0.0-linux-x86_64.tar.gz
+
+# Install `conda` 
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+chmod +x Miniconda3-latest-Linux-x86_64.sh
+./Miniconda3-latest-Linux-x86_64.sh
+rm Miniconda3-latest-Linux-x86_64.sh
+
+# Install `idtrackerai`
+conda create -y -n idtrackerai python=3.6
+conda activate idtrackerai
+pip install idtrackerai[gpu]
+
+# Create `videos` directory
+mkdir videos
+
+# Script
+## Select number of random samples to process successively
+samples_no=50
+## Sample parameters file
+samples_file=pilot_paper/data/20210118_paramaters.csv
+## Video store
+video_store=gs://medaka-video-store
+## Loop script
+for in_sample in $(gsutil ls $video_store/videos | cut -f5 -d'/' | cut -f1 -d'.' | shuf -n $samples_no); do
+  # check whether final trajectories_wo_gaps.npy file exists in results folder
+  gsutil -q stat $video_store/results/session_$in_sample/trajectories_wo_gaps/trajectories_wo_gaps.npy ;
+  status=$? ;
+  # Run `idtrackerai` if results don't exist
+  if [[ $status == 1 ]]; then
+    # Copy video to VM
+    gsutil -m cp $video_store/videos/$in_sample.mp4 videos/ ;
+    # Get parameters
+    input_video=$(echo videos/$in_sample.mp4 ) ;
+    target_string=$( grep $in_sample $samples_file ) ;
+    vid_length=$( echo $target_string | cut -f2 -d',' ) ;
+    int_floor=$( echo $target_string | cut -f3 -d',' ) ;
+    int_ceiling=$( echo $target_string | cut -f4 -d',' ) ;
+    area_floor=$( echo $target_string | cut -f5 -d',' ) ;
+    area_ceiling=$( echo $target_string | cut -f6 -d',' ) ;
+    # Run `idtrackerai`
+    idtrackerai terminal_mode \
+              --_video $input_video \
+              --_bgsub 'True' \
+              --_intensity [$int_floor,$int_ceiling] \
+              --_area [$area_floor,$area_ceiling] \
+              --_range [0,$vid_length] \
+              --_nblobs 2 \
+              --_session $in_sample \
+              --exec track_video ;
+    # Run script to convert tracking data to CSVs
+    python pilot_paper/code/scripts/trajectories_to_csv.py videos/session_$in_sample ;
+    # Copy to storage bucket
+    gsutil -m cp -r \
+      videos/session_$in_sample \
+      gs://medaka-video-store/results ;
+    # Remove video and results
+    rm videos/$in_sample
+    rm -rf videos/session_$in_sample
+    # Confirm with output
+    echo "$in_sample: VIDEO PROCESSED AND COPIED TO BUCKET. PROCEEDING TO NEXT..."
+  else
+    echo "$in_sample: VIDEO ALREADY PROCESSED. PROCEEDING TO NEXT..."
+  fi
+done
+```
+
+
 
