@@ -460,7 +460,7 @@ Start Kubeflow notebook server and run on pilot videos
 Settings for notebook server:
 
 Name: `true-20210211`
-Image: `eu.gcr.io/medaka-cloud-pilot/idtrackerai:kubeflow`
+Image: `gcr.io/kubeflow-images-public/tensorflow-1.15.2-notebook-gpu:1.0.0` OR `eu.gcr.io/medaka-cloud-pilot/idtrackerai:kubeflow-official-base`
 CPU: `2.0` Memory: `20Gi`
 Workspace volume: New: `workspace-proper-20210210` Size: `100Gi`
 GPUs: `4` Vendor: `NVIDIA`
@@ -534,6 +534,9 @@ gsutil -m cp -r \
 Full script to process in terminal
 
 ```{bash}
+# Create `videos` directory
+mkdir videos
+
 # Clone repo
 git clone https://github.com/brettellebi/pilot_paper.git
 
@@ -542,6 +545,9 @@ curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-
 tar -xvf google-cloud-sdk-327.0.0-linux-x86_64.tar.gz
 ./google-cloud-sdk/install.sh
 rm google-cloud-sdk-327.0.0-linux-x86_64.tar.gz
+
+## Create authorisation
+gcloud auth login
 
 # Install `conda` 
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
@@ -554,23 +560,57 @@ conda create -y -n idtrackerai python=3.6
 conda activate idtrackerai
 pip install idtrackerai[gpu]
 
-# Create `videos` directory
-mkdir videos
+## Copy processed results folder for training
+### icab
+mkdir -p trained/icab
+gsutil -m cp -r $video_store/results/session_20190615_1649_icab_icab_L_q2_open_field/accumulation_0/* trained/icab
+### hdr
+mkdir -p trained/hdr
+gsutil -m cp -r $video_store/results/session_20190615_1452_icab_hdr_L_q2_novel_object/accumulation_0/* trained/hdr
+### hni
+mkdir -p trained/hni
+gsutil -m cp -r $video_store/results/session_20190616_1325_icab_hni_R_q2_novel_object/accumulation_0/* trained/hni
+### kaga
+mkdir -p trained/kaga
+gsutil -m cp -r $video_store/results/session_20190616_1017_icab_kaga_R_q1_novel_object/accumulation_0/* trained/kaga
+### ho5
+mkdir -p trained/ho5
+gsutil -m cp -r $video_store/results/session_20190616_1017_icab_kaga_R_q1_novel_object/accumulation_0/* trained/ho5
+
 
 # Script
+## Copy processed results folder for training
+gsutil -m cp -r gs://medaka-video-store/results/session_20190615_1649_icab_icab_L_q2_open_field/accumulation_0 .
+
 ## Select number of random samples to process successively
-samples_no=50
+samples_no=5
 ## Sample parameters file
 samples_file=pilot_paper/data/20210118_paramaters.csv
 ## Video store
 video_store=gs://medaka-video-store
+
 ## Loop script
+# Alternative first lines:
 for in_sample in $(gsutil ls $video_store/videos | cut -f5 -d'/' | cut -f1 -d'.' | shuf -n $samples_no); do
+
+for in_sample in $(gsutil ls $video_store/videos/2019061{1,2,3}* | cut -f5 -d'/' | cut -f1 -d'.' ); do
+
+for in_sample in $(gsutil ls $video_store/videos/20190614* | cut -f5 -d'/' | cut -f1 -d'.' ); do
+
+for in_sample in $(gsutil ls $video_store/videos/2019061{5,6}* | cut -f5 -d'/' | cut -f1 -d'.' ); do
+for in_sample in $(gsutil ls $video_store/videos/2019061{1,2,3}* | cut -f5 -d'/' | cut -f1 -d'.' ); do
+for in_sample in $(gsutil ls $video_store/videos/20190614* | cut -f5 -d'/' | cut -f1 -d'.' ); do
   # check whether final trajectories_wo_gaps.npy file exists in results folder
   gsutil -q stat $video_store/results/session_$in_sample/trajectories_wo_gaps/trajectories_wo_gaps.npy ;
   status=$? ;
   # Run `idtrackerai` if results don't exist
   if [[ $status == 1 ]]; then
+    # Create log
+    echo "$in_sample: started $(date)" >> pilot_paper/data/20210211_test_train.txt ;
+    # Set training folder
+#    target_line=$(echo $in_sample | cut -f4 -d'_' )
+#    echo "KNOWLEDGE_TRANSFER_FOLDER_IDCNN = trained/$target_line" > local_settings.py ;
+    echo "KNOWLEDGE_TRANSFER_FOLDER_IDCNN = accumulation_0" > local_settings.py ;
     # Copy video to VM
     gsutil -m cp $video_store/videos/$in_sample.mp4 videos/ ;
     # Get parameters
@@ -598,9 +638,10 @@ for in_sample in $(gsutil ls $video_store/videos | cut -f5 -d'/' | cut -f1 -d'.'
       videos/session_$in_sample \
       gs://medaka-video-store/results ;
     # Remove video and results
-    rm videos/$in_sample
+    rm videos/$in_sample.mp4
     rm -rf videos/session_$in_sample
     # Confirm with output
+    echo "$in_sample: completed $(date)" >> pilot_paper/data/20210211_test_train.txt
     echo "$in_sample: VIDEO PROCESSED AND COPIED TO BUCKET. PROCEEDING TO NEXT..."
   else
     echo "$in_sample: VIDEO ALREADY PROCESSED. PROCEEDING TO NEXT..."
@@ -608,5 +649,10 @@ for in_sample in $(gsutil ls $video_store/videos | cut -f5 -d'/' | cut -f1 -d'.'
 done
 ```
 
+
+[Notes on speed]{color="red"}:
+
+* 1 terminal with 4 GPUs: ~30 mins per video
+* 2nd terminal working on same 4 GPUs: ~1 hour per video
 
 
