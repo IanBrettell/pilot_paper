@@ -1,0 +1,1888 @@
+Building DAG of jobs...
+Creating conda environment code/snakemake/20210701/workflow/envs/gsutil.yaml...
+Downloading and installing remote packages.
+Environment for code/snakemake/20210701/workflow/envs/gsutil.yaml created (location: .snakemake/conda/a2ac1ea5e282a795d9884a81acaab346)
+Using shell: /usr/local/bin/bash
+Provided cluster nodes: 5000
+Job stats:
+job                      count    min threads    max threads
+---------------------  -------  -------------  -------------
+all                          1              1              1
+copy_results_from_gcs      144              4              4
+total                      145              1              4
+
+Select jobs to execute...
+
+[Thu Jul  1 17:07:03 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_intensity_ceiling_q4_novel_object
+    jobid: 128
+    wildcards: sample=intensity_ceiling_q4, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 128 with external jobid 'Job <4663949> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:04 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_adj_top_q2_novel_object
+    jobid: 68
+    wildcards: sample=adj_top_q2, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 68 with external jobid 'Job <4663951> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:04 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_adj_left_q2_open_field
+    jobid: 83
+    wildcards: sample=adj_left_q2, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 83 with external jobid 'Job <4663955> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:04 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_tank_side_q4_open_field
+    jobid: 23
+    wildcards: sample=tank_side_q4, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 23 with external jobid 'Job <4663957> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:04 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_area_ceiling_q4_open_field
+    jobid: 143
+    wildcards: sample=area_ceiling_q4, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 143 with external jobid 'Job <4663959> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:04 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_tank_side_q4_novel_object
+    jobid: 24
+    wildcards: sample=tank_side_q4, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 24 with external jobid 'Job <4663962> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:04 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_adj_top_q3_open_field
+    jobid: 69
+    wildcards: sample=adj_top_q3, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 69 with external jobid 'Job <4663964> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:05 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_adj_left_q2_novel_object
+    jobid: 84
+    wildcards: sample=adj_left_q2, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 84 with external jobid 'Job <4663966> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:05 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_area_floor_q1_open_field
+    jobid: 129
+    wildcards: sample=area_floor_q1, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 129 with external jobid 'Job <4663968> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:05 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_area_ceiling_q4_novel_object
+    jobid: 144
+    wildcards: sample=area_ceiling_q4, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 144 with external jobid 'Job <4663971> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:06 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_of_start_q1_open_field
+    jobid: 25
+    wildcards: sample=of_start_q1, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 25 with external jobid 'Job <4663974> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:06 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_adj_top_q3_novel_object
+    jobid: 70
+    wildcards: sample=adj_top_q3, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 70 with external jobid 'Job <4663976> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:06 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_adj_left_q3_open_field
+    jobid: 85
+    wildcards: sample=adj_left_q3, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 85 with external jobid 'Job <4663978> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:06 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_area_floor_q1_novel_object
+    jobid: 130
+    wildcards: sample=area_floor_q1, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 130 with external jobid 'Job <4663981> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:06 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_of_start_q1_novel_object
+    jobid: 26
+    wildcards: sample=of_start_q1, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 26 with external jobid 'Job <4663983> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:06 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_adj_top_q4_open_field
+    jobid: 71
+    wildcards: sample=adj_top_q4, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 71 with external jobid 'Job <4663986> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:06 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_adj_left_q3_novel_object
+    jobid: 86
+    wildcards: sample=adj_left_q3, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 86 with external jobid 'Job <4663988> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:06 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_area_floor_q2_open_field
+    jobid: 131
+    wildcards: sample=area_floor_q2, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 131 with external jobid 'Job <4663991> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:06 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_of_start_q2_open_field
+    jobid: 27
+    wildcards: sample=of_start_q2, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 27 with external jobid 'Job <4663994> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:06 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_adj_top_q4_novel_object
+    jobid: 72
+    wildcards: sample=adj_top_q4, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 72 with external jobid 'Job <4663996> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:07 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_adj_left_q4_open_field
+    jobid: 87
+    wildcards: sample=adj_left_q4, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 87 with external jobid 'Job <4663999> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:07 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_area_floor_q2_novel_object
+    jobid: 132
+    wildcards: sample=area_floor_q2, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 132 with external jobid 'Job <4664001> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:07 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_of_start_q2_novel_object
+    jobid: 28
+    wildcards: sample=of_start_q2, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 28 with external jobid 'Job <4664003> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:08 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_adj_bottom_q1_open_field
+    jobid: 73
+    wildcards: sample=adj_bottom_q1, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 73 with external jobid 'Job <4664005> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:08 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_adj_left_q4_novel_object
+    jobid: 88
+    wildcards: sample=adj_left_q4, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 88 with external jobid 'Job <4664008> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:08 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_area_floor_q3_open_field
+    jobid: 133
+    wildcards: sample=area_floor_q3, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 133 with external jobid 'Job <4664010> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:08 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_adj_bottom_q1_novel_object
+    jobid: 74
+    wildcards: sample=adj_bottom_q1, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 74 with external jobid 'Job <4664012> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:08 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_of_start_q3_open_field
+    jobid: 29
+    wildcards: sample=of_start_q3, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 29 with external jobid 'Job <4664014> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:08 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_adj_right_q1_open_field
+    jobid: 89
+    wildcards: sample=adj_right_q1, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 89 with external jobid 'Job <4664017> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:08 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_area_floor_q3_novel_object
+    jobid: 134
+    wildcards: sample=area_floor_q3, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 134 with external jobid 'Job <4664019> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:08 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_of_start_q3_novel_object
+    jobid: 30
+    wildcards: sample=of_start_q3, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 30 with external jobid 'Job <4664022> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:08 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_adj_bottom_q2_open_field
+    jobid: 75
+    wildcards: sample=adj_bottom_q2, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 75 with external jobid 'Job <4664024> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:09 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_adj_right_q1_novel_object
+    jobid: 90
+    wildcards: sample=adj_right_q1, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 90 with external jobid 'Job <4664027> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:09 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_area_floor_q4_open_field
+    jobid: 135
+    wildcards: sample=area_floor_q4, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 135 with external jobid 'Job <4664030> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:09 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_date_q1_open_field
+    jobid: 1
+    wildcards: sample=date_q1, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 1 with external jobid 'Job <4664033> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:09 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_of_start_q4_open_field
+    jobid: 31
+    wildcards: sample=of_start_q4, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 31 with external jobid 'Job <4664036> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:09 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_adj_bottom_q2_novel_object
+    jobid: 76
+    wildcards: sample=adj_bottom_q2, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 76 with external jobid 'Job <4664039> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:09 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_adj_right_q2_open_field
+    jobid: 91
+    wildcards: sample=adj_right_q2, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 91 with external jobid 'Job <4664042> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:09 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_area_floor_q4_novel_object
+    jobid: 136
+    wildcards: sample=area_floor_q4, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 136 with external jobid 'Job <4664045> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:09 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_date_q1_novel_object
+    jobid: 2
+    wildcards: sample=date_q1, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 2 with external jobid 'Job <4664048> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:09 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_of_start_q4_novel_object
+    jobid: 32
+    wildcards: sample=of_start_q4, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 32 with external jobid 'Job <4664051> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:09 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_adj_bottom_q3_open_field
+    jobid: 77
+    wildcards: sample=adj_bottom_q3, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 77 with external jobid 'Job <4664054> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:09 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_adj_right_q2_novel_object
+    jobid: 92
+    wildcards: sample=adj_right_q2, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 92 with external jobid 'Job <4664057> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:09 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_area_ceiling_q1_open_field
+    jobid: 137
+    wildcards: sample=area_ceiling_q1, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 137 with external jobid 'Job <4664060> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:09 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_date_q2_open_field
+    jobid: 3
+    wildcards: sample=date_q2, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 3 with external jobid 'Job <4664063> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:09 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_of_end_q1_open_field
+    jobid: 33
+    wildcards: sample=of_end_q1, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 33 with external jobid 'Job <4664066> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:10 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_adj_bottom_q3_novel_object
+    jobid: 78
+    wildcards: sample=adj_bottom_q3, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 78 with external jobid 'Job <4664068> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:10 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_adj_right_q3_open_field
+    jobid: 93
+    wildcards: sample=adj_right_q3, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 93 with external jobid 'Job <4664071> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:10 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_area_ceiling_q1_novel_object
+    jobid: 138
+    wildcards: sample=area_ceiling_q1, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 138 with external jobid 'Job <4664074> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:10 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_date_q2_novel_object
+    jobid: 4
+    wildcards: sample=date_q2, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 4 with external jobid 'Job <4664077> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:10 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_of_end_q1_novel_object
+    jobid: 34
+    wildcards: sample=of_end_q1, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 34 with external jobid 'Job <4664080> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:10 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_adj_bottom_q4_open_field
+    jobid: 79
+    wildcards: sample=adj_bottom_q4, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 79 with external jobid 'Job <4664083> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:10 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_adj_right_q3_novel_object
+    jobid: 94
+    wildcards: sample=adj_right_q3, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 94 with external jobid 'Job <4664086> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:10 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_area_ceiling_q2_open_field
+    jobid: 139
+    wildcards: sample=area_ceiling_q2, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 139 with external jobid 'Job <4664089> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:10 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_date_q3_open_field
+    jobid: 5
+    wildcards: sample=date_q3, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 5 with external jobid 'Job <4664092> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:10 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_of_end_q2_open_field
+    jobid: 35
+    wildcards: sample=of_end_q2, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 35 with external jobid 'Job <4664095> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:10 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_adj_bottom_q4_novel_object
+    jobid: 80
+    wildcards: sample=adj_bottom_q4, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 80 with external jobid 'Job <4664097> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:10 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_adj_right_q4_open_field
+    jobid: 95
+    wildcards: sample=adj_right_q4, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 95 with external jobid 'Job <4664100> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:10 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_area_ceiling_q2_novel_object
+    jobid: 140
+    wildcards: sample=area_ceiling_q2, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 140 with external jobid 'Job <4664103> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:10 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_date_q3_novel_object
+    jobid: 6
+    wildcards: sample=date_q3, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 6 with external jobid 'Job <4664106> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:10 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_of_end_q2_novel_object
+    jobid: 36
+    wildcards: sample=of_end_q2, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 36 with external jobid 'Job <4664109> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:10 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_adj_left_q1_open_field
+    jobid: 81
+    wildcards: sample=adj_left_q1, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 81 with external jobid 'Job <4664112> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:10 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_adj_right_q4_novel_object
+    jobid: 96
+    wildcards: sample=adj_right_q4, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 96 with external jobid 'Job <4664115> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:10 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_area_ceiling_q3_open_field
+    jobid: 141
+    wildcards: sample=area_ceiling_q3, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 141 with external jobid 'Job <4664118> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:11 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_date_q4_open_field
+    jobid: 7
+    wildcards: sample=date_q4, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 7 with external jobid 'Job <4664120> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:11 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_of_end_q3_open_field
+    jobid: 37
+    wildcards: sample=of_end_q3, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 37 with external jobid 'Job <4664122> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:11 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_adj_left_q1_novel_object
+    jobid: 82
+    wildcards: sample=adj_left_q1, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 82 with external jobid 'Job <4664125> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:11 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_of_video_length_q1_open_field
+    jobid: 97
+    wildcards: sample=of_video_length_q1, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 97 with external jobid 'Job <4664128> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:11 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_area_ceiling_q3_novel_object
+    jobid: 142
+    wildcards: sample=area_ceiling_q3, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 142 with external jobid 'Job <4664131> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:11 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_of_end_q3_novel_object
+    jobid: 38
+    wildcards: sample=of_end_q3, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 38 with external jobid 'Job <4664134> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:11 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_no_end_q3_open_field
+    jobid: 53
+    wildcards: sample=no_end_q3, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 53 with external jobid 'Job <4664137> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:11 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_of_video_length_q1_novel_object
+    jobid: 98
+    wildcards: sample=of_video_length_q1, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 98 with external jobid 'Job <4664140> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:11 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_intensity_floor_q1_open_field
+    jobid: 113
+    wildcards: sample=intensity_floor_q1, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 113 with external jobid 'Job <4664143> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:11 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_date_q4_novel_object
+    jobid: 8
+    wildcards: sample=date_q4, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 8 with external jobid 'Job <4664146> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:11 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_time_q1_open_field
+    jobid: 9
+    wildcards: sample=time_q1, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 9 with external jobid 'Job <4664149> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:11 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_of_end_q4_open_field
+    jobid: 39
+    wildcards: sample=of_end_q4, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 39 with external jobid 'Job <4664152> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:11 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_no_end_q3_novel_object
+    jobid: 54
+    wildcards: sample=no_end_q3, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 54 with external jobid 'Job <4664155> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:11 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_of_video_length_q2_open_field
+    jobid: 99
+    wildcards: sample=of_video_length_q2, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 99 with external jobid 'Job <4664158> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:11 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_intensity_floor_q1_novel_object
+    jobid: 114
+    wildcards: sample=intensity_floor_q1, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 114 with external jobid 'Job <4664162> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:11 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_time_q1_novel_object
+    jobid: 10
+    wildcards: sample=time_q1, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 10 with external jobid 'Job <4664166> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:12 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_of_end_q4_novel_object
+    jobid: 40
+    wildcards: sample=of_end_q4, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 40 with external jobid 'Job <4664168> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:12 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_no_end_q4_open_field
+    jobid: 55
+    wildcards: sample=no_end_q4, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 55 with external jobid 'Job <4664170> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:12 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_of_video_length_q2_novel_object
+    jobid: 100
+    wildcards: sample=of_video_length_q2, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 100 with external jobid 'Job <4664173> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:12 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_intensity_floor_q2_open_field
+    jobid: 115
+    wildcards: sample=intensity_floor_q2, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 115 with external jobid 'Job <4664176> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:12 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_time_q2_open_field
+    jobid: 11
+    wildcards: sample=time_q2, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 11 with external jobid 'Job <4664179> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:12 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_no_start_q1_open_field
+    jobid: 41
+    wildcards: sample=no_start_q1, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 41 with external jobid 'Job <4664182> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:12 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_no_end_q4_novel_object
+    jobid: 56
+    wildcards: sample=no_end_q4, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 56 with external jobid 'Job <4664185> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:12 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_of_video_length_q3_open_field
+    jobid: 101
+    wildcards: sample=of_video_length_q3, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 101 with external jobid 'Job <4664188> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:12 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_intensity_floor_q2_novel_object
+    jobid: 116
+    wildcards: sample=intensity_floor_q2, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 116 with external jobid 'Job <4664191> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:12 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_time_q2_novel_object
+    jobid: 12
+    wildcards: sample=time_q2, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 12 with external jobid 'Job <4664194> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:12 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_no_start_q1_novel_object
+    jobid: 42
+    wildcards: sample=no_start_q1, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 42 with external jobid 'Job <4664197> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:12 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_fps_q1_open_field
+    jobid: 57
+    wildcards: sample=fps_q1, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 57 with external jobid 'Job <4664200> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:12 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_of_video_length_q3_novel_object
+    jobid: 102
+    wildcards: sample=of_video_length_q3, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 102 with external jobid 'Job <4664203> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:12 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_intensity_floor_q3_open_field
+    jobid: 117
+    wildcards: sample=intensity_floor_q3, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 117 with external jobid 'Job <4664206> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:12 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_time_q3_open_field
+    jobid: 13
+    wildcards: sample=time_q3, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 13 with external jobid 'Job <4664208> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:13 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_no_start_q2_open_field
+    jobid: 43
+    wildcards: sample=no_start_q2, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 43 with external jobid 'Job <4664211> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:13 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_fps_q1_novel_object
+    jobid: 58
+    wildcards: sample=fps_q1, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 58 with external jobid 'Job <4664214> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:13 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_of_video_length_q4_open_field
+    jobid: 103
+    wildcards: sample=of_video_length_q4, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 103 with external jobid 'Job <4664217> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:13 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_intensity_floor_q3_novel_object
+    jobid: 118
+    wildcards: sample=intensity_floor_q3, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 118 with external jobid 'Job <4664220> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:13 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_time_q3_novel_object
+    jobid: 14
+    wildcards: sample=time_q3, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 14 with external jobid 'Job <4664223> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:13 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_no_start_q2_novel_object
+    jobid: 44
+    wildcards: sample=no_start_q2, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 44 with external jobid 'Job <4664226> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:13 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_fps_q2_open_field
+    jobid: 59
+    wildcards: sample=fps_q2, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 59 with external jobid 'Job <4664229> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:13 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_of_video_length_q4_novel_object
+    jobid: 104
+    wildcards: sample=of_video_length_q4, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 104 with external jobid 'Job <4664232> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:13 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_intensity_floor_q4_open_field
+    jobid: 119
+    wildcards: sample=intensity_floor_q4, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 119 with external jobid 'Job <4664235> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:13 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_time_q4_open_field
+    jobid: 15
+    wildcards: sample=time_q4, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 15 with external jobid 'Job <4664238> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:13 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_no_start_q3_open_field
+    jobid: 45
+    wildcards: sample=no_start_q3, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 45 with external jobid 'Job <4664241> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:13 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_fps_q2_novel_object
+    jobid: 60
+    wildcards: sample=fps_q2, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 60 with external jobid 'Job <4664244> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:13 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_no_video_length_q1_open_field
+    jobid: 105
+    wildcards: sample=no_video_length_q1, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 105 with external jobid 'Job <4664247> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:13 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_intensity_floor_q4_novel_object
+    jobid: 120
+    wildcards: sample=intensity_floor_q4, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 120 with external jobid 'Job <4664250> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:13 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_time_q4_novel_object
+    jobid: 16
+    wildcards: sample=time_q4, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 16 with external jobid 'Job <4664253> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:13 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_no_start_q3_novel_object
+    jobid: 46
+    wildcards: sample=no_start_q3, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 46 with external jobid 'Job <4664256> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:13 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_fps_q3_open_field
+    jobid: 61
+    wildcards: sample=fps_q3, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 61 with external jobid 'Job <4664259> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:14 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_no_video_length_q1_novel_object
+    jobid: 106
+    wildcards: sample=no_video_length_q1, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 106 with external jobid 'Job <4664262> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:14 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_intensity_ceiling_q1_open_field
+    jobid: 121
+    wildcards: sample=intensity_ceiling_q1, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 121 with external jobid 'Job <4664264> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:14 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_tank_side_q1_open_field
+    jobid: 17
+    wildcards: sample=tank_side_q1, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 17 with external jobid 'Job <4664267> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:14 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_no_start_q4_open_field
+    jobid: 47
+    wildcards: sample=no_start_q4, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 47 with external jobid 'Job <4664270> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:14 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_fps_q3_novel_object
+    jobid: 62
+    wildcards: sample=fps_q3, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 62 with external jobid 'Job <4664273> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:14 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_no_video_length_q2_open_field
+    jobid: 107
+    wildcards: sample=no_video_length_q2, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 107 with external jobid 'Job <4664276> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:14 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_intensity_ceiling_q1_novel_object
+    jobid: 122
+    wildcards: sample=intensity_ceiling_q1, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 122 with external jobid 'Job <4664279> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:14 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_tank_side_q1_novel_object
+    jobid: 18
+    wildcards: sample=tank_side_q1, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 18 with external jobid 'Job <4664282> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:14 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_no_start_q4_novel_object
+    jobid: 48
+    wildcards: sample=no_start_q4, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 48 with external jobid 'Job <4664285> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:14 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_fps_q4_open_field
+    jobid: 63
+    wildcards: sample=fps_q4, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 63 with external jobid 'Job <4664288> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:14 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_no_video_length_q2_novel_object
+    jobid: 108
+    wildcards: sample=no_video_length_q2, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 108 with external jobid 'Job <4664291> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:14 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_intensity_ceiling_q2_open_field
+    jobid: 123
+    wildcards: sample=intensity_ceiling_q2, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 123 with external jobid 'Job <4664293> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:14 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_tank_side_q2_open_field
+    jobid: 19
+    wildcards: sample=tank_side_q2, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 19 with external jobid 'Job <4664296> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:14 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_no_end_q1_open_field
+    jobid: 49
+    wildcards: sample=no_end_q1, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 49 with external jobid 'Job <4664299> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:14 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_fps_q4_novel_object
+    jobid: 64
+    wildcards: sample=fps_q4, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 64 with external jobid 'Job <4664302> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:14 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_no_video_length_q3_open_field
+    jobid: 109
+    wildcards: sample=no_video_length_q3, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 109 with external jobid 'Job <4664305> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:14 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_intensity_ceiling_q2_novel_object
+    jobid: 124
+    wildcards: sample=intensity_ceiling_q2, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 124 with external jobid 'Job <4664308> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:14 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_tank_side_q2_novel_object
+    jobid: 20
+    wildcards: sample=tank_side_q2, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 20 with external jobid 'Job <4664311> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:14 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_no_end_q1_novel_object
+    jobid: 50
+    wildcards: sample=no_end_q1, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 50 with external jobid 'Job <4664314> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:15 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_adj_top_q1_open_field
+    jobid: 65
+    wildcards: sample=adj_top_q1, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 65 with external jobid 'Job <4664317> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:15 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_no_video_length_q3_novel_object
+    jobid: 110
+    wildcards: sample=no_video_length_q3, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 110 with external jobid 'Job <4664320> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:15 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_intensity_ceiling_q3_open_field
+    jobid: 125
+    wildcards: sample=intensity_ceiling_q3, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 125 with external jobid 'Job <4664323> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:15 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_tank_side_q3_open_field
+    jobid: 21
+    wildcards: sample=tank_side_q3, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 21 with external jobid 'Job <4664326> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:15 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_no_end_q2_open_field
+    jobid: 51
+    wildcards: sample=no_end_q2, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 51 with external jobid 'Job <4664329> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:15 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_adj_top_q1_novel_object
+    jobid: 66
+    wildcards: sample=adj_top_q1, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 66 with external jobid 'Job <4664331> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:15 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_no_video_length_q4_open_field
+    jobid: 111
+    wildcards: sample=no_video_length_q4, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 111 with external jobid 'Job <4664336> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:15 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_intensity_ceiling_q3_novel_object
+    jobid: 126
+    wildcards: sample=intensity_ceiling_q3, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 126 with external jobid 'Job <4664339> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:15 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_tank_side_q3_novel_object
+    jobid: 22
+    wildcards: sample=tank_side_q3, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 22 with external jobid 'Job <4664342> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:15 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_no_end_q2_novel_object
+    jobid: 52
+    wildcards: sample=no_end_q2, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 52 with external jobid 'Job <4664345> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:15 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_adj_top_q2_open_field
+    jobid: 67
+    wildcards: sample=adj_top_q2, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 67 with external jobid 'Job <4664348> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:15 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_no_video_length_q4_novel_object
+    jobid: 112
+    wildcards: sample=no_video_length_q4, quadrant=novel, assay=object
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 112 with external jobid 'Job <4664351> is submitted to default queue <standard>.'.
+
+[Thu Jul  1 17:07:15 2021]
+rule copy_results_from_gcs:
+    output: /nfs/research/birney/users/ian/pilot/videos/tracking_results/_session_intensity_ceiling_q4_open_field
+    jobid: 127
+    wildcards: sample=intensity_ceiling_q4, quadrant=open, assay=field
+    threads: 4
+    resources: tmpdir=/tmp
+
+
+        gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/videos/tracking_results
+        
+Submitted job 127 with external jobid 'Job <4664354> is submitted to default queue <standard>.'.
+Terminating processes on user request, this might take some time.
+Will exit after finishing currently running jobs.

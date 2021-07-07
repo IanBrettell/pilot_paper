@@ -1,0 +1,142 @@
+---
+title: "Video preparation and tracking with `idtrackerai` on Google Cloud"
+date: '`r format(Sys.Date())`'
+output:
+  bookdown::tufte_html_book:
+    css: "my_style.css"
+    config:
+      toc:
+    pandoc_args: --lua-filter=color-text.lua
+    highlight: pygments
+    link-citations: yes
+---
+
+# Video preparation and tracking
+
+Link to `Medaka Cloud Pilot` project on Google Cloud: <https://console.cloud.google.com/home/dashboard?project=medaka-cloud-pilot>.
+
+Storage here in `medaka-video-store`: <https://console.cloud.google.com/storage/browser/medaka-video-store;tab=objects?forceOnBucketsSortingFiltering=false&project=medaka-cloud-pilot&prefix=&forceOnObjectsSortingFiltering=false>.
+
+## Video processing
+
+Carried out with Snakemake:
+
+
+
+## Full script to process in GCP terminal
+
+```{bash, eval = F}
+# Create `videos` directory
+mkdir videos
+
+# Clone repo
+git clone https://github.com/brettellebi/pilot_paper.git
+
+# Install `gsutil`
+curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-327.0.0-linux-x86_64.tar.gz
+tar -xvf google-cloud-sdk-327.0.0-linux-x86_64.tar.gz
+./google-cloud-sdk/install.sh
+rm google-cloud-sdk-327.0.0-linux-x86_64.tar.gz
+
+## Create authorisation
+gcloud auth login
+
+# Install `conda` 
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+chmod +x Miniconda3-latest-Linux-x86_64.sh
+./Miniconda3-latest-Linux-x86_64.sh
+rm Miniconda3-latest-Linux-x86_64.sh
+
+# Install `idtrackerai`
+conda create -y -n idtrackerai python=3.6
+conda activate idtrackerai
+pip install idtrackerai[gpu]
+
+## Copy processed results folder for training
+### icab
+mkdir -p trained/icab
+gsutil -m cp -r $video_store/results/session_20190615_1649_icab_icab_L_q2_open_field/accumulation_0/* trained/icab
+### hdr
+mkdir -p trained/hdr
+gsutil -m cp -r $video_store/results/session_20190615_1452_icab_hdr_L_q2_novel_object/accumulation_0/* trained/hdr
+### hni
+mkdir -p trained/hni
+gsutil -m cp -r $video_store/results/session_20190616_1325_icab_hni_R_q2_novel_object/accumulation_0/* trained/hni
+### kaga
+mkdir -p trained/kaga
+gsutil -m cp -r $video_store/results/session_20190616_1017_icab_kaga_R_q1_novel_object/accumulation_0/* trained/kaga
+### ho5
+mkdir -p trained/ho5
+gsutil -m cp -r $video_store/results/session_20190616_1017_icab_kaga_R_q1_novel_object/accumulation_0/* trained/ho5
+
+
+# Script
+## Copy processed results folder for training
+gsutil -m cp -r gs://medaka-video-store/results/session_20190615_1649_icab_icab_L_q2_open_field/accumulation_0 .
+
+## Select number of random samples to process successively
+samples_no=5
+## Sample parameters file
+samples_file=pilot_paper/data/20210118_paramaters.csv
+## Video store
+video_store=gs://medaka-video-store
+
+## Loop script
+# Alternative first lines:
+for in_sample in $(gsutil ls $video_store/videos | cut -f5 -d'/' | cut -f1 -d'.' | shuf -n $samples_no); do
+
+for in_sample in $(gsutil ls $video_store/videos/2019061{1,2,3}* | cut -f5 -d'/' | cut -f1 -d'.' ); do
+
+for in_sample in $(gsutil ls $video_store/videos/20190614* | cut -f5 -d'/' | cut -f1 -d'.' ); do
+
+for in_sample in $(gsutil ls $video_store/videos/2019061{5,6}* | cut -f5 -d'/' | cut -f1 -d'.' ); do
+for in_sample in $(gsutil ls $video_store/videos/2019061{1,2,3}* | cut -f5 -d'/' | cut -f1 -d'.' ); do
+for in_sample in $(gsutil ls $video_store/videos/20190614* | cut -f5 -d'/' | cut -f1 -d'.' ); do
+  # check whether final trajectories_wo_gaps.npy file exists in results folder
+  gsutil -q stat $video_store/results/session_$in_sample/trajectories_wo_gaps/trajectories_wo_gaps.npy ;
+  status=$? ;
+  # Run `idtrackerai` if results don't exist
+  if [[ $status == 1 ]]; then
+    # Create log
+    echo "$in_sample: started $(date)" >> pilot_paper/data/20210211_test_train.txt ;
+    # Set training folder
+#    target_line=$(echo $in_sample | cut -f4 -d'_' )
+#    echo "KNOWLEDGE_TRANSFER_FOLDER_IDCNN = trained/$target_line" > local_settings.py ;
+    echo "KNOWLEDGE_TRANSFER_FOLDER_IDCNN = accumulation_0" > local_settings.py ;
+    # Copy video to VM
+    gsutil -m cp $video_store/videos/$in_sample.mp4 videos/ ;
+    # Get parameters
+    input_video=$(echo videos/$in_sample.mp4 ) ;
+    target_string=$( grep $in_sample $samples_file ) ;
+    vid_length=$( echo $target_string | cut -f2 -d',' ) ;
+    int_floor=$( echo $target_string | cut -f3 -d',' ) ;
+    int_ceiling=$( echo $target_string | cut -f4 -d',' ) ;
+    area_floor=$( echo $target_string | cut -f5 -d',' ) ;
+    area_ceiling=$( echo $target_string | cut -f6 -d',' ) ;
+    # Run `idtrackerai`
+    idtrackerai terminal_mode \
+              --_video $input_video \
+              --_bgsub 'True' \
+              --_intensity [$int_floor,$int_ceiling] \
+              --_area [$area_floor,$area_ceiling] \
+              --_range [0,$vid_length] \
+              --_nblobs 2 \
+              --_session $in_sample \
+              --exec track_video ;
+    # Run script to convert tracking data to CSVs
+    python pilot_paper/code/scripts/trajectories_to_csv.py videos/session_$in_sample ;
+    # Copy to storage bucket
+    gsutil -m cp -r \
+      videos/session_$in_sample \
+      gs://medaka-video-store/results ;
+    # Remove video and results
+    rm videos/$in_sample.mp4
+    rm -rf videos/session_$in_sample
+    # Confirm with output
+    echo "$in_sample: completed $(date)" >> pilot_paper/data/20210211_test_train.txt
+    echo "$in_sample: VIDEO PROCESSED AND COPIED TO BUCKET. PROCEEDING TO NEXT..."
+  else
+    echo "$in_sample: VIDEO ALREADY PROCESSED. PROCEEDING TO NEXT..."
+  fi
+done
+```

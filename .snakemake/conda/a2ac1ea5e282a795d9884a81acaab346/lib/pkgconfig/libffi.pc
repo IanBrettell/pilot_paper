@@ -1,0 +1,11 @@
+prefix=/hps/software/users/birney/ian/repos/pilot_paper/.snakemake/conda/a2ac1ea5e282a795d9884a81acaab346
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+toolexeclibdir=${libdir}
+includedir=/hps/software/users/birney/ian/repos/pilot_paper/.snakemake/conda/a2ac1ea5e282a795d9884a81acaab346/include
+
+Name: libffi
+Description: Library supporting Foreign Function Interfaces
+Version: 3.3
+Libs: -L${toolexeclibdir} -lffi
+Cflags: -I${includedir}

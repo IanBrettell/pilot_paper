@@ -1,0 +1,14 @@
+include: "rules/00_common.smk"
+include: "rules/02_tracking.smk"
+
+rule all:
+    input:
+###################
+# 02_tracking.smk
+###################
+# copy_results_from_gcs
+        expand(os.path.join(config["lts_dir"], "videos/tracking_results/_session_{sample}_{quadrant}_{assay}"),
+                sample = SAMPLES,
+                quadrant = QUADRANTS,
+                assay = ASSAYS
+        ),

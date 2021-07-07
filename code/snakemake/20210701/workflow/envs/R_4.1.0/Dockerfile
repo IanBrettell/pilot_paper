@@ -12,7 +12,8 @@ RUN apt update
 RUN install2.r --error \
     here \
     remotes \
-    plotly
+    plotly \
+    bookdown
 
 # Install from GitHub
 #RUN R -e "remotes::install_github('ramiromagno/gwasrapidd')"

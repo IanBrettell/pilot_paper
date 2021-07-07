@@ -1,8 +1,0 @@
-[DEBUG   ] confapp.settings_manager                 + SETTINGS: pyforms.settings                  confapp.settings_[DEBUG   ] confapp.settings_manager                 + SETTINGS: pyforms_gui.setticonfapp.settings_manager - DEBUG -[DEBUG   ] confapp.settings_manager                 + SETTINGS: OpenGL.acceleratesupport - INFO - No OpenGL_acceler[INFO    ] OpenGL.acceleratesupport                 No idtrackerai_app.base_idtrackerai - INFO - Local settings file not ava[INFO   h5py._conv - DEBUG - Creating converter from 7 to 5
-h5py._conv - DEBUG - Creating converter from 5 to 7
-h5py._conv - DEBUG - Creating converter from 7 to 5
-h5py._conv - DEBUG - Creating converter from 5 to 7
-idtrackerai_app.base_idtrackerai - INFO - TENSORFLOW DEVICES: [_DeviceAttributes(/job:localhost/replica:0/task:0/device:CPU:0, CPU, 268435456, 18116927206185944370)]
-confapp.settings_manager - DEBUG - + SETTINGS: pyforms_gui.resources_settings                    
-W DEVICES: [_DeviceAttributes(/job:localhost/replica:0/task:0/device:CPU:0, CPU, 268435456, 18116927206185944370)]
-[DEBUG   ] confapp.settings_manager                 + SETTINGS: pyforms_gui.resources_settings                    

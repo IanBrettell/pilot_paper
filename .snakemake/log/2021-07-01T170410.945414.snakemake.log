@@ -1,0 +1,4 @@
+FileNotFoundError in line 12 of /hps/software/users/birney/ian/repos/pilot_paper/code/snakemake/20210701/workflow/rules/00_common.smk:
+[Errno 2] No such file or directory: 'pilot_paper/code/snakemake/20210701/config/config.yaml'
+  File "/hps/software/users/birney/ian/repos/pilot_paper/code/snakemake/20210701/workflow/Snakefile", line 1, in <module>
+  File "/hps/software/users/birney/ian/repos/pilot_paper/code/snakemake/20210701/workflow/rules/00_common.smk", line 12, in <module>

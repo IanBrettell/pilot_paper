@@ -1,0 +1,252 @@
+{
+  "build": "pyhd8ed1ab_2",
+  "build_number": 2,
+  "channel": "https://conda.anaconda.org/conda-forge/noarch",
+  "constrains": [],
+  "depends": [
+    "importlib_metadata >=0.23,<5",
+    "python >=3.5"
+  ],
+  "extracted_package_dir": "/hps/software/users/birney/ian/miniconda3/pkgs/argcomplete-1.12.3-pyhd8ed1ab_2",
+  "features": "",
+  "files": [
+    "bin/activate-global-python-argcomplete",
+    "bin/python-argcomplete-check-easy-install-script",
+    "bin/python-argcomplete-tcsh",
+    "bin/register-python-argcomplete",
+    "lib/python3.9/site-packages/argcomplete-1.12.3.dist-info/INSTALLER",
+    "lib/python3.9/site-packages/argcomplete-1.12.3.dist-info/LICENSE.rst",
+    "lib/python3.9/site-packages/argcomplete-1.12.3.dist-info/METADATA",
+    "lib/python3.9/site-packages/argcomplete-1.12.3.dist-info/RECORD",
+    "lib/python3.9/site-packages/argcomplete-1.12.3.dist-info/REQUESTED",
+    "lib/python3.9/site-packages/argcomplete-1.12.3.dist-info/WHEEL",
+    "lib/python3.9/site-packages/argcomplete-1.12.3.dist-info/direct_url.json",
+    "lib/python3.9/site-packages/argcomplete-1.12.3.dist-info/top_level.txt",
+    "lib/python3.9/site-packages/argcomplete/__init__.py",
+    "lib/python3.9/site-packages/argcomplete/_check_console_script.py",
+    "lib/python3.9/site-packages/argcomplete/_check_module.py",
+    "lib/python3.9/site-packages/argcomplete/bash_completion.d/python-argcomplete",
+    "lib/python3.9/site-packages/argcomplete/compat.py",
+    "lib/python3.9/site-packages/argcomplete/completers.py",
+    "lib/python3.9/site-packages/argcomplete/my_argparse.py",
+    "lib/python3.9/site-packages/argcomplete/my_shlex.py",
+    "lib/python3.9/site-packages/argcomplete/shell_integration.py",
+    "lib/python3.9/site-packages/argcomplete/__pycache__/__init__.cpython-39.pyc",
+    "lib/python3.9/site-packages/argcomplete/__pycache__/_check_console_script.cpython-39.pyc",
+    "lib/python3.9/site-packages/argcomplete/__pycache__/_check_module.cpython-39.pyc",
+    "lib/python3.9/site-packages/argcomplete/__pycache__/compat.cpython-39.pyc",
+    "lib/python3.9/site-packages/argcomplete/__pycache__/completers.cpython-39.pyc",
+    "lib/python3.9/site-packages/argcomplete/__pycache__/my_argparse.cpython-39.pyc",
+    "lib/python3.9/site-packages/argcomplete/__pycache__/my_shlex.cpython-39.pyc",
+    "lib/python3.9/site-packages/argcomplete/__pycache__/shell_integration.cpython-39.pyc"
+  ],
+  "fn": "argcomplete-1.12.3-pyhd8ed1ab_2.tar.bz2",
+  "license": "Apache-2.0",
+  "link": {
+    "source": "/hps/software/users/birney/ian/miniconda3/pkgs/argcomplete-1.12.3-pyhd8ed1ab_2",
+    "type": 1
+  },
+  "md5": "b8152341fc3fc9880c6e1b9d188974e5",
+  "name": "argcomplete",
+  "noarch": "python",
+  "package_tarball_full_path": "/hps/software/users/birney/ian/miniconda3/pkgs/argcomplete-1.12.3-pyhd8ed1ab_2.tar.bz2",
+  "package_type": "noarch_python",
+  "paths_data": {
+    "paths": [
+      {
+        "_path": "python-scripts/activate-global-python-argcomplete",
+        "file_mode": "text",
+        "path_type": "hardlink",
+        "prefix_placeholder": "/home/conda/feedstock_root/build_artifacts/argcomplete_1619128689661/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold",
+        "sha256": "f3f799eaa8e57453cb45147304ff7fb0fcba758d106854ed7fb554ce2f2192a4",
+        "sha256_in_prefix": "09688eab4543d3ab2da5882dbeaef9d69a991751392b0cbfbd6b772f958f8c2d",
+        "size_in_bytes": 3709
+      },
+      {
+        "_path": "python-scripts/python-argcomplete-check-easy-install-script",
+        "file_mode": "text",
+        "path_type": "hardlink",
+        "prefix_placeholder": "/home/conda/feedstock_root/build_artifacts/argcomplete_1619128689661/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold",
+        "sha256": "6b8d9f38981399b2d659f5972a9e76d8d27c5489b5d67c59e94ea06687c05329",
+        "sha256_in_prefix": "5b54e5ea923ad5196408c0d99ceda4d43faa565f296cfcd1dd40fbecf71f877d",
+        "size_in_bytes": 2805
+      },
+      {
+        "_path": "python-scripts/python-argcomplete-tcsh",
+        "path_type": "hardlink",
+        "sha256": "a66b7bb116615d3fc2d6c5b8fa36c884491ac9a531a827f8a6d7a2b814e04c41",
+        "sha256_in_prefix": "a66b7bb116615d3fc2d6c5b8fa36c884491ac9a531a827f8a6d7a2b814e04c41",
+        "size_in_bytes": 383
+      },
+      {
+        "_path": "python-scripts/register-python-argcomplete",
+        "file_mode": "text",
+        "path_type": "hardlink",
+        "prefix_placeholder": "/home/conda/feedstock_root/build_artifacts/argcomplete_1619128689661/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold",
+        "sha256": "2dd7032496ebb60bdac6cb207668a18d10888a72b80a261a526f0d19ca7f73c2",
+        "sha256_in_prefix": "e8ba755c41b0acc606c07cf5cca469945bfc4f790abd4e0f1090046294b74fb6",
+        "size_in_bytes": 2167
+      },
+      {
+        "_path": "site-packages/argcomplete-1.12.3.dist-info/INSTALLER",
+        "path_type": "hardlink",
+        "sha256": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+        "sha256_in_prefix": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+        "size_in_bytes": 5
+      },
+      {
+        "_path": "site-packages/argcomplete-1.12.3.dist-info/LICENSE.rst",
+        "path_type": "hardlink",
+        "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+        "sha256_in_prefix": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+        "size_in_bytes": 10174
+      },
+      {
+        "_path": "site-packages/argcomplete-1.12.3.dist-info/METADATA",
+        "path_type": "hardlink",
+        "sha256": "73af42883442b4de34cb899746af2cf7ce5420b48b71ca346061894a6d6b661d",
+        "sha256_in_prefix": "73af42883442b4de34cb899746af2cf7ce5420b48b71ca346061894a6d6b661d",
+        "size_in_bytes": 18517
+      },
+      {
+        "_path": "site-packages/argcomplete-1.12.3.dist-info/RECORD",
+        "path_type": "hardlink",
+        "sha256": "21a61273e54248b859fc41857a5c8737342eefc56b3cbbe1f8f9c20ddad08cd9",
+        "sha256_in_prefix": "21a61273e54248b859fc41857a5c8737342eefc56b3cbbe1f8f9c20ddad08cd9",
+        "size_in_bytes": 2345
+      },
+      {
+        "_path": "site-packages/argcomplete-1.12.3.dist-info/REQUESTED",
+        "path_type": "hardlink",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sha256_in_prefix": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_in_bytes": 0
+      },
+      {
+        "_path": "site-packages/argcomplete-1.12.3.dist-info/WHEEL",
+        "path_type": "hardlink",
+        "sha256": "67e9f2629c2b712ab17ddbb1e4c6e7fc3439db988fec9d831b72601af398c934",
+        "sha256_in_prefix": "67e9f2629c2b712ab17ddbb1e4c6e7fc3439db988fec9d831b72601af398c934",
+        "size_in_bytes": 110
+      },
+      {
+        "_path": "site-packages/argcomplete-1.12.3.dist-info/direct_url.json",
+        "path_type": "hardlink",
+        "sha256": "27b0d1cc492a3cd8d37be44ed8c80e4d603fbf1a8113ecf89bdd0e7a6220eb63",
+        "sha256_in_prefix": "27b0d1cc492a3cd8d37be44ed8c80e4d603fbf1a8113ecf89bdd0e7a6220eb63",
+        "size_in_bytes": 107
+      },
+      {
+        "_path": "site-packages/argcomplete-1.12.3.dist-info/top_level.txt",
+        "path_type": "hardlink",
+        "sha256": "8b0b063b9f94c44841f34f4eb166ce98b8ddf2bf17d71b5763ae663f4d408658",
+        "sha256_in_prefix": "8b0b063b9f94c44841f34f4eb166ce98b8ddf2bf17d71b5763ae663f4d408658",
+        "size_in_bytes": 12
+      },
+      {
+        "_path": "site-packages/argcomplete/__init__.py",
+        "path_type": "hardlink",
+        "sha256": "5a56dd110114b1a605800e17b01a868d99538cc8276a55ffa51b406328c5d3c0",
+        "sha256_in_prefix": "5a56dd110114b1a605800e17b01a868d99538cc8276a55ffa51b406328c5d3c0",
+        "size_in_bytes": 31909
+      },
+      {
+        "_path": "site-packages/argcomplete/_check_console_script.py",
+        "path_type": "hardlink",
+        "sha256": "d5800116aa1699069ee955bf38ff20bddac895a6c2def803a0562f779016bf7f",
+        "sha256_in_prefix": "d5800116aa1699069ee955bf38ff20bddac895a6c2def803a0562f779016bf7f",
+        "size_in_bytes": 2120
+      },
+      {
+        "_path": "site-packages/argcomplete/_check_module.py",
+        "path_type": "hardlink",
+        "sha256": "d3972030033adb25b9cddd928723ec8f0f77b68d873869c8635a3195f5523dfc",
+        "sha256_in_prefix": "d3972030033adb25b9cddd928723ec8f0f77b68d873869c8635a3195f5523dfc",
+        "size_in_bytes": 2593
+      },
+      {
+        "_path": "site-packages/argcomplete/bash_completion.d/python-argcomplete",
+        "path_type": "hardlink",
+        "sha256": "27ca6c032ce99bdda2b257cbc5a8e6586790713af41ec8d00db50b8b20afca8c",
+        "sha256_in_prefix": "27ca6c032ce99bdda2b257cbc5a8e6586790713af41ec8d00db50b8b20afca8c",
+        "size_in_bytes": 4108
+      },
+      {
+        "_path": "site-packages/argcomplete/compat.py",
+        "path_type": "hardlink",
+        "sha256": "d0d9043e7f9406748d37b699b6de958e53136c9656ef21ac58342dfd64825bd7",
+        "sha256_in_prefix": "d0d9043e7f9406748d37b699b6de958e53136c9656ef21ac58342dfd64825bd7",
+        "size_in_bytes": 524
+      },
+      {
+        "_path": "site-packages/argcomplete/completers.py",
+        "path_type": "hardlink",
+        "sha256": "e40dbc215dcdbeecb1e8e2676a25d9d4e2635e5275d9bfbff070e0f77c25652d",
+        "sha256_in_prefix": "e40dbc215dcdbeecb1e8e2676a25d9d4e2635e5275d9bfbff070e0f77c25652d",
+        "size_in_bytes": 3681
+      },
+      {
+        "_path": "site-packages/argcomplete/my_argparse.py",
+        "path_type": "hardlink",
+        "sha256": "a945e6bec40a56a8d138be682525a1d786bf6ecad5f069e3c693e4a505721948",
+        "sha256_in_prefix": "a945e6bec40a56a8d138be682525a1d786bf6ecad5f069e3c693e4a505721948",
+        "size_in_bytes": 15351
+      },
+      {
+        "_path": "site-packages/argcomplete/my_shlex.py",
+        "path_type": "hardlink",
+        "sha256": "0091393db78560621ffe64f4e06ef60009428a429cb365d91045586b80148fb3",
+        "sha256_in_prefix": "0091393db78560621ffe64f4e06ef60009428a429cb365d91045586b80148fb3",
+        "size_in_bytes": 13218
+      },
+      {
+        "_path": "site-packages/argcomplete/shell_integration.py",
+        "path_type": "hardlink",
+        "sha256": "b0f11e54a6da9aeee7d50f2c660dad0bc3cf3f0bebddcdcd636037cfe69cf55b",
+        "sha256_in_prefix": "b0f11e54a6da9aeee7d50f2c660dad0bc3cf3f0bebddcdcd636037cfe69cf55b",
+        "size_in_bytes": 4288
+      },
+      {
+        "_path": "lib/python3.9/site-packages/argcomplete/__pycache__/__init__.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/argcomplete/__pycache__/_check_console_script.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/argcomplete/__pycache__/_check_module.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/argcomplete/__pycache__/compat.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/argcomplete/__pycache__/completers.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/argcomplete/__pycache__/my_argparse.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/argcomplete/__pycache__/my_shlex.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/argcomplete/__pycache__/shell_integration.cpython-39.pyc",
+        "path_type": "pyc_file"
+      }
+    ],
+    "paths_version": 1
+  },
+  "requested_spec": "argcomplete==1.12.3=pyhd8ed1ab_2",
+  "sha256": "2abb116f5bdc62d5e83c9dd15e5fc30c2a9571f728ccc012fad03350ed1d581e",
+  "size": 35310,
+  "subdir": "noarch",
+  "timestamp": 1619128850000,
+  "track_features": "",
+  "url": "https://conda.anaconda.org/conda-forge/noarch/argcomplete-1.12.3-pyhd8ed1ab_2.tar.bz2",
+  "version": "1.12.3"
+}

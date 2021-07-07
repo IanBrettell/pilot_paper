@@ -1,0 +1,182 @@
+{
+  "build": "pyh9f0ad1d_0",
+  "build_number": 0,
+  "channel": "https://conda.anaconda.org/conda-forge/noarch",
+  "constrains": [],
+  "depends": [
+    "boto >=2.29.1",
+    "google-reauth >=0.1.0",
+    "httplib2 >=0.8",
+    "oauth2client >=2.2.0",
+    "pyopenssl >=0.13",
+    "python",
+    "retry_decorator >=1.0.0",
+    "six >=1.12.0",
+    "socksipy-branch 1.01.*"
+  ],
+  "extracted_package_dir": "/hps/software/users/birney/ian/miniconda3/pkgs/gcs-oauth2-boto-plugin-2.7-pyh9f0ad1d_0",
+  "features": "",
+  "files": [
+    "lib/python3.9/site-packages/gcs_oauth2_boto_plugin-2.7.dist-info/INSTALLER",
+    "lib/python3.9/site-packages/gcs_oauth2_boto_plugin-2.7.dist-info/LICENSE",
+    "lib/python3.9/site-packages/gcs_oauth2_boto_plugin-2.7.dist-info/METADATA",
+    "lib/python3.9/site-packages/gcs_oauth2_boto_plugin-2.7.dist-info/RECORD",
+    "lib/python3.9/site-packages/gcs_oauth2_boto_plugin-2.7.dist-info/REQUESTED",
+    "lib/python3.9/site-packages/gcs_oauth2_boto_plugin-2.7.dist-info/WHEEL",
+    "lib/python3.9/site-packages/gcs_oauth2_boto_plugin-2.7.dist-info/direct_url.json",
+    "lib/python3.9/site-packages/gcs_oauth2_boto_plugin-2.7.dist-info/top_level.txt",
+    "lib/python3.9/site-packages/gcs_oauth2_boto_plugin-2.7.dist-info/zip-safe",
+    "lib/python3.9/site-packages/gcs_oauth2_boto_plugin/__init__.py",
+    "lib/python3.9/site-packages/gcs_oauth2_boto_plugin/oauth2_client.py",
+    "lib/python3.9/site-packages/gcs_oauth2_boto_plugin/oauth2_helper.py",
+    "lib/python3.9/site-packages/gcs_oauth2_boto_plugin/oauth2_plugin.py",
+    "lib/python3.9/site-packages/gcs_oauth2_boto_plugin/test_oauth2_client.py",
+    "lib/python3.9/site-packages/gcs_oauth2_boto_plugin/__pycache__/__init__.cpython-39.pyc",
+    "lib/python3.9/site-packages/gcs_oauth2_boto_plugin/__pycache__/oauth2_client.cpython-39.pyc",
+    "lib/python3.9/site-packages/gcs_oauth2_boto_plugin/__pycache__/oauth2_helper.cpython-39.pyc",
+    "lib/python3.9/site-packages/gcs_oauth2_boto_plugin/__pycache__/oauth2_plugin.cpython-39.pyc",
+    "lib/python3.9/site-packages/gcs_oauth2_boto_plugin/__pycache__/test_oauth2_client.cpython-39.pyc"
+  ],
+  "fn": "gcs-oauth2-boto-plugin-2.7-pyh9f0ad1d_0.tar.bz2",
+  "license": "Apache-2.0",
+  "link": {
+    "source": "/hps/software/users/birney/ian/miniconda3/pkgs/gcs-oauth2-boto-plugin-2.7-pyh9f0ad1d_0",
+    "type": 1
+  },
+  "md5": "62f5317c96772a7b38eba0ac0f289dc4",
+  "name": "gcs-oauth2-boto-plugin",
+  "noarch": "python",
+  "package_tarball_full_path": "/hps/software/users/birney/ian/miniconda3/pkgs/gcs-oauth2-boto-plugin-2.7-pyh9f0ad1d_0.tar.bz2",
+  "package_type": "noarch_python",
+  "paths_data": {
+    "paths": [
+      {
+        "_path": "site-packages/gcs_oauth2_boto_plugin-2.7.dist-info/INSTALLER",
+        "path_type": "hardlink",
+        "sha256": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+        "sha256_in_prefix": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+        "size_in_bytes": 5
+      },
+      {
+        "_path": "site-packages/gcs_oauth2_boto_plugin-2.7.dist-info/LICENSE",
+        "path_type": "hardlink",
+        "sha256": "8c6db340475136df3c1201d458fa5755698eace76e510471ecc9d857d6083dac",
+        "sha256_in_prefix": "8c6db340475136df3c1201d458fa5755698eace76e510471ecc9d857d6083dac",
+        "size_in_bytes": 11359
+      },
+      {
+        "_path": "site-packages/gcs_oauth2_boto_plugin-2.7.dist-info/METADATA",
+        "path_type": "hardlink",
+        "sha256": "12b5d83900251985c97c5d836482765c750504b937481d5ec0854c418f5729eb",
+        "sha256_in_prefix": "12b5d83900251985c97c5d836482765c750504b937481d5ec0854c418f5729eb",
+        "size_in_bytes": 1892
+      },
+      {
+        "_path": "site-packages/gcs_oauth2_boto_plugin-2.7.dist-info/RECORD",
+        "path_type": "hardlink",
+        "sha256": "0158c3720049d784cdd91d875beda894b1882dfee8ef01994df10af46d724804",
+        "sha256_in_prefix": "0158c3720049d784cdd91d875beda894b1882dfee8ef01994df10af46d724804",
+        "size_in_bytes": 1690
+      },
+      {
+        "_path": "site-packages/gcs_oauth2_boto_plugin-2.7.dist-info/REQUESTED",
+        "path_type": "hardlink",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sha256_in_prefix": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_in_bytes": 0
+      },
+      {
+        "_path": "site-packages/gcs_oauth2_boto_plugin-2.7.dist-info/WHEEL",
+        "path_type": "hardlink",
+        "sha256": "11546323af45e6a5639bf620a9c4d73e74c0bf705f494af4595007b923f75e8a",
+        "sha256_in_prefix": "11546323af45e6a5639bf620a9c4d73e74c0bf705f494af4595007b923f75e8a",
+        "size_in_bytes": 92
+      },
+      {
+        "_path": "site-packages/gcs_oauth2_boto_plugin-2.7.dist-info/direct_url.json",
+        "path_type": "hardlink",
+        "sha256": "3ecdc221721c21c361f3bb8b29e804437938e487cf2437d0fbc5c638f8b25fe6",
+        "sha256_in_prefix": "3ecdc221721c21c361f3bb8b29e804437938e487cf2437d0fbc5c638f8b25fe6",
+        "size_in_bytes": 118
+      },
+      {
+        "_path": "site-packages/gcs_oauth2_boto_plugin-2.7.dist-info/top_level.txt",
+        "path_type": "hardlink",
+        "sha256": "117ed1437a9ab73fd6e12de55dd01c2d5582be32e62f6219100764790b482808",
+        "sha256_in_prefix": "117ed1437a9ab73fd6e12de55dd01c2d5582be32e62f6219100764790b482808",
+        "size_in_bytes": 23
+      },
+      {
+        "_path": "site-packages/gcs_oauth2_boto_plugin-2.7.dist-info/zip-safe",
+        "path_type": "hardlink",
+        "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+        "sha256_in_prefix": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+        "size_in_bytes": 1
+      },
+      {
+        "_path": "site-packages/gcs_oauth2_boto_plugin/__init__.py",
+        "path_type": "hardlink",
+        "sha256": "fc3ca0eb449b82403ad46024950a87c0fac22788a8731af46b24bbe6ab2c2de1",
+        "sha256_in_prefix": "fc3ca0eb449b82403ad46024950a87c0fac22788a8731af46b24bbe6ab2c2de1",
+        "size_in_bytes": 1542
+      },
+      {
+        "_path": "site-packages/gcs_oauth2_boto_plugin/oauth2_client.py",
+        "path_type": "hardlink",
+        "sha256": "154d25e097b88d956358b75a60ee90878bc77592cd90939d9ff6bd7ecddb5497",
+        "sha256_in_prefix": "154d25e097b88d956358b75a60ee90878bc77592cd90939d9ff6bd7ecddb5497",
+        "size_in_bytes": 29061
+      },
+      {
+        "_path": "site-packages/gcs_oauth2_boto_plugin/oauth2_helper.py",
+        "path_type": "hardlink",
+        "sha256": "9ac13a6c8809e1b707b0331c2d66deb63cd676087a44ef5dfa7df96e7f3d49c7",
+        "sha256_in_prefix": "9ac13a6c8809e1b707b0331c2d66deb63cd676087a44ef5dfa7df96e7f3d49c7",
+        "size_in_bytes": 8540
+      },
+      {
+        "_path": "site-packages/gcs_oauth2_boto_plugin/oauth2_plugin.py",
+        "path_type": "hardlink",
+        "sha256": "a0f2ecebcefb4ac8f9411b5f652270bbbc7da7f660e2f79d2029dcb38780e48b",
+        "sha256_in_prefix": "a0f2ecebcefb4ac8f9411b5f652270bbbc7da7f660e2f79d2029dcb38780e48b",
+        "size_in_bytes": 2736
+      },
+      {
+        "_path": "site-packages/gcs_oauth2_boto_plugin/test_oauth2_client.py",
+        "path_type": "hardlink",
+        "sha256": "ab49c8f33fe5d2f6942fc959638bc057789f41823d87a3ce106bd7f576647648",
+        "sha256_in_prefix": "ab49c8f33fe5d2f6942fc959638bc057789f41823d87a3ce106bd7f576647648",
+        "size_in_bytes": 12943
+      },
+      {
+        "_path": "lib/python3.9/site-packages/gcs_oauth2_boto_plugin/__pycache__/__init__.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/gcs_oauth2_boto_plugin/__pycache__/oauth2_client.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/gcs_oauth2_boto_plugin/__pycache__/oauth2_helper.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/gcs_oauth2_boto_plugin/__pycache__/oauth2_plugin.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/gcs_oauth2_boto_plugin/__pycache__/test_oauth2_client.cpython-39.pyc",
+        "path_type": "pyc_file"
+      }
+    ],
+    "paths_version": 1
+  },
+  "requested_spec": "gcs-oauth2-boto-plugin==2.7=pyh9f0ad1d_0",
+  "sha256": "d3d60225a7674d5c83a500e01f8071a22817b4fd1689099652e9217f7e413dbb",
+  "size": 23961,
+  "subdir": "noarch",
+  "timestamp": 1597767991000,
+  "track_features": "",
+  "url": "https://conda.anaconda.org/conda-forge/noarch/gcs-oauth2-boto-plugin-2.7-pyh9f0ad1d_0.tar.bz2",
+  "version": "2.7"
+}

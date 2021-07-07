@@ -1,0 +1,193 @@
+{
+  "build": "pyhd3deb0d_0",
+  "build_number": 0,
+  "channel": "https://conda.anaconda.org/conda-forge/noarch",
+  "constrains": [],
+  "depends": [
+    "python",
+    "pyu2f"
+  ],
+  "extracted_package_dir": "/hps/software/users/birney/ian/miniconda3/pkgs/google-reauth-0.1.1-pyhd3deb0d_0",
+  "features": "",
+  "files": [
+    "lib/python3.9/site-packages/google_reauth-0.1.1.dist-info/INSTALLER",
+    "lib/python3.9/site-packages/google_reauth-0.1.1.dist-info/LICENSE",
+    "lib/python3.9/site-packages/google_reauth-0.1.1.dist-info/METADATA",
+    "lib/python3.9/site-packages/google_reauth-0.1.1.dist-info/RECORD",
+    "lib/python3.9/site-packages/google_reauth-0.1.1.dist-info/REQUESTED",
+    "lib/python3.9/site-packages/google_reauth-0.1.1.dist-info/WHEEL",
+    "lib/python3.9/site-packages/google_reauth-0.1.1.dist-info/direct_url.json",
+    "lib/python3.9/site-packages/google_reauth-0.1.1.dist-info/top_level.txt",
+    "lib/python3.9/site-packages/google_reauth/__init__.py",
+    "lib/python3.9/site-packages/google_reauth/_helpers.py",
+    "lib/python3.9/site-packages/google_reauth/_reauth_client.py",
+    "lib/python3.9/site-packages/google_reauth/challenges.py",
+    "lib/python3.9/site-packages/google_reauth/errors.py",
+    "lib/python3.9/site-packages/google_reauth/reauth.py",
+    "lib/python3.9/site-packages/google_reauth/reauth_creds.py",
+    "lib/python3.9/site-packages/google_reauth/__pycache__/__init__.cpython-39.pyc",
+    "lib/python3.9/site-packages/google_reauth/__pycache__/_helpers.cpython-39.pyc",
+    "lib/python3.9/site-packages/google_reauth/__pycache__/_reauth_client.cpython-39.pyc",
+    "lib/python3.9/site-packages/google_reauth/__pycache__/challenges.cpython-39.pyc",
+    "lib/python3.9/site-packages/google_reauth/__pycache__/errors.cpython-39.pyc",
+    "lib/python3.9/site-packages/google_reauth/__pycache__/reauth.cpython-39.pyc",
+    "lib/python3.9/site-packages/google_reauth/__pycache__/reauth_creds.cpython-39.pyc"
+  ],
+  "fn": "google-reauth-0.1.1-pyhd3deb0d_0.tar.bz2",
+  "license": "Apache-2.0",
+  "link": {
+    "source": "/hps/software/users/birney/ian/miniconda3/pkgs/google-reauth-0.1.1-pyhd3deb0d_0",
+    "type": 1
+  },
+  "md5": "0cb6edfbc85701fd4ea159950525d0d6",
+  "name": "google-reauth",
+  "noarch": "python",
+  "package_tarball_full_path": "/hps/software/users/birney/ian/miniconda3/pkgs/google-reauth-0.1.1-pyhd3deb0d_0.tar.bz2",
+  "package_type": "noarch_python",
+  "paths_data": {
+    "paths": [
+      {
+        "_path": "site-packages/google_reauth-0.1.1.dist-info/INSTALLER",
+        "path_type": "hardlink",
+        "sha256": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+        "sha256_in_prefix": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+        "size_in_bytes": 5
+      },
+      {
+        "_path": "site-packages/google_reauth-0.1.1.dist-info/LICENSE",
+        "path_type": "hardlink",
+        "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+        "sha256_in_prefix": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+        "size_in_bytes": 11357
+      },
+      {
+        "_path": "site-packages/google_reauth-0.1.1.dist-info/METADATA",
+        "path_type": "hardlink",
+        "sha256": "379c19bf838ee73b0142de79e0ad8137801224972c846e6e9605575327e86f00",
+        "sha256_in_prefix": "379c19bf838ee73b0142de79e0ad8137801224972c846e6e9605575327e86f00",
+        "size_in_bytes": 2611
+      },
+      {
+        "_path": "site-packages/google_reauth-0.1.1.dist-info/RECORD",
+        "path_type": "hardlink",
+        "sha256": "97b4ee00f779c2df7b8c94a9a25b0e969a1fb1d81bb41bcdf4dcb4818ec26607",
+        "sha256_in_prefix": "97b4ee00f779c2df7b8c94a9a25b0e969a1fb1d81bb41bcdf4dcb4818ec26607",
+        "size_in_bytes": 1679
+      },
+      {
+        "_path": "site-packages/google_reauth-0.1.1.dist-info/REQUESTED",
+        "path_type": "hardlink",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sha256_in_prefix": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_in_bytes": 0
+      },
+      {
+        "_path": "site-packages/google_reauth-0.1.1.dist-info/WHEEL",
+        "path_type": "hardlink",
+        "sha256": "c9e606c840230153747e9d8ebc072917d499b6bdaf23325cd39dd4a82fe686db",
+        "sha256_in_prefix": "c9e606c840230153747e9d8ebc072917d499b6bdaf23325cd39dd4a82fe686db",
+        "size_in_bytes": 110
+      },
+      {
+        "_path": "site-packages/google_reauth-0.1.1.dist-info/direct_url.json",
+        "path_type": "hardlink",
+        "sha256": "0967f239322badf07f52a408c3531947d06b6259096a241528a415e56389af4a",
+        "sha256_in_prefix": "0967f239322badf07f52a408c3531947d06b6259096a241528a415e56389af4a",
+        "size_in_bytes": 109
+      },
+      {
+        "_path": "site-packages/google_reauth-0.1.1.dist-info/top_level.txt",
+        "path_type": "hardlink",
+        "sha256": "ba2224ee754a6378e797c9769668e940b14026f58747bf768bcbcf7c9dcc1555",
+        "sha256_in_prefix": "ba2224ee754a6378e797c9769668e940b14026f58747bf768bcbcf7c9dcc1555",
+        "size_in_bytes": 14
+      },
+      {
+        "_path": "site-packages/google_reauth/__init__.py",
+        "path_type": "hardlink",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sha256_in_prefix": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_in_bytes": 0
+      },
+      {
+        "_path": "site-packages/google_reauth/_helpers.py",
+        "path_type": "hardlink",
+        "sha256": "f27085f87b32b47546d7c8d8d33e9113d14fb09ce61321d2e0d33b455f8a455c",
+        "sha256_in_prefix": "f27085f87b32b47546d7c8d8d33e9113d14fb09ce61321d2e0d33b455f8a455c",
+        "size_in_bytes": 1325
+      },
+      {
+        "_path": "site-packages/google_reauth/_reauth_client.py",
+        "path_type": "hardlink",
+        "sha256": "76f2840c64a88bf23e8d10a769370fa2409275d68e174e21d975a84dd21dc921",
+        "sha256_in_prefix": "76f2840c64a88bf23e8d10a769370fa2409275d68e174e21d975a84dd21dc921",
+        "size_in_bytes": 5074
+      },
+      {
+        "_path": "site-packages/google_reauth/challenges.py",
+        "path_type": "hardlink",
+        "sha256": "a3ee06f088eb471ddd2901b2be3019afb17ccc2a8a80857b6a5b5f76c7c0030e",
+        "sha256_in_prefix": "a3ee06f088eb471ddd2901b2be3019afb17ccc2a8a80857b6a5b5f76c7c0030e",
+        "size_in_bytes": 4729
+      },
+      {
+        "_path": "site-packages/google_reauth/errors.py",
+        "path_type": "hardlink",
+        "sha256": "255355348b4b97b71b8727a99d543458907f0763a236348857aa7d58bc7a95e1",
+        "sha256_in_prefix": "255355348b4b97b71b8727a99d543458907f0763a236348857aa7d58bc7a95e1",
+        "size_in_bytes": 2656
+      },
+      {
+        "_path": "site-packages/google_reauth/reauth.py",
+        "path_type": "hardlink",
+        "sha256": "2517d187d3e47ada86dd8555d3fdb396c41fb53b57e1c6c3d57d6373cd64d91f",
+        "sha256_in_prefix": "2517d187d3e47ada86dd8555d3fdb396c41fb53b57e1c6c3d57d6373cd64d91f",
+        "size_in_bytes": 11249
+      },
+      {
+        "_path": "site-packages/google_reauth/reauth_creds.py",
+        "path_type": "hardlink",
+        "sha256": "18d16ea5427ec4e9ee2ee4a71dcd644116ef298b8785fee1c4f2c18056e2d54d",
+        "sha256_in_prefix": "18d16ea5427ec4e9ee2ee4a71dcd644116ef298b8785fee1c4f2c18056e2d54d",
+        "size_in_bytes": 5152
+      },
+      {
+        "_path": "lib/python3.9/site-packages/google_reauth/__pycache__/__init__.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/google_reauth/__pycache__/_helpers.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/google_reauth/__pycache__/_reauth_client.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/google_reauth/__pycache__/challenges.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/google_reauth/__pycache__/errors.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/google_reauth/__pycache__/reauth.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/google_reauth/__pycache__/reauth_creds.cpython-39.pyc",
+        "path_type": "pyc_file"
+      }
+    ],
+    "paths_version": 1
+  },
+  "requested_spec": "google-reauth==0.1.1=pyhd3deb0d_0",
+  "sha256": "5042228b816496eabf2c0b1861e015337dccca937826147e0bae77e548bb24db",
+  "size": 17755,
+  "subdir": "noarch",
+  "timestamp": 1606899586000,
+  "track_features": "",
+  "url": "https://conda.anaconda.org/conda-forge/noarch/google-reauth-0.1.1-pyhd3deb0d_0.tar.bz2",
+  "version": "0.1.1"
+}

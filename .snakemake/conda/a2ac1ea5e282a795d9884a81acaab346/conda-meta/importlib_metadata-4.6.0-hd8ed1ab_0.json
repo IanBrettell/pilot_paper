@@ -1,0 +1,35 @@
+{
+  "build": "hd8ed1ab_0",
+  "build_number": 0,
+  "channel": "https://conda.anaconda.org/conda-forge/noarch",
+  "constrains": [],
+  "depends": [
+    "importlib-metadata >=4.6.0,<4.6.1.0a0"
+  ],
+  "extracted_package_dir": "/hps/software/users/birney/ian/miniconda3/pkgs/importlib_metadata-4.6.0-hd8ed1ab_0",
+  "features": "",
+  "files": [],
+  "fn": "importlib_metadata-4.6.0-hd8ed1ab_0.tar.bz2",
+  "license": "Apache-2.0",
+  "link": {
+    "source": "/hps/software/users/birney/ian/miniconda3/pkgs/importlib_metadata-4.6.0-hd8ed1ab_0",
+    "type": 1
+  },
+  "md5": "bb345f822c508e2bc5138c975667256c",
+  "name": "importlib_metadata",
+  "noarch": "generic",
+  "package_tarball_full_path": "/hps/software/users/birney/ian/miniconda3/pkgs/importlib_metadata-4.6.0-hd8ed1ab_0.tar.bz2",
+  "package_type": "noarch_generic",
+  "paths_data": {
+    "paths": [],
+    "paths_version": 1
+  },
+  "requested_spec": "importlib_metadata==4.6.0=hd8ed1ab_0",
+  "sha256": "b660ccc9b9c8af6ab8e6cb075462ddbb8d148ce42dc55f81fd371658a868c076",
+  "size": 3550,
+  "subdir": "noarch",
+  "timestamp": 1624799519000,
+  "track_features": "",
+  "url": "https://conda.anaconda.org/conda-forge/noarch/importlib_metadata-4.6.0-hd8ed1ab_0.tar.bz2",
+  "version": "4.6.0"
+}

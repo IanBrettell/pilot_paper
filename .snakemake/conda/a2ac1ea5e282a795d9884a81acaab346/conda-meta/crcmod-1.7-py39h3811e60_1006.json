@@ -1,0 +1,189 @@
+{
+  "build": "py39h3811e60_1006",
+  "build_number": 1006,
+  "channel": "https://conda.anaconda.org/conda-forge/linux-64",
+  "constrains": [],
+  "depends": [
+    "libgcc-ng >=9.3.0",
+    "python >=3.9,<3.10.0a0",
+    "python_abi 3.9.* *_cp39"
+  ],
+  "extracted_package_dir": "/hps/software/users/birney/ian/miniconda3/pkgs/crcmod-1.7-py39h3811e60_1006",
+  "features": "",
+  "files": [
+    "lib/python3.9/site-packages/crcmod-1.7.dist-info/INSTALLER",
+    "lib/python3.9/site-packages/crcmod-1.7.dist-info/LICENSE",
+    "lib/python3.9/site-packages/crcmod-1.7.dist-info/METADATA",
+    "lib/python3.9/site-packages/crcmod-1.7.dist-info/RECORD",
+    "lib/python3.9/site-packages/crcmod-1.7.dist-info/REQUESTED",
+    "lib/python3.9/site-packages/crcmod-1.7.dist-info/WHEEL",
+    "lib/python3.9/site-packages/crcmod-1.7.dist-info/direct_url.json",
+    "lib/python3.9/site-packages/crcmod-1.7.dist-info/top_level.txt",
+    "lib/python3.9/site-packages/crcmod/__init__.py",
+    "lib/python3.9/site-packages/crcmod/__pycache__/__init__.cpython-39.pyc",
+    "lib/python3.9/site-packages/crcmod/__pycache__/_crcfunpy.cpython-39.pyc",
+    "lib/python3.9/site-packages/crcmod/__pycache__/crcmod.cpython-39.pyc",
+    "lib/python3.9/site-packages/crcmod/__pycache__/predefined.cpython-39.pyc",
+    "lib/python3.9/site-packages/crcmod/__pycache__/test.cpython-39.pyc",
+    "lib/python3.9/site-packages/crcmod/_crcfunext.cpython-39-x86_64-linux-gnu.so",
+    "lib/python3.9/site-packages/crcmod/_crcfunpy.py",
+    "lib/python3.9/site-packages/crcmod/crcmod.py",
+    "lib/python3.9/site-packages/crcmod/predefined.py",
+    "lib/python3.9/site-packages/crcmod/test.py"
+  ],
+  "fn": "crcmod-1.7-py39h3811e60_1006.tar.bz2",
+  "license": "MIT",
+  "link": {
+    "source": "/hps/software/users/birney/ian/miniconda3/pkgs/crcmod-1.7-py39h3811e60_1006",
+    "type": 1
+  },
+  "md5": "0250c61e1ff6bfdda88c5b1918dd79f1",
+  "name": "crcmod",
+  "package_tarball_full_path": "/hps/software/users/birney/ian/miniconda3/pkgs/crcmod-1.7-py39h3811e60_1006.tar.bz2",
+  "paths_data": {
+    "paths": [
+      {
+        "_path": "lib/python3.9/site-packages/crcmod-1.7.dist-info/INSTALLER",
+        "path_type": "hardlink",
+        "sha256": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+        "sha256_in_prefix": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+        "size_in_bytes": 5
+      },
+      {
+        "_path": "lib/python3.9/site-packages/crcmod-1.7.dist-info/LICENSE",
+        "path_type": "hardlink",
+        "sha256": "89480768826f408daea1f3caff0509c2cc9606e10f6bb0ccfd12a3d604842c35",
+        "sha256_in_prefix": "89480768826f408daea1f3caff0509c2cc9606e10f6bb0ccfd12a3d604842c35",
+        "size_in_bytes": 1249
+      },
+      {
+        "_path": "lib/python3.9/site-packages/crcmod-1.7.dist-info/METADATA",
+        "path_type": "hardlink",
+        "sha256": "0781a005195519b65aedbb6fe9d8d79dbc5a2b446ccbb3fa0f456014cdcb6afb",
+        "sha256_in_prefix": "0781a005195519b65aedbb6fe9d8d79dbc5a2b446ccbb3fa0f456014cdcb6afb",
+        "size_in_bytes": 5229
+      },
+      {
+        "_path": "lib/python3.9/site-packages/crcmod-1.7.dist-info/RECORD",
+        "path_type": "hardlink",
+        "sha256": "a1b6aa8dd8b1387aaeeee25607e9ea9e1dec74e2f0b0e05f5b12e0233fd233f8",
+        "sha256_in_prefix": "a1b6aa8dd8b1387aaeeee25607e9ea9e1dec74e2f0b0e05f5b12e0233fd233f8",
+        "size_in_bytes": 1351
+      },
+      {
+        "_path": "lib/python3.9/site-packages/crcmod-1.7.dist-info/REQUESTED",
+        "path_type": "hardlink",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sha256_in_prefix": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_in_bytes": 0
+      },
+      {
+        "_path": "lib/python3.9/site-packages/crcmod-1.7.dist-info/WHEEL",
+        "path_type": "hardlink",
+        "sha256": "8d1fc321f87460fad37b3ee2dd8a81cc662e29d56cef916364c74cb6f2308a83",
+        "sha256_in_prefix": "8d1fc321f87460fad37b3ee2dd8a81cc662e29d56cef916364c74cb6f2308a83",
+        "size_in_bytes": 103
+      },
+      {
+        "_path": "lib/python3.9/site-packages/crcmod-1.7.dist-info/direct_url.json",
+        "path_type": "hardlink",
+        "sha256": "6480ae18442e1cec6046e74b08c3057b73c5864b3724f81cc79038280a04ac38",
+        "sha256_in_prefix": "6480ae18442e1cec6046e74b08c3057b73c5864b3724f81cc79038280a04ac38",
+        "size_in_bytes": 102
+      },
+      {
+        "_path": "lib/python3.9/site-packages/crcmod-1.7.dist-info/top_level.txt",
+        "path_type": "hardlink",
+        "sha256": "700cda374dcfe9543c5860cb4cc32d8f0b66f8d9bec734458447580154872d8d",
+        "sha256_in_prefix": "700cda374dcfe9543c5860cb4cc32d8f0b66f8d9bec734458447580154872d8d",
+        "size_in_bytes": 7
+      },
+      {
+        "_path": "lib/python3.9/site-packages/crcmod/__init__.py",
+        "path_type": "hardlink",
+        "sha256": "08f018091d5412443ea1d2a67aa374ac45b60d150dc8097de0eec318582fdd6a",
+        "sha256_in_prefix": "08f018091d5412443ea1d2a67aa374ac45b60d150dc8097de0eec318582fdd6a",
+        "size_in_bytes": 194
+      },
+      {
+        "_path": "lib/python3.9/site-packages/crcmod/__pycache__/__init__.cpython-39.pyc",
+        "path_type": "hardlink",
+        "sha256": "1745704bee5d9b699b9e2308416fab65057a61e5606c0559b3919c01785c691b",
+        "sha256_in_prefix": "1745704bee5d9b699b9e2308416fab65057a61e5606c0559b3919c01785c691b",
+        "size_in_bytes": 294
+      },
+      {
+        "_path": "lib/python3.9/site-packages/crcmod/__pycache__/_crcfunpy.cpython-39.pyc",
+        "path_type": "hardlink",
+        "sha256": "65b19c431a480566451fe08e368d39d72acf3d01cde0ef63901ecdbe82dfb41a",
+        "sha256_in_prefix": "65b19c431a480566451fe08e368d39d72acf3d01cde0ef63901ecdbe82dfb41a",
+        "size_in_bytes": 2328
+      },
+      {
+        "_path": "lib/python3.9/site-packages/crcmod/__pycache__/crcmod.cpython-39.pyc",
+        "path_type": "hardlink",
+        "sha256": "11a746d6a29a17dd816a2d50a20d48d96fe9688a98fbfa025bd29eee52ab30c0",
+        "sha256_in_prefix": "11a746d6a29a17dd816a2d50a20d48d96fe9688a98fbfa025bd29eee52ab30c0",
+        "size_in_bytes": 11041
+      },
+      {
+        "_path": "lib/python3.9/site-packages/crcmod/__pycache__/predefined.cpython-39.pyc",
+        "path_type": "hardlink",
+        "sha256": "f87d6f60ed59524c470f0e4dfd6519d2f3c910c93ad116ccfad566b6925927c1",
+        "sha256_in_prefix": "f87d6f60ed59524c470f0e4dfd6519d2f3c910c93ad116ccfad566b6925927c1",
+        "size_in_bytes": 4503
+      },
+      {
+        "_path": "lib/python3.9/site-packages/crcmod/__pycache__/test.cpython-39.pyc",
+        "path_type": "hardlink",
+        "sha256": "6b2a7b48f20f28d2d04ea2aaab28aa06b13d36e2a457af3d1ea2525beaa28338",
+        "sha256_in_prefix": "6b2a7b48f20f28d2d04ea2aaab28aa06b13d36e2a457af3d1ea2525beaa28338",
+        "size_in_bytes": 14163
+      },
+      {
+        "_path": "lib/python3.9/site-packages/crcmod/_crcfunext.cpython-39-x86_64-linux-gnu.so",
+        "path_type": "hardlink",
+        "sha256": "a8937a238ff0a3a0ef0cac4ad947d1152ec1428b16483fd699a240c52044f41c",
+        "sha256_in_prefix": "a8937a238ff0a3a0ef0cac4ad947d1152ec1428b16483fd699a240c52044f41c",
+        "size_in_bytes": 21640
+      },
+      {
+        "_path": "lib/python3.9/site-packages/crcmod/_crcfunpy.py",
+        "path_type": "hardlink",
+        "sha256": "046b8a0c3e34a39920235d878e5022ed6951df74031454adaf58bde4652eaa20",
+        "sha256_in_prefix": "046b8a0c3e34a39920235d878e5022ed6951df74031454adaf58bde4652eaa20",
+        "size_in_bytes": 3702
+      },
+      {
+        "_path": "lib/python3.9/site-packages/crcmod/crcmod.py",
+        "path_type": "hardlink",
+        "sha256": "2ce34d54bd210a16785161d5cae0b91894a4ba8545e8a6f047bb08209a6729db",
+        "sha256_in_prefix": "2ce34d54bd210a16785161d5cae0b91894a4ba8545e8a6f047bb08209a6729db",
+        "size_in_bytes": 16610
+      },
+      {
+        "_path": "lib/python3.9/site-packages/crcmod/predefined.py",
+        "path_type": "hardlink",
+        "sha256": "6957449a0d0d120463a2aadf33161a92991e814362a77f5ccc7a38a4d71a8f9e",
+        "sha256_in_prefix": "6957449a0d0d120463a2aadf33161a92991e814362a77f5ccc7a38a4d71a8f9e",
+        "size_in_bytes": 9606
+      },
+      {
+        "_path": "lib/python3.9/site-packages/crcmod/test.py",
+        "path_type": "hardlink",
+        "sha256": "0723d05a13a369a8261b65081358932a54e7905b6c50c4281a42a3510f7f191a",
+        "sha256_in_prefix": "0723d05a13a369a8261b65081358932a54e7905b6c50c4281a42a3510f7f191a",
+        "size_in_bytes": 18433
+      }
+    ],
+    "paths_version": 1
+  },
+  "requested_spec": "crcmod==1.7=py39h3811e60_1006",
+  "sha256": "5a54e9e06688b151d7c8fc392a5c97b75e403bf48f0cc7145db55cb64233feea",
+  "size": 35481,
+  "subdir": "linux-64",
+  "timestamp": 1624134800000,
+  "track_features": "",
+  "url": "https://conda.anaconda.org/conda-forge/linux-64/crcmod-1.7-py39h3811e60_1006.tar.bz2",
+  "version": "1.7"
+}

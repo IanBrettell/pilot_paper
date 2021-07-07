@@ -1,0 +1,547 @@
+{
+  "build": "pyhd8ed1ab_0",
+  "build_number": 0,
+  "channel": "https://conda.anaconda.org/conda-forge/noarch",
+  "constrains": [],
+  "depends": [
+    "fasteners >=0.14",
+    "httplib2 >=0.8",
+    "oauth2client >=1.4.12",
+    "python >=3.6",
+    "six >=1.12.0"
+  ],
+  "extracted_package_dir": "/hps/software/users/birney/ian/miniconda3/pkgs/google-apitools-0.5.32-pyhd8ed1ab_0",
+  "features": "",
+  "files": [
+    "lib/python3.9/site-packages/apitools/__init__.py",
+    "lib/python3.9/site-packages/apitools/base/__init__.py",
+    "lib/python3.9/site-packages/apitools/base/protorpclite/__init__.py",
+    "lib/python3.9/site-packages/apitools/base/protorpclite/descriptor.py",
+    "lib/python3.9/site-packages/apitools/base/protorpclite/message_types.py",
+    "lib/python3.9/site-packages/apitools/base/protorpclite/messages.py",
+    "lib/python3.9/site-packages/apitools/base/protorpclite/protojson.py",
+    "lib/python3.9/site-packages/apitools/base/protorpclite/util.py",
+    "lib/python3.9/site-packages/apitools/base/py/__init__.py",
+    "lib/python3.9/site-packages/apitools/base/py/base_api.py",
+    "lib/python3.9/site-packages/apitools/base/py/batch.py",
+    "lib/python3.9/site-packages/apitools/base/py/buffered_stream.py",
+    "lib/python3.9/site-packages/apitools/base/py/compression.py",
+    "lib/python3.9/site-packages/apitools/base/py/credentials_lib.py",
+    "lib/python3.9/site-packages/apitools/base/py/encoding.py",
+    "lib/python3.9/site-packages/apitools/base/py/encoding_helper.py",
+    "lib/python3.9/site-packages/apitools/base/py/exceptions.py",
+    "lib/python3.9/site-packages/apitools/base/py/extra_types.py",
+    "lib/python3.9/site-packages/apitools/base/py/gzip.py",
+    "lib/python3.9/site-packages/apitools/base/py/http_wrapper.py",
+    "lib/python3.9/site-packages/apitools/base/py/list_pager.py",
+    "lib/python3.9/site-packages/apitools/base/py/stream_slice.py",
+    "lib/python3.9/site-packages/apitools/base/py/transfer.py",
+    "lib/python3.9/site-packages/apitools/base/py/util.py",
+    "lib/python3.9/site-packages/apitools/data/__init__.py",
+    "lib/python3.9/site-packages/apitools/data/apitools_client_secrets.json",
+    "lib/python3.9/site-packages/apitools/gen/__init__.py",
+    "lib/python3.9/site-packages/apitools/gen/extended_descriptor.py",
+    "lib/python3.9/site-packages/apitools/gen/gen_client.py",
+    "lib/python3.9/site-packages/apitools/gen/gen_client_lib.py",
+    "lib/python3.9/site-packages/apitools/gen/message_registry.py",
+    "lib/python3.9/site-packages/apitools/gen/service_registry.py",
+    "lib/python3.9/site-packages/apitools/gen/util.py",
+    "lib/python3.9/site-packages/apitools/scripts/__init__.py",
+    "lib/python3.9/site-packages/google_apitools-0.5.32.dist-info/INSTALLER",
+    "lib/python3.9/site-packages/google_apitools-0.5.32.dist-info/METADATA",
+    "lib/python3.9/site-packages/google_apitools-0.5.32.dist-info/RECORD",
+    "lib/python3.9/site-packages/google_apitools-0.5.32.dist-info/REQUESTED",
+    "lib/python3.9/site-packages/google_apitools-0.5.32.dist-info/WHEEL",
+    "lib/python3.9/site-packages/google_apitools-0.5.32.dist-info/direct_url.json",
+    "lib/python3.9/site-packages/google_apitools-0.5.32.dist-info/entry_points.txt",
+    "lib/python3.9/site-packages/google_apitools-0.5.32.dist-info/top_level.txt",
+    "lib/python3.9/site-packages/apitools/__pycache__/__init__.cpython-39.pyc",
+    "lib/python3.9/site-packages/apitools/base/__pycache__/__init__.cpython-39.pyc",
+    "lib/python3.9/site-packages/apitools/base/protorpclite/__pycache__/__init__.cpython-39.pyc",
+    "lib/python3.9/site-packages/apitools/base/protorpclite/__pycache__/descriptor.cpython-39.pyc",
+    "lib/python3.9/site-packages/apitools/base/protorpclite/__pycache__/message_types.cpython-39.pyc",
+    "lib/python3.9/site-packages/apitools/base/protorpclite/__pycache__/messages.cpython-39.pyc",
+    "lib/python3.9/site-packages/apitools/base/protorpclite/__pycache__/protojson.cpython-39.pyc",
+    "lib/python3.9/site-packages/apitools/base/protorpclite/__pycache__/util.cpython-39.pyc",
+    "lib/python3.9/site-packages/apitools/base/py/__pycache__/__init__.cpython-39.pyc",
+    "lib/python3.9/site-packages/apitools/base/py/__pycache__/base_api.cpython-39.pyc",
+    "lib/python3.9/site-packages/apitools/base/py/__pycache__/batch.cpython-39.pyc",
+    "lib/python3.9/site-packages/apitools/base/py/__pycache__/buffered_stream.cpython-39.pyc",
+    "lib/python3.9/site-packages/apitools/base/py/__pycache__/compression.cpython-39.pyc",
+    "lib/python3.9/site-packages/apitools/base/py/__pycache__/credentials_lib.cpython-39.pyc",
+    "lib/python3.9/site-packages/apitools/base/py/__pycache__/encoding.cpython-39.pyc",
+    "lib/python3.9/site-packages/apitools/base/py/__pycache__/encoding_helper.cpython-39.pyc",
+    "lib/python3.9/site-packages/apitools/base/py/__pycache__/exceptions.cpython-39.pyc",
+    "lib/python3.9/site-packages/apitools/base/py/__pycache__/extra_types.cpython-39.pyc",
+    "lib/python3.9/site-packages/apitools/base/py/__pycache__/gzip.cpython-39.pyc",
+    "lib/python3.9/site-packages/apitools/base/py/__pycache__/http_wrapper.cpython-39.pyc",
+    "lib/python3.9/site-packages/apitools/base/py/__pycache__/list_pager.cpython-39.pyc",
+    "lib/python3.9/site-packages/apitools/base/py/__pycache__/stream_slice.cpython-39.pyc",
+    "lib/python3.9/site-packages/apitools/base/py/__pycache__/transfer.cpython-39.pyc",
+    "lib/python3.9/site-packages/apitools/base/py/__pycache__/util.cpython-39.pyc",
+    "lib/python3.9/site-packages/apitools/data/__pycache__/__init__.cpython-39.pyc",
+    "lib/python3.9/site-packages/apitools/gen/__pycache__/__init__.cpython-39.pyc",
+    "lib/python3.9/site-packages/apitools/gen/__pycache__/extended_descriptor.cpython-39.pyc",
+    "lib/python3.9/site-packages/apitools/gen/__pycache__/gen_client.cpython-39.pyc",
+    "lib/python3.9/site-packages/apitools/gen/__pycache__/gen_client_lib.cpython-39.pyc",
+    "lib/python3.9/site-packages/apitools/gen/__pycache__/message_registry.cpython-39.pyc",
+    "lib/python3.9/site-packages/apitools/gen/__pycache__/service_registry.cpython-39.pyc",
+    "lib/python3.9/site-packages/apitools/gen/__pycache__/util.cpython-39.pyc",
+    "lib/python3.9/site-packages/apitools/scripts/__pycache__/__init__.cpython-39.pyc",
+    "bin/gen_client"
+  ],
+  "fn": "google-apitools-0.5.32-pyhd8ed1ab_0.tar.bz2",
+  "license": "Apache-2.0",
+  "link": {
+    "source": "/hps/software/users/birney/ian/miniconda3/pkgs/google-apitools-0.5.32-pyhd8ed1ab_0",
+    "type": 1
+  },
+  "md5": "8a74cc938a714c12e400ae2963be65d3",
+  "name": "google-apitools",
+  "noarch": "python",
+  "package_tarball_full_path": "/hps/software/users/birney/ian/miniconda3/pkgs/google-apitools-0.5.32-pyhd8ed1ab_0.tar.bz2",
+  "package_type": "noarch_python",
+  "paths_data": {
+    "paths": [
+      {
+        "_path": "site-packages/apitools/__init__.py",
+        "path_type": "hardlink",
+        "sha256": "3e8d464aa2e9815141dda806f7e76c24c2ec40aa8fdecc46502f6ac93b3cdbd5",
+        "sha256_in_prefix": "3e8d464aa2e9815141dda806f7e76c24c2ec40aa8fdecc46502f6ac93b3cdbd5",
+        "size_in_bytes": 715
+      },
+      {
+        "_path": "site-packages/apitools/base/__init__.py",
+        "path_type": "hardlink",
+        "sha256": "3e8d464aa2e9815141dda806f7e76c24c2ec40aa8fdecc46502f6ac93b3cdbd5",
+        "sha256_in_prefix": "3e8d464aa2e9815141dda806f7e76c24c2ec40aa8fdecc46502f6ac93b3cdbd5",
+        "size_in_bytes": 715
+      },
+      {
+        "_path": "site-packages/apitools/base/protorpclite/__init__.py",
+        "path_type": "hardlink",
+        "sha256": "657067feb25996c97ca7c19a8bee5ea3c453e4a34fbfcd9d6f4b704ea2167be8",
+        "sha256_in_prefix": "657067feb25996c97ca7c19a8bee5ea3c453e4a34fbfcd9d6f4b704ea2167be8",
+        "size_in_bytes": 693
+      },
+      {
+        "_path": "site-packages/apitools/base/protorpclite/descriptor.py",
+        "path_type": "hardlink",
+        "sha256": "76075e6876e85691a73c1f52670f886b7312e6b78b581df8c9f1a3fe688b5c93",
+        "sha256_in_prefix": "76075e6876e85691a73c1f52670f886b7312e6b78b581df8c9f1a3fe688b5c93",
+        "size_in_bytes": 19711
+      },
+      {
+        "_path": "site-packages/apitools/base/protorpclite/message_types.py",
+        "path_type": "hardlink",
+        "sha256": "3bc12d0a8f1b97da1d848f10a90e134f0abb40199cab6dbb74e521912b7e0c96",
+        "sha256_in_prefix": "3bc12d0a8f1b97da1d848f10a90e134f0abb40199cab6dbb74e521912b7e0c96",
+        "size_in_bytes": 4062
+      },
+      {
+        "_path": "site-packages/apitools/base/protorpclite/messages.py",
+        "path_type": "hardlink",
+        "sha256": "4f0d0d380c68e319d8789138b27437e1972234c43665fe49535130a5fb2e9c65",
+        "sha256_in_prefix": "4f0d0d380c68e319d8789138b27437e1972234c43665fe49535130a5fb2e9c65",
+        "size_in_bytes": 67559
+      },
+      {
+        "_path": "site-packages/apitools/base/protorpclite/protojson.py",
+        "path_type": "hardlink",
+        "sha256": "8cb69d8c245f0f8e300689ea238a4f3d1b40c86909a09e9a29cd94cded1112d3",
+        "sha256_in_prefix": "8cb69d8c245f0f8e300689ea238a4f3d1b40c86909a09e9a29cd94cded1112d3",
+        "size_in_bytes": 12868
+      },
+      {
+        "_path": "site-packages/apitools/base/protorpclite/util.py",
+        "path_type": "hardlink",
+        "sha256": "51000c65d4cf855abaab81a08ce6756f6679a9c0c7ca9d3abb7ab1a41f0b5a0e",
+        "sha256_in_prefix": "51000c65d4cf855abaab81a08ce6756f6679a9c0c7ca9d3abb7ab1a41f0b5a0e",
+        "size_in_bytes": 10211
+      },
+      {
+        "_path": "site-packages/apitools/base/py/__init__.py",
+        "path_type": "hardlink",
+        "sha256": "c4b4a8e610234487d7135896cd5a8aae64eee3e241dee19b87f67d081308c376",
+        "sha256_in_prefix": "c4b4a8e610234487d7135896cd5a8aae64eee3e241dee19b87f67d081308c376",
+        "size_in_bytes": 1247
+      },
+      {
+        "_path": "site-packages/apitools/base/py/base_api.py",
+        "path_type": "hardlink",
+        "sha256": "6c2f4f7fd7247d19ca74b5dc1eb8b88d9a71e3a489b39e17c8229fd9b44fc51d",
+        "sha256_in_prefix": "6c2f4f7fd7247d19ca74b5dc1eb8b88d9a71e3a489b39e17c8229fd9b44fc51d",
+        "size_in_bytes": 29517
+      },
+      {
+        "_path": "site-packages/apitools/base/py/batch.py",
+        "path_type": "hardlink",
+        "sha256": "d0d6eb5dcf6c8775706526d6fa8513cb2a03930cf5453cfcc66b91cff8814d15",
+        "sha256_in_prefix": "d0d6eb5dcf6c8775706526d6fa8513cb2a03930cf5453cfcc66b91cff8814d15",
+        "size_in_bytes": 18364
+      },
+      {
+        "_path": "site-packages/apitools/base/py/buffered_stream.py",
+        "path_type": "hardlink",
+        "sha256": "2362def32e02213f40657a7abaa898a028debe2d980dea9465b43b414850dcde",
+        "sha256_in_prefix": "2362def32e02213f40657a7abaa898a028debe2d980dea9465b43b414850dcde",
+        "size_in_bytes": 2581
+      },
+      {
+        "_path": "site-packages/apitools/base/py/compression.py",
+        "path_type": "hardlink",
+        "sha256": "935a43ea1f25ad744a4d2cd6ea69834fe9a0628e46fb1a41cfdb485a098fc97c",
+        "sha256_in_prefix": "935a43ea1f25ad744a4d2cd6ea69834fe9a0628e46fb1a41cfdb485a098fc97c",
+        "size_in_bytes": 5136
+      },
+      {
+        "_path": "site-packages/apitools/base/py/credentials_lib.py",
+        "path_type": "hardlink",
+        "sha256": "0f2fcf649b4d30ba98b8af9afeb616a6d8b75ffe948a23170e97c7777bf66296",
+        "sha256_in_prefix": "0f2fcf649b4d30ba98b8af9afeb616a6d8b75ffe948a23170e97c7777bf66296",
+        "size_in_bytes": 30082
+      },
+      {
+        "_path": "site-packages/apitools/base/py/encoding.py",
+        "path_type": "hardlink",
+        "sha256": "463c35d071e2325a603f01880e1192cb2d18fe056f6718ced9f22144a00dd955",
+        "sha256_in_prefix": "463c35d071e2325a603f01880e1192cb2d18fe056f6718ced9f22144a00dd955",
+        "size_in_bytes": 1183
+      },
+      {
+        "_path": "site-packages/apitools/base/py/encoding_helper.py",
+        "path_type": "hardlink",
+        "sha256": "56b5947c9d2313d57dfb753f7df09af805fad4b2dbdc8456a1350ed3da8ff5dc",
+        "sha256_in_prefix": "56b5947c9d2313d57dfb753f7df09af805fad4b2dbdc8456a1350ed3da8ff5dc",
+        "size_in_bytes": 30593
+      },
+      {
+        "_path": "site-packages/apitools/base/py/exceptions.py",
+        "path_type": "hardlink",
+        "sha256": "461772f3a9f39d2e4eeeef0f7b4eaea88243c38a486a14f54689a976933725e5",
+        "sha256_in_prefix": "461772f3a9f39d2e4eeeef0f7b4eaea88243c38a486a14f54689a976933725e5",
+        "size_in_bytes": 5098
+      },
+      {
+        "_path": "site-packages/apitools/base/py/extra_types.py",
+        "path_type": "hardlink",
+        "sha256": "37f8e1f8e353c3f900187745c89e103932390bd02483621d3d565e4addf6c788",
+        "sha256_in_prefix": "37f8e1f8e353c3f900187745c89e103932390bd02483621d3d565e4addf6c788",
+        "size_in_bytes": 9974
+      },
+      {
+        "_path": "site-packages/apitools/base/py/gzip.py",
+        "path_type": "hardlink",
+        "sha256": "d8378d56c1d6499fa03781fb8dca5299b7734ebdd7eaaf9fc3fc2ef5a6206892",
+        "sha256_in_prefix": "d8378d56c1d6499fa03781fb8dca5299b7734ebdd7eaaf9fc3fc2ef5a6206892",
+        "size_in_bytes": 21899
+      },
+      {
+        "_path": "site-packages/apitools/base/py/http_wrapper.py",
+        "path_type": "hardlink",
+        "sha256": "7d87e9abe3cb3813b22b34d640bf21d8c3572e7efeb04e3543a24495f749e1f0",
+        "sha256_in_prefix": "7d87e9abe3cb3813b22b34d640bf21d8c3572e7efeb04e3543a24495f749e1f0",
+        "size_in_bytes": 15453
+      },
+      {
+        "_path": "site-packages/apitools/base/py/list_pager.py",
+        "path_type": "hardlink",
+        "sha256": "249b43dd4146ded01ff8a07eec2e8ffbcd6cd25aeb9557fe0301f20993b9da2a",
+        "sha256_in_prefix": "249b43dd4146ded01ff8a07eec2e8ffbcd6cd25aeb9557fe0301f20993b9da2a",
+        "size_in_bytes": 5618
+      },
+      {
+        "_path": "site-packages/apitools/base/py/stream_slice.py",
+        "path_type": "hardlink",
+        "sha256": "9e0aec0a3be18211568dfd66b4af8e065b5a8d0a706e02cc0f5f96bbd696a3ec",
+        "sha256_in_prefix": "9e0aec0a3be18211568dfd66b4af8e065b5a8d0a706e02cc0f5f96bbd696a3ec",
+        "size_in_bytes": 2731
+      },
+      {
+        "_path": "site-packages/apitools/base/py/transfer.py",
+        "path_type": "hardlink",
+        "sha256": "b7dc6056b01751a73b84ba0ec37b85b69f41664f5375f92e4f071614b09c30cb",
+        "sha256_in_prefix": "b7dc6056b01751a73b84ba0ec37b85b69f41664f5375f92e4f071614b09c30cb",
+        "size_in_bytes": 46512
+      },
+      {
+        "_path": "site-packages/apitools/base/py/util.py",
+        "path_type": "hardlink",
+        "sha256": "187432efc87eb17b99abbb34af6d6c92dbe78cae54783029a373d5f5ce3fa524",
+        "sha256_in_prefix": "187432efc87eb17b99abbb34af6d6c92dbe78cae54783029a373d5f5ce3fa524",
+        "size_in_bytes": 8475
+      },
+      {
+        "_path": "site-packages/apitools/data/__init__.py",
+        "path_type": "hardlink",
+        "sha256": "3e8d464aa2e9815141dda806f7e76c24c2ec40aa8fdecc46502f6ac93b3cdbd5",
+        "sha256_in_prefix": "3e8d464aa2e9815141dda806f7e76c24c2ec40aa8fdecc46502f6ac93b3cdbd5",
+        "size_in_bytes": 715
+      },
+      {
+        "_path": "site-packages/apitools/data/apitools_client_secrets.json",
+        "path_type": "hardlink",
+        "sha256": "d8a7eb516d79dcb216b913bc2b0cb5e38bd409954221cf79ffe1ef1b13e37299",
+        "sha256_in_prefix": "d8a7eb516d79dcb216b913bc2b0cb5e38bd409954221cf79ffe1ef1b13e37299",
+        "size_in_bytes": 465
+      },
+      {
+        "_path": "site-packages/apitools/gen/__init__.py",
+        "path_type": "hardlink",
+        "sha256": "3e8d464aa2e9815141dda806f7e76c24c2ec40aa8fdecc46502f6ac93b3cdbd5",
+        "sha256_in_prefix": "3e8d464aa2e9815141dda806f7e76c24c2ec40aa8fdecc46502f6ac93b3cdbd5",
+        "size_in_bytes": 715
+      },
+      {
+        "_path": "site-packages/apitools/gen/extended_descriptor.py",
+        "path_type": "hardlink",
+        "sha256": "2a41e49da189f6e41f6af5405ea3734d5a7902cfecb3fe2b1bea07dba17f3134",
+        "sha256_in_prefix": "2a41e49da189f6e41f6af5405ea3734d5a7902cfecb3fe2b1bea07dba17f3134",
+        "size_in_bytes": 21658
+      },
+      {
+        "_path": "site-packages/apitools/gen/gen_client.py",
+        "path_type": "hardlink",
+        "sha256": "b4b6b9a9f6846b8ad3e299e7f234bfaf6464a5ccf3b9578abaa82fea317b1fea",
+        "sha256_in_prefix": "b4b6b9a9f6846b8ad3e299e7f234bfaf6464a5ccf3b9578abaa82fea317b1fea",
+        "size_in_bytes": 11434
+      },
+      {
+        "_path": "site-packages/apitools/gen/gen_client_lib.py",
+        "path_type": "hardlink",
+        "sha256": "d8fc702e60a1f16a7279016758c857546294bd50253870df2f8240200cdf7533",
+        "sha256_in_prefix": "d8fc702e60a1f16a7279016758c857546294bd50253870df2f8240200cdf7533",
+        "size_in_bytes": 10534
+      },
+      {
+        "_path": "site-packages/apitools/gen/message_registry.py",
+        "path_type": "hardlink",
+        "sha256": "950a174f1a4748727451c4ea40829c88353dc14dbba15c14874332928950e095",
+        "sha256_in_prefix": "950a174f1a4748727451c4ea40829c88353dc14dbba15c14874332928950e095",
+        "size_in_bytes": 21505
+      },
+      {
+        "_path": "site-packages/apitools/gen/service_registry.py",
+        "path_type": "hardlink",
+        "sha256": "000c1fad43d897ae7b69015f54b8c7d11a009734d4af4b5170915b6c8a0febf3",
+        "sha256_in_prefix": "000c1fad43d897ae7b69015f54b8c7d11a009734d4af4b5170915b6c8a0febf3",
+        "size_in_bytes": 22973
+      },
+      {
+        "_path": "site-packages/apitools/gen/util.py",
+        "path_type": "hardlink",
+        "sha256": "0ca6b5c5964c3e696f1d2b55ec5cf36b5251c4c364b3c380a6b37ea2946b658f",
+        "sha256_in_prefix": "0ca6b5c5964c3e696f1d2b55ec5cf36b5251c4c364b3c380a6b37ea2946b658f",
+        "size_in_bytes": 15189
+      },
+      {
+        "_path": "site-packages/apitools/scripts/__init__.py",
+        "path_type": "hardlink",
+        "sha256": "3e8d464aa2e9815141dda806f7e76c24c2ec40aa8fdecc46502f6ac93b3cdbd5",
+        "sha256_in_prefix": "3e8d464aa2e9815141dda806f7e76c24c2ec40aa8fdecc46502f6ac93b3cdbd5",
+        "size_in_bytes": 715
+      },
+      {
+        "_path": "site-packages/google_apitools-0.5.32.dist-info/INSTALLER",
+        "path_type": "hardlink",
+        "sha256": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+        "sha256_in_prefix": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+        "size_in_bytes": 5
+      },
+      {
+        "_path": "site-packages/google_apitools-0.5.32.dist-info/METADATA",
+        "path_type": "hardlink",
+        "sha256": "cd168228b2223a9e6ba43a624388a5b9eafbef657f4413c3bdc7624e12c92c3d",
+        "sha256_in_prefix": "cd168228b2223a9e6ba43a624388a5b9eafbef657f4413c3bdc7624e12c92c3d",
+        "size_in_bytes": 2302
+      },
+      {
+        "_path": "site-packages/google_apitools-0.5.32.dist-info/RECORD",
+        "path_type": "hardlink",
+        "sha256": "dfecb7274c54cc738831e54294b4a3605266929101e85eab92a12f7d49a9c588",
+        "sha256_in_prefix": "dfecb7274c54cc738831e54294b4a3605266929101e85eab92a12f7d49a9c588",
+        "size_in_bytes": 5779
+      },
+      {
+        "_path": "site-packages/google_apitools-0.5.32.dist-info/REQUESTED",
+        "path_type": "hardlink",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sha256_in_prefix": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_in_bytes": 0
+      },
+      {
+        "_path": "site-packages/google_apitools-0.5.32.dist-info/WHEEL",
+        "path_type": "hardlink",
+        "sha256": "3aa464174798e461ecb0ca2b16395b4c8ab4ef6be91e917ad1f21003a952f710",
+        "sha256_in_prefix": "3aa464174798e461ecb0ca2b16395b4c8ab4ef6be91e917ad1f21003a952f710",
+        "size_in_bytes": 92
+      },
+      {
+        "_path": "site-packages/google_apitools-0.5.32.dist-info/direct_url.json",
+        "path_type": "hardlink",
+        "sha256": "8a86929c7a427484db49401b8611aa899ed876b9ea80326ea7dfec7b44f2e528",
+        "sha256_in_prefix": "8a86929c7a427484db49401b8611aa899ed876b9ea80326ea7dfec7b44f2e528",
+        "size_in_bytes": 111
+      },
+      {
+        "_path": "site-packages/google_apitools-0.5.32.dist-info/entry_points.txt",
+        "path_type": "hardlink",
+        "sha256": "8878a6f2b578e83a4633bdca519551825ad3b02029e365ffe478bbc5e074bddb",
+        "sha256_in_prefix": "8878a6f2b578e83a4633bdca519551825ad3b02029e365ffe478bbc5e074bddb",
+        "size_in_bytes": 61
+      },
+      {
+        "_path": "site-packages/google_apitools-0.5.32.dist-info/top_level.txt",
+        "path_type": "hardlink",
+        "sha256": "a003524ea276d9b8d61f357f7417bbc472da902b48a019cab74156ce653b3ac7",
+        "sha256_in_prefix": "a003524ea276d9b8d61f357f7417bbc472da902b48a019cab74156ce653b3ac7",
+        "size_in_bytes": 9
+      },
+      {
+        "_path": "lib/python3.9/site-packages/apitools/__pycache__/__init__.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/apitools/base/__pycache__/__init__.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/apitools/base/protorpclite/__pycache__/__init__.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/apitools/base/protorpclite/__pycache__/descriptor.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/apitools/base/protorpclite/__pycache__/message_types.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/apitools/base/protorpclite/__pycache__/messages.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/apitools/base/protorpclite/__pycache__/protojson.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/apitools/base/protorpclite/__pycache__/util.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/apitools/base/py/__pycache__/__init__.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/apitools/base/py/__pycache__/base_api.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/apitools/base/py/__pycache__/batch.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/apitools/base/py/__pycache__/buffered_stream.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/apitools/base/py/__pycache__/compression.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/apitools/base/py/__pycache__/credentials_lib.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/apitools/base/py/__pycache__/encoding.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/apitools/base/py/__pycache__/encoding_helper.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/apitools/base/py/__pycache__/exceptions.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/apitools/base/py/__pycache__/extra_types.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/apitools/base/py/__pycache__/gzip.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/apitools/base/py/__pycache__/http_wrapper.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/apitools/base/py/__pycache__/list_pager.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/apitools/base/py/__pycache__/stream_slice.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/apitools/base/py/__pycache__/transfer.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/apitools/base/py/__pycache__/util.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/apitools/data/__pycache__/__init__.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/apitools/gen/__pycache__/__init__.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/apitools/gen/__pycache__/extended_descriptor.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/apitools/gen/__pycache__/gen_client.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/apitools/gen/__pycache__/gen_client_lib.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/apitools/gen/__pycache__/message_registry.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/apitools/gen/__pycache__/service_registry.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/apitools/gen/__pycache__/util.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.9/site-packages/apitools/scripts/__pycache__/__init__.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "bin/gen_client",
+        "path_type": "unix_python_entry_point"
+      }
+    ],
+    "paths_version": 1
+  },
+  "requested_spec": "google-apitools==0.5.32=pyhd8ed1ab_0",
+  "sha256": "09dd1cce0e5cabc70b62968e1c28570eb518b908330bbdf36b101af3da14b086",
+  "size": 96399,
+  "subdir": "noarch",
+  "timestamp": 1620290626000,
+  "track_features": "",
+  "url": "https://conda.anaconda.org/conda-forge/noarch/google-apitools-0.5.32-pyhd8ed1ab_0.tar.bz2",
+  "version": "0.5.32"
+}
