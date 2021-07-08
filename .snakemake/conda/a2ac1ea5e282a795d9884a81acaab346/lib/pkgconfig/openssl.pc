@@ -1,9 +1,0 @@
-prefix=/hps/software/users/birney/ian/repos/pilot_paper/.snakemake/conda/a2ac1ea5e282a795d9884a81acaab346
-exec_prefix=${prefix}
-libdir=${exec_prefix}/lib
-includedir=${prefix}/include
-
-Name: OpenSSL
-Description: Secure Sockets Layer and cryptography libraries and tools
-Version: 1.1.1k
-Requires: libssl libcrypto
