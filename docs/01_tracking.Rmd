@@ -17,6 +17,13 @@ Link to `Medaka Cloud Pilot` project on Google Cloud: <https://console.cloud.goo
 
 Storage here in `medaka-video-store`: <https://console.cloud.google.com/storage/browser/medaka-video-store;tab=objects?forceOnBucketsSortingFiltering=false&project=medaka-cloud-pilot&prefix=&forceOnObjectsSortingFiltering=false>.
 
+## Get R source
+
+```{r, warning = F, message=F}
+source(here::here("docs/01_tracking_source.R"))
+```
+
+
 ## Video processing
 
 Carried out with Snakemake:
@@ -145,5 +152,168 @@ done
 
 ```{bash}
 gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/tracking_results/
+```
+
+## Process tracking data
+
+### Read in data
+
+#### Samples file
+
+```{r}
+samples_file = here::here("code/snakemake/20210701/config/samples.csv")
+samples = readr::read_csv(samples_file,
+                          col_types = c("ciiciiiiiiiiiiiiiiicccccccc"))
+```
+
+#### Tracking data
+
+```{r}
+in_dir = here::here("data/tracking_round_01")
+
+target_files = list.files(in_dir, full.names = T)
+
+dat_list = purrr::map(target_files, function(FILE){
+  out = list()
+  # Read in tracking data
+  out[["RAW"]] = readr::read_csv(FILE,
+                        col_types = c("dddd"))
+  colnames(out[["RAW"]]) = c("X1", "Y1", "X2", "Y2")
+
+  # Add metadata
+  ## Parse file name
+  parsed_meta = basename(FILE) %>% 
+    stringr::str_remove(".csv") %>% 
+    stringr::str_split("_", simplify = T)
+  ## Add to data frame
+  out[["META"]] = tibble::tibble(DATE = as.integer(parsed_meta[, 1]),
+                                 TIME = as.integer(parsed_meta[, 2]),
+                                 REF = parsed_meta[, 3],
+                                 TEST = parsed_meta[, 4],
+                                 TANK_SIDE = parsed_meta[, 5],
+                                 QUADRANT = parsed_meta[, 6],
+                                 ASSAY = paste(parsed_meta[, 7], parsed_meta[, 8], sep = "_"))
+  ## Add frame rate
+  out[["META"]] = dplyr::left_join(out[["META"]],
+                                   samples %>% 
+                                     dplyr::select(date, time, fps),
+                                   by = c("DATE" = "date", "TIME" = "time")) %>% 
+    dplyr::rename(FPS = fps)
+  
+  # Create new data frame with only frames up to 10 minutes
+  frame_cutoff = out[["META"]]$FPS * 60 * 10
+  out[["TRACKING"]] = out[["RAW"]][1:frame_cutoff, ]
+  
+  return(out)
+})
+names(dat_list) = basename(target_files) %>% 
+        stringr::str_remove(".csv")
+
+```
+
+## How many NAs?
+
+```{r}
+na_df = purrr::map(dat_list, function(SAMPLE){
+  out = tibble::tibble(N = nrow(SAMPLE$TRACKING),
+                       N_NA = SAMPLE$TRACKING %>% 
+                         dplyr::filter(!complete.cases(.)) %>% 
+                         nrow(.)) %>% 
+    dplyr::mutate(PROP_NA = N_NA / N )
+  return(out)
+}) %>% 
+  dplyr::bind_rows(.id = "SAMPLE")
+
+
+
+# Plot
+
+na_plot = na_df %>% 
+  ggplot() +
+    geom_histogram(aes(N_NA), bins = 200)
+
+ggplotly(na_plot)
+```
+
+### Filter data list for those with more than 10% NAs
+
+```{r}
+to_filter_out = na_df %>% 
+  dplyr::filter(N_NA > 1800) %>% 
+  dplyr::pull(SAMPLE)
+
+dat_filt = dat_list[!(names(dat_list) %in% to_filter_out)]
+
+# Get rid of raw data
+dat_filt = dat_filt %>% 
+  purrr::map(., function(SAMPLE) {
+    purrr::keep(SAMPLE, names(SAMPLE) %in% c("META", "TRACKING"))
+  })
+
+```
+
+### Plot tracking data
+
+With assistance from here: https://github.com/ropensci/plotly/issues/957
+
+```{r}
+test = dat_filt$`20190611_1331_icab_icab_R_q1_novel_object`$TRACKING
+
+test2 = list(A = test %>% 
+               dplyr::select(COORD_X = X1,
+                             COORD_Y = Y1) %>% 
+               dplyr::mutate(FRAME = seq(1:nrow(.))),
+             B = test %>% 
+               dplyr::select(COORD_X = X2,
+                             COORD_Y = Y2) %>% 
+               dplyr::mutate(FRAME = seq(1:nrow(.)))) %>% 
+  dplyr::bind_rows(.id = "FISH") %>% 
+  # select every 30th frame
+  dplyr::filter(FRAME %in% seq(from = 1, to = nrow(test), by = 30))
+
+accumulate_by <- function(dat, var) {
+  var <- lazyeval::f_eval(var, dat)
+  lvls <- plotly:::getLevels(var)
+  dats <- lapply(seq_along(lvls), function(x) {
+    cbind(dat[var %in% lvls[seq(1, x)], ], frame = lvls[[x]])
+  })
+  dplyr::bind_rows(dats)
+}
+
+df = test2 %>%
+  accumulate_by(~FRAME)
+
+df %>% 
+  plot_ly(x = ~COORD_X, y = ~COORD_Y) %>% 
+  add_paths(color = ~FISH,
+            line = list(simplify = F),
+            frame = ~frame) %>% 
+  layout(yaxis = list(autorange = "reversed")) %>% 
+  layout(xaxis = list(scaleanchor = "y", scaleratio = 1))
+```
+
+## Try with `gganimate`
+
+```{r}
+test = dat_filt$`20190611_1331_icab_icab_R_q1_novel_object`$TRACKING
+
+test2 = list(A = test %>% 
+               dplyr::select(COORD_X = X1,
+                             COORD_Y = Y1) %>% 
+               dplyr::mutate(FRAME = seq(1:nrow(.))),
+             B = test %>% 
+               dplyr::select(COORD_X = X2,
+                             COORD_Y = Y2) %>% 
+               dplyr::mutate(FRAME = seq(1:nrow(.)))) %>% 
+  dplyr::bind_rows(.id = "FISH") %>% 
+  # select every 30th frame
+  dplyr::filter(FRAME %in% seq(from = 1, to = nrow(test), by = 30))
+
+test2 %>% 
+  dplyr::filter(FRAME < 3000) %>% 
+  ggplot() +
+    geom_path(aes(COORD_X, COORD_Y, colour = FISH)) +
+    coord_fixed() +
+    gganimate::transition_reveal(FRAME)
 ```
 

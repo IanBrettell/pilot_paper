@@ -19,3 +19,4 @@ SAMPLES = pd.read_csv(config["samples_file"], comment="#", skip_blank_lines=True
 ASSAYS = ["open_field", "novel_object"]
 QUADRANTS = ["q1", "q2", "q3", "q4"]
 
+SAMPLES_PAIRS = pd.read_csv(config["samples_pairs_file"])

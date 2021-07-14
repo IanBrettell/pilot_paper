@@ -7,6 +7,8 @@ RUN apt update
 #    libgdal-dev libudunits2-dev \
 #    # required for `pegas`
 #    libglpk40
+RUN apt install -y \
+    libavfilter-dev
 
 # Install CRAN packages
 RUN install2.r --error \

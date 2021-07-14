@@ -10,4 +10,4 @@
 #    shell:
 #        """
 #        gsutil -m cp -r {config[gcs_dir]}/results/* {params.out_dir}
-#        """
+#        """d
