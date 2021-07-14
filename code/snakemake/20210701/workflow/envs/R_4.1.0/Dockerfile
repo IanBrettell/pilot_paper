@@ -15,7 +15,9 @@ RUN install2.r --error \
     here \
     remotes \
     plotly \
-    bookdown
+    bookdown \
+    av \
+    gganimate
 
 # Install from GitHub
 #RUN R -e "remotes::install_github('ramiromagno/gwasrapidd')"
