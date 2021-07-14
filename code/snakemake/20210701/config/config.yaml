@@ -4,6 +4,8 @@ lts_dir:
     "/nfs/research/birney/users/ian/pilot"
 samples_file:
     "code/snakemake/20210701/config/samples.csv"
+samples_pairs_file:
+    "code/snakemake/20210701/config/samples_pairs.csv"
 gcs_dir:
     "gs://medaka-video-store"
 ####################

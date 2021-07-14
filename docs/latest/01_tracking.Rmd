@@ -140,3 +140,10 @@ for in_sample in $(gsutil ls $video_store/videos/20190614* | cut -f5 -d'/' | cut
   fi
 done
 ```
+
+## Copy back over to Codon HPC
+
+```{bash}
+gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/tracking_results/
+```
+

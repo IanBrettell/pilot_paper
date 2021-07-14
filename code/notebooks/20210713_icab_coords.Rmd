@@ -1,0 +1,33 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+samples = readr::read_csv(here::here("code/snakemake/20210701/config/samples.csv"))
+
+samples_pairs = readr::read_csv(here::here("code/snakemake/20210701/config/samples_pairs.csv"))
+
+icab_locs = samples %>% 
+  dplyr::select(sample, starts_with("cab_coords")) %>% 
+  tidyr::pivot_longer(cols = starts_with("cab_coords_"),
+                      names_to = "PAIR",
+                      names_prefix = "cab_coords_") %>% 
+  dplyr::mutate(ASSAY = stringr::str_split(PAIR, "_", simplify = T) %>% 
+                  subset(select = 1),
+                ASSAY = dplyr::recode(ASSAY,
+                                      of = "open_field",
+                                      no = "novel_object"),
+                QUADRANT = stringr::str_split(PAIR, "_", simplify = T) %>% 
+                  subset(select = 2),
+                PAIR_FULL = paste(sample, QUADRANT, ASSAY, sep = "_")) %>% 
+  dplyr::select(PAIR_FULL, value)
+
+final = dplyr::left_join(samples_pairs,
+                         icab_locs,
+                         by = c("sample" = "PAIR_FULL")) %>% 
+  dplyr::rename(icab_loc = value)
+
+readr::write_csv(final, here::here("code/snakemake/20210701/config/samples_pairs.csv"))
+```
+

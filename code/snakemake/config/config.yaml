@@ -1,7 +1,7 @@
 input_dir:
     "/nfs/ftp/private/birney-res-ftp/upload/medaka/videos/ian_pilot/all"
 samples_file:
-    "pilot_paper/code/snakemake/config/samples_test.csv"
+    "pilot_paper/code/snakemake/config/samples.csv"
 split_script:
     "scripts/20201111_split_videos.py"
 python_env:
