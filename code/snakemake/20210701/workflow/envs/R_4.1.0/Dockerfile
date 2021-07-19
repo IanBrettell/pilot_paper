@@ -17,7 +17,8 @@ RUN install2.r --error \
     plotly \
     bookdown \
     av \
-    gganimate
+    gganimate \
+    magick
 
 # Install from GitHub
 #RUN R -e "remotes::install_github('ramiromagno/gwasrapidd')"
