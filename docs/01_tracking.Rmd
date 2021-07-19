@@ -150,7 +150,7 @@ done
 
 ## Copy back over to Codon HPC
 
-```{bash}
+```{bash, eval = F}
 gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian/pilot/tracking_results/
 ```
 
@@ -158,12 +158,17 @@ gsutil -m cp -r gs://medaka-video-store/results/* /nfs/research/birney/users/ian
 
 ### Read in data
 
-#### Samples file
+#### Samples files
 
 ```{r}
 samples_file = here::here("code/snakemake/20210701/config/samples.csv")
+samples_pairs_file = here::here("code/snakemake/20210701/config/samples_pairs.csv")
+
 samples = readr::read_csv(samples_file,
                           col_types = c("ciiciiiiiiiiiiiiiiicccccccc"))
+
+samples_pairs = readr::read_csv(samples_pairs_file,
+                                col_types = c("ciiiiic"))
 ```
 
 #### Tracking data
@@ -186,7 +191,8 @@ dat_list = purrr::map(target_files, function(FILE){
     stringr::str_remove(".csv") %>% 
     stringr::str_split("_", simplify = T)
   ## Add to data frame
-  out[["META"]] = tibble::tibble(DATE = as.integer(parsed_meta[, 1]),
+  out[["META"]] = tibble::tibble(VIDEO = paste(parsed_meta[, 1:5], collapse = "_"),
+                                 DATE = as.integer(parsed_meta[, 1]),
                                  TIME = as.integer(parsed_meta[, 2]),
                                  REF = parsed_meta[, 3],
                                  TEST = parsed_meta[, 4],
@@ -199,6 +205,11 @@ dat_list = purrr::map(target_files, function(FILE){
                                      dplyr::select(date, time, fps),
                                    by = c("DATE" = "date", "TIME" = "time")) %>% 
     dplyr::rename(FPS = fps)
+  ## Add iCab location
+  out[["META"]]$ICAB_LOC = samples_pairs %>% 
+    dplyr::filter(sample == basename(FILE) %>% 
+                    stringr::str_remove(".csv")) %>% 
+    dplyr::pull(icab_loc)
   
   # Create new data frame with only frames up to 10 minutes
   frame_cutoff = out[["META"]]$FPS * 60 * 10
@@ -235,7 +246,7 @@ na_plot = na_df %>%
 ggplotly(na_plot)
 ```
 
-### Filter data list for those with more than 10% NAs
+### Filter out from data list the videos with more than 10% NAs
 
 ```{r}
 to_filter_out = na_df %>% 
@@ -257,37 +268,83 @@ dat_filt = dat_filt %>%
 With assistance from here: https://github.com/ropensci/plotly/issues/957
 
 ```{r}
-test = dat_filt$`20190611_1331_icab_icab_R_q1_novel_object`$TRACKING
+assays = c("open_field", "novel_object")
+# Loop over each video
+test3 = purrr::map(samples$sample[1:2], function(VIDEO){
+  # Loop over each assay
+  assays_out = purrr::map(assays, function(ASSAY){
+    # Select the videos from each video and assay
+    target_vids = purrr::keep(dat_filt, function(PAIR){
+      PAIR[["META"]]$VIDEO == VIDEO & PAIR[["META"]]$ASSAY == ASSAY
+    })
+  })
+  names(assays_out) = assays
+  return(assays_out)
+})
 
-test2 = list(A = test %>% 
+quadrants = c("q1", "q2", "q3", "q4")
+
+test4 = test3[[1]][[2]]
+
+plot_list = purrr::map(quadrants, function(QUADRANT){
+  
+})
+
+
+test = dat_filt$`20190611_1331_icab_icab_R_q1_novel_object`
+FPS = dat_filt$`20190611_1331_icab_icab_R_q1_novel_object`$META$FPS
+
+recode_vec = label_fishes(test)
+
+test2 = list(A = test$TRACKING %>% 
                dplyr::select(COORD_X = X1,
                              COORD_Y = Y1) %>% 
                dplyr::mutate(FRAME = seq(1:nrow(.))),
-             B = test %>% 
+             B = test$TRACKING %>% 
                dplyr::select(COORD_X = X2,
                              COORD_Y = Y2) %>% 
                dplyr::mutate(FRAME = seq(1:nrow(.)))) %>% 
   dplyr::bind_rows(.id = "FISH") %>% 
-  # select every 30th frame
-  dplyr::filter(FRAME %in% seq(from = 1, to = nrow(test), by = 30))
+  # add line for palette
+  dplyr::mutate(LINE = dplyr::recode(FISH, !!!recode_vec)) %>% 
+  # order for plotting
+  dplyr::mutate(LINE = factor(LINE, levels = names(fish_pal))) %>% 
+  # add `SECONDS` and `TIME` columns
+  dplyr::mutate(SECONDS = FRAME / FPS,
+                TIME = hms::hms(SECONDS) %>%
+                  strftime("%M:%S")) %>% 
+  # keep first frame from every second for each fish
+  dplyr::distinct(TIME, FISH, .keep_all = T) %>% 
+  dplyr::filter(FRAME < 1000)
 
-accumulate_by <- function(dat, var) {
-  var <- lazyeval::f_eval(var, dat)
-  lvls <- plotly:::getLevels(var)
-  dats <- lapply(seq_along(lvls), function(x) {
-    cbind(dat[var %in% lvls[seq(1, x)], ], frame = lvls[[x]])
-  })
-  dplyr::bind_rows(dats)
+tracking_plot = function(input){
+  # Create long DF 
+  df = input %>%
+    accumulate_by(~TIME)
+  # Generate plot
+  out_plot = df %>% 
+    plot_ly(x = ~COORD_X, y = ~COORD_Y) %>% 
+    add_paths(color = ~LINE,
+              colors = fish_pal,
+              line = list(simplify = F),
+              frame = ~time) %>% 
+    layout(yaxis = list(autorange = "reversed")) %>% 
+    layout(xaxis = list(scaleanchor = "y", scaleratio = 1))
+  
+  return(out_plot)
 }
 
+tracking_plot(test2)
+
 df = test2 %>%
-  accumulate_by(~FRAME)
+  accumulate_by(~TIME)
 
 df %>% 
   plot_ly(x = ~COORD_X, y = ~COORD_Y) %>% 
-  add_paths(color = ~FISH,
+  add_paths(color = ~LINE,
+            colors = fish_pal,
             line = list(simplify = F),
-            frame = ~frame) %>% 
+            frame = ~time) %>% 
   layout(yaxis = list(autorange = "reversed")) %>% 
   layout(xaxis = list(scaleanchor = "y", scaleratio = 1))
 ```
@@ -310,10 +367,12 @@ test2 = list(A = test %>%
   dplyr::filter(FRAME %in% seq(from = 1, to = nrow(test), by = 30))
 
 test2 %>% 
-  dplyr::filter(FRAME < 3000) %>% 
+#  dplyr::filter(FRAME < 100) %>% 
   ggplot() +
     geom_path(aes(COORD_X, COORD_Y, colour = FISH)) +
+    xlim(0, max(test2$COORD_X)) +
+    scale_y_reverse(limits = c(max(test2$COORD_Y), 0)) +
     coord_fixed() +
-    gganimate::transition_reveal(FRAME)
+    gganimate::transition_reveal(FRAME, keep_last = F)
 ```
 
