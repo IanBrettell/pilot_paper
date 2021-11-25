@@ -171,6 +171,13 @@ samples_pairs = readr::read_csv(samples_pairs_file,
                                 col_types = c("ciiiiic"))
 ```
 
+#### Add video height and width
+
+```{r}
+
+```
+
+
 #### Tracking data
 
 ```{r}

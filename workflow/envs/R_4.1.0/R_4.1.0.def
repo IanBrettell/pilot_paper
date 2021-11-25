@@ -1,0 +1,17 @@
+Bootstrap: docker
+From: rocker/tidyverse:4.1.0
+
+%post
+
+    # Install packages required for R packages
+    apt update
+    apt install -y libavfilter-dev
+
+    # Install CRAN packages
+    install2.r --error \
+        here \
+        remotes \
+        plotly \
+        bookdown \
+        av \
+        gganimate

@@ -17,16 +17,37 @@ snakemake \
   -s code/snakemake/$smk_proj/workflow/Snakefile \
   -p
 
+#######################
+# Containers
+#######################
+
+# idtrackerai
+CONT=/hps/software/users/birney/ian/containers/pilot_paper/idtrackerai.sif
+singularity build --remote \
+    $CONT \
+    workflow/envs/20211125_idtrackerai.def
+
 # For R
+
+## Set container location
+CONT=/hps/software/users/birney/ian/containers/pilot_paper/R_4.1.0.sif
+
+## Build Rocker container
+module load singularity-3.7.0-gcc-9.3.0-dp5ffrp
+cd /hps/software/users/birney/ian/repos/pilot_paper
+
+singularity build --remote \
+    $CONT \
+    code/snakemake/20210701/workflow/envs/R_4.1.0/R_4.1.0.def 
 
 ssh proxy-codon
 module load singularity-3.7.0-gcc-9.3.0-dp5ffrp
-bsub -M 20000 -Is """
+bsub -M 20000 -Is bash
 singularity shell --bind /hps/software/users/birney/ian/rstudio_db:/var/lib/rstudio-server \
                   --bind /hps/software/users/birney/ian/tmp:/tmp \
                   --bind /hps/software/users/birney/ian/run:/run \
-                  docker://brettellebi/pilot_paper:R_4.1.0
-"""
+                  $CONT
+
 # Then run rserver, setting path of config file containing library path
 rserver --rsession-config-file /hps/software/users/birney/ian/repos/pilot_paper/code/snakemake/20210701/workflow/envs/rstudio_server/rsession.conf
 
