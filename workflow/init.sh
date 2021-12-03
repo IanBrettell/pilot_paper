@@ -22,7 +22,17 @@ snakemake \
 #######################
 
 # idtrackerai
-CONT=/hps/software/users/birney/ian/containers/pilot_paper/idtrackerai.sif
+
+bsub -M 20000 -q gpu -gpu "num=1:gmem=1000" -Is bash
+module load cuda-10.0.130-gcc-9.3.0-336gifa
+conda create -n idtrackerai python=3.6
+conda activate idtrackerai
+pip install idtrackerai[gpu]
+# This connects the blobs with ~1.1 iterations/second
+# This doesn't change by increasing `num` (from 1 to 2)
+# Google Colab does it at ~10 iterations/second
+
+CONT=/hps/nobackup/birney/users/ian/containers/pilot_paper/idtrackerai.sif
 singularity build --remote \
     $CONT \
     workflow/envs/20211125_idtrackerai.def
@@ -30,7 +40,7 @@ singularity build --remote \
 # For R
 
 ## Set container location
-CONT=/hps/software/users/birney/ian/containers/pilot_paper/R_4.1.0.sif
+CONT=/hps/nobackup/birney/users/ian/containers/pilot_paper/R_4.1.0.sif
 
 ## Build Rocker container
 module load singularity-3.7.0-gcc-9.3.0-dp5ffrp
