@@ -1,3 +1,5 @@
+raw_data_dir:
+    "/nfs/research/birney/projects/indigene/raw_data/ian_videos/ian_pilot/all"
 working_dir:
     "/hps/nobackup/birney/users/ian/pilot"
 lts_dir:

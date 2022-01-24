@@ -1,20 +1,19 @@
 # For snakemake
 
 module load singularity-3.7.0-gcc-9.3.0-dp5ffrp
-bsub -Is bash
+bsub -M 20000 -Is bash
 cd /hps/software/users/birney/ian/repos/pilot_paper
-conda activate snakemake_6.5.1
-smk_proj="20210701"
+conda activate snakemake_6.13.1
 snakemake \
   --jobs 5000 \
-  --latency-wait 300 \
-  --cluster-config code/snakemake/$smk_proj/config/cluster.yaml \
-  --cluster 'bsub -g /snakemake_bgenie -J {cluster.name} -n {cluster.n} -M {cluster.memory} -outdir {cluster.outdir} -o {cluster.outfile} -e {cluster.error}' \
+  --latency-wait 100 \
+  --cluster-config config/cluster.yaml \
+  --cluster 'bsub -g /snakemake_bgenie -J {cluster.name} -q {cluster.queue} -n {cluster.n} -M {cluster.memory} -o {cluster.outfile}' \
   --keep-going \
   --rerun-incomplete \
   --use-conda \
   --use-singularity \
-  -s code/snakemake/$smk_proj/workflow/Snakefile \
+  -s workflow/Snakefile \
   -p
 
 #######################
