@@ -20,6 +20,14 @@ snakemake \
 # Containers
 #######################
 
+# Open CV (python)
+OPENCVCONT=/hps/nobackup/birney/users/ian/containers/pilot_paper/opencv_4.5.1.sif
+module load singularity-3.7.0-gcc-9.3.0-dp5ffrp
+singularity build --remote \
+    $OPENCVCONT \
+    workflow/envs/opencv_4.5.1.def
+
+
 # idtrackerai
 
 bsub -M 20000 -q gpu -gpu "num=1:gmem=1000" -Is bash

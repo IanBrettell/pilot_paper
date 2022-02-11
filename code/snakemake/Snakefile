@@ -25,7 +25,7 @@ configfile: "pilot_paper/code/snakemake/config/config.yaml"
 
 # Load samples to process
 
-SAMPLES = pd.read_csv(config["samples_file"], comment="#", skip_blank_lines=True, index_col=0)
+samples_df = pd.read_csv(config["samples_file"], comment="#", skip_blank_lines=True, index_col=0)
 
 # Globals
 

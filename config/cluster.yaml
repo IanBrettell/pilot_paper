@@ -2,6 +2,5 @@ __default__:
   memory: 5000
   n: 1
   name: "{rule}.{wildcards}"
-  outdir: "/hps/nobackup/birney/users/ian/pilot/logs/{rule}"
-  outfile: "/hps/nobackup/birney/users/ian/pilot/logs/{rule}/%J_{wildcards}.out"
-  error: "/hps/nobackup/birney/users/ian/pilot/logs/{rule}/%J_{wildcards}.err"
+  queue: "standard"
+  outfile: "{log}"

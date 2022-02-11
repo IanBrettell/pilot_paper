@@ -1,24 +1,13 @@
-rule copy_videos:
+rule split_videos:
     input:
-        os.path.join(config["raw_data_dir"], "{sample}.avi"),
+        os.path.join(config["raw_data_dir"], "{sample}.avi")
     output:
-        os.path.join(config["working_dir"], "raw_videos/{sample}.avi"),
+        os.path.join(config["lts_dir"], "split/{assay}/{sample}_{quadrant}.mp4")
     log:
-        os.path.join(config["working_dir"], "logs/copy_videos/{sample}.log"),
-    shell:
-        """
-        cp {input} {output} \
-            2> {log}
-        """
-
-rule split:
-    input:
-        os.path.join(config["input_dir"], "{sample}.avi")
+        os.path.join(config["working_dir"], "logs/{sample}/{assay}/{quadrant}.log")
     params:
         samples_file = config["samples_file"]
-    output:
-        "split/{assay}/{sample}_{quadrant}_{assay}.mp4"
-    conda:
-        config["python_env"]
+    container:
+        config["opencv"]
     script:
-        config["split_script"]
+        "../scripts/split_videos.py"
