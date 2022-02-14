@@ -1,0 +1,5 @@
+Bootstrap: docker
+From: saulpierottiebi/idtrackerai_cpu_gui:latest
+
+%post
+    conda install tensorflow-gpu=1.13

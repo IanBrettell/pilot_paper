@@ -1,0 +1,5 @@
+Bootstrap: docker
+From: opencvcourses/opencv-docker:4.5.1
+
+%post
+    pip install pandas
