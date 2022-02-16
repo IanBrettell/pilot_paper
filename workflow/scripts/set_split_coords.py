@@ -29,12 +29,14 @@ import os
 ## Debugging
 IN_FILE = "/nfs/research/birney/projects/indigene/raw_data/ian_videos/ian_pilot/all/20190612_1053_icab_kaga_R.avi"
 SAMPLES_FILE = "config/samples.csv"
+ASSAY = "novel_object"
 SAMPLE = "20190612_1053_icab_kaga_R"
-OUT_FILE = "results/split_coord_images/20190612_1053_icab_kaga_R.png"
+OUT_FILE = "results/split_coord_images/novel_object/20190612_1053_icab_kaga_R.png"
 
 ## True
-IN_FILE = snakemake.input.video
+IN_FILE = snakemake.input.video[0]
 SAMPLES_FILE = snakemake.params.samples_file
+ASSAY = snakemake.params.assay
 SAMPLE = snakemake.params.sample
 OUT_FILE = snakemake.output.fig
 
@@ -44,16 +46,17 @@ samples_df = pd.read_csv(SAMPLES_FILE, comment="#", skip_blank_lines=True, index
 # Get date
 date = int(samples_df.loc[SAMPLE, "date"])
 
-# Get start frame for open field assay
-start = int(samples_df.loc[SAMPLE, "of_start"])
-
-# Get crop adjustment values
+# Get start frame and crop adjustment values
 ## note: Negative values for top/bottom shift boundary up
 ## note: Negative values for left/right shift boundary left
-adj_top = int(samples_df.loc[SAMPLE, "adj_top"])
-adj_bottom = int(samples_df.loc[SAMPLE, "adj_bottom"])
-adj_left = int(samples_df.loc[SAMPLE, "adj_left"])
-adj_right = int(samples_df.loc[SAMPLE, "adj_right"])
+if ASSAY == "open_field":
+    start = int(samples_df.loc[SAMPLE, "of_start"])
+    adj_top = int(samples_df.loc[SAMPLE, "adj_top_of"])
+    adj_right = int(samples_df.loc[SAMPLE, "adj_right_of"])
+elif ASSAY == "novel_object":
+    start = int(samples_df.loc[SAMPLE, "no_start"])
+    adj_top = int(samples_df.loc[SAMPLE, "adj_top_no"])
+    adj_right = int(samples_df.loc[SAMPLE, "adj_right_no"])
 
 # Read video from file
 cap = cv.VideoCapture(IN_FILE)

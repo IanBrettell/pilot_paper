@@ -4,3 +4,7 @@ __default__:
   name: "{rule}.{wildcards}"
   queue: "standard"
   outfile: "{log}"
+# 02_tracking.smk
+track_videos:
+  memory: "{resources.mem_mb}"
+  #queue: "bigmem"

@@ -15,5 +15,3 @@ gcs_dir:
 ####################
 opencv:
     /hps/nobackup/birney/users/ian/containers/pilot_paper/opencv_4.5.1.sif
-gsutil:
-    "docker://eu.gcr.io/google.com/cloudsdktool/cloud-sdk@sha256:f335e76a8e0976cef547a8384f0b55582ad9a5a1f58fa5e6ac4d13cd3b2d81ea"

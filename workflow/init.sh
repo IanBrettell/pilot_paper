@@ -59,10 +59,10 @@ ssh proxy-codon
 bsub -q datamover -M 50000 -Is bash
 module load singularity-3.7.0-gcc-9.3.0-dp5ffrp
 RCONT=/hps/nobackup/birney/users/ian/containers/pilot_paper/R_4.1.2.sif
-singularity shell --bind /hps/software/users/birney/ian/rstudio_db:/var/lib/rstudio-server \
-                  --bind /hps/software/users/birney/ian/tmp:/tmp \
-                  --bind /hps/software/users/birney/ian/run:/run \
-                  $RCONT
+singularity shell --bind /hps/nobackup/birney/users/ian/rstudio_db:/var/lib/rstudio-server \
+                  --bind /hps/nobackup/birney/users/ian/tmp:/tmp \
+                  --bind /hps/nobackup/birney/users/ian/run:/run \
+                  $CONT
 
 rserver \
     --rsession-config-file /hps/software/users/birney/ian/repos/pilot_paper/workflow/envs/rsession.conf \
