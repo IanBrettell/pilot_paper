@@ -27,6 +27,15 @@ snakemake \
   -s workflow/Snakefile \
   -p
 
+####################
+# Fiji
+####################
+
+ssh codon
+bsub -M 20000 -q gui -XF -Is bash
+/hps/nobackup/birney/users/ian/software/Fiji.app/ImageJ-linux64 
+
+
 #######################
 # Build custom containers
 #######################
@@ -69,3 +78,10 @@ rserver \
     --server-user brettell
 
 ssh -L 8787:hl-codon-37-04:8787 proxy-codon
+
+####################
+# Copy videos from cluster to local
+####################
+
+# To set tracking parameters
+rsync -aP brettell@codon:/nfs/research/birney/users/ian/pilot/split ~/Desktop/pilot_videos

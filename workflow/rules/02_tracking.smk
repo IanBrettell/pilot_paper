@@ -1,13 +1,95 @@
-#rule copy_results_from_gcs:
-#    output:
-#        os.path.join(config["lts_dir"], "videos/tracking_results/_session_{sample}_{quadrant}_{assay}")
-#    params:
-#        out_dir = lambda wildcards, output: os.path.dirname(output[0])
-#    conda:
-#        "../envs/gsutil.yaml"
-#    threads:
-#        4
-#    shell:
-#        """
-#        gsutil -m cp -r {config[gcs_dir]}/results/* {params.out_dir}
-#        """d
+# pull tracking parameters from config/samples.csv
+def get_vid_length(wildcards):
+    if wildcards.assay == "open_field":
+        start = samples_df.loc[samples_df["sample"] == wildcards.sample, "of_start"]
+        end = samples_df.loc[samples_df["sample"] == wildcards.sample, "of_end"]
+    elif wildcards.assay == "novel_object":
+        start = samples_df.loc[samples_df["sample"] == wildcards.sample, "no_start"]
+        end = samples_df.loc[samples_df["sample"] == wildcards.sample, "no_end"]
+    vid_length = int(end) - int(start)
+    return(vid_length)
+
+def get_bgsub(wildcards):
+    if wildcards.assay == "open_field":
+        target_col = "bgsub_" + "of_" + wildcards.quadrant
+        bgsub = samples_df.loc[samples_df["sample"] == wildcards.sample, target_col].values[0]
+    elif wildcards.assay == "novel_object":
+        target_col = "bgsub_" + "no_" + wildcards.quadrant
+        bgsub = samples_df.loc[samples_df["sample"] == wildcards.sample, target_col].values[0]
+    return(bgsub)
+
+def get_intensity_floor(wildcards):
+    if wildcards.assay == "open_field":
+        target_col = "intensity_floor_" + "of_" + wildcards.quadrant
+        int_floor = int(samples_df.loc[samples_df["sample"] == wildcards.sample, target_col])
+    elif wildcards.assay == "novel_object":
+        target_col = "intensity_floor_" + "no_" + wildcards.quadrant
+        int_floor = int(samples_df.loc[samples_df["sample"] == wildcards.sample, target_col])
+    return(int_floor)
+
+def get_intensity_ceiling(wildcards):
+    if wildcards.assay == "open_field":
+        target_col = "intensity_ceiling_" + "of_" + wildcards.quadrant
+        int_ceiling = int(samples_df.loc[samples_df["sample"] == wildcards.sample, target_col])
+    elif wildcards.assay == "novel_object":
+        target_col = "intensity_ceiling_" + "no_" + wildcards.quadrant
+        int_ceiling = int(samples_df.loc[samples_df["sample"] == wildcards.sample, target_col])
+    return(int_ceiling)
+
+def get_area_floor(wildcards):
+    if wildcards.assay == "open_field":
+        target_col = "area_floor_" + "of_" + wildcards.quadrant
+        area_floor = int(samples_df.loc[samples_df["sample"] == wildcards.sample, target_col])
+    elif wildcards.assay == "novel_object":
+        target_col = "area_floor_" + "no_" + wildcards.quadrant
+        area_floor = int(samples_df.loc[samples_df["sample"] == wildcards.sample, target_col])
+    return(area_floor)
+
+def get_area_ceiling(wildcards):
+    if wildcards.assay == "open_field":
+        target_col = "area_ceiling_" + "of_" + wildcards.quadrant
+        area_ceiling = int(samples_df.loc[samples_df["sample"] == wildcards.sample, target_col])
+    elif wildcards.assay == "novel_object":
+        target_col = "area_ceiling_" + "no_" + wildcards.quadrant
+        area_ceiling = int(samples_df.loc[samples_df["sample"] == wildcards.sample, target_col])
+    return(area_ceiling)
+
+# adapt memory usage for tracking videos
+def get_mem_mb(wildcards, attempt):
+    return attempt * 10000
+
+# Track videos with idtrackerai
+## Note: `output` is set as `trajectories.npy` instead of `trajectories_wo_gaps.npy`, presumably because
+## in videos where there are no crossovers, the latter file is not produced.
+rule track_videos:
+    input:
+        rules.split_videos.output
+    output:
+        os.path.join(config["working_dir"], "split/{assay}/session_{sample}_{quadrant}/trajectories/trajectories.npy"),
+    log:
+        os.path.join(config["working_dir"], "logs/track_videos/{assay}/{sample}/{quadrant}.log"),
+    params:
+        vid_length = get_vid_length,
+        vid_name = "{sample}_{quadrant}",
+        bgsub = get_bgsub,
+        intensity_floor = get_intensity_floor,
+        intensity_ceiling = get_intensity_ceiling,
+        area_floor = get_area_floor,
+        area_ceiling = get_area_ceiling,
+    resources:
+        mem_mb = get_mem_mb
+    container:
+        config["idtrackerai"]
+    shell:
+        """
+        idtrackerai terminal_mode \
+            --_video {input} \
+            --_bgsub '{params.bgsub}' \
+            --_range [0,{params.vid_length}] \
+            --_nblobs 2 \
+            --_intensity [{params.intensity_floor},{params.intensity_ceiling}] \
+            --_area [{params.area_floor},{params.area_ceiling}] \
+            --_session {params.vid_name} \
+            --exec track_video \
+                2> {log}
+        """

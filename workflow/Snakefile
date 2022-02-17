@@ -4,21 +4,24 @@ include: "rules/00_common.smk"
 
 rule all:
     input:
-#####################
-# 01_pre-processing.smk
-#####################
-# adjust_orientation
-        expand(os.path.join(config["working_dir"], "flipped/{sample}.avi"),
-                sample = SAMPLES
-        ),
-# set_split_coords
-        expand("results/split_coord_images/{assay}/{sample}.png",
-                assay = ASSAYS,
-                sample = SAMPLES
-        ),
+######################
+## 01_pre-processing.smk
+######################
+## adjust_orientation
+#        expand(os.path.join(config["working_dir"], "flipped/{sample}.avi"),
+#                sample = SAMPLES
+#        ),
+## decompress_videos
+#        expand(os.path.join(config["working_dir"], "decompressed/{sample}.avi"),
+#                sample = SAMPLES
+#        ),
+## set_split_coords
+#        expand("results/split_coord_images/{assay}/{sample}.png",
+#                assay = ASSAYS,
+#                sample = SAMPLES
+#        ),
 ## split_videos
-#        expand(os.path.join(config["data_store_dir"], "split/{assay}/{sample}_{quadrant}.mp4"),
-#                zip,
+#        expand(os.path.join(config["working_dir"], "split/{assay}/{sample}_{quadrant}.avi"),
 #                assay = ASSAYS,
 #                sample = SAMPLES,
 #                quadrant = QUADRANTS
@@ -26,13 +29,12 @@ rule all:
 ######################
 ## 02_tracking.smk
 ######################
-## track_videos
-#        expand(os.path.join(config["data_store_dir"], "split/{assay}/session_{sample}_{quadrant}/trajectories/trajectories.npy"),
-#                zip,
-#                assay = ASSAYS,
-#                sample = SAMPLES,
-#                quadrant = QUADRANTS        
-#        ),
+# track_videos
+        expand(os.path.join(config["working_dir"], "split/{assay}/session_{sample}_{quadrant}/trajectories/trajectories.npy"),
+                assay = ASSAYS,
+                sample = SAMPLES,
+                quadrant = QUADRANTS        
+        ),
 ## trajectories_to_csv
 #        expand(os.path.join(config["data_store_dir"], "split/{assay}/session_{sample}_{quadrant}/trajectories/trajectories.trajectories.csv"),
 #                zip,

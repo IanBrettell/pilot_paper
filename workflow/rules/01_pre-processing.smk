@@ -15,6 +15,25 @@ rule adjust_orientation:
     script:
         "../scripts/adjust_orientation.py"
 
+# Decompress videos so that they can be viewed in Fiji
+# in order to determine the start and end frames for open_field and novel_object assays
+# NOTE: creates huge files, so consider hashing out the rule and deleting the files once
+# metadata has been collected
+rule decompress_videos:
+    input:
+        rules.adjust_orientation.output,
+    output:
+        os.path.join(config["working_dir"], "decompressed/{sample}.avi"),
+    log:
+        os.path.join(config["working_dir"], "logs/decompress_videos/{sample}.log"),
+    container:
+        config["ffmpeg"]
+    shell:
+        """
+        ffmpeg -i {input} -an -vcodec rawvideo -y {output} \
+            2> {log}
+        """
+
 # Generate single-frame grab showing coordinate of splits
 rule set_split_coords:
     input:
@@ -37,7 +56,7 @@ rule split_videos:
     input:
         rules.set_split_coords.input,
     output:
-        os.path.join(config["data_store_dir"], "split/{assay}/{sample}_{quadrant}.mp4"),
+        os.path.join(config["data_store_dir"], "split/{assay}/{sample}_{quadrant}.avi"),
     log:
         os.path.join(config["working_dir"], "logs/split_videos/{assay}/{sample}/{quadrant}.log"),
     params:

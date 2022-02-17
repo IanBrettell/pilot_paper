@@ -1,3 +1,6 @@
+####################
+# Locations
+####################
 raw_data_dir:
     "/nfs/research/birney/projects/indigene/raw_data/ian_videos/ian_pilot/all"
 working_dir:
@@ -6,12 +9,13 @@ data_store_dir:
     "/nfs/research/birney/users/ian/pilot"
 samples_file:
     "config/samples.csv"
-samples_pairs_file:
-    "config/samples_pairs.csv"
-gcs_dir:
-    "gs://medaka-video-store"
 ####################
 # Containers
 ####################
 opencv:
     /hps/nobackup/birney/users/ian/containers/pilot_paper/opencv_4.5.1.sif
+ffmpeg:
+    docker://jrottenberg/ffmpeg:4.4-ubuntu
+idtrackerai:
+    # NOTE: Dockerfile for this container: workflow/envs/idtrackerai/Dockerfile
+    docker://saulpierottiebi/idtrackerai_cpu_gui:latest
