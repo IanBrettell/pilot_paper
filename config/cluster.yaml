@@ -7,4 +7,5 @@ __default__:
 # 02_tracking.smk
 track_videos:
   memory: "{resources.mem_mb}"
-  #queue: "bigmem"
+coloured_trails:
+  memory: "{resources.mem_mb}"

@@ -65,9 +65,15 @@ rule track_videos:
     input:
         rules.split_videos.output
     output:
-        os.path.join(config["working_dir"], "split/{assay}/session_{sample}_{quadrant}/trajectories/trajectories.npy"),
+        os.path.join(
+            config["working_dir"],
+            "split/{assay}/session_{sample}_{quadrant}/trajectories/trajectories.npy"
+        ),
     log:
-        os.path.join(config["working_dir"], "logs/track_videos/{assay}/{sample}/{quadrant}.log"),
+        os.path.join(
+            config["working_dir"],
+            "logs/track_videos/{assay}/{sample}/{quadrant}.log"
+        ),
     params:
         vid_length = get_vid_length,
         vid_name = "{sample}_{quadrant}",
@@ -93,3 +99,43 @@ rule track_videos:
             --exec track_video \
                 2> {log}
         """
+
+def get_trajectories_file(wildcards):
+    # Get path of trajectories files
+    traj_wo_gaps_file = os.path.join(
+        config["working_dir"],
+        "split/{assay}/session_{sample}_{quadrant}/trajectories_wo_gaps/trajectories_wo_gaps.npy")
+    traj_file = os.path.join(
+        config["working_dir"],
+        "split/{assay}/session_{sample}_{quadrant}/trajectories/trajectories.npy")
+    # If there is no `trajectories_wo_gaps.npy` file, return the `trajectories.npy` file
+    if os.path.exists(traj_wo_gaps_file):
+        return(traj_wo_gaps_file)
+    else:
+        return(traj_file)
+
+# Generate videos with coloured trails superimposed
+rule coloured_trails:
+    input:
+        video_object=os.path.join(
+            config["working_dir"],
+            "split/{assay}/session_{sample}_{quadrant}/video_object.npy",
+        ),
+        trajectories=get_trajectories_file,
+    output:
+        os.path.join(
+            config["working_dir"],
+            "split/{assay}/{sample}_{quadrant}_tracked.avi",
+        ),
+    log: 
+        os.path.join(
+            config["working_dir"],
+            "logs/coloured_trails/{assay}/{sample}/{quadrant}.log"
+        ),
+    container:
+        config["idtrackerai"]
+    resources:
+        mem_mb=5000,
+    script:
+        "../scripts/coloured_trails.py"
+

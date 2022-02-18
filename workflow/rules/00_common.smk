@@ -22,17 +22,18 @@ SAMPLES = samples_df["sample"]
 ASSAYS = ["open_field", "novel_object"]
 QUADRANTS = ["q1", "q2", "q3", "q4"]
 
-#SAMPLES_PAIRS = pd.read_csv(config["samples_pairs_file"])
+# Read in videos to be excluded
+excl_df = pd.read_csv(config["excluded_videos"], comment = "#")
 
 ## Create list of variable lists
 full_list = [SAMPLES, ASSAYS, QUADRANTS]
 ## Create list of tuple combinations
 combos = list(itertools.product(*full_list))
 
-## Remove unavailable combinations
-#excl_df = excl_df.reset_index()
-#for index, row in excl_df.iterrows():
-#    combos.remove((row['sample'], row['assay'], row['quadrant']))
+# Remove unavailable combinations
+excl_df = excl_df.reset_index()
+for index, row in excl_df.iterrows():
+    combos.remove((row['sample'], row['assay'], row['quadrant']))
 
 # Create new lists of variables
 SAMPLES = [i[0] for i in combos]

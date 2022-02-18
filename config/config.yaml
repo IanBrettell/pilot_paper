@@ -1,14 +1,19 @@
 ####################
+# Config files
+####################
+excluded_videos:
+    config/excluded_videos.csv
+####################
 # Locations
 ####################
 raw_data_dir:
-    "/nfs/research/birney/projects/indigene/raw_data/ian_videos/ian_pilot/all"
+    /nfs/research/birney/projects/indigene/raw_data/ian_videos/ian_pilot/all
 working_dir:
-    "/hps/nobackup/birney/users/ian/pilot"
+    /hps/nobackup/birney/users/ian/pilot
 data_store_dir:
-    "/nfs/research/birney/users/ian/pilot"
+    /nfs/research/birney/users/ian/pilot
 samples_file:
-    "config/samples.csv"
+    config/samples.csv
 ####################
 # Containers
 ####################

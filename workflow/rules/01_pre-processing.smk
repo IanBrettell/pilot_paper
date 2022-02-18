@@ -56,7 +56,7 @@ rule split_videos:
     input:
         rules.set_split_coords.input,
     output:
-        os.path.join(config["data_store_dir"], "split/{assay}/{sample}_{quadrant}.avi"),
+        os.path.join(config["working_dir"], "split/{assay}/{sample}_{quadrant}.avi"),
     log:
         os.path.join(config["working_dir"], "logs/split_videos/{assay}/{sample}/{quadrant}.log"),
     params:
