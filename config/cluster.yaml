@@ -4,6 +4,13 @@ __default__:
   name: "{rule}.{wildcards}"
   queue: "standard"
   outfile: "{log}"
+# 01_pre-processing.smk
+adjust_orientation:
+  memory: "{resources.mem_mb}"
+set_split_coords:
+  memory: "{resources.mem_mb}"
+split_videos:
+  memory: "{resources.mem_mb}"
 # 02_tracking.smk
 track_videos:
   memory: "{resources.mem_mb}"

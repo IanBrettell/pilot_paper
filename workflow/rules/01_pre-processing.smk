@@ -12,27 +12,10 @@ rule adjust_orientation:
         samples_file = lambda wildcards: config["samples_file"]
     container:
         config["opencv"]
+    resources:
+        mem_mb = 1000
     script:
         "../scripts/adjust_orientation.py"
-
-# Decompress videos so that they can be viewed in Fiji
-# in order to determine the start and end frames for open_field and novel_object assays
-# NOTE: creates huge files, so consider hashing out the rule and deleting the files once
-# metadata has been collected
-rule decompress_videos:
-    input:
-        rules.adjust_orientation.output,
-    output:
-        os.path.join(config["working_dir"], "decompressed/{sample}.avi"),
-    log:
-        os.path.join(config["working_dir"], "logs/decompress_videos/{sample}.log"),
-    container:
-        config["ffmpeg"]
-    shell:
-        """
-        ffmpeg -i {input} -an -vcodec rawvideo -y {output} \
-            2> {log}
-        """
 
 # Generate single-frame grab showing coordinate of splits
 rule set_split_coords:
@@ -48,17 +31,25 @@ rule set_split_coords:
         samples_file = lambda wildcards: config["samples_file"]
     container:
         config["opencv"]
+    resources:
+        mem_mb = 500
     script:
         "../scripts/set_split_coords.py"
 
 # Split videos into quadrants and assays (1 raw video * 4 quadrants * 2 assays = 8 output videos)
 rule split_videos:
     input:
-        rules.set_split_coords.input,
+        rules.adjust_orientation.output,
     output:
-        os.path.join(config["working_dir"], "split/{assay}/{sample}_{quadrant}.avi"),
+        os.path.join(
+            config["working_dir"],
+            "split/{assay}/{sample}_{quadrant}.avi"
+        ),
     log:
-        os.path.join(config["working_dir"], "logs/split_videos/{assay}/{sample}/{quadrant}.log"),
+        os.path.join(
+            config["working_dir"],
+            "logs/split_videos/{assay}/{sample}/{quadrant}.log"
+        ),
     params:
         sample = "{sample}",
         assay = "{assay}",
@@ -66,6 +57,8 @@ rule split_videos:
         samples_file = lambda wildcards: config["samples_file"]
     container:
         config["opencv"]
+    resources:
+        mem_mb = 1000
     script:
         "../scripts/split_videos.py"
 
