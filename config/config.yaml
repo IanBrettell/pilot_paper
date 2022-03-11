@@ -24,3 +24,5 @@ ffmpeg:
 idtrackerai:
     # NOTE: Dockerfile for this container: workflow/envs/idtrackerai/Dockerfile
     docker://saulpierottiebi/idtrackerai_cpu_gui:latest
+rocker_tidyverse:
+    docker://rocker/tidyverse:4.1.2

@@ -34,7 +34,7 @@ SAMPLE = "20190611_1410_icab_kaga_R"
 ASSAY = "novel_object"
 QUADRANT = "q1"
 SAMPLES_FILE = "config/samples.csv"
-OUT_FILE = " /nfs/research/birney/users/ian/pilot/split/novel_object/20190611_1410_icab_kaga_R_q1.avi"
+OUT_FILE = "/nfs/research/birney/users/ian/pilot/split/novel_object/20190611_1410_icab_kaga_R_q1.avi"
 
 ## True
 IN_FILE = snakemake.input[0]

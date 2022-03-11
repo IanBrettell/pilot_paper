@@ -15,28 +15,30 @@ rule all:
 #        expand(os.path.join(config["working_dir"], "decompressed/{sample}.avi"),
 #                sample = SAMPLES
 #        ),
-# set_split_coords
-        expand("results/split_coord_images/{assay}/{sample}.png",
-                 zip,
-                assay = ASSAYS,
-                sample = SAMPLES
-        ),
+## set_split_coords
+#        expand("results/split_coord_images/{assay}/{sample}.png",
+#                 zip,
+#                assay = ASSAYS,
+#                sample = SAMPLES
+#        ),
 ## split_videos
 #        expand(os.path.join(config["working_dir"], "split/{assay}/{sample}_{quadrant}.avi"),
 #                 zip,
-#                assay = ASSAYS[0],
-#                sample = SAMPLES[0],
-#                quadrant = QUADRANTS[0]
-#        ),
-######################
-## 02_tracking.smk
-######################
-## track_videos
-#        expand(os.path.join(config["working_dir"], "split/{assay}/session_{sample}_{quadrant}/trajectories/trajectories.npy"),
-#                zip,
 #                assay = ASSAYS,
 #                sample = SAMPLES,
-#                quadrant = QUADRANTS        
+#                quadrant = QUADRANTS
+#        ),
+#####################
+# 02_tracking.smk
+#####################
+## track_videos
+#        expand(os.path.join(
+#                config["working_dir"],
+#                "split/{assay}/session_{sample}_{quadrant}/trajectories/trajectories.npy"),
+#                        zip,
+#                        assay = ASSAYS,
+#                        sample = SAMPLES,
+#                        quadrant = QUADRANTS        
 #        ),
 ## coloured_trails
 #        expand(os.path.join(config["working_dir"], "split/{assay}/{sample}_{quadrant}_tracked.avi"),
@@ -52,10 +54,24 @@ rule all:
 #                sample = SAMPLES,
 #                quadrant = QUADRANTS         
 #        ),
-
+#####################
+# 03_qc.smk
+#####################
+## assign_ref_test
+#        expand(os.path.join(
+#            config["data_store_dir"],
+#            "final_tracks/{assay}/{sample}_{quadrant}.csv"),
+#                zip,
+#                assay = ASSAYS,
+#                sample = SAMPLES,
+#                quadrant = QUADRANTS              
+#        ),
+# tracking_success
+                "config/tracking_success.csv"
 #####################
 
 ##### Modules #####
 
 include: "rules/01_pre-processing.smk"
 include: "rules/02_tracking.smk"
+include: "rules/03_qc.smk"

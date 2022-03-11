@@ -1,18 +1,6 @@
 __default__:
-  memory: 5000
+  memory: "{resources.mem_mb}"
   n: 1
   name: "{rule}.{wildcards}"
-  queue: "standard"
+  queue: standard
   outfile: "{log}"
-# 01_pre-processing.smk
-adjust_orientation:
-  memory: "{resources.mem_mb}"
-set_split_coords:
-  memory: "{resources.mem_mb}"
-split_videos:
-  memory: "{resources.mem_mb}"
-# 02_tracking.smk
-track_videos:
-  memory: "{resources.mem_mb}"
-coloured_trails:
-  memory: "{resources.mem_mb}"

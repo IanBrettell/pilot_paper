@@ -83,7 +83,7 @@ rule track_videos:
         area_floor = get_area_floor,
         area_ceiling = get_area_ceiling,
     resources:
-        mem_mb = get_mem_mb
+        mem_mb = 10000
     container:
         config["idtrackerai"]
     shell:
@@ -114,28 +114,23 @@ def get_trajectories_file(wildcards):
     else:
         return(traj_file)
 
-# Generate videos with coloured trails superimposed
-rule coloured_trails:
-    input:
-        video_object=os.path.join(
-            config["working_dir"],
-            "split/{assay}/session_{sample}_{quadrant}/video_object.npy",
-        ),
-        trajectories=get_trajectories_file,
-    output:
-        os.path.join(
-            config["working_dir"],
-            "split/{assay}/{sample}_{quadrant}_tracked.avi",
-        ),
-    log: 
-        os.path.join(
-            config["working_dir"],
-            "logs/coloured_trails/{assay}/{sample}/{quadrant}.log"
-        ),
-    container:
-        config["idtrackerai"]
-    resources:
-        mem_mb=5000,
-    script:
-        "../scripts/coloured_trails.py"
-
+# Convert numpy arrays to .csv files
+# Not needed if `CONVERT_TRAJECTORIES_DICT_TO_CSV_AND_JSON = True`
+# is added to `local_settings.py`
+#rule trajectories_to_csv:
+#    input:
+#        trajectories = rules.track_videos.output,
+#        script = "workflow/scripts/trajectories_to_csv.py"
+#    output:
+#        os.path.join(config["working_dir"], "split/{assay}/session_{sample}_{quadrant}/trajectories/trajectories.trajectories.csv")
+#    log:
+#        os.path.join(config["working_dir"], "logs/trajectories_to_csv/{assay}/{sample}/{quadrant}.log"),
+#    params:
+#        in_path = os.path.join(config["working_dir"], "split/{assay}/session_{sample}_{quadrant}")
+#    resources:
+#        mem_mb = 100,
+#    shell:
+#        """
+#        python {input.script} {params.in_path} \
+#            2> {log}
+#        """
