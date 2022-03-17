@@ -66,12 +66,24 @@ rule all:
 #                sample = SAMPLES,
 #                quadrant = QUADRANTS              
 #        ),
-# tracking_success
-                "config/tracking_success.csv"
+## tracking_success
+#                "config/tracking_success.csv",
 #####################
+# movement_metrics
+#####################
+        expand(os.path.join(
+            config["working_dir"],
+            "with_metrics/{assay}/{sample}/{quadrant}/{interval}.csv"),
+                zip,
+                assay = ASSAYS_INT,
+                sample = SAMPLES_INT,
+                quadrant = QUADRANTS_INT,
+                interval = INTERVALS_INT   
+        ),
 
 ##### Modules #####
 
 include: "rules/01_pre-processing.smk"
 include: "rules/02_tracking.smk"
 include: "rules/03_qc.smk"
+include: "rules/04_hmm.smk"

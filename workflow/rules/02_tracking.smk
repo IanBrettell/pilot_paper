@@ -54,10 +54,6 @@ def get_area_ceiling(wildcards):
         area_ceiling = int(samples_df.loc[samples_df["sample"] == wildcards.sample, target_col])
     return(area_ceiling)
 
-# adapt memory usage for tracking videos
-def get_mem_mb(wildcards, attempt):
-    return attempt * 10000
-
 # Track videos with idtrackerai
 ## Note: `output` is set as `trajectories.npy` instead of `trajectories_wo_gaps.npy`, presumably because
 ## in videos where there are no crossovers, the latter file is not produced.
@@ -83,7 +79,8 @@ rule track_videos:
         area_floor = get_area_floor,
         area_ceiling = get_area_ceiling,
     resources:
-        mem_mb = 10000
+        # start at 5000
+        mem_mb = lambda wildcards, attempt: attempt * 10000
     container:
         config["idtrackerai"]
     shell:

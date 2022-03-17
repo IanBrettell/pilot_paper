@@ -5,6 +5,7 @@
 import os
 import pandas as pd
 import itertools
+import numpy as np
 
 ###################
 # Config
@@ -39,3 +40,11 @@ for index, row in excl_df.iterrows():
 SAMPLES = [i[0] for i in combos]
 ASSAYS = [i[1] for i in combos]
 QUADRANTS = [i[2] for i in combos]
+
+# Multiply lists for combinations with `seconds_interval`
+n_intervals = len(config["seconds_interval"])
+SAMPLES_INT = SAMPLES * n_intervals
+ASSAYS_INT = ASSAYS * n_intervals
+QUADRANTS_INT = QUADRANTS * n_intervals
+## Multiply each element of `seconds_intervals` by length of original SAMPLES list
+INTERVALS_INT = np.repeat(config["seconds_interval"], len(SAMPLES))

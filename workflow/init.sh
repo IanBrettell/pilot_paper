@@ -27,6 +27,20 @@ snakemake \
   -s workflow/Snakefile \
   -p
 
+# When wanting to restart tracking job with more memory (includes --restart-times flag)
+snakemake \
+  --jobs 5000 \
+  --latency-wait 100 \
+  --cluster-config config/cluster.yaml \
+  --cluster 'bsub -g /snakemake_bgenie -J {cluster.name} -q {cluster.queue} -n {cluster.n} -M {cluster.memory} -o {cluster.outfile}' \
+  --keep-going \
+  --rerun-incomplete \
+  --use-conda \
+  --use-singularity \
+  --restart-times 3 \
+  -s workflow/Snakefile \
+  -p
+
 ####################
 # Fiji
 ####################
@@ -60,6 +74,13 @@ singularity build --remote \
     $IDCONT \
     workflow/envs/idtrackerai.def
 
+# Open CV (python)
+HMMCONT=/hps/nobackup/birney/users/ian/containers/pilot_paper/hmmlearn_0.2.7.sif
+module load singularity-3.7.0-gcc-9.3.0-dp5ffrp
+singularity build --remote \
+    $HMMCONT \
+    workflow/envs/hmmlearn_0.2.7.def
+
 ####################
 # Run RStudio Server
 ####################
@@ -67,11 +88,12 @@ singularity build --remote \
 ssh proxy-codon
 bsub -q datamover -M 50000 -Is bash
 module load singularity-3.7.0-gcc-9.3.0-dp5ffrp
+cd /hps/software/users/birney/ian/repos/pilot_paper
 RCONT=/hps/nobackup/birney/users/ian/containers/pilot_paper/R_4.1.2.sif
 singularity shell --bind /hps/nobackup/birney/users/ian/rstudio_db:/var/lib/rstudio-server \
                   --bind /hps/nobackup/birney/users/ian/tmp:/tmp \
                   --bind /hps/nobackup/birney/users/ian/run:/run \
-                  $CONT
+                  $RCONT
 
 rserver \
     --rsession-config-file /hps/software/users/birney/ian/repos/pilot_paper/workflow/envs/rsession.conf \
