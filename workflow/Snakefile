@@ -69,18 +69,33 @@ rule all:
 ## tracking_success
 #                "config/tracking_success.csv",
 #####################
-# movement_metrics
+# 04_hmm.smk
 #####################
+## movement_metrics
+#        expand(os.path.join(
+#            config["working_dir"],
+#            "with_metrics/{assay}/{sample}/{quadrant}/{interval}.csv"),
+#                zip,
+#                assay = ASSAYS_INT,
+#                sample = SAMPLES_INT,
+#                quadrant = QUADRANTS_INT,
+#                interval = INTERVALS_INT   
+#        ),
+# merge_csvs
         expand(os.path.join(
             config["working_dir"],
-            "with_metrics/{assay}/{sample}/{quadrant}/{interval}.csv"),
-                zip,
-                assay = ASSAYS_INT,
-                sample = SAMPLES_INT,
-                quadrant = QUADRANTS_INT,
-                interval = INTERVALS_INT   
+            "merged/{interval}.csv"
+            ),
+                interval = config["seconds_interval"]
         ),
-
+## run_hmm
+#        expand(os.path.join(
+#            config["working_dir"],
+#            "hmm_out/{interval}/{variables}/{n_states}.csv"),
+#                interval = config["seconds_interval"],
+#                variables = config["hmm_variables"],
+#                n_states = config["n_states"]
+#        ),
 ##### Modules #####
 
 include: "rules/01_pre-processing.smk"

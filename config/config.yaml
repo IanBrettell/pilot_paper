@@ -23,6 +23,15 @@ seconds_interval:
     - 0.2
     - 0.5
     - 1
+hmm_variables:
+    dist_angle:
+        - distance
+        - angle
+n_states:
+    - 5
+    - 10
+    - 15
+    - 20
 ####################
 # Containers
 ####################

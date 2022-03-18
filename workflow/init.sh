@@ -49,7 +49,6 @@ ssh codon
 bsub -M 20000 -q gui -XF -Is bash
 /hps/nobackup/birney/users/ian/software/Fiji.app/ImageJ-linux64 
 
-
 #######################
 # Build custom containers
 #######################
@@ -74,12 +73,19 @@ singularity build --remote \
     $IDCONT \
     workflow/envs/idtrackerai.def
 
-# Open CV (python)
+# hmmlearn (python)
 HMMCONT=/hps/nobackup/birney/users/ian/containers/pilot_paper/hmmlearn_0.2.7.sif
 module load singularity-3.7.0-gcc-9.3.0-dp5ffrp
 singularity build --remote \
     $HMMCONT \
     workflow/envs/hmmlearn_0.2.7.def
+
+# Julia
+JULIACONT=/hps/nobackup/birney/users/ian/containers/pilot_paper/julia_1.7.sif
+module load singularity-3.7.0-gcc-9.3.0-dp5ffrp
+singularity build --remote \
+    $JULIACONT \
+    workflow/envs/julia_1.7.def
 
 ####################
 # Run RStudio Server
