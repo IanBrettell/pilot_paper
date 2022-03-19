@@ -37,7 +37,7 @@ out = purrr::map(IN_FILES, function(IN_FILE){
   # bind into single DF
   dplyr::bind_rows(.id = "video") %>% 
   # separate metadata
-  tidyr::separate(col = video,into = c("assay1", "assay2", "date", "time", "ref_fish", "test_fish", "tank_side", "quadrant")) %>% 
+  tidyr::separate(col = video, into = c("assay1", "assay2", "date", "time", "ref_fish", "test_fish", "tank_side", "quadrant")) %>% 
   # unite assay columns
   tidyr::unite(col = "assay",
                assay1, assay2,

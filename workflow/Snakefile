@@ -81,13 +81,13 @@ rule all:
 #                quadrant = QUADRANTS_INT,
 #                interval = INTERVALS_INT   
 #        ),
-# merge_csvs
-        expand(os.path.join(
-            config["working_dir"],
-            "merged/{interval}.csv"
-            ),
-                interval = config["seconds_interval"]
-        ),
+## merge_csvs
+#        expand(os.path.join(
+#            config["working_dir"],
+#            "merged/{interval}.csv"
+#            ),
+#                interval = config["seconds_interval"]
+#        ),
 ## run_hmm
 #        expand(os.path.join(
 #            config["working_dir"],
@@ -96,6 +96,20 @@ rule all:
 #                variables = config["hmm_variables"],
 #                n_states = config["n_states"]
 #        ),
+## hmm_concordance_in
+#        expand(os.path.join(
+#            config["working_dir"],
+#            "hmm_concordance_in/{interval}/A.csv"),
+#                interval = config["seconds_interval"]
+#        ),
+# hmm_concordance_out
+        expand(os.path.join(
+            config["working_dir"],
+            "hmm_concordance_out/{interval}/{variables}/{n_states}.csv"),
+                interval = config["seconds_interval"],
+                variables = config["hmm_variables"],
+                n_states = config["n_states"]               
+        ),  
 ##### Modules #####
 
 include: "rules/01_pre-processing.smk"

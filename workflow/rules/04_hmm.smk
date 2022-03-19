@@ -49,27 +49,6 @@ rule merge_csvs:
     script:
         "../scripts/merge_csvs.R"
 
-# Randomise order of videos for 0.5 split into train and test datasets
-rule hmm_cocordance_input:
-    input:
-        rules.merge_csvs.output,
-    output:
-        os.path.join(
-            config["working_dir"],
-            "hmm_concordance_in/{interval}.csv"
-        ),
-    log:
-        os.path.join(
-            config["working_dir"],
-            "logs/hmm_cocordance_input/{interval}.log"
-        ),
-    resources:
-        mem_mb = 10000
-    container:
-        config["rocker_tidyverse"]
-    script:
-        "../scripts/hmm_concordance_input.R"
-
 rule run_hmm:
     input:
         rules.merge_csvs.output,
@@ -87,21 +66,50 @@ rule run_hmm:
         n_states = "{n_states}",
         variables = lambda wildcards: config["hmm_variables"][wildcards.variables]
     resources:
-        # start at 10000
-        mem_mb = lambda wildcards, attempt: attempt * 18000,
+        # start at 5000
+        mem_mb = lambda wildcards, attempt: attempt * 5000,
     container:
         config["hmmlearn"]
     script:
         "../scripts/run_hmm.py"
 
-rule hmm_concordance:
+# We also want to test the concordance between the assigned states
+# when the HMM is trained on a different dataset
+# Randomise order of videos for 0.5 split into train and test datasets
+rule hmm_concordance_in:
     input:
         rules.merge_csvs.output,
     output:
+        A = os.path.join(
+            config["working_dir"],
+            "hmm_concordance_in/{interval}/A.csv"
+        ),
+        B = os.path.join(
+            config["working_dir"],
+            "hmm_concordance_in/{interval}/B.csv"
+        ),
+    log:
         os.path.join(
             config["working_dir"],
-            "hmm_concordance/{interval}/{variables}/{n_states}.csv"
-        ),        
+            "logs/hmm_cocordance_input/{interval}.log"
+        ),
+    resources:
+        mem_mb = 5000
+    container:
+        config["rocker_tidyverse"]
+    script:
+        "../scripts/hmm_concordance_input.R"
+
+# Run concordance
+rule hmm_concordance_out:
+    input:
+        A = rules.hmm_concordance_in.output.A,
+        B = rules.hmm_concordance_in.output.B,
+    output:
+        os.path.join(
+            config["working_dir"],
+            "hmm_concordance_out/{interval}/{variables}/{n_states}.csv"
+        ),  
     log:
         os.path.join(
             config["working_dir"],
@@ -111,8 +119,8 @@ rule hmm_concordance:
         n_states = "{n_states}",
         variables = lambda wildcards: config["hmm_variables"][wildcards.variables]
     resources:
-        # start at 10000
-        mem_mb = lambda wildcards, attempt: attempt * 18000,
+        # start at 5000
+        mem_mb = lambda wildcards, attempt: attempt * 10000,
     container:
         config["hmmlearn"]
     script:
