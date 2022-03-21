@@ -1,7 +1,7 @@
 bookdown::bs4_book:
   css: style.css
   theme:
-    primary: "#3C1642"
+    primary: "#F4AFB4"
     font_scale: 0.8
   repo:
     base: https://github.com/brettellebi/somites
