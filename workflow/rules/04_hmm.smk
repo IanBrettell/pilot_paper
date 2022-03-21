@@ -120,7 +120,7 @@ rule hmm_concordance_out:
         variables = lambda wildcards: config["hmm_variables"][wildcards.variables]
     resources:
         # start at 5000
-        mem_mb = lambda wildcards, attempt: attempt * 10000,
+        mem_mb = lambda wildcards, attempt: attempt * 15000,
     container:
         config["hmmlearn"]
     script:
