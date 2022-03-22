@@ -1,0 +1,23 @@
+# Send log
+
+log <- file(snakemake@log[[1]], open="wt")
+sink(log)
+sink(log, type = "message")
+
+# Load libraries
+
+library(tidyverse)
+library(cowplot)
+
+# Get variables
+
+## Debug
+IN_FILES = list("/hps/nobackup/birney/users/ian/pilot/hmm_concordance_recode/0.5/dist_angle/15.csv",
+                "/hps/nobackup/birney/users/ian/pilot/hmm_concordance_recode/0.5/dist_angle/20.csv")
+
+## True
+IN_FILES = snakemake@input
+OUT_PNG = snakemake@output[["png"]]
+OUT_PDF = snakemake@output[["pdf"]]
+
+# 

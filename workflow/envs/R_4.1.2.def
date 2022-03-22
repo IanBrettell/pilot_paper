@@ -9,4 +9,4 @@ From: rocker/tidyverse:4.1.2
     # Install CRAN packages
     install2.r --error \
         here \
-        tseries
+        cowplot

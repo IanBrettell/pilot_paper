@@ -110,9 +110,21 @@ rule all:
                 variables = config["hmm_variables"],
                 n_states = config["n_states"]               
         ),  
+#####################
+# 05_plotting.smk
+#####################
+# recode_concordance
+        expand(os.path.join(
+            config["working_dir"],
+            "hmm_concordance_recode/{interval}/{variables}/{n_states}.csv"),
+                interval = config["seconds_interval"][0],
+                variables = config["hmm_variables"],
+                n_states = config["n_states"][3]
+        ),
 ##### Modules #####
 
 include: "rules/01_pre-processing.smk"
 include: "rules/02_tracking.smk"
 include: "rules/03_qc.smk"
 include: "rules/04_hmm.smk"
+include: "rules/05_plotting.smk"

@@ -46,3 +46,6 @@ rocker_tidyverse:
     docker://rocker/tidyverse:4.1.2
 hmmlearn:
     /hps/nobackup/birney/users/ian/containers/pilot_paper/hmmlearn_0.2.7.sif
+# Instructions on building container in config/init.sh
+R:
+    /hps/nobackup/birney/users/ian/containers/pilot_paper/R_4.1.2.sif
