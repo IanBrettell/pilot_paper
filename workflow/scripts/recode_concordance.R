@@ -12,8 +12,8 @@ library(cowplot)
 # Get variables
 
 ## Debug
-#IN_FILE = "/hps/nobackup/birney/users/ian/pilot/hmm_concordance_out/0.5/dist_angle/15.csv"
-#N_STATES = 15
+IN_FILE = "/hps/nobackup/birney/users/ian/pilot/hmm_concordance_out/0.1/dist_angle/15.csv"
+N_STATES = 15
 
 ## True
 IN_FILE = snakemake@input[[1]]
@@ -39,26 +39,39 @@ df = readr::read_csv(IN_FILE) %>%
 # Rank states by mean distance
 
 rank_df = df %>% 
+  #dplyr::slice_sample(n = 1e4) %>% 
   tidyr::pivot_longer(cols = c(train_self, train_other),
                       names_to = "training_data",
                       names_prefix = "train_",
                       values_to = "state") %>% 
+  dplyr::mutate(log10_dist = log10(distance + 1))
+
+# Run PCA on distance and angle
+pca_out = prcomp(rank_df %>% 
+                   dplyr::select(log10_dist, angle),
+                 center = TRUE, scale. = T)
+pc1 = pca_out$x[, 1]
+  
+# Add to rank_df
+
+rank_df = rank_df %>% 
+  dplyr::mutate(pc1 = pc1) %>% 
   dplyr::group_by(group, training_data, state) %>% 
-  dplyr::summarise(mean_distance = mean(distance)) %>% 
+  dplyr::summarise(mean_pc1 = mean(pc1)) %>% 
   # order by mean distance
-  dplyr::arrange(mean_distance, .by_group = T) %>% 
+  dplyr::arrange(mean_pc1, .by_group = T) %>% 
   # recode state by ranking
   dplyr::mutate(state_recode = dplyr::row_number()) %>% 
   dplyr::ungroup()
 
 # Bind to original DF
+
 df_new = dplyr::left_join(df %>% 
                             tidyr::pivot_longer(cols = c(train_self, train_other),
                                                 names_to = "training_data",
                                                 names_prefix = "train_",
                                                 values_to = "state") , 
-                          rank_df %>% 
-                            dplyr::select(-mean_distance),
+                          rank_df ,
                           by = c("group", "training_data", "state"))
 
 # Plot
@@ -79,12 +92,14 @@ out_plots = lapply(df_split, function(DATA){
   title = paste("Group: ", title[1], "\nTraining data: ", title[2], sep = "")
   # Plot
   out_plot = DATA %>% 
+    # select random sample of 1e5 rows
+    dplyr::slice_sample(n = 1e5) %>% 
     ggplot() +
     geom_point(aes(angle_recode, log10(distance), colour = state_recode),
-               alpha = 0.6, size = 0.5) +
+               alpha = 0.3, size = 0.2) +
     coord_polar() +
     facet_wrap(~state_recode, nrow = N_ROWS) +
-    theme_dark() +
+    theme_dark(base_size = 8) +
     scale_x_continuous(labels = c(0, 90, 180, 270),
                        breaks = c(0, 90, 180, 270)) +
     scale_color_viridis_c() +
@@ -98,14 +113,15 @@ out_plots = lapply(df_split, function(DATA){
 
 final_plot = cowplot::plot_grid(plotlist = out_plots,
                                 nrow = 2,
-                                ncol = 2)
+                                ncol = 2,
+                                axis = "tblr")
 
 # Save .png
 ggsave(OUT_PNG,
        final_plot,
        device = "png",
-       width = 12.94,
-       height = 8,
+       width = 19.416,
+       height = 12,
        units = "in",
        dpi = 400)
 
@@ -113,8 +129,8 @@ ggsave(OUT_PNG,
 ggsave(OUT_PDF,
        final_plot,
        device = "pdf",
-       width = 12.94,
-       height = 8,
+       width = 19.416,
+       height = 12,
        units = "in",
        dpi = 400)
 
@@ -122,7 +138,7 @@ ggsave(OUT_PDF,
 # Pivot wider and save to .csv
 
 df_new %>% 
-  # remove `state` column because it prevents proper widening (as it differs between training data)
+  # remove `state` column because it prevents proper widening (as it differs based on training data)
   dplyr::select(-state) %>% 
   tidyr::pivot_wider(names_from = training_data,
                      names_prefix = "trained_",

@@ -114,12 +114,10 @@ rule all:
 # 05_plotting.smk
 #####################
 # recode_concordance
-        expand(os.path.join(
-            config["working_dir"],
-            "hmm_concordance_recode/{interval}/{variables}/{n_states}.csv"),
-                interval = config["seconds_interval"][0],
+        expand("book/figs/hmm_concordance/{interval}/{variables}/{n_states}/eye_facet.png",
+                interval = config["seconds_interval"],
                 variables = config["hmm_variables"],
-                n_states = config["n_states"][3]
+                n_states = config["n_states"]
         ),
 ##### Modules #####
 

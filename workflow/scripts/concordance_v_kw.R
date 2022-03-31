@@ -20,4 +20,6 @@ IN_FILES = snakemake@input
 OUT_PNG = snakemake@output[["png"]]
 OUT_PDF = snakemake@output[["pdf"]]
 
-# 
+# Read in files
+
+in_list = purrr::map(IN_FILES, readr::read_csv)
