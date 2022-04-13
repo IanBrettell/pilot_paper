@@ -1,4 +1,9 @@
 include: "rules/00_common.smk"
+include: "rules/01_pre-processing.smk"
+include: "rules/02_tracking.smk"
+include: "rules/03_qc.smk"
+include: "rules/04_hmm.smk"
+include: "rules/05_plotting.smk"
 
 ##### Target rules #####
 
@@ -102,27 +107,19 @@ rule all:
 #            "hmm_concordance_in/{interval}/A.csv"),
 #                interval = config["seconds_interval"]
 #        ),
-# hmm_concordance_out
-        expand(os.path.join(
-            config["working_dir"],
-            "hmm_concordance_out/{interval}/{variables}/{n_states}.csv"),
-                interval = config["seconds_interval"],
-                variables = config["hmm_variables"],
-                n_states = config["n_states"]               
-        ),  
+## hmm_concordance_out
+#        expand(os.path.join(
+#            config["working_dir"],
+#            "hmm_concordance_out/{interval}/{variables}/{n_states}.csv"),
+#                interval = config["seconds_interval"],
+#                variables = config["hmm_variables"],
+#                n_states = config["n_states"]               
+#        ),  
 #####################
 # 05_plotting.smk
 #####################
-# recode_concordance
-        expand("book/figs/hmm_concordance/{interval}/{variables}/{n_states}/eye_facet.png",
+        expand(rules.recode_concordance.output.rds,
                 interval = config["seconds_interval"],
                 variables = config["hmm_variables"],
                 n_states = config["n_states"]
         ),
-##### Modules #####
-
-include: "rules/01_pre-processing.smk"
-include: "rules/02_tracking.smk"
-include: "rules/03_qc.smk"
-include: "rules/04_hmm.smk"
-include: "rules/05_plotting.smk"
