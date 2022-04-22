@@ -53,6 +53,11 @@ dfB = pd.read_csv(IN_B)
 dfA["group"] = "A"
 dfB["group"] = "B"
 
+# get length (number of rows) for each fish
+
+lensA = dfA.groupby(['assay', 'date', 'time', 'quadrant', 'fish']).size().values.tolist()
+lensB = dfB.groupby(['assay', 'date', 'time', 'quadrant', 'fish']).size().values.tolist()
+
 # Select input variables
 
 in_dfA = dfA[VARIABLES]
@@ -66,16 +71,16 @@ modelB = hmm.GaussianHMM(n_components=N_STATES, covariance_type="diag", n_iter=1
 # Train
 
 ## A
-modelA.fit(in_dfA)
+modelA.fit(in_dfA, lengths = lensA)
 ## B
-modelB.fit(in_dfB)
+modelB.fit(in_dfB, lengths = lensB)
 
 # Predict
 
-statesAA = modelA.predict(in_dfA)
-statesAB = modelA.predict(in_dfB)
-statesBB = modelB.predict(in_dfB)
-statesBA = modelB.predict(in_dfA)
+statesAA = modelA.predict(in_dfA, lengths = lensA)
+statesAB = modelA.predict(in_dfB, lengths = lensB)
+statesBB = modelB.predict(in_dfB, lengths = lensB)
+statesBA = modelB.predict(in_dfA, lengths = lensA)
 
 # Add to dfs
 

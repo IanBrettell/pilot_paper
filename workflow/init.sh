@@ -37,7 +37,7 @@ snakemake \
   --rerun-incomplete \
   --use-conda \
   --use-singularity \
-  --restart-times 1 \
+  --restart-times 2 \
   -s workflow/Snakefile \
   -p
 

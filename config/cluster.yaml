@@ -2,5 +2,5 @@ __default__:
   memory: "{resources.mem_mb}"
   n: 1
   name: "{rule}.{wildcards}"
-  queue: short
+  queue: standard
   outfile: "{log}"

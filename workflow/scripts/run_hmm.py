@@ -45,6 +45,10 @@ np.random.seed(42)
 
 df = pd.read_csv(IN_FILE)
 
+# get length (number of rows) for each sample / chr
+
+s_chr_lens = df.groupby(['assay', 'date', 'time', 'quadrant', 'fish']).size().values.tolist()
+
 # Select input variables
 
 in_df = df[VARIABLES]
@@ -55,11 +59,11 @@ model = hmm.GaussianHMM(n_components=N_STATES, covariance_type="diag", n_iter=10
 
 # Train
 
-model.fit(in_df)
+model.fit(in_df, lengths = s_chr_lens)
 
 # Predict
 
-states = model.predict(in_df)
+states = model.predict(in_df, lengths = s_chr_lens)
 
 # Add to df
 
