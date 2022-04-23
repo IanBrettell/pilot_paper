@@ -11,7 +11,7 @@ library(tidyverse)
 # Get variables
 
 # Debug
-#IN_FILE = "/nfs/research/birney/users/ian/MIKK_F2_tracking/final_tracks/novel_object/20211222_1045_R_q1.csv"
+#IN_FILE = "/nfs/research/birney/users/ian/pilot/final_tracks/novel_object/20190615_1549_icab_hni_L_q4.csv"
 #INTERVAL = 0.2
 #SOURCE_FILE = here::here("workflow/scripts/movement_metrics_source.R")
 

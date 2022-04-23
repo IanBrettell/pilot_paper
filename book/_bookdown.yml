@@ -8,6 +8,7 @@ language:
 output_dir: "../docs"
 
 rmd_files: [
-  "index.Rmd"
+  "index.Rmd",
+  "Comparison_of_HMM_parameters.Rmd"
   
 ]

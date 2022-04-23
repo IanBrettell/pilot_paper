@@ -59,18 +59,18 @@ rule compare_params:
         ),
         kw = rules.run_kruskal_wallis.output,
     output:
-        png = "book/figs/compare_param_conc.png",
-        pdf = "book/figs/concordance_v_kw.pdf"
+        png = "book/figs/compare_params/compare_params.png",
+        pdf = "book/figs/compare_params/compare_params.pdf"
     log:
         os.path.join(
             config["working_dir"],
-            "logs/compare_param_concordance/all.log"
+            "logs/compare_params/all.log"
         ),
     resources:
         mem_mb = 20000,
     container:
         config["R"]
     script:
-        "../scripts/concordance_v_kw.R"
+        "../scripts/compare_params.R"
 
     

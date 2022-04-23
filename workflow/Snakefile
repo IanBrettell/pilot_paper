@@ -112,3 +112,4 @@ rule all:
                 n_states = config["n_states"]
         ),
         rules.run_kruskal_wallis.output,
+        rules.compare_params.output

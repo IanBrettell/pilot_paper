@@ -1,10 +1,10 @@
 bookdown::bs4_book:
   css: style.css
   theme:
-    primary: "#F4AFB4"
+    primary: "#6D3D14"
     font_scale: 0.8
   repo:
-    base: https://github.com/brettellebi/somites
+    base: https://github.com/brettellebi/pilot_paper
     branch: master
     subdir: book
   includes:

@@ -9,7 +9,7 @@
 
 ssh codon
 module load singularity-3.7.0-gcc-9.3.0-dp5ffrp
-bsub -M 20000 -Is bash
+bsub -Is bash
 # If needing to copy videos from FTP (rule copy_videos),
 # Need to use the datamover queue so that it can see the FTP drive:
 # bsub -M 20000 -q datamover -Is bash
@@ -100,7 +100,7 @@ singularity shell --bind /hps/nobackup/birney/users/ian/rstudio_db:/var/lib/rstu
                   --bind /hps/nobackup/birney/users/ian/tmp:/tmp \
                   --bind /hps/nobackup/birney/users/ian/run:/run \
                   $RCONT
-
+rstudio-server kill-all
 rserver \
     --rsession-config-file /hps/software/users/birney/ian/repos/pilot_paper/workflow/envs/rsession.conf \
     --server-user brettell
