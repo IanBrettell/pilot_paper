@@ -20,7 +20,7 @@ rule recode_concordance:
         interval = "{interval}",
         n_states = "{n_states}",
     resources:
-        mem_mb = 20000,
+        mem_mb = lambda wildcards, attempt: attempt * 20000,
     container:
         config["R"]
     script:
@@ -44,7 +44,7 @@ rule run_kruskal_wallis:
             "logs/run_kruskal_wallis/all.log"
         ),
     resources:
-        mem_mb = 30000
+        mem_mb = lambda wildcards, attempt: attempt * 30000
     container:
         config["R"]
     script:
@@ -67,7 +67,7 @@ rule compare_params:
             "logs/compare_params/all.log"
         ),
     resources:
-        mem_mb = 20000,
+        mem_mb = lambda wildcards, attempt: attempt * 20000,
     container:
         config["R"]
     script:
