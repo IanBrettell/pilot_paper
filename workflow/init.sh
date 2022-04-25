@@ -24,6 +24,7 @@ snakemake \
   --rerun-incomplete \
   --use-conda \
   --use-singularity \
+  --restart-times 0 \
   -s workflow/Snakefile \
   -p
 
@@ -57,7 +58,12 @@ bsub -M 20000 -q gui -XF -Is bash
 RCONT=/hps/nobackup/birney/users/ian/containers/pilot_paper/R_4.1.2.sif
 singularity build --remote \
     $RCONT \
-    workflow/envs/R_4.1.2.def
+    workflow/envs/R_4.1.2/R_4.1.2.def
+
+RCONT=/hps/nobackup/birney/users/ian/containers/pilot_paper/R_4.2.0.sif
+singularity build --remote \
+    $RCONT \
+    workflow/envs/R_4.2.0/R_4.2.0.def
 
 # Open CV (python)
 OPENCVCONT=/hps/nobackup/birney/users/ian/containers/pilot_paper/opencv_4.5.1.sif
@@ -102,7 +108,7 @@ singularity shell --bind /hps/nobackup/birney/users/ian/rstudio_db:/var/lib/rstu
                   $RCONT
 rstudio-server kill-all
 rserver \
-    --rsession-config-file /hps/software/users/birney/ian/repos/pilot_paper/workflow/envs/rsession.conf \
+    --rsession-config-file /hps/software/users/birney/ian/repos/pilot_paper/workflow/envs/R_4.1.2/rsession.conf \
     --server-user brettell
 
 ssh -L 8787:hl-codon-37-04:8787 proxy-codon

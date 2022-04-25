@@ -54,3 +54,5 @@ hmmlearn:
 # Instructions on building container in config/init.sh
 R:
     /hps/nobackup/birney/users/ian/containers/pilot_paper/R_4.1.2.sif
+R_4.2.0:
+    /hps/nobackup/birney/users/ian/containers/pilot_paper/R_4.2.0.sif

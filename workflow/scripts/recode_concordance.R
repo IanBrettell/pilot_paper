@@ -12,9 +12,9 @@ library(cowplot)
 # Get variables
 
 ## Debug
-IN_FILE = "/hps/nobackup/birney/users/ian/pilot/hmm_concordance_out/0.2/dist_angle/20.csv"
-N_STATES = 20
-INTERVAL = 0.2
+#IN_FILE = "/hps/nobackup/birney/users/ian/pilot/hmm_concordance_out/0.05/dist_angle/17.csv"
+#N_STATES =17
+#INTERVAL = 0.05
 
 ## True
 IN_FILE = snakemake@input[[1]]
@@ -108,7 +108,7 @@ conf_list = purrr::imap(df_list, function(GROUP, NAME){
       
       # If there are no more states with overlapping states that have not already been taken,
       # Take the first unused state
-      if (length(res == 0)){
+      if (length(res) == 0){
         res = STATES[which(!STATES %in% vec)][1]
       }
       

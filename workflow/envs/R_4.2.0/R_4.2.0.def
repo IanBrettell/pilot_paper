@@ -1,0 +1,16 @@
+Bootstrap: docker
+From: rocker/tidyverse:4.2.0
+
+%post
+
+    # Install packages required for R packages
+    apt update
+
+    # Install CRAN packages
+    install2.r --error \
+        here \
+        cowplot \
+        ggrepel \
+        fishualize \
+        plotly \
+        bookdown

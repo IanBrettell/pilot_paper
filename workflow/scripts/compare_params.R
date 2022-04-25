@@ -13,26 +13,7 @@ library(cowplot)
 # Get variables
 
 ## Debug
-#CONC = list("/hps/nobackup/birney/users/ian/pilot/hmm_concordance_recode/0.05/dist_angle/10.rds",
-#            "/hps/nobackup/birney/users/ian/pilot/hmm_concordance_recode/0.05/dist_angle/15.rds",
-#            "/hps/nobackup/birney/users/ian/pilot/hmm_concordance_recode/0.05/dist_angle/20.rds",
-#            "/hps/nobackup/birney/users/ian/pilot/hmm_concordance_recode/0.05/dist_angle/5.rds",
-#            "/hps/nobackup/birney/users/ian/pilot/hmm_concordance_recode/0.1/dist_angle/10.rds",
-#            "/hps/nobackup/birney/users/ian/pilot/hmm_concordance_recode/0.1/dist_angle/15.rds",
-#            "/hps/nobackup/birney/users/ian/pilot/hmm_concordance_recode/0.1/dist_angle/20.rds",
-#            "/hps/nobackup/birney/users/ian/pilot/hmm_concordance_recode/0.1/dist_angle/5.rds",
-#            "/hps/nobackup/birney/users/ian/pilot/hmm_concordance_recode/0.2/dist_angle/10.rds",
-#            "/hps/nobackup/birney/users/ian/pilot/hmm_concordance_recode/0.2/dist_angle/15.rds",
-#            "/hps/nobackup/birney/users/ian/pilot/hmm_concordance_recode/0.2/dist_angle/20.rds",
-#            "/hps/nobackup/birney/users/ian/pilot/hmm_concordance_recode/0.2/dist_angle/5.rds",
-#            "/hps/nobackup/birney/users/ian/pilot/hmm_concordance_recode/0.5/dist_angle/10.rds",
-#            "/hps/nobackup/birney/users/ian/pilot/hmm_concordance_recode/0.5/dist_angle/15.rds",
-#            "/hps/nobackup/birney/users/ian/pilot/hmm_concordance_recode/0.5/dist_angle/20.rds",
-#            "/hps/nobackup/birney/users/ian/pilot/hmm_concordance_recode/0.5/dist_angle/5.rds",
-#            "/hps/nobackup/birney/users/ian/pilot/hmm_concordance_recode/1/dist_angle/10.rds",
-#            "/hps/nobackup/birney/users/ian/pilot/hmm_concordance_recode/1/dist_angle/15.rds",
-#            "/hps/nobackup/birney/users/ian/pilot/hmm_concordance_recode/1/dist_angle/20.rds",
-#            "/hps/nobackup/birney/users/ian/pilot/hmm_concordance_recode/1/dist_angle/5.rds")
+#CONC = as.list(list.files("/hps/nobackup/birney/users/ian/pilot/hmm_concordance_recode/",full.names = T, recursive = T))
 #KW = "/hps/nobackup/birney/users/ian/pilot/kruskal_wallis/out.rds"
 
 ## True
@@ -64,14 +45,20 @@ pal = colorspace::sequential_hcl(length(unique(df$N_STATES)), palette = "ag_Suns
 out_plot = df %>% 
   dplyr::mutate(N_STATES = factor(N_STATES, levels = sort(unique(N_STATES)))) %>% 
   dplyr::mutate(INTERVAL = factor(INTERVAL, levels = sort(unique(INTERVAL)))) %>% 
-  ggplot() +
-    geom_point(aes(MEAN_CONC, SUM_KW_STAT, size = INTERVAL, colour = N_STATES)) +
+  ggplot(aes(MEAN_CONC, SUM_KW_STAT)) +
+    geom_point(aes(size = INTERVAL, colour = N_STATES),
+               alpha = 0.8) +
+    ggrepel::geom_text_repel(aes(label = INTERVAL),
+              size = 2,
+              ) +
     theme_bw() +
     guides(size = guide_legend(title = "Interval\n(seconds)"),
            colour = guide_legend(title = "N states")) +
     scale_colour_manual(values = pal) +
     xlab("mean concordance between cross-validated HMM states") +
     ylab("summed Kruskal-Wallis statistic comparing frequency\nof time spent in each HMM state across medaka lines")
+
+#out_plot
 
 ggsave(OUT_PNG,
        out_plot,
