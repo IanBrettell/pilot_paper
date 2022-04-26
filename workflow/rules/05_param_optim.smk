@@ -44,7 +44,7 @@ rule run_kruskal_wallis:
             "logs/run_kruskal_wallis/all.log"
         ),
     resources:
-        mem_mb = lambda wildcards, attempt: attempt * 30000
+        mem_mb = lambda wildcards, attempt: attempt * 50000
     container:
         config["R"]
     script:
@@ -69,7 +69,7 @@ rule compare_params:
     resources:
         mem_mb = lambda wildcards, attempt: attempt * 20000,
     container:
-        config["R"]
+        config["R_4.2.0"]
     script:
         "../scripts/compare_params.R"
 
