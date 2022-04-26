@@ -4,7 +4,8 @@ From: rocker/tidyverse:4.2.0
 %post
 
     # Install packages required for R packages
-    apt update
+    apt update 
+    apt install -y libxt6
 
     # Install CRAN packages
     install2.r --error \
@@ -12,5 +13,8 @@ From: rocker/tidyverse:4.2.0
         cowplot \
         ggrepel \
         fishualize \
+        wesanderson \
         plotly \
-        bookdown
+        bookdown \
+        ggpubr \
+        rstatix

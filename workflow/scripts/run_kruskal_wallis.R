@@ -45,9 +45,9 @@ kw_tests = purrr::map(IN, readr::read_csv) %>%
                                             fish == "test" ~ test_fish)) %>% 
       # get proportions of time spent in each state
       ## count rows per fish per state
-      dplyr::count(assay, date, time, fish, line, state) %>% 
+      dplyr::count(assay, date, time, quadrant, fish, line, state) %>% 
       # add total row count per fish
-      dplyr::add_count(assay, date, time, fish, line, wt = n, name = "nn") %>% 
+      dplyr::add_count(assay, date, time, quadrant, fish, line, wt = n, name = "nn") %>% 
       # get proportion of time fish spent in each state
       dplyr::mutate(state_freq = n / nn)
     
