@@ -4,7 +4,7 @@ Using adapted code from `rule compare_params` in https://github.com/brettellebi/
 
 Pipeline script: https://github.com/brettellebi/pilot_paper/blob/master/workflow/scripts/compare_params.R
 
-```{r}
+```{r, message = F, warning = F}
 library(tidyverse)
 library(plotly)
 ```
@@ -42,9 +42,6 @@ out_plot = df %>%
   ggplot(aes(MEAN_CONC, SUM_KW_STAT)) +
     geom_point(aes(size = INTERVAL, colour = N_STATES),
                alpha = 0.8) +
-    ggrepel::geom_text_repel(aes(label = INTERVAL),
-              size = 2,
-              ) +
     theme_bw() +
     guides(size = guide_legend(title = "Interval\n(seconds)"),
            colour = guide_legend(title = "N states")) +
