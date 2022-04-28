@@ -16,10 +16,10 @@ library(cowplot)
 # Get variables
 
 ## Debug
-IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/15.csv"
-N_STATES = 15
-VARIABLES = "distance and angle of travel"
-INTERVAL = 0.08
+#IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.05/dist_angle/18.csv"
+#N_STATES = 18
+#VARIABLES = "distance and angle of travel"
+#INTERVAL = 0.05
 
 ## True
 IN = snakemake@input[[1]]
@@ -41,8 +41,10 @@ TILE_SGE = snakemake@output[["tile_sge"]]
 
 if (N_STATES %% 5 == 0){
   N_ROWS = N_STATES / 5
-} else {
+} else if (N_STATES == 12) {
   N_ROWS = 3
+} else if (N_STATES == 18){
+  N_ROWS = 6
 }
  
 # Create line recode vector
@@ -239,7 +241,7 @@ kw_dge = state_freq_dge %>%
 ## Open field
 
 ASSAY = "open_field"
-of_box_dge = state_freq_df %>% 
+of_box_dge = state_freq_dge %>% 
   dplyr::filter(assay == ASSAY) %>% 
   ggplot() +
     geom_boxplot(aes(line, state_freq, fill = line), notch = T) +
@@ -251,7 +253,7 @@ of_box_dge = state_freq_df %>%
               size = 3) +
     scale_fill_manual(values = pal) +
     theme_bw() +
-    facet_wrap(~state_recode, nrow = 3) +
+    facet_wrap(~state_recode, nrow = N_ROWS) +
     guides(fill = "none") +
     ylab("HMM state frequency") +
     ggtitle(stringr::str_replace(ASSAY, "_", " ")) +
@@ -260,7 +262,7 @@ of_box_dge = state_freq_df %>%
 ## Novel object
 
 ASSAY = "novel_object"
-no_box_dge = state_freq_df %>% 
+no_box_dge = state_freq_dge %>% 
   dplyr::filter(assay == ASSAY) %>% 
   ggplot() +
   geom_boxplot(aes(line, state_freq, fill = line), notch = T) +
@@ -272,7 +274,7 @@ no_box_dge = state_freq_df %>%
             size = 3) +
   scale_fill_manual(values = pal) +
   theme_bw() +
-  facet_wrap(~state_recode, nrow = 3) +
+  facet_wrap(~state_recode, nrow = N_ROWS) +
   guides(fill = "none") +
   ylab("HMM state frequency") +
   ggtitle(stringr::str_replace(ASSAY, "_", " ")) +
@@ -327,7 +329,7 @@ of_box_sge = state_freq_sge %>%
   #scale_fill_manual(values = pal) +
   scale_colour_manual(values = pal) +
   theme_bw() +
-  facet_wrap(~state_recode, nrow = 3) +
+  facet_wrap(~state_recode, nrow = N_ROWS) +
   guides(colour = "none") +
   xlab("line of tank partner") +
   ylab("HMM state frequency") +
@@ -349,7 +351,7 @@ no_box_sge = state_freq_sge %>%
             size = 3) +
   scale_colour_manual(values = pal) +
   theme_bw() +
-  facet_wrap(~state_recode, nrow = 3) +
+  facet_wrap(~state_recode, nrow = N_ROWS) +
   guides(colour = "none") +
   xlab("line of tank partner") +
   ylab("HMM state frequency") +
@@ -369,25 +371,32 @@ final_dge = cowplot::ggdraw() +
                        ggtitle("HMM states") + 
                        cowplot::theme_cowplot(font_size = FONT_SIZE) +
                        theme(plot.title = element_text(hjust = 0.5)) +
-                       facet_wrap(~state_recode, nrow = 5),
+                       facet_wrap(~state_recode, nrow = N_ROWS),
                      x = 0, y = 0,
                      width = 0.4,
                      height = 1) +
   cowplot::draw_plot(of_box_dge +
                       cowplot::theme_cowplot(font_size = FONT_SIZE) +
                        theme(plot.title = element_text(hjust = 0.5)) +
-                      facet_wrap(~state_recode, nrow = 5),
+                      facet_wrap(~state_recode, nrow = N_ROWS),
                      x = 0.4, y = 0,
                      width = 0.3,
                      height = 1) +
   cowplot::draw_plot(no_box_dge +
                        cowplot::theme_cowplot(font_size = FONT_SIZE) +
                        theme(plot.title = element_text(hjust = 0.5)) +
-                       facet_wrap(~state_recode, nrow = 5),
+                       facet_wrap(~state_recode, nrow = N_ROWS),
                      x = 0.7, y = 0,
                      width = 0.3,
                      height = 1)
 
+#ggsave(here::here("tmp.png"),
+#       final_dge,
+#       device = "png",
+#       width = 16.8,
+#       height = 12,
+#       units = "in",
+#       dpi = 400)
 
 ggsave(POLAR_BOX_DGE,
        final_dge,
@@ -404,21 +413,21 @@ final_sge = cowplot::ggdraw() +
                        ggtitle("HMM states") + 
                        cowplot::theme_cowplot(font_size = FONT_SIZE) +
                        theme(plot.title = element_text(hjust = 0.5)) +
-                       facet_wrap(~state_recode, nrow = 5),
+                       facet_wrap(~state_recode, nrow = N_ROWS),
                      x = 0, y = 0,
                      width = 0.4,
                      height = 1) +
   cowplot::draw_plot(of_box_sge +
                        cowplot::theme_cowplot(font_size = FONT_SIZE) +
                        theme(plot.title = element_text(hjust = 0.5)) +
-                       facet_wrap(~state_recode, nrow = 5),
+                       facet_wrap(~state_recode, nrow = N_ROWS),
                      x = 0.4, y = 0,
                      width = 0.3,
                      height = 1) +
   cowplot::draw_plot(no_box_sge +
                        cowplot::theme_cowplot(font_size = FONT_SIZE) +
                        theme(plot.title = element_text(hjust = 0.5)) +
-                       facet_wrap(~state_recode, nrow = 5),
+                       facet_wrap(~state_recode, nrow = N_ROWS),
                      x = 0.7, y = 0,
                      width = 0.3,
                      height = 1)
@@ -440,6 +449,8 @@ SEC_INT = 2
 # DGE
 
 dge_tile_df = dge_df %>% 
+  # remove iCab ref fishes (because DGE compares test fishes)
+  dplyr::filter(!(line == "iCab" & fish == "ref")) %>% 
   #dplyr::slice_sample(n = 1e6) %>% 
   # add `indiv` column
   tidyr::unite(date, time, quadrant, fish,
@@ -484,6 +495,8 @@ ggsave(TILE_DGE,
 
 sge_tile_df = sge_df %>% 
   #dplyr::slice_sample(n = 1e5) %>% 
+  # remove iCab test fishes (because SGE compares ref fish)
+  dplyr::filter(!(line == "iCab" & fish == "test")) %>% 
   # add `indiv` column
   tidyr::unite(date, time, quadrant, fish,
                col = "indiv",

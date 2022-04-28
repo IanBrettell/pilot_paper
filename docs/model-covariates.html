@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>3 Model covariates | Medaka behaviour pilot study</title>
+<meta name="author" content="Ian Brettell">
+<meta name="description" content="library(tidyverse) #&gt; ── Attaching packages ─────────────────── tidyverse 1.3.1 ── #&gt; ✓ ggplot2 3.3.5   ✓ purrr  0.3.4 #&gt; ✓ tibble 3.1.6   ✓ dplyr  1.0.8 #&gt; ✓ tidyr  1.2.0   ✓ stringr 1.4.0 #&gt; ✓...">
+<meta name="generator" content="bookdown 0.26 with bs4_book()">
+<meta property="og:title" content="3 Model covariates | Medaka behaviour pilot study">
+<meta property="og:type" content="book">
+<meta property="og:description" content="library(tidyverse) #&gt; ── Attaching packages ─────────────────── tidyverse 1.3.1 ── #&gt; ✓ ggplot2 3.3.5   ✓ purrr  0.3.4 #&gt; ✓ tibble 3.1.6   ✓ dplyr  1.0.8 #&gt; ✓ tidyr  1.2.0   ✓ stringr 1.4.0 #&gt; ✓...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="3 Model covariates | Medaka behaviour pilot study">
+<meta name="twitter:description" content="library(tidyverse) #&gt; ── Attaching packages ─────────────────── tidyverse 1.3.1 ── #&gt; ✓ ggplot2 3.3.5   ✓ purrr  0.3.4 #&gt; ✓ tibble 3.1.6   ✓ dplyr  1.0.8 #&gt; ✓ tidyr  1.2.0   ✓ stringr 1.4.0 #&gt; ✓...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.22/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><style>
+    #content {
+        font-size: 0.9rem;
+    }
+    </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Medaka behaviour pilot study</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> About</a></li>
+<li><a class="" href="hmm-parameter-optimisation.html"><span class="header-section-number">2</span> HMM parameter optimisation</a></li>
+<li><a class="active" href="model-covariates.html"><span class="header-section-number">3</span> Model covariates</a></li>
+<li><a class="" href="exploration-of-states-1-and-3.html"><span class="header-section-number">4</span> Exploration of states 1 and 3</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/brettellebi/pilot_paper">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="model-covariates" class="section level1" number="3">
+<h1>
+<span class="header-section-number">3</span> Model covariates<a class="anchor" aria-label="anchor" href="#model-covariates"><i class="fas fa-link"></i></a>
+</h1>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
+<span class="co">#&gt; ── Attaching packages ─────────────────── tidyverse 1.3.1 ──</span>
+<span class="co">#&gt; ✓ ggplot2 3.3.5     ✓ purrr   0.3.4</span>
+<span class="co">#&gt; ✓ tibble  3.1.6     ✓ dplyr   1.0.8</span>
+<span class="co">#&gt; ✓ tidyr   1.2.0     ✓ stringr 1.4.0</span>
+<span class="co">#&gt; ✓ readr   2.1.2     ✓ forcats 0.5.1</span>
+<span class="co">#&gt; ── Conflicts ────────────────────── tidyverse_conflicts() ──</span>
+<span class="co">#&gt; x dplyr::filter() masks stats::filter()</span>
+<span class="co">#&gt; x dplyr::lag()    masks stats::lag()</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rstudio/DT">DT</a></span><span class="op">)</span></code></pre></div>
+<div id="read-in-data" class="section level2" number="3.1">
+<h2>
+<span class="header-section-number">3.1</span> Read in data<a class="anchor" aria-label="anchor" href="#read-in-data"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">IN</span> <span class="op">=</span> <span class="st">"/hps/nobackup/birney/users/ian/pilot/hmm_out/0.05/dist_angle/18.csv"</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Read </span>
+
+<span class="va">df</span> <span class="op">=</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">IN</span><span class="op">)</span>
+<span class="co">#&gt; Rows: 14651580 Columns: 15</span>
+<span class="co">#&gt; ── Column specification ────────────────────────────────────</span>
+<span class="co">#&gt; Delimiter: ","</span>
+<span class="co">#&gt; chr (6): assay, ref_fish, test_fish, tank_side, quadrant...</span>
+<span class="co">#&gt; dbl (9): date, time, frame, seconds, x, y, distance, ang...</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span>
+<span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
+
+<span class="co"># Controls (iCab-iCab pairings only)</span>
+
+<span class="va">df_control</span> <span class="op">=</span> <span class="va">df</span> <span class="op"><a href="https://rdrr.io/pkg/DT/man/DT-imports.html">%&gt;%</a></span> 
+  <span class="co"># Filter for only iCabs paired with iCabs</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">test_fish</span> <span class="op">==</span> <span class="st">"icab"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/DT/man/DT-imports.html">%&gt;%</a></span> 
+  <span class="co"># Get individual</span>
+  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/unite.html">unite</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">time</span>, <span class="va">quadrant</span>, <span class="va">fish</span>,
+               col <span class="op">=</span> <span class="st">"indiv"</span>, 
+               remove <span class="op">=</span> <span class="cn">F</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/DT/man/DT-imports.html">%&gt;%</a></span> 
+  <span class="co"># Group by assay and individual to get mean speed</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">assay</span>, <span class="va">date</span>, <span class="va">time</span>, <span class="va">quadrant</span>, <span class="va">indiv</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/DT/man/DT-imports.html">%&gt;%</a></span> 
+  <span class="co"># Calculate mean speed</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>mean_speed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">distance</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/DT/man/DT-imports.html">%&gt;%</a></span> 
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/DT/man/DT-imports.html">%&gt;%</a></span> 
+  <span class="co"># Make date a factor</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; `summarise()` has grouped output by 'assay', 'date',</span>
+<span class="co">#&gt; 'time', 'quadrant'. You can override using the `.groups`</span>
+<span class="co">#&gt; argument.</span>
+
+<span class="co"># DGE data frame</span>
+
+<span class="va">df_dge</span> <span class="op">=</span> <span class="va">df</span> <span class="op"><a href="https://rdrr.io/pkg/DT/man/DT-imports.html">%&gt;%</a></span> 
+  <span class="co"># remove iCab when paired with a different test fish</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="op">(</span><span class="va">fish</span> <span class="op">==</span> <span class="st">"ref"</span> <span class="op">&amp;</span> <span class="va">test_fish</span> <span class="op">!=</span> <span class="st">"icab"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/DT/man/DT-imports.html">%&gt;%</a></span> 
+  <span class="co"># Get individual</span>
+  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/unite.html">unite</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">time</span>, <span class="va">quadrant</span>, <span class="va">fish</span>,
+               col <span class="op">=</span> <span class="st">"indiv"</span>, 
+               remove <span class="op">=</span> <span class="cn">F</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/DT/man/DT-imports.html">%&gt;%</a></span> 
+  <span class="co"># add `line` %&gt;% </span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>line <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">fish</span> <span class="op">==</span> <span class="st">"ref"</span> <span class="op">~</span> <span class="va">ref_fish</span>,
+                                        <span class="va">fish</span> <span class="op">==</span> <span class="st">"test"</span> <span class="op">~</span> <span class="va">test_fish</span><span class="op">)</span><span class="op">)</span>  <span class="op"><a href="https://rdrr.io/pkg/DT/man/DT-imports.html">%&gt;%</a></span> 
+  <span class="co"># Group by assay and individual to get mean speed</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">assay</span>, <span class="va">date</span>, <span class="va">time</span>, <span class="va">quadrant</span>, <span class="va">line</span>, <span class="va">indiv</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/DT/man/DT-imports.html">%&gt;%</a></span> 
+  <span class="co"># Calculate mean speed</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>mean_speed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">distance</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/DT/man/DT-imports.html">%&gt;%</a></span> 
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; `summarise()` has grouped output by 'assay', 'date',</span>
+<span class="co">#&gt; 'time', 'quadrant', 'line'. You can override using the</span>
+<span class="co">#&gt; `.groups` argument.</span>
+
+<span class="co"># SGE data frame </span>
+
+<span class="va">df_sge</span> <span class="op">=</span> <span class="va">df</span> <span class="op"><a href="https://rdrr.io/pkg/DT/man/DT-imports.html">%&gt;%</a></span> 
+  <span class="co"># keep only iCabs</span>
+  <span class="co">## add `line`</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>line <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">fish</span> <span class="op">==</span> <span class="st">"ref"</span> <span class="op">~</span> <span class="va">ref_fish</span>,
+                                        <span class="va">fish</span> <span class="op">==</span> <span class="st">"test"</span> <span class="op">~</span> <span class="va">test_fish</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/DT/man/DT-imports.html">%&gt;%</a></span> 
+  <span class="co"># keep only iCab test fishes</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">line</span> <span class="op">==</span> <span class="st">"icab"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/DT/man/DT-imports.html">%&gt;%</a></span> 
+  <span class="co"># Get individual</span>
+  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/unite.html">unite</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">time</span>, <span class="va">quadrant</span>, <span class="va">fish</span>,
+               col <span class="op">=</span> <span class="st">"indiv"</span>, 
+               remove <span class="op">=</span> <span class="cn">F</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/DT/man/DT-imports.html">%&gt;%</a></span> 
+  <span class="co"># Group by assay and individual to get mean speed</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">assay</span>, <span class="va">date</span>, <span class="va">time</span>, <span class="va">quadrant</span>, <span class="va">test_fish</span>, <span class="va">indiv</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/DT/man/DT-imports.html">%&gt;%</a></span> 
+  <span class="co"># Calculate mean speed</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>mean_speed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">distance</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/DT/man/DT-imports.html">%&gt;%</a></span> 
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; `summarise()` has grouped output by 'assay', 'date',</span>
+<span class="co">#&gt; 'time', 'quadrant', 'test_fish'. You can override using the</span>
+<span class="co">#&gt; `.groups` argument.</span></code></pre></div>
+</div>
+<div id="controls" class="section level2" number="3.2">
+<h2>
+<span class="header-section-number">3.2</span> Controls<a class="anchor" aria-label="anchor" href="#controls"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">model_fit</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">mean_speed</span> <span class="op">~</span> <span class="va">assay</span> <span class="op">+</span> <span class="va">date</span> <span class="op">+</span> <span class="va">time</span> <span class="op">+</span> <span class="va">quadrant</span>, data <span class="op">=</span> <span class="va">df_control</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">model_fit</span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = mean_speed ~ assay + date + time + quadrant, data = df_control)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residuals:</span>
+<span class="co">#&gt;      Min       1Q   Median       3Q      Max </span>
+<span class="co">#&gt; -1.30927 -0.36602  0.06531  0.35224  1.44668 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;                   Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="co">#&gt; (Intercept)      0.9551959  0.2385450   4.004 8.11e-05 ***</span>
+<span class="co">#&gt; assayopen_field  0.5160690  0.0663243   7.781 1.66e-13 ***</span>
+<span class="co">#&gt; date20190612     0.1976414  0.1579453   1.251 0.211931    </span>
+<span class="co">#&gt; date20190614     0.6531556  0.1675304   3.899 0.000123 ***</span>
+<span class="co">#&gt; date20190615     0.3596363  0.1514893   2.374 0.018318 *  </span>
+<span class="co">#&gt; date20190616     0.3963429  0.1478817   2.680 0.007826 ** </span>
+<span class="co">#&gt; time             0.0001001  0.0001381   0.725 0.469200    </span>
+<span class="co">#&gt; quadrantq2       0.1635167  0.0937967   1.743 0.082453 .  </span>
+<span class="co">#&gt; quadrantq3       0.1018693  0.0937967   1.086 0.278449    </span>
+<span class="co">#&gt; quadrantq4      -0.2136390  0.0937967  -2.278 0.023552 *  </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  </span>
+<span class="co">#&gt; 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residual standard error: 0.5469 on 262 degrees of freedom</span>
+<span class="co">#&gt; Multiple R-squared:  0.2773, Adjusted R-squared:  0.2524 </span>
+<span class="co">#&gt; F-statistic: 11.17 on 9 and 262 DF,  p-value: 9.486e-15</span></code></pre></div>
+</div>
+<div id="dge" class="section level2" number="3.3">
+<h2>
+<span class="header-section-number">3.3</span> DGE<a class="anchor" aria-label="anchor" href="#dge"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## All variables with interactions</span>
+<span class="va">model_dge</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html">aov</a></span><span class="op">(</span><span class="va">mean_speed</span> <span class="op">~</span> <span class="va">assay</span> <span class="op">*</span> <span class="va">date</span> <span class="op">*</span> <span class="va">time</span> <span class="op">*</span> <span class="va">quadrant</span> <span class="op">*</span> <span class="va">line</span>, data <span class="op">=</span> <span class="va">df_dge</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">model_dge</span><span class="op">)</span>
+<span class="co">#&gt;                           Df Sum Sq Mean Sq F value</span>
+<span class="co">#&gt; assay                      1  46.26   46.26 134.803</span>
+<span class="co">#&gt; time                       1   0.48    0.48   1.390</span>
+<span class="co">#&gt; quadrant                   3   4.89    1.63   4.751</span>
+<span class="co">#&gt; line                       4   6.63    1.66   4.829</span>
+<span class="co">#&gt; assay:time                 1   0.09    0.09   0.260</span>
+<span class="co">#&gt; assay:quadrant             3   0.27    0.09   0.264</span>
+<span class="co">#&gt; time:quadrant              3   0.82    0.27   0.793</span>
+<span class="co">#&gt; assay:line                 4   2.20    0.55   1.600</span>
+<span class="co">#&gt; time:line                  4   3.74    0.94   2.725</span>
+<span class="co">#&gt; quadrant:line             12   5.37    0.45   1.303</span>
+<span class="co">#&gt; assay:time:quadrant        3   0.65    0.22   0.633</span>
+<span class="co">#&gt; assay:time:line            4   0.33    0.08   0.241</span>
+<span class="co">#&gt; assay:quadrant:line       12   2.30    0.19   0.560</span>
+<span class="co">#&gt; time:quadrant:line        12   8.38    0.70   2.034</span>
+<span class="co">#&gt; assay:time:quadrant:line  12   1.55    0.13   0.376</span>
+<span class="co">#&gt; Residuals                670 229.94    0.34        </span>
+<span class="co">#&gt;                            Pr(&gt;F)    </span>
+<span class="co">#&gt; assay                     &lt; 2e-16 ***</span>
+<span class="co">#&gt; time                     0.238766    </span>
+<span class="co">#&gt; quadrant                 0.002755 ** </span>
+<span class="co">#&gt; line                     0.000761 ***</span>
+<span class="co">#&gt; assay:time               0.610465    </span>
+<span class="co">#&gt; assay:quadrant           0.851431    </span>
+<span class="co">#&gt; time:quadrant            0.498027    </span>
+<span class="co">#&gt; assay:line               0.172692    </span>
+<span class="co">#&gt; time:line                0.028581 *  </span>
+<span class="co">#&gt; quadrant:line            0.211385    </span>
+<span class="co">#&gt; assay:time:quadrant      0.593727    </span>
+<span class="co">#&gt; assay:time:line          0.915087    </span>
+<span class="co">#&gt; assay:quadrant:line      0.874874    </span>
+<span class="co">#&gt; time:quadrant:line       0.019424 *  </span>
+<span class="co">#&gt; assay:time:quadrant:line 0.971724    </span>
+<span class="co">#&gt; Residuals                            </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  </span>
+<span class="co">#&gt; 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="va">dge_vars</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">model_dge</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op"><a href="https://rdrr.io/pkg/DT/man/DT-imports.html">%&gt;%</a></span> 
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>TOT_SS <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">`Sum Sq`</span><span class="op">)</span>,
+                PROP_SS <span class="op">=</span> <span class="va">`Sum Sq`</span> <span class="op">/</span> <span class="va">TOT_SS</span>,
+                VAR_EXP <span class="op">=</span> <span class="va">PROP_SS</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span>
+
+<span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/datatable.html">datatable</a></span><span class="op">(</span><span class="va">dge_vars</span><span class="op">)</span></code></pre></div>
+<div id="htmlwidget-2096a7ee06afaa5f7108" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2096a7ee06afaa5f7108">{"x":{"filter":"none","vertical":false,"data":[["assay                   ","time                    ","quadrant                ","line                    ","assay:time              ","assay:quadrant          ","time:quadrant           ","assay:line              ","time:line               ","quadrant:line           ","assay:time:quadrant     ","assay:time:line         ","assay:quadrant:line     ","time:quadrant:line      ","assay:time:quadrant:line","Residuals               "],[1,1,3,4,1,3,3,4,4,12,3,4,12,12,12,670],[46.2641726229261,0.477162707390935,4.89124978680217,6.62925242717848,0.0891432273633267,0.271696770834394,0.816445406761689,2.19581781814295,3.74030287054715,5.36826726781128,0.652018061758932,0.33086008769393,2.30442928254236,8.3750637881556,1.55030026486377,229.943116954351],[46.2641726229261,0.477162707390935,1.63041659560072,1.65731310679462,0.0891432273633267,0.0905655902781312,0.272148468920563,0.548954454535737,0.935075717636786,0.44735560565094,0.217339353919644,0.0827150219234825,0.192035773545196,0.6979219823463,0.129191688738647,0.343198682021419],[134.802885461077,1.39033956826546,4.75064934981005,4.82901943863288,0.259742335950355,0.263886765953486,0.792976439529502,1.59952378401464,2.72459005998871,1.30348870518978,0.633275607702012,0.24101206169061,0.559546943520055,2.03358001911774,0.376434105101208,null],[1.59458952912767e-28,0.238766308499698,0.00275532899152628,0.00076102519572237,0.610465052956788,0.851431410613099,0.498026665407507,0.172692211764521,0.0285813902676841,0.211385318427479,0.593726980864489,0.915086857319263,0.874874182023666,0.0194238656102273,0.971724040662664,null],[313.899299345124,313.899299345124,313.899299345124,313.899299345124,313.899299345124,313.899299345124,313.899299345124,313.899299345124,313.899299345124,313.899299345124,313.899299345124,313.899299345124,313.899299345124,313.899299345124,313.899299345124,313.899299345124],[0.147385396270222,0.00152011396134499,0.0155822258826528,0.0211190418105706,0.000283986703854716,0.000865553925737407,0.0026009787484872,0.00699529378601354,0.0119156139511952,0.0171018771912231,0.00207715679238282,0.00105403257791333,0.00734130113494996,0.0266807342533996,0.00493884589133552,0.732537847118718],[14.7385396270222,0.152011396134499,1.55822258826528,2.11190418105706,0.0283986703854716,0.0865553925737407,0.26009787484872,0.699529378601354,1.19156139511952,1.71018771912231,0.207715679238282,0.105403257791333,0.734130113494996,2.66807342533996,0.493884589133552,73.2537847118718]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Df<\/th>\n      <th>Sum Sq<\/th>\n      <th>Mean Sq<\/th>\n      <th>F value<\/th>\n      <th>Pr(&gt;F)<\/th>\n      <th>TOT_SS<\/th>\n      <th>PROP_SS<\/th>\n      <th>VAR_EXP<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+
+## No interactions
+model_dge_noint = aov(mean_speed ~ assay + date + time + quadrant + line, data = df_dge)
+dge_vars_noint = summary(model_dge_noint)[[1]] %&gt;% 
+  dplyr::mutate(TOT_SS = sum(`Sum Sq`),
+                PROP_SS = `Sum Sq` / TOT_SS,
+                VAR_EXP = PROP_SS * 100)
+
+DT::datatable(dge_vars_noint)
+<div id="htmlwidget-ea4857f17dca6ffd0949" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ea4857f17dca6ffd0949">{"x":{"filter":"none","vertical":false,"data":[["assay      ","time       ","quadrant   ","line       ","Residuals  "],[1,1,3,4,740],[46.2641726229261,0.477162707390935,4.89124978680217,6.62925242717848,255.637461800826],[46.2641726229261,0.477162707390935,1.63041659560072,1.65731310679462,0.345456029460576],[133.922029657919,1.38125453516043,4.71960671274602,4.79746470016021,null],[1.38724660696488e-28,0.240265575045801,0.00285853241021431,0.000796397786962862,null],[313.899299345124,313.899299345124,313.899299345124,313.899299345124,313.899299345124],[0.147385396270222,0.00152011396134499,0.0155822258826528,0.0211190418105706,0.81439322207521],[14.7385396270222,0.152011396134499,1.55822258826528,2.11190418105706,81.439322207521]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Df<\/th>\n      <th>Sum Sq<\/th>\n      <th>Mean Sq<\/th>\n      <th>F value<\/th>\n      <th>Pr(&gt;F)<\/th>\n      <th>TOT_SS<\/th>\n      <th>PROP_SS<\/th>\n      <th>VAR_EXP<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="sge" class="section level2" number="3.4">
+<h2>
+<span class="header-section-number">3.4</span> SGE<a class="anchor" aria-label="anchor" href="#sge"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">model_sge</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html">aov</a></span><span class="op">(</span><span class="va">mean_speed</span> <span class="op">~</span> <span class="va">assay</span> <span class="op">*</span> <span class="va">date</span> <span class="op">*</span> <span class="va">time</span> <span class="op">*</span> <span class="va">quadrant</span> <span class="op">*</span> <span class="va">test_fish</span>, data <span class="op">=</span> <span class="va">df_sge</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">model_dge</span><span class="op">)</span>
+<span class="co">#&gt;                           Df Sum Sq Mean Sq F value</span>
+<span class="co">#&gt; assay                      1  46.26   46.26 134.803</span>
+<span class="co">#&gt; time                       1   0.48    0.48   1.390</span>
+<span class="co">#&gt; quadrant                   3   4.89    1.63   4.751</span>
+<span class="co">#&gt; line                       4   6.63    1.66   4.829</span>
+<span class="co">#&gt; assay:time                 1   0.09    0.09   0.260</span>
+<span class="co">#&gt; assay:quadrant             3   0.27    0.09   0.264</span>
+<span class="co">#&gt; time:quadrant              3   0.82    0.27   0.793</span>
+<span class="co">#&gt; assay:line                 4   2.20    0.55   1.600</span>
+<span class="co">#&gt; time:line                  4   3.74    0.94   2.725</span>
+<span class="co">#&gt; quadrant:line             12   5.37    0.45   1.303</span>
+<span class="co">#&gt; assay:time:quadrant        3   0.65    0.22   0.633</span>
+<span class="co">#&gt; assay:time:line            4   0.33    0.08   0.241</span>
+<span class="co">#&gt; assay:quadrant:line       12   2.30    0.19   0.560</span>
+<span class="co">#&gt; time:quadrant:line        12   8.38    0.70   2.034</span>
+<span class="co">#&gt; assay:time:quadrant:line  12   1.55    0.13   0.376</span>
+<span class="co">#&gt; Residuals                670 229.94    0.34        </span>
+<span class="co">#&gt;                            Pr(&gt;F)    </span>
+<span class="co">#&gt; assay                     &lt; 2e-16 ***</span>
+<span class="co">#&gt; time                     0.238766    </span>
+<span class="co">#&gt; quadrant                 0.002755 ** </span>
+<span class="co">#&gt; line                     0.000761 ***</span>
+<span class="co">#&gt; assay:time               0.610465    </span>
+<span class="co">#&gt; assay:quadrant           0.851431    </span>
+<span class="co">#&gt; time:quadrant            0.498027    </span>
+<span class="co">#&gt; assay:line               0.172692    </span>
+<span class="co">#&gt; time:line                0.028581 *  </span>
+<span class="co">#&gt; quadrant:line            0.211385    </span>
+<span class="co">#&gt; assay:time:quadrant      0.593727    </span>
+<span class="co">#&gt; assay:time:line          0.915087    </span>
+<span class="co">#&gt; assay:quadrant:line      0.874874    </span>
+<span class="co">#&gt; time:quadrant:line       0.019424 *  </span>
+<span class="co">#&gt; assay:time:quadrant:line 0.971724    </span>
+<span class="co">#&gt; Residuals                            </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  </span>
+<span class="co">#&gt; 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="va">sge_vars</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">model_sge</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op"><a href="https://rdrr.io/pkg/DT/man/DT-imports.html">%&gt;%</a></span> 
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>TOT_SS <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">`Sum Sq`</span><span class="op">)</span>,
+                PROP_SS <span class="op">=</span> <span class="va">`Sum Sq`</span> <span class="op">/</span> <span class="va">TOT_SS</span>,
+                VAR_EXP <span class="op">=</span> <span class="va">PROP_SS</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span>
+
+<span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/datatable.html">datatable</a></span><span class="op">(</span><span class="va">sge_vars</span><span class="op">)</span></code></pre></div>
+<div id="htmlwidget-d437820a18a8cad94ba4" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d437820a18a8cad94ba4">{"x":{"filter":"none","vertical":false,"data":[["assay                        ","time                         ","quadrant                     ","test_fish                    ","assay:time                   ","assay:quadrant               ","time:quadrant                ","assay:test_fish              ","time:test_fish               ","quadrant:test_fish           ","assay:time:quadrant          ","assay:time:test_fish         ","assay:quadrant:test_fish     ","time:quadrant:test_fish      ","assay:time:quadrant:test_fish","Residuals                    "],[1,1,3,4,1,3,3,4,4,12,3,4,12,12,12,670],[38.9131270547654,0.0990213326289756,4.06490447676763,6.72803013681188,0.00464892767486915,0.162822924911266,1.05877293498819,2.34412064412351,4.62349185479105,6.57458135510301,0.765926400983002,0.44823570739265,1.5756628872581,8.9963834273588,3.13499781922733,243.564222038123],[38.9131270547654,0.0990213326289756,1.35496815892254,1.68200753420297,0.00464892767486915,0.0542743083037553,0.35292431166273,0.586030161030878,1.15587296369776,0.547881779591917,0.255308800327668,0.112058926848163,0.131305240604842,0.749698618946567,0.261249818268944,0.363528689609138],[107.042795154914,0.272389320181145,3.72726609385188,4.62689075795212,0.012788337778423,0.149298555671384,0.970829323105667,1.61206027964662,3.17959213876776,1.50712115784037,0.7023071565608,0.308253323743573,0.361196363197688,2.06228185113157,0.718649795012978,null],[2.24508997832523e-23,0.601905973071706,0.0112087496035428,0.00108607009492853,0.909996618834323,0.930140639282038,0.405973894183611,0.169450257403212,0.0133017478807115,0.116350449657347,0.550864696828989,0.872516731595336,0.976201903841061,0.0174787030956122,0.733954755446139,null],[323.058949922908,323.058949922908,323.058949922908,323.058949922908,323.058949922908,323.058949922908,323.058949922908,323.058949922908,323.058949922908,323.058949922908,323.058949922908,323.058949922908,323.058949922908,323.058949922908,323.058949922908,323.058949922908],[0.120452094158206,0.000306511652602737,0.01258254717208,0.0208260137613194,1.43903385929364e-05,0.000504003758292783,0.00327733664472334,0.00725601517829142,0.0143116042935642,0.0203510268224171,0.0023708564680402,0.00138747342396678,0.00487732312518847,0.0278474978932037,0.00970410452945331,0.753931200780057],[12.0452094158206,0.0306511652602737,1.258254717208,2.08260137613194,0.00143903385929364,0.0504003758292783,0.327733664472334,0.725601517829142,1.43116042935642,2.03510268224171,0.23708564680402,0.138747342396678,0.487732312518847,2.78474978932037,0.970410452945331,75.3931200780057]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Df<\/th>\n      <th>Sum Sq<\/th>\n      <th>Mean Sq<\/th>\n      <th>F value<\/th>\n      <th>Pr(&gt;F)<\/th>\n      <th>TOT_SS<\/th>\n      <th>PROP_SS<\/th>\n      <th>VAR_EXP<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="hmm-parameter-optimisation.html"><span class="header-section-number">2</span> HMM parameter optimisation</a></div>
+<div class="next"><a href="exploration-of-states-1-and-3.html"><span class="header-section-number">4</span> Exploration of states 1 and 3</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#model-covariates"><span class="header-section-number">3</span> Model covariates</a></li>
+<li><a class="nav-link" href="#read-in-data"><span class="header-section-number">3.1</span> Read in data</a></li>
+<li><a class="nav-link" href="#controls"><span class="header-section-number">3.2</span> Controls</a></li>
+<li><a class="nav-link" href="#dge"><span class="header-section-number">3.3</span> DGE</a></li>
+<li><a class="nav-link" href="#sge"><span class="header-section-number">3.4</span> SGE</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/brettellebi/pilot_paper/blob/master/book/Model_covariates.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/brettellebi/pilot_paper/edit/master/book/Model_covariates.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Medaka behaviour pilot study</strong>" was written by Ian Brettell. It was last built on 2022-04-28.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

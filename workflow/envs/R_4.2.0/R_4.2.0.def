@@ -17,4 +17,5 @@ From: rocker/tidyverse:4.2.0
         plotly \
         bookdown \
         ggpubr \
-        rstatix
+        rstatix \
+        ggbeeswarm

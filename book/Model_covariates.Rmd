@@ -1,0 +1,120 @@
+# Model covariates
+
+```{r}
+library(tidyverse)
+library(DT)
+```
+## Read in data
+
+```{r}
+IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.05/dist_angle/18.csv"
+```
+
+```{r}
+# Read 
+
+df = readr::read_csv(IN)
+
+# Controls (iCab-iCab pairings only)
+
+df_control = df %>% 
+  # Filter for only iCabs paired with iCabs
+  dplyr::filter(test_fish == "icab") %>% 
+  # Get individual
+  tidyr::unite(date, time, quadrant, fish,
+               col = "indiv", 
+               remove = F) %>% 
+  # Group by assay and individual to get mean speed
+  dplyr::group_by(assay, date, time, quadrant, indiv) %>% 
+  # Calculate mean speed
+  dplyr::summarise(mean_speed = mean(distance)) %>% 
+  dplyr::ungroup() %>% 
+  # Make date a factor
+  dplyr::mutate(date = as.factor(date))
+
+# DGE data frame
+
+df_dge = df %>% 
+  # remove iCab when paired with a different test fish
+  dplyr::filter(!(fish == "ref" & test_fish != "icab")) %>% 
+  # Get individual
+  tidyr::unite(date, time, quadrant, fish,
+               col = "indiv", 
+               remove = F) %>% 
+  # add `line` %>% 
+  dplyr::mutate(line = dplyr::case_when(fish == "ref" ~ ref_fish,
+                                        fish == "test" ~ test_fish))  %>% 
+  # Group by assay and individual to get mean speed
+  dplyr::group_by(assay, date, time, quadrant, line, indiv) %>% 
+  # Calculate mean speed
+  dplyr::summarise(mean_speed = mean(distance)) %>% 
+  dplyr::ungroup()
+
+# SGE data frame 
+
+df_sge = df %>% 
+  # keep only iCabs
+  ## add `line`
+  dplyr::mutate(line = dplyr::case_when(fish == "ref" ~ ref_fish,
+                                        fish == "test" ~ test_fish)) %>% 
+  # keep only iCab test fishes
+  dplyr::filter(line == "icab") %>% 
+  # Get individual
+  tidyr::unite(date, time, quadrant, fish,
+               col = "indiv", 
+               remove = F) %>% 
+  # Group by assay and individual to get mean speed
+  dplyr::group_by(assay, date, time, quadrant, test_fish, indiv) %>% 
+  # Calculate mean speed
+  dplyr::summarise(mean_speed = mean(distance)) %>% 
+  dplyr::ungroup()
+
+```
+
+
+## Controls
+
+```{r}
+model_fit = lm(mean_speed ~ assay + date + time + quadrant, data = df_control)
+summary(model_fit)
+```
+
+
+## DGE
+
+```{r}
+## All variables with interactions
+model_dge = aov(mean_speed ~ assay * date * time * quadrant * line, data = df_dge)
+summary(model_dge)
+dge_vars = summary(model_dge)[[1]] %>% 
+  dplyr::mutate(TOT_SS = sum(`Sum Sq`),
+                PROP_SS = `Sum Sq` / TOT_SS,
+                VAR_EXP = PROP_SS * 100)
+
+DT::datatable(dge_vars)
+
+## No interactions
+model_dge_noint = aov(mean_speed ~ assay + date + time + quadrant + line, data = df_dge)
+dge_vars_noint = summary(model_dge_noint)[[1]] %>% 
+  dplyr::mutate(TOT_SS = sum(`Sum Sq`),
+                PROP_SS = `Sum Sq` / TOT_SS,
+                VAR_EXP = PROP_SS * 100)
+
+DT::datatable(dge_vars_noint)
+
+```
+
+
+## SGE
+
+```{r}
+model_sge = aov(mean_speed ~ assay * date * time * quadrant * test_fish, data = df_sge)
+summary(model_dge)
+sge_vars = summary(model_sge)[[1]] %>% 
+  dplyr::mutate(TOT_SS = sum(`Sum Sq`),
+                PROP_SS = `Sum Sq` / TOT_SS,
+                VAR_EXP = PROP_SS * 100)
+
+DT::datatable(sge_vars)
+```
+

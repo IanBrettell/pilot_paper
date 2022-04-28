@@ -1,3 +1,20 @@
+rule covariate_effects:
+    input:
+        rules.merge_csvs.output,
+    output:
+        fig = "book/figs/covariate_effects/{interval}/{variables}/{n_states}/covariate_effects.png",
+    log:
+        os.path.join(
+            config["working_dir"],
+            "logs/covariate_effects/{interval}/{variables}/{n_states}.log"
+        ),
+    resources:
+        mem_mb = 5000
+    container:
+        config["R_4.2.0"]
+    script:
+        "../scripts/covariate_effects.R"
+
 rule hmm_final:
     input:
         rules.run_hmm.output
@@ -15,8 +32,8 @@ rule hmm_final:
         interval = "{interval}",
         n_states = "{n_states}",
     resources:
-        mem_mb = 30000
+        mem_mb = 10000
     container:
-        config["R"]
+        config["R_4.2.0"]
     script:
         "../scripts/hmm_final.R"

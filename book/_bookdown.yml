@@ -9,5 +9,7 @@ new_session: yes
 before_chapter_script: _common.R
 rmd_files: [
   "index.Rmd",
-  "HMM_param_optim.Rmd"
+  "HMM_param_optim.Rmd",
+  "Model_covariates.Rmd",
+  "Exploration_of_states_1_and_3.Rmd"
   ]

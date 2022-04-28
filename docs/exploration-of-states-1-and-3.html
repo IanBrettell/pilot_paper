@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>4 Exploration of states 1 and 3 | Medaka behaviour pilot study</title>
+<meta name="author" content="Ian Brettell">
+<meta name="description" content="library(tidyverse) #&gt; ── Attaching packages ─────────────────── tidyverse 1.3.1 ── #&gt; ✓ ggplot2 3.3.5   ✓ purrr  0.3.4 #&gt; ✓ tibble 3.1.6   ✓ dplyr  1.0.8 #&gt; ✓ tidyr  1.2.0   ✓ stringr 1.4.0 #&gt; ✓...">
+<meta name="generator" content="bookdown 0.26 with bs4_book()">
+<meta property="og:title" content="4 Exploration of states 1 and 3 | Medaka behaviour pilot study">
+<meta property="og:type" content="book">
+<meta property="og:description" content="library(tidyverse) #&gt; ── Attaching packages ─────────────────── tidyverse 1.3.1 ── #&gt; ✓ ggplot2 3.3.5   ✓ purrr  0.3.4 #&gt; ✓ tibble 3.1.6   ✓ dplyr  1.0.8 #&gt; ✓ tidyr  1.2.0   ✓ stringr 1.4.0 #&gt; ✓...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="4 Exploration of states 1 and 3 | Medaka behaviour pilot study">
+<meta name="twitter:description" content="library(tidyverse) #&gt; ── Attaching packages ─────────────────── tidyverse 1.3.1 ── #&gt; ✓ ggplot2 3.3.5   ✓ purrr  0.3.4 #&gt; ✓ tibble 3.1.6   ✓ dplyr  1.0.8 #&gt; ✓ tidyr  1.2.0   ✓ stringr 1.4.0 #&gt; ✓...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.22/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><style>
+    #content {
+        font-size: 0.9rem;
+    }
+    </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Medaka behaviour pilot study</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> About</a></li>
+<li><a class="" href="hmm-parameter-optimisation.html"><span class="header-section-number">2</span> HMM parameter optimisation</a></li>
+<li><a class="" href="model-covariates.html"><span class="header-section-number">3</span> Model covariates</a></li>
+<li><a class="active" href="exploration-of-states-1-and-3.html"><span class="header-section-number">4</span> Exploration of states 1 and 3</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/brettellebi/pilot_paper">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="exploration-of-states-1-and-3" class="section level1" number="4">
+<h1>
+<span class="header-section-number">4</span> Exploration of states 1 and 3<a class="anchor" aria-label="anchor" href="#exploration-of-states-1-and-3"><i class="fas fa-link"></i></a>
+</h1>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
+<span class="co">#&gt; ── Attaching packages ─────────────────── tidyverse 1.3.1 ──</span>
+<span class="co">#&gt; ✓ ggplot2 3.3.5     ✓ purrr   0.3.4</span>
+<span class="co">#&gt; ✓ tibble  3.1.6     ✓ dplyr   1.0.8</span>
+<span class="co">#&gt; ✓ tidyr   1.2.0     ✓ stringr 1.4.0</span>
+<span class="co">#&gt; ✓ readr   2.1.2     ✓ forcats 0.5.1</span>
+<span class="co">#&gt; ── Conflicts ────────────────────── tidyverse_conflicts() ──</span>
+<span class="co">#&gt; x dplyr::filter() masks stats::filter()</span>
+<span class="co">#&gt; x dplyr::lag()    masks stats::lag()</span></code></pre></div>
+<div id="read-in-and-process-data" class="section level2" number="4.1">
+<h2>
+<span class="header-section-number">4.1</span> Read in and process data<a class="anchor" aria-label="anchor" href="#read-in-and-process-data"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">IN</span> <span class="op">=</span> <span class="st">"/hps/nobackup/birney/users/ian/pilot/hmm_out/0.05/dist_angle/18.csv"</span>
+
+<span class="co"># Create line recode vector</span>
+<span class="va">line_vec</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"iCab"</span>, <span class="st">"HdrR"</span>, <span class="st">"HNI"</span>, <span class="st">"Kaga"</span>, <span class="st">"HO5"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">line_vec</span><span class="op">)</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"icab"</span>, <span class="st">"hdr"</span>, <span class="st">"hni"</span>, <span class="st">"kaga"</span>, <span class="st">"ho5"</span><span class="op">)</span>
+
+<span class="co"># Read in file</span>
+
+<span class="va">df</span> <span class="op">=</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">IN</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="co"># recode angle to sit between 0 and 360</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>angle_recode <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">angle</span> <span class="op">&lt;</span> <span class="fl">0</span>,
+                                      <span class="fl">180</span> <span class="op">+</span> <span class="op">(</span><span class="fl">180</span> <span class="op">+</span> <span class="va">angle</span><span class="op">)</span>,
+                                      <span class="va">angle</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; Rows: 14651580 Columns: 15</span>
+<span class="co">#&gt; ── Column specification ────────────────────────────────────</span>
+<span class="co">#&gt; Delimiter: ","</span>
+<span class="co">#&gt; chr (6): assay, ref_fish, test_fish, tank_side, quadrant...</span>
+<span class="co">#&gt; dbl (9): date, time, frame, seconds, x, y, distance, ang...</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span>
+<span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
+
+<span class="co"># Recode states by mean distance</span>
+
+<span class="va">rank_df</span> <span class="op">=</span> <span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">state</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>mean_dist <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">distance</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="co"># rank</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">mean_dist</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>rank <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">recode_vec</span> <span class="op">=</span> <span class="va">rank_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">rank</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">recode_vec</span><span class="op">)</span> <span class="op">=</span> <span class="va">rank_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">state</span><span class="op">)</span>
+
+<span class="co"># Recode `state`</span>
+
+<span class="va">df</span> <span class="op">=</span> <span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>state_recode <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/recode.html">recode</a></span><span class="op">(</span><span class="va">state</span>, <span class="op">!</span><span class="op">!</span><span class="op">!</span><span class="va">recode_vec</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>Get DGE data frame</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dge_df</span> <span class="op">=</span> <span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="co"># remove iCab when paired with a different test fish</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="op">(</span><span class="va">fish</span> <span class="op">==</span> <span class="st">"ref"</span> <span class="op">&amp;</span> <span class="va">ref_fish</span> <span class="op">==</span> <span class="st">"icab"</span> <span class="op">&amp;</span> <span class="va">test_fish</span> <span class="op">!=</span> <span class="st">"icab"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="co"># add `line` %&gt;% </span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>line <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">fish</span> <span class="op">==</span> <span class="st">"ref"</span> <span class="op">~</span> <span class="va">ref_fish</span>,
+                                        <span class="va">fish</span> <span class="op">==</span> <span class="st">"test"</span> <span class="op">~</span> <span class="va">test_fish</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="co"># recode line</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>line <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/recode.html">recode</a></span><span class="op">(</span><span class="va">line</span>, <span class="op">!</span><span class="op">!</span><span class="op">!</span><span class="va">line_vec</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="co"># order line</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>line <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">line</span>, levels <span class="op">=</span> <span class="va">line_vec</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="co"># mutate and factorise assay</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>assay <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace</a></span><span class="op">(</span><span class="va">assay</span>, <span class="st">"_"</span>, <span class="st">" "</span><span class="op">)</span>,
+                assay <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">assay</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"open field"</span>, <span class="st">"novel object"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+
+<span class="co"># Get proportions of time spent in each state</span>
+
+<span class="va">state_freq_dge</span> <span class="op">=</span> <span class="va">dge_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="co">## unite columns to get reads for each fish</span>
+  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/unite.html">unite</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">time</span>, <span class="va">quadrant</span>, <span class="va">fish</span>,
+               col <span class="op">=</span> <span class="st">"indiv"</span>,
+               sep <span class="op">=</span> <span class="st">"_"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="co">## count rows per fish per state</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">indiv</span>, <span class="va">assay</span>, <span class="va">line</span>, <span class="va">state_recode</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="co"># add total row count per fish</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">add_count</a></span><span class="op">(</span><span class="va">indiv</span>, <span class="va">assay</span>, <span class="va">line</span>, wt <span class="op">=</span> <span class="va">n</span>, name <span class="op">=</span> <span class="st">"nn"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="co"># get proportion of time fish spent in each state</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>state_freq <span class="op">=</span> <span class="va">n</span> <span class="op">/</span> <span class="va">nn</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="correlation-between-states-1-and-3" class="section level2" number="4.2">
+<h2>
+<span class="header-section-number">4.2</span> Correlation between states 1 and 3<a class="anchor" aria-label="anchor" href="#correlation-between-states-1-and-3"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Create palette</span>
+
+<span class="va">new_pal</span> <span class="op">=</span> <span class="fu">grDevices</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grDevices/colorRamp.html">colorRampPalette</a></span><span class="op">(</span><span class="fu">wesanderson</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/wesanderson/man/wes_palette.html">wes_palette</a></span><span class="op">(</span><span class="st">"GrandBudapest1"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">pal</span> <span class="op">=</span> <span class="fu">new_pal</span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">pal</span><span class="op">)</span> <span class="op">=</span> <span class="va">line_vec</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">state_freq_dge</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="co"># filter for states 1 and 3</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">state_recode</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">|</span> <span class="va">state_recode</span> <span class="op">==</span> <span class="fl">3</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="co"># put state_freq in different columns for the two states</span>
+  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>id_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">indiv</span>, <span class="va">assay</span>, <span class="va">line</span><span class="op">)</span>,
+                     names_from <span class="op">=</span> <span class="va">state_recode</span>,
+                     values_from <span class="op">=</span> <span class="va">state_freq</span>,
+                     names_prefix <span class="op">=</span> <span class="st">"freq_state_"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">freq_state_1</span>, <span class="va">freq_state_3</span>, colour <span class="op">=</span> <span class="va">line</span><span class="op">)</span>,
+             alpha <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_colour_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">pal</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html">vars</a></span><span class="op">(</span><span class="va">line</span><span class="op">)</span>, rows <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html">vars</a></span><span class="op">(</span><span class="va">assay</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"frequency of time spent in state 1"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"frequency of time spent in state 3"</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="Exploration_of_states_1_and_3_files/figure-html/unnamed-chunk-5-1.png" width="672"></div>
+</div>
+<div id="density-of-time-spent-in-states-1-and-3" class="section level2" number="4.3">
+<h2>
+<span class="header-section-number">4.3</span> Density of time spent in states 1 and 3<a class="anchor" aria-label="anchor" href="#density-of-time-spent-in-states-1-and-3"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Create function for calculating density</span>
+
+<span class="va">get_density</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">dens</span> <span class="op">&lt;-</span> <span class="fu">MASS</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/MASS/man/kde2d.html">kde2d</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span><span class="op">)</span>
+  <span class="va">ix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/findInterval.html">findInterval</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">dens</span><span class="op">$</span><span class="va">x</span><span class="op">)</span>
+  <span class="va">iy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/findInterval.html">findInterval</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">dens</span><span class="op">$</span><span class="va">y</span><span class="op">)</span>
+  <span class="va">ii</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">ix</span>, <span class="va">iy</span><span class="op">)</span>
+  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">dens</span><span class="op">$</span><span class="va">z</span><span class="op">[</span><span class="va">ii</span><span class="op">]</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>
+<span class="va">polar_fig</span> <span class="op">=</span> <span class="va">dge_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="co"># filter for states 1 and 3</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">state_recode</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">|</span> <span class="va">state_recode</span> <span class="op">==</span> <span class="fl">3</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="co"># select random sample of 1e5 rows</span>
+  <span class="co">#dplyr::slice_sample(n = 1e5) %&gt;% </span>
+  <span class="co">## unite columns to get reads for each fish</span>
+  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/unite.html">unite</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">time</span>, <span class="va">quadrant</span>, <span class="va">fish</span>,
+               col <span class="op">=</span> <span class="st">"indiv"</span>,
+               sep <span class="op">=</span> <span class="st">"_"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="co"># group by line</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">line</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>density <span class="op">=</span> <span class="fu">get_density</span><span class="op">(</span><span class="va">distance</span>, <span class="va">angle</span>, n <span class="op">=</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">angle_recode</span>, <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="va">distance</span><span class="op">)</span>, colour <span class="op">=</span> <span class="va">density</span><span class="op">)</span>,
+             alpha <span class="op">=</span> <span class="fl">0.1</span>, size <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_polar.html">coord_polar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a></span><span class="op">(</span>rows <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html">vars</a></span><span class="op">(</span><span class="va">state_recode</span><span class="op">)</span>, cols <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html">vars</a></span><span class="op">(</span><span class="va">line</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_color_viridis_c</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">90</span>, <span class="fl">180</span>, <span class="fl">270</span><span class="op">)</span>,
+                     breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">90</span>, <span class="fl">180</span>, <span class="fl">270</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"angle of travel"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="va">log</span><span class="op">[</span><span class="fl">10</span><span class="op">]</span><span class="op">(</span><span class="st">"distance travelled in pixels"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+  
+<span class="va">polar_fig</span></code></pre></div>
+<div class="inline-figure"><img src="Exploration_of_states_1_and_3_files/figure-html/unnamed-chunk-6-1.png" width="672"></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"book/figs/misc/exploration_states_1_3/polar.png"</span><span class="op">)</span>,
+       <span class="va">polar_fig</span>,
+       device <span class="op">=</span> <span class="st">"png"</span>,
+       width <span class="op">=</span> <span class="fl">12</span>,
+       height <span class="op">=</span> <span class="fl">6</span>,
+       units <span class="op">=</span> <span class="st">"in"</span>,
+       dpi <span class="op">=</span> <span class="fl">400</span><span class="op">)</span></code></pre></div>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="model-covariates.html"><span class="header-section-number">3</span> Model covariates</a></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#exploration-of-states-1-and-3"><span class="header-section-number">4</span> Exploration of states 1 and 3</a></li>
+<li><a class="nav-link" href="#read-in-and-process-data"><span class="header-section-number">4.1</span> Read in and process data</a></li>
+<li><a class="nav-link" href="#correlation-between-states-1-and-3"><span class="header-section-number">4.2</span> Correlation between states 1 and 3</a></li>
+<li><a class="nav-link" href="#density-of-time-spent-in-states-1-and-3"><span class="header-section-number">4.3</span> Density of time spent in states 1 and 3</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/brettellebi/pilot_paper/blob/master/book/Exploration_of_states_1_and_3.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/brettellebi/pilot_paper/edit/master/book/Exploration_of_states_1_and_3.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Medaka behaviour pilot study</strong>" was written by Ian Brettell. It was last built on 2022-04-28.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>
