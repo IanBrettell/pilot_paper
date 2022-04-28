@@ -1,6 +1,6 @@
 # Exploration of states 1 and 3
 
-```{r}
+```{r, message = F, warning = F}
 library(tidyverse)
 ```
 
@@ -84,7 +84,7 @@ pal = new_pal(5)
 names(pal) = line_vec
 ```
 
-```{r}
+```{r, fig.dim = c(12,6)}
 state_freq_dge %>% 
   # filter for states 1 and 3
   dplyr::filter(state_recode == 1 | state_recode == 3) %>% 
@@ -106,7 +106,7 @@ state_freq_dge %>%
 ## Density of time spent in states 1 and 3
 
 
-```{r}
+```{r, eval = F}
 # Create function for calculating density
 
 get_density <- function(x, y, ...) {
@@ -151,5 +151,9 @@ ggsave(here::here("book/figs/misc/exploration_states_1_3/polar.png"),
        height = 6,
        units = "in",
        dpi = 400)
+```
+
+```{r}
+knitr::include_graphics(here::here("book/figs/misc/exploration_states_1_3/polar.png"))
 ```
 

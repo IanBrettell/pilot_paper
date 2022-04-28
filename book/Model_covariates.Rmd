@@ -1,6 +1,6 @@
 # Model covariates
 
-```{r}
+```{r, message = F, warning = F}
 library(tidyverse)
 library(DT)
 ```
@@ -76,6 +76,7 @@ df_sge = df %>%
 
 ```{r}
 model_fit = lm(mean_speed ~ assay + date + time + quadrant, data = df_control)
+
 summary(model_fit)
 ```
 
@@ -85,23 +86,25 @@ summary(model_fit)
 ```{r}
 ## All variables with interactions
 model_dge = aov(mean_speed ~ assay * date * time * quadrant * line, data = df_dge)
-summary(model_dge)
+
 dge_vars = summary(model_dge)[[1]] %>% 
   dplyr::mutate(TOT_SS = sum(`Sum Sq`),
                 PROP_SS = `Sum Sq` / TOT_SS,
                 VAR_EXP = PROP_SS * 100)
 
 DT::datatable(dge_vars)
+```
 
+```{r}
 ## No interactions
 model_dge_noint = aov(mean_speed ~ assay + date + time + quadrant + line, data = df_dge)
+
 dge_vars_noint = summary(model_dge_noint)[[1]] %>% 
   dplyr::mutate(TOT_SS = sum(`Sum Sq`),
                 PROP_SS = `Sum Sq` / TOT_SS,
                 VAR_EXP = PROP_SS * 100)
 
 DT::datatable(dge_vars_noint)
-
 ```
 
 
@@ -109,7 +112,7 @@ DT::datatable(dge_vars_noint)
 
 ```{r}
 model_sge = aov(mean_speed ~ assay * date * time * quadrant * test_fish, data = df_sge)
-summary(model_dge)
+
 sge_vars = summary(model_sge)[[1]] %>% 
   dplyr::mutate(TOT_SS = sum(`Sum Sq`),
                 PROP_SS = `Sum Sq` / TOT_SS,

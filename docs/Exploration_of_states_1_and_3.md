@@ -3,14 +3,6 @@
 
 ```r
 library(tidyverse)
-#> ── Attaching packages ─────────────────── tidyverse 1.3.1 ──
-#> ✓ ggplot2 3.3.5     ✓ purrr   0.3.4
-#> ✓ tibble  3.1.6     ✓ dplyr   1.0.8
-#> ✓ tidyr   1.2.0     ✓ stringr 1.4.0
-#> ✓ readr   2.1.2     ✓ forcats 0.5.1
-#> ── Conflicts ────────────────────── tidyverse_conflicts() ──
-#> x dplyr::filter() masks stats::filter()
-#> x dplyr::lag()    masks stats::lag()
 ```
 
 ## Read in and process data
@@ -123,7 +115,7 @@ state_freq_dge %>%
   ylab("frequency of time spent in state 3")
 ```
 
-<img src="Exploration_of_states_1_and_3_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+<img src="Exploration_of_states_1_and_3_files/figure-html/unnamed-chunk-5-1.png" width="1152" />
 
 ## Density of time spent in states 1 and 3
 
@@ -166,11 +158,6 @@ polar_fig = dge_df %>%
   ylab(expression(log[10]("distance travelled in pixels")))
   
 polar_fig
-```
-
-<img src="Exploration_of_states_1_and_3_files/figure-html/unnamed-chunk-6-1.png" width="672" />
-
-```r
 
 ggsave(here::here("book/figs/misc/exploration_states_1_3/polar.png"),
        polar_fig,
@@ -180,4 +167,16 @@ ggsave(here::here("book/figs/misc/exploration_states_1_3/polar.png"),
        units = "in",
        dpi = 400)
 ```
+
+
+```r
+knitr::include_graphics(here::here("book/figs/misc/exploration_states_1_3/polar.png"))
+#> Warning in knitr::include_graphics(here::here("book/figs/
+#> misc/exploration_states_1_3/polar.png")): It is highly
+#> recommended to use relative paths for images. You had
+#> absolute paths: "/hps/software/users/birney/ian/repos/
+#> pilot_paper/book/figs/misc/exploration_states_1_3/polar.png"
+```
+
+<img src="/hps/software/users/birney/ian/repos/pilot_paper/book/figs/misc/exploration_states_1_3/polar.png" width="2400" />
 
