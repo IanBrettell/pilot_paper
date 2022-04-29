@@ -118,12 +118,14 @@ rule all:
 # 06_final_plots_and_vids.smk
 #####################
         expand(rules.covariate_effects.output,
-                interval = 0.05,
-                variables = config["hmm_variables"],
-                n_states = 18
+                zip,
+                interval = [0.08, 0.05],
+                variables = ["dist_angle", "dist_angle"],
+                n_states = [15, 18]
         ),
         expand(rules.hmm_final.output,
-                interval = 0.05,
-                variables = config["hmm_variables"],
-                n_states = 18
+                zip,
+                interval = [0.08, 0.05],
+                variables = ["dist_angle", "dist_angle"],
+                n_states = [15, 18]
         ),

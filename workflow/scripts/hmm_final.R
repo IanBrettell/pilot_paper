@@ -39,11 +39,11 @@ TILE_SGE = snakemake@output[["tile_sge"]]
 
 # Get number of rows (for plotting) based on number of states
 
-if (N_STATES %% 5 == 0){
-  N_ROWS = N_STATES / 5
+if (N_STATES == 15){
+  N_ROWS = 3
 } else if (N_STATES == 12) {
   N_ROWS = 3
-} else if (N_STATES == 18){
+} else if (N_STATES == 17 | 18){
   N_ROWS = 6
 }
  

@@ -157,3 +157,54 @@ ggsave(here::here("book/figs/misc/exploration_states_1_3/polar.png"),
 knitr::include_graphics(here::here("book/figs/misc/exploration_states_1_3/polar.png"))
 ```
 
+## Combine states 1 and 3
+
+```{r}
+# Create function for calculating density
+
+get_density <- function(x, y, ...) {
+  dens <- MASS::kde2d(x, y, ...)
+  ix <- findInterval(x, dens$x)
+  iy <- findInterval(y, dens$y)
+  ii <- cbind(ix, iy)
+  return(dens$z[ii])
+}
+
+set.seed(2)
+polar_fig = dge_df %>% 
+  # filter for states 1 and 3
+  dplyr::filter(state_recode == 1 | state_recode == 3) %>% 
+  # make new column
+  dplyr::mutate(state_recode = "states 1 and 3") %>% 
+  # select random sample of 1e5 rows
+  #dplyr::slice_sample(n = 1e5) %>% 
+  ## unite columns to get reads for each fish
+  tidyr::unite(date, time, quadrant, fish,
+               col = "indiv",
+               sep = "_") %>% 
+  # group by line
+  dplyr::group_by(line) %>% 
+  dplyr::mutate(density = get_density(distance, angle, n = 100)) %>% 
+  ggplot() +
+  geom_point(aes(angle_recode, log10(distance), colour = density),
+             alpha = 0.1, size = 0.2) +
+  coord_polar() +
+  facet_grid(rows = vars(state_recode), cols = vars(line)) +
+  scale_color_viridis_c() +
+  theme_bw() +
+  scale_x_continuous(labels = c(0, 90, 180, 270),
+                     breaks = c(0, 90, 180, 270)) +
+  xlab("angle of travel") +
+  ylab(expression(log[10]("distance travelled in pixels")))
+  
+polar_fig
+
+ggsave(here::here("book/figs/misc/exploration_states_1_3/polar.png"),
+       polar_fig,
+       device = "png",
+       width = 12,
+       height = 6,
+       units = "in",
+       dpi = 400)
+```
+

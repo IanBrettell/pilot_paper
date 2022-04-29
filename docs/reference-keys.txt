@@ -12,3 +12,4 @@ exploration-of-states-1-and-3
 read-in-and-process-data
 correlation-between-states-1-and-3
 density-of-time-spent-in-states-1-and-3
+combine-states-1-and-3
