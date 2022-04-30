@@ -119,13 +119,13 @@ rule all:
 #####################
         expand(rules.covariate_effects.output,
                 zip,
-                interval = [0.08, 0.05],
-                variables = ["dist_angle", "dist_angle"],
-                n_states = [15, 18]
+                interval = [0.08, 0.05, 0.05],
+                variables = ["dist_angle", "dist_angle", "dist_angle"],
+                n_states = [15, 16, 18]
         ),
         expand(rules.hmm_final.output,
                 zip,
-                interval = [0.08, 0.05],
-                variables = ["dist_angle", "dist_angle"],
-                n_states = [15, 18]
+                interval = [0.08, 0.05, 0.05],
+                variables = ["dist_angle", "dist_angle", "dist_angle"],
+                n_states = [15, 16, 18]
         ),

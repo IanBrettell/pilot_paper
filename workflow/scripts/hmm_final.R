@@ -16,10 +16,10 @@ library(cowplot)
 # Get variables
 
 ## Debug
-#IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.05/dist_angle/18.csv"
-#N_STATES = 18
-#VARIABLES = "distance and angle of travel"
-#INTERVAL = 0.05
+IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/15.csv"
+N_STATES = 15
+VARIABLES = "distance and angle of travel"
+INTERVAL = 0.08
 
 ## True
 IN = snakemake@input[[1]]
@@ -30,8 +30,10 @@ INTERVAL = snakemake@params[["interval"]] %>%
 VARIABLES = "distance and angle of travel"
 POLAR_BOX_DGE = snakemake@output[["polar_box_dge"]]
 POLAR_BOX_SGE = snakemake@output[["polar_box_sge"]]
+POLAR_BOX_DGE_SGE = snakemake@output[["polar_box_dge_sge"]]
 TILE_DGE = snakemake@output[["tile_dge"]]
 TILE_SGE = snakemake@output[["tile_sge"]]
+TILE_DGE_SGE = snakemake@output[["tile_dge_sge"]]
 
 #######################
 # Read in data
@@ -40,12 +42,16 @@ TILE_SGE = snakemake@output[["tile_sge"]]
 # Get number of rows (for plotting) based on number of states
 
 if (N_STATES == 15){
-  N_ROWS = 3
-} else if (N_STATES == 12) {
-  N_ROWS = 3
+  N_ROWS = 5
+} else if (N_STATES == 12 | 16) {
+  N_ROWS = 4
 } else if (N_STATES == 17 | 18){
   N_ROWS = 6
 }
+
+# Get figure height
+
+HEIGHT = 2 * N_ROWS
  
 # Create line recode vector
 line_vec = c("iCab", "HdrR", "HNI", "Kaga", "HO5")
@@ -388,7 +394,10 @@ final_dge = cowplot::ggdraw() +
                        facet_wrap(~state_recode, nrow = N_ROWS),
                      x = 0.7, y = 0,
                      width = 0.3,
-                     height = 1)
+                     height = 1) +
+  cowplot::draw_plot_label(label = c("A", "B", "C"),
+                           x = c(0, 0.4, 0.7),
+                           y = c(1, 1, 1))
 
 #ggsave(here::here("tmp.png"),
 #       final_dge,
@@ -402,7 +411,7 @@ ggsave(POLAR_BOX_DGE,
        final_dge,
        device = "png",
        width = 16.8,
-       height = 12,
+       height = HEIGHT,
        units = "in",
        dpi = 400)
 
@@ -430,13 +439,81 @@ final_sge = cowplot::ggdraw() +
                        facet_wrap(~state_recode, nrow = N_ROWS),
                      x = 0.7, y = 0,
                      width = 0.3,
-                     height = 1)
+                     height = 1) +
+  cowplot::draw_plot_label(label = c("A", "B", "C"),
+                           x = c(0, 0.4, 0.7),
+                           y = c(1, 1, 1))
 
 ggsave(POLAR_BOX_SGE,
        final_sge,
        device = "png",
        width = 16.8,
-       height = 12,
+       height = HEIGHT,
+       units = "in",
+       dpi = 400)
+
+# Together
+
+final_dge_sge = cowplot::ggdraw() +
+  cowplot::draw_plot(polar_dge + 
+                       ggtitle("HMM states") + 
+                       cowplot::theme_cowplot(font_size = FONT_SIZE) +
+                       theme(plot.title = element_text(hjust = 0.5)) +
+                       facet_wrap(~state_recode, nrow = N_ROWS),
+                     x = 0, y = 0.5,
+                     width = 0.333,
+                     height = 0.5) +
+  cowplot::draw_plot(of_box_dge +
+                       cowplot::theme_cowplot(font_size = FONT_SIZE) +
+                       theme(plot.title = element_text(hjust = 0.5)) +
+                       facet_wrap(~state_recode, nrow = N_ROWS),
+                     x = 0.333, y = 0.5,
+                     width = 0.333,
+                     height = 0.5) +
+  cowplot::draw_plot(no_box_dge +
+                       cowplot::theme_cowplot(font_size = FONT_SIZE) +
+                       theme(plot.title = element_text(hjust = 0.5)) +
+                       facet_wrap(~state_recode, nrow = N_ROWS),
+                     x = 0.666, y = 0.5,
+                     width = 0.333,
+                     height = 0.5) +
+  cowplot::draw_plot_label(label = c("A", "B", "C"),
+                           x = c(0, 0.333, 0.666),
+                           y = c(1, 1, 1)) +
+  cowplot::draw_plot(polar_sge + 
+                       ggtitle("HMM states") + 
+                       cowplot::theme_cowplot(font_size = FONT_SIZE) +
+                       theme(plot.title = element_text(hjust = 0.5)) +
+                       facet_wrap(~state_recode, nrow = N_ROWS) +
+                       ggtitle(NULL),
+                     x = 0, y = 0,
+                     width = 0.333,
+                     height = 0.5) +
+  cowplot::draw_plot(of_box_sge +
+                       cowplot::theme_cowplot(font_size = FONT_SIZE) +
+                       theme(plot.title = element_text(hjust = 0.5)) +
+                       facet_wrap(~state_recode, nrow = N_ROWS) +
+                       ggtitle(NULL),
+                     x = 0.333, y = 0,
+                     width = 0.333,
+                     height = 0.5) +
+  cowplot::draw_plot(no_box_sge +
+                       cowplot::theme_cowplot(font_size = FONT_SIZE) +
+                       theme(plot.title = element_text(hjust = 0.5)) +
+                       facet_wrap(~state_recode, nrow = N_ROWS) +
+                       ggtitle(NULL),
+                     x = 0.666, y = 0,
+                     width = 0.333,
+                     height = 0.5) +
+  cowplot::draw_plot_label(label = c("D", "E", "F"),
+                           x = c(0, 0.333, 0.666),
+                           y = c(0.5, 0.5, 0.5))
+
+ggsave(POLAR_BOX_DGE_SGE,
+       final_dge_sge,
+       device = "png",
+       width = 16.8,
+       height = HEIGHT*2,
        units = "in",
        dpi = 400)
 
@@ -532,5 +609,38 @@ ggsave(TILE_SGE,
        device = "png",
        width = 12,
        height = 18,
+       units = "in",
+       dpi = 400)
+
+# Together
+
+tile_dge_sge = cowplot::ggdraw() +
+  cowplot::draw_plot(dge_tile_fig +
+                       cowplot::theme_cowplot() +
+                       theme(strip.background.x = element_blank(),
+                             strip.text.y = element_blank(),
+                             axis.text.y=element_blank(),
+                             axis.ticks.y=element_blank(),
+                             axis.line.y = element_blank()),
+                     x = 0, y = 0,
+                     width = 0.5, height = 1) +
+  cowplot::draw_plot(sge_tile_fig +
+                       cowplot::theme_cowplot() +
+                       theme(strip.background = element_blank(),
+                             axis.text.y=element_blank(),
+                             axis.ticks.y=element_blank(),
+                             axis.line.y = element_blank()) +
+                       ylab(NULL),
+                     x = 0.5, y = 0,
+                     width = 0.5, height = 1) + 
+  cowplot::draw_plot_label(c("A", "B"),
+                           x = c(0, 0.5),
+                           y = c(1, 1))
+
+ggsave(TILE_DGE_SGE,
+       tile_dge_sge,
+       device = "png",
+       width = 18,
+       height = 22,
        units = "in",
        dpi = 400)

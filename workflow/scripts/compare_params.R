@@ -45,10 +45,15 @@ pal = colorspace::sequential_hcl(length(unique(df$N_STATES)), palette = "ag_Suns
 out_plot = df %>% 
   dplyr::mutate(N_STATES = factor(N_STATES, levels = sort(unique(N_STATES)))) %>% 
   dplyr::mutate(INTERVAL = factor(INTERVAL, levels = sort(unique(INTERVAL)))) %>% 
+  # make new column combining `INTERVAL` and `N_STATES`
+  tidyr::unite(INTERVAL, N_STATES,
+               col = "INT_STATE",
+               sep = ";",
+               remove = F) %>% 
   ggplot(aes(MEAN_CONC, SUM_KW_STAT)) +
     geom_point(aes(size = INTERVAL, colour = N_STATES),
                alpha = 0.8) +
-    ggrepel::geom_text_repel(aes(label = INTERVAL),
+    ggrepel::geom_text_repel(aes(label = INT_STATE),
               size = 2,
               ) +
     theme_bw() +
