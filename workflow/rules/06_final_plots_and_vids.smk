@@ -39,3 +39,24 @@ rule hmm_final:
         config["R_4.2.0"]
     script:
         "../scripts/hmm_final.R"
+
+rule spatial_dependence:
+    input:
+        rules.run_hmm.output,
+    output:
+        open_field = "book/figs/spatial_dependence/{interval}/{variables}/{n_states}/spatial_dependence_of.png",,
+        novel_object = "book/figs/spatial_dependence/{interval}/{variables}/{n_states}/spatial_dependence_no.png",
+    log:
+        os.path.join(
+            config["working_dir"],
+            "logs/spatial_dependence/{interval}/{variables}/{n_states}.log"
+        ),
+    params:
+        n_states = "{n_states}",
+    resources:
+        mem_mb = 3000
+    container:
+        config["R_4.2.0"]
+    script:
+        "../scripts/spatial_dependence.R"    
+          

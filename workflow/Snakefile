@@ -5,6 +5,7 @@ include: "rules/03_qc.smk"
 include: "rules/04_hmm.smk"
 include: "rules/05_param_optim.smk"
 include: "rules/06_final_plots_and_vids.smk"
+include: "rules/07_sge_analysis.smk"
 
 ##### Target rules #####
 
@@ -94,38 +95,51 @@ rule all:
 #            ),
 #                interval = config["seconds_interval"]
 #        ),
-        expand(rules.run_hmm.output,
-                interval = config["seconds_interval"],
-                variables = config["hmm_variables"],
-                n_states = config["n_states"]
-        ),
-        expand(rules.hmm_concordance_out.output,
-                interval = config["seconds_interval"],
-                variables = config["hmm_variables"],
-                n_states = config["n_states"]               
-        ),  
+#        expand(rules.run_hmm.output,
+#                interval = config["seconds_interval"],
+#                variables = config["hmm_variables"],
+#                n_states = config["n_states"]
+#        ),
+#        expand(rules.hmm_concordance_out.output,
+#                interval = config["seconds_interval"],
+#                variables = config["hmm_variables"],
+#                n_states = config["n_states"]               
+#        ),  
 #####################
 # 05_param_optim.smk
 #####################
-        expand(rules.recode_concordance.output,
-                interval = config["seconds_interval"],
-                variables = config["hmm_variables"],
-                n_states = config["n_states"]
-        ),
-        rules.run_kruskal_wallis.output,
-        rules.compare_params.output,
+#        expand(rules.recode_concordance.output,
+#                interval = config["seconds_interval"],
+#                variables = config["hmm_variables"],
+#                n_states = config["n_states"]
+#        ),
+#        rules.run_kruskal_wallis.output,
+#        rules.compare_params.output,
 #####################
 # 06_final_plots_and_vids.smk
 #####################
-        expand(rules.covariate_effects.output,
-                zip,
-                interval = [0.08, 0.05, 0.05],
-                variables = ["dist_angle", "dist_angle", "dist_angle"],
-                n_states = [15, 16, 18]
+#        expand(rules.covariate_effects.output,
+#                zip,
+#                interval = [0.08, 0.05, 0.05],
+#                variables = ["dist_angle", "dist_angle", "dist_angle"],
+#                n_states = [15, 16, 18]
+#        ),
+#        expand(rules.hmm_final.output,
+#                zip,
+#                interval = [0.08, 0.05, 0.05],
+#                variables = ["dist_angle", "dist_angle", "dist_angle"],
+#                n_states = [15, 16, 18]
+#        ),
+        expand(rules.spatial_dependence.output,
+                interval = 0.08,
+                variables = "dist_angle",
+                n_states = 15
         ),
-        expand(rules.hmm_final.output,
-                zip,
-                interval = [0.08, 0.05, 0.05],
-                variables = ["dist_angle", "dist_angle", "dist_angle"],
-                n_states = [15, 16, 18]
+#####################
+# 07_sge_analysis.smk
+#####################
+        expand(rules.sge_co_occupancy.output,
+                interval = 0.08,
+                variables = "dist_angle",
+                n_states = 15
         ),
