@@ -1,0 +1,83 @@
+# Model time dependence
+
+```{r, message = F, warning = F}
+library(tidyverse)
+library(cowplot)
+library(ggridges)
+library(nnet)
+```
+
+## Read and process data
+
+```{r}
+IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/15.csv"
+N_STATES = 15
+```
+
+
+```{r}
+# Get number of rows (for plotting) based on number of states
+if (N_STATES == 15){
+  N_ROWS = 5
+} else if (N_STATES == 12 | 16) {
+  N_ROWS = 4
+} else if (N_STATES == 17 | 18){
+  N_ROWS = 6
+}
+
+
+# Create line recode vector
+line_vec = c("iCab", "HdrR", "HNI", "Kaga", "HO5")
+names(line_vec) = c("icab", "hdr", "hni", "kaga", "ho5")
+
+# Read in file
+
+df = readr::read_csv(IN) %>% 
+  # recode angle to sit between 0 and 360
+  dplyr::mutate(angle_recode = ifelse(angle < 0,
+                                      180 + (180 + angle),
+                                      angle))
+
+# Recode states by mean distance
+
+rank_df = df %>% 
+  dplyr::group_by(state) %>% 
+  dplyr::summarise(mean_dist = mean(distance)) %>% 
+  # rank
+  dplyr::arrange(mean_dist) %>% 
+  dplyr::mutate(rank = 1:nrow(.))
+
+recode_vec = rank_df %>% 
+  dplyr::pull(rank)
+names(recode_vec) = rank_df %>% 
+  dplyr::pull(state)
+
+# Process
+
+df = df %>% 
+  # Recode `state` and factorise
+  dplyr::mutate(state_recode = dplyr::recode(state, !!!recode_vec),
+                state_recode = factor(state_recode, levels = 1:N_STATES)) %>% 
+  # Recode `assay`
+  dplyr::mutate(assay = stringr::str_replace(assay, "_", " "),
+                assay = factor(assay, levels = c("open field", "novel object"))) %>% 
+  # Add `line`
+  dplyr::mutate(line = dplyr::case_when(fish == "ref" ~ ref_fish,
+                                        fish == "test" ~ test_fish)) %>% 
+  # recode `line` and factorise to order
+  dplyr::mutate(line = dplyr::recode(line, !!!line_vec),
+                line = factor(line, levels = line_vec)) %>% 
+  # Remove iCab when paired with a different test fish
+  dplyr::filter(!(fish == "ref" & ref_fish == "icab" & test_fish != "icab")) %>% 
+  # Remove NAs
+  tidyr::drop_na()
+
+
+```
+
+## Model
+
+```{r}
+fit = nnet::multinom(state_recode ~ assay + line + seconds, data = df)
+```
+

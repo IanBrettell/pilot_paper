@@ -18,4 +18,5 @@ From: rocker/tidyverse:4.2.0
         bookdown \
         ggpubr \
         rstatix \
-        ggbeeswarm
+        ggbeeswarm \
+        ggridges

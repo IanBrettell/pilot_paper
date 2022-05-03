@@ -62,4 +62,26 @@ rule split_videos:
     script:
         "../scripts/split_videos.py"
 
+rule get_split_video_dims:
+    input:
+        expand(rules.split_videos.output,
+                zip,
+                assay = ASSAYS,
+                sample = SAMPLES,
+                quadrant = QUADRANTS        
+        ),
+    output:
+        "config/split_video_dims.csv"
+    log:
+        os.path.join(
+            config["working_dir"],
+            "logs/get_split_video_dims/all.log"
+        ),
+    container:
+        config["opencv"]
+    resources:
+        mem_mb = 300
+    script:
+        "../scripts/get_split_video_dims.py"            
+
 

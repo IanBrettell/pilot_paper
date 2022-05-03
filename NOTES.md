@@ -14,6 +14,10 @@ Ewan's ideas for figures:
 
 * One thought on the tracks, there is a big time dependence of some of the states (most obviously the still states at the start) - I was wondering if we should pick a couple of states which show strongest time dependence (and / or time by strain dependence)
 
+* My other thought is whether there is a spatial as well as time dependence of the HMM states - eg, are some states the “close the wall” state and others in the middle
+
+* These two things go, along with the genetics, to “the states are meaningful”
+
 ## 16 March 2022
 
 Tracking success:

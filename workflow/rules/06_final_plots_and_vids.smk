@@ -44,8 +44,7 @@ rule spatial_dependence:
     input:
         rules.run_hmm.output,
     output:
-        open_field = "book/figs/spatial_dependence/{interval}/{variables}/{n_states}/spatial_dependence_of.png",,
-        novel_object = "book/figs/spatial_dependence/{interval}/{variables}/{n_states}/spatial_dependence_no.png",
+        fig = "book/figs/spatial_dependence/{variables}/{interval}_{n_states}_spatial_dependence.png"
     log:
         os.path.join(
             config["working_dir"],
@@ -58,5 +57,44 @@ rule spatial_dependence:
     container:
         config["R_4.2.0"]
     script:
-        "../scripts/spatial_dependence.R"    
-          
+        "../scripts/spatial_dependence.R"
+    
+rule time_dependence:
+    input:
+        rules.run_hmm.output,
+    output:
+        fig = "book/figs/time_dependence/{variables}/{interval}_{n_states}_time_dependence.png",
+    log:
+        os.path.join(
+            config["working_dir"],
+            "logs/time_dependence/{interval}/{variables}/{n_states}.log"
+        ),
+    params:
+        n_states = "{n_states}",
+    resources:
+        mem_mb = 5000
+    container:
+        config["R_4.2.0"]
+    script:
+        "../scripts/time_dependence.R"
+
+rule path_plots:
+    input:
+        data = rules.run_hmm.output,
+        dims = rules.get_split_video_dims.output,
+    output:
+        paths_of = "book/figs/time_dependence/{interval}/{variables}/{n_states}/{sample}/open_field.png",
+        paths_no = "book/figs/time_dependence/{interval}/{variables}/{n_states}/{sample}/novel_object.png",
+    log:
+        os.path.join(
+            config["working_dir"],
+            "logs/path_plots/{interval}/{variables}/{n_states}/{sample}.log"
+        ),
+    params:
+        sample = "{sample}"
+    resources:
+        mem_mb = 5000
+    container:
+        config["R_4.2.0"]
+    script:
+        "../scripts/path_plots.R"    

@@ -26,7 +26,7 @@ IN = snakemake@input[[1]]
 N_STATES = 15
 OUT_HEAT = snakemake@output[["heatmaps"]]
 OUT_BOX_ALL = snakemake@output[["boxplot_all"]]
-OUT_BOX_PER_STATE = snakemake@output[["boxplot_per_state"]]
+OUT_PER_STATE = snakemake@output[["box_and_heat_per_state"]]
 
 
 # Create line recode vector
@@ -48,9 +48,6 @@ if (N_STATES == 15){
 } else if (N_STATES == 17 | 18){
   N_ROWS = 6
 }
-
-
-SEC_INT = 2
 
 # Read in file
 
@@ -160,6 +157,8 @@ ggsave(OUT_BOX_ALL,
 # Co-occupancy boxplot -- per state
 #######################
 
+FONT_SIZE = 10
+
 cooc_per_state = sge_df %>% 
   # pivot wider to get cols for ref and test
   tidyr::pivot_wider(id_cols = c("run", "assay", "test_fish", "seconds"),
@@ -187,6 +186,28 @@ kw_per_state = cooc_per_state %>%
 
 # Plot
 
+## Polar
+polar = df %>% 
+  # select random sample of 1e5 rows
+  dplyr::slice_sample(n = 1e5) %>% 
+  # factorise `state_recode`
+  #dplyr::mutate(state_recode = factor(state_recode, levels = recode_vec)) %>% 
+  ggplot() +
+  geom_point(aes(angle_recode, log10(distance), colour = state_recode),
+             alpha = 0.3, size = 0.2) +
+  coord_polar() +
+  facet_wrap(~state_recode, nrow = N_ROWS) +
+  scale_x_continuous(labels = c(0, 90, 180, 270),
+                     breaks = c(0, 90, 180, 270)) +
+  scale_color_viridis_c(option = "magma") +
+  guides(colour = "none") +
+  xlab("angle of travel") +
+  ylab(expression(log[10]("distance travelled in pixels"))) +
+  ggtitle("HMM states") +
+  cowplot::theme_cowplot(font_size = FONT_SIZE) +
+  theme(plot.title = element_text(hjust = 0.5))
+
+
 ## OF
 ASSAY = "open field"
 box_per_state_of = cooc_per_state %>% 
@@ -198,7 +219,7 @@ box_per_state_of = cooc_per_state %>%
               dplyr::filter(assay == ASSAY),
             aes(x = "iCab", y = 0.3, label = p_final),
             size = 3) +
-  cowplot::theme_cowplot() +
+  cowplot::theme_cowplot(font_size = FONT_SIZE) +
   scale_colour_manual(values = pal) +
   guides(colour = "none") +
   xlab("test fish") +
@@ -218,7 +239,7 @@ box_per_state_no = cooc_per_state %>%
               dplyr::filter(assay == ASSAY),
             aes(x = "iCab", y = 0.3, label = p_final),
             size = 3) +
-  cowplot::theme_cowplot() +
+  cowplot::theme_cowplot(font_size = FONT_SIZE) +
   scale_colour_manual(values = pal) +
   guides(colour = "none") +
   xlab("test fish") +
@@ -227,26 +248,6 @@ box_per_state_no = cooc_per_state %>%
   theme(plot.title = element_text(hjust = 0.5)) +
   ylim(0,max(cooc_per_state$FREQ_COOC))
 
-# Put together
-box_per_state_final = cowplot::ggdraw() +
-  cowplot::draw_plot(box_per_state_of,
-                     x = 0, y = 0,
-                     width = 0.5, height = 1) +
-  cowplot::draw_plot(box_per_state_no +
-                       theme(axis.text.y=element_blank(),
-                             axis.ticks.y=element_blank(),
-                             axis.line.y = element_blank()) +
-                       ylab(NULL),
-                     x = 0.5, y = 0,
-                     width = 0.5, height = 1)
-
-ggsave(OUT_BOX_PER_STATE,
-       box_per_state_final,
-       device = "png",
-       width = 25,
-       height = 17,
-       units = "in",
-       dpi = 400)
 
 #######################
 # Co-occupancy heatmap
@@ -263,7 +264,8 @@ cooc_heat = sge_df %>%
   dplyr::ungroup() %>% 
   dplyr::mutate(FREQ_COOC = n / nn) 
 
-cooc_heatmap = cooc_heat %>% 
+# OF
+cooc_heat_plot = cooc_heat %>% 
   # recode NAs as character
   dplyr::mutate(across(c(ref, test),
                        ~as.character(.))) %>% 
@@ -277,7 +279,7 @@ cooc_heatmap = cooc_heat %>%
   geom_tile(aes(ref, test, fill = FREQ_COOC)) +
   facet_grid(cols = vars(test_fish),
              rows = vars(assay)) +
-  theme_cowplot(font_size = 5) +
+  theme_cowplot(font_size = FONT_SIZE) +
   theme(aspect.ratio = 1) +
   #scale_x_di(breaks = unique(cooc_heat$ref)) +
   #scale_y_di(breaks = unique(cooc_heat$test))  +
@@ -286,11 +288,36 @@ cooc_heatmap = cooc_heat %>%
   xlab("reference fish state") +
   ylab("test fish state")
 
-ggsave(OUT_HEAT,
-       cooc_heatmap,
+#######################
+# Final figure
+#######################
+
+
+# Put together
+final = cowplot::ggdraw() +
+  cowplot::draw_plot(polar,
+                     x = 0, y= 0.3,
+                     width = 0.4, height = 0.7) +
+  cowplot::draw_plot(box_per_state_of,
+                     x = 0.4, y = 0.3,
+                     width = 0.3, height = 0.7) +
+  cowplot::draw_plot(box_per_state_no +
+                       theme(axis.text.y=element_blank(),
+                             axis.ticks.y=element_blank(),
+                             axis.line.y = element_blank()) +
+                       ylab(NULL),
+                     x = 0.7, y = 0.3,
+                     width = 0.3, height = 0.7) +
+  cowplot::draw_plot(cooc_heat_plot,
+                     x = 0, y = 0,
+                     width = 1, height = 0.3)   
+
+ggsave(OUT_PER_STATE,
+       final,
        device = "png",
-       width = 15,
-       height = 6,
+       width = 21,
+       height = 21,
        units = "in",
        dpi = 400)
+
 

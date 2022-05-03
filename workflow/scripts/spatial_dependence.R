@@ -17,8 +17,7 @@ library(cowplot)
 
 ## True
 IN = snakemake@input[[1]]
-OUT_OF = snakemake@output[["open_field"]]
-OUT_NO = snakemake@output[["novel_object"]]
+OUT = snakemake@output[["fig"]]
 N_STATES = snakemake@params[["n_states"]]
 
 
@@ -76,14 +75,12 @@ df = df %>%
 
 
 ############################
-# Plot OF
+# Plot polar
 ############################
 
 FONT_SIZE = 10
 
-ASSAY = "open field"
-
-polar_of = df %>% 
+polar_plot = df %>% 
   # select random sample of 1e5 rows
   dplyr::slice_sample(n = 1e5) %>% 
   ggplot() +
@@ -102,7 +99,11 @@ polar_of = df %>%
   theme(plot.title = element_text(hjust = 0.5)) +
   facet_wrap(~state_recode, nrow = N_ROWS)
 
+############################
+# Plot OF
+############################
 
+ASSAY = "open field"
 spatial_of = df %>% 
   dplyr::filter(assay == ASSAY) %>% 
   dplyr::slice_sample(n = 1e5) %>% 
@@ -114,52 +115,17 @@ spatial_of = df %>%
   scale_colour_viridis_c() +
   cowplot::theme_cowplot(font_size = FONT_SIZE) +
   theme(aspect.ratio = 1) +
-  ggtitle("spatial distribution") +
+  ggtitle(ASSAY) +
   theme(plot.title = element_text(hjust = 0.5)) +
   guides(colour = "none") +
   xlab("x coordinate") +
   ylab("y coordinate")
 
-of_final = cowplot::ggdraw() +
-  cowplot::draw_plot(polar_of,x = 0, y = 0, width = 0.5, height = 1) +
-  cowplot::draw_plot(spatial_of,x = 0.5, y = 0, width = 0.5, height = 1) 
-
-ggsave(OUT_OF,
-       of_final,
-       device = "png",
-       width = 16,
-       height = 16,
-       units = "in",
-       dpi = 400)
-
 ############################
 # Plot NO
 ############################
 
-FONT_SIZE = 10
-
 ASSAY = "novel object"
-
-polar_no = df %>% 
-  # select random sample of 1e5 rows
-  dplyr::slice_sample(n = 1e5) %>% 
-  ggplot() +
-  geom_point(aes(angle_recode, log10(distance), colour = state_recode),
-             alpha = 0.3, size = 0.2) +
-  coord_polar() +
-  facet_wrap(~state_recode, nrow = N_ROWS) +
-  scale_x_continuous(labels = c(0, 90, 180, 270),
-                     breaks = c(0, 90, 180, 270)) +
-  scale_color_viridis_c() +
-  guides(colour = "none") +
-  xlab("angle of travel") +
-  ylab(expression(log[10]("distance travelled in pixels"))) +
-  ggtitle("distance and angle") +
-  cowplot::theme_cowplot(font_size = FONT_SIZE) +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  facet_wrap(~state_recode, nrow = N_ROWS)
-
-
 spatial_no = df %>% 
   dplyr::filter(assay == ASSAY) %>% 
   dplyr::slice_sample(n = 1e5) %>% 
@@ -171,20 +137,26 @@ spatial_no = df %>%
   scale_colour_viridis_c() +
   cowplot::theme_cowplot(font_size = FONT_SIZE) +
   theme(aspect.ratio = 1) +
-  ggtitle("spatial distribution") +
+  ggtitle(ASSAY) +
   theme(plot.title = element_text(hjust = 0.5)) +
   guides(colour = "none") +
   xlab("x coordinate") +
   ylab("y coordinate")
 
-no_final = cowplot::ggdraw() +
-  cowplot::draw_plot(polar_no,x = 0, y = 0, width = 0.5, height = 1) +
-  cowplot::draw_plot(spatial_no,x = 0.5, y = 0, width = 0.5, height = 1) 
 
-ggsave(OUT_NO,
-       no_final,
+############################
+# Compose final
+############################
+
+final = cowplot::ggdraw() +
+  cowplot::draw_plot(polar_plot,x = 0, y = 0, width = 0.333, height = 1) +
+  cowplot::draw_plot(spatial_of,x = 0.333, y = 0, width = 0.333, height = 1) +
+  cowplot::draw_plot(spatial_no,x = 0.666, y = 0, width = 0.333, height = 1) 
+
+ggsave(OUT,
+       final,
        device = "png",
-       width = 16,
+       width = 24,
        height = 16,
        units = "in",
        dpi = 400)
