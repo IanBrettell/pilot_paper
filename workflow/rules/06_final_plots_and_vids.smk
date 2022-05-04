@@ -82,9 +82,11 @@ rule path_plots:
     input:
         data = rules.run_hmm.output,
         dims = rules.get_split_video_dims.output,
+        screenshots = expand(rules.set_split_coords.output,
+            assay = list(set(ASSAYS))
+        ),
     output:
-        paths_of = "book/figs/time_dependence/{interval}/{variables}/{n_states}/{sample}/open_field.png",
-        paths_no = "book/figs/time_dependence/{interval}/{variables}/{n_states}/{sample}/novel_object.png",
+        paths = "book/figs/time_dependence/{interval}/{variables}/{n_states}/{sample}.png",
     log:
         os.path.join(
             config["working_dir"],

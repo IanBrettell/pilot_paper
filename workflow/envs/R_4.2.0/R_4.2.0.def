@@ -5,7 +5,7 @@ From: rocker/tidyverse:4.2.0
 
     # Install packages required for R packages
     apt update 
-    apt install -y libxt6
+    apt install -y libxt6 libmagick++-dev
 
     # Install CRAN packages
     install2.r --error \
@@ -19,4 +19,5 @@ From: rocker/tidyverse:4.2.0
         ggpubr \
         rstatix \
         ggbeeswarm \
-        ggridges
+        ggridges \
+        magick
