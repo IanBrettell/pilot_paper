@@ -13,18 +13,21 @@ library(wesanderson)
 # Get variables
 
 ## Debug
-IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/15.csv"
-DIMS = here::here("config/split_video_dims.csv")
-SAMPLE = "20190616_1717_icab_icab_L"
-SSHOTS = list("/hps/software/users/birney/ian/repos/pilot_paper/results/split_coord_images/open_field/20190611_1331_icab_icab_R.png",
-              "/hps/software/users/birney/ian/repos/pilot_paper/results/split_coord_images/novel_object/20190611_1331_icab_icab_R.png") %>% 
-  unlist() %>% 
-  # Put into correct order
-  sort(.,decreasing = T)
+#IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/15.csv"
+#DIMS = here::here("config/split_video_dims.csv")
+#SAMPLE = "20190616_1717_icab_icab_L"
+#SSHOTS = list("/hps/software/users/birney/ian/repos/pilot_paper/results/split_coord_images/open_field/20190611_1331_icab_icab_R.png",
+#              "/hps/software/users/birney/ian/repos/pilot_paper/results/split_coord_images/novel_object/20190611_1331_icab_icab_R.png") %>% 
+#  unlist() %>% 
+#  # Put into correct order
+#  sort(.,decreasing = T)
 
 ## True
 IN = snakemake@input[["data"]]
 DIMS = snakemake@input[["dims"]]
+SSHOTS = snakemake@input[["screenshots"]] %>% 
+  unlist() %>% 
+  sort(., decreasing = T)
 SAMPLE = snakemake@params[["sample"]]
 OUT = snakemake@output[["paths"]]
 
@@ -46,7 +49,7 @@ ref = split_samp[3]
 test = split_samp[4]
 
 if (ref == test) {
-  line_vec = c("iCab ref", "iCab test")
+  line_vec = c("iCab\nref", "iCab\ntest")
   names(line_vec) = c("ref", "test")
   pal = c("#F1BB7B", darker("#F1BB7B", amount = 70))
   names(pal) = line_vec
@@ -170,20 +173,30 @@ pgrid_no = cowplot::plot_grid(plot_list$novel_object$q2 +
                                       axis.title = element_blank())
                               )
 
-final = cowplot::plot_grid(y_lab, pgrid_of, pgrid_no, legend, ncol = 4, rel_widths = c(0.1, 1, 1, 0.1))
-
-plot_grid(final, x_lab, nrow = 2, rel_heights = c(1, 0.1))
+final = cowplot::plot_grid(y_lab, pgrid_of, pgrid_no, legend, ncol = 4, rel_widths = c(0.05, 1, 1, 0.1))
+# Add x-axis label
+final = plot_grid(final, x_lab, nrow = 2, rel_heights = c(1, 0.05))
 
 
 # Add screenshots
-sshots_plot = cowplot::ggdraw() +
-  cowplot::draw_image(SSHOTS[1], x = 0, y = 1) +
-  cowplot::draw_image(SSHOTS[2], x = 0.5, y = 1)
+sshots = cowplot::ggdraw() +
+  cowplot::draw_image(SSHOTS[1], x = 0, y = 0, width = 0.5, height= 1) +
+  cowplot::draw_image(SSHOTS[2], x = 0.5, y = 0, width = 0.5, height= 1) 
+
+
+# Compise
+out = cowplot::ggdraw() +
+  cowplot::draw_plot(sshots, x = 0, y = 0.55, width = 1, height = 0.45) +
+  cowplot::draw_plot(final, x = 0, y = 0, width = 1, height = 0.55) +
+  cowplot::draw_plot_label(c("A", "B"),
+                           x = c(0, 0),
+                           y = c(1, 0.55))
+
 
 ggsave(OUT,
-       final,
+       out,
        device = "png",
-       width = 15,
-       height = 7.142,
+       width = 17.5,
+       height = 17,
        units = "in",
        dpi = 400)

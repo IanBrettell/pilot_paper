@@ -76,6 +76,12 @@ rule all:
 #        ),
 ## tracking_success
 #                "config/tracking_success.csv",
+        expand(rules.coloured_trails.output,
+                zip,
+                assay = ASSAYS[0],
+                sample = SAMPLES[0],
+                quadrant = QUADRANTS[0]   
+        ),
 #####################
 # 04_hmm.smk
 #####################
@@ -141,6 +147,12 @@ rule all:
                 variables = "dist_angle",
                 n_states = 15
         ),
+#        expand(rules.path_plots.output,
+#                interval = 0.08,
+#                variables = "dist_angle",
+#                n_states = 15,
+#                sample = list(set(SAMPLES))
+#        ),
 #####################
 # 07_sge_analysis.smk
 #####################

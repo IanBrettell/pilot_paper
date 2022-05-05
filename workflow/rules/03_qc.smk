@@ -127,7 +127,7 @@ rule coloured_trails:
     output:
         os.path.join(
             config["working_dir"],
-            "split/{assay}/{sample}_{quadrant}_tracked.avi",
+            "tracked/{assay}/{sample}_{quadrant}.avi",
         ),
     log:
         os.path.join(

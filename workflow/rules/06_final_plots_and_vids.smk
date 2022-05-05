@@ -82,11 +82,11 @@ rule path_plots:
     input:
         data = rules.run_hmm.output,
         dims = rules.get_split_video_dims.output,
-        screenshots = expand(rules.set_split_coords.output,
+        screenshots = expand("results/split_coord_images/{assay}/{{sample}}.png",
             assay = list(set(ASSAYS))
         ),
     output:
-        paths = "book/figs/time_dependence/{interval}/{variables}/{n_states}/{sample}.png",
+        paths = "book/figs/path_plots/{interval}/{variables}/{n_states}/{sample}.png",
     log:
         os.path.join(
             config["working_dir"],
@@ -95,8 +95,28 @@ rule path_plots:
     params:
         sample = "{sample}"
     resources:
-        mem_mb = 5000
+        mem_mb = 3000
     container:
         config["R_4.2.0"]
     script:
-        "../scripts/path_plots.R"    
+        "../scripts/path_plots.R"
+
+rule tracking_success_plot:
+    input:
+        rules.tracking_success.output,
+    output:
+        obj = "results/figs/tracking_success/tracking_success_gg.rds",
+        fig = "book/figs/tracking_success/tracking_success.png",
+    log:
+        os.path.join(
+            config["working_dir"],
+            "logs/tracking_success_plot/all.log"
+        ),
+    params:
+        sample = "{sample}"
+    resources:
+        mem_mb = 3000
+    container:
+        config["R_4.2.0"]
+    script:
+        "../scripts/tracking_success_plot.R"
