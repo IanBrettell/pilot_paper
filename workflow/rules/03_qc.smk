@@ -117,7 +117,31 @@ def get_trajectories_file(wildcards):
         return(traj_file)
 
 # Generate videos with coloured trails superimposed
-rule coloured_trails:
+#rule coloured_trails:
+#    input:
+#        video_object=os.path.join(
+#            config["working_dir"],
+#            "split/{assay}/session_{sample}_{quadrant}/video_object.npy",
+#        ),
+#        trajectories=get_trajectories_file,
+#    output:
+#        os.path.join(
+#            config["working_dir"],
+#            "tracked/{assay}/{sample}_{quadrant}.avi",
+#        ),
+#    log:
+#        os.path.join(
+#            config["working_dir"],
+#            "logs/coloured_trails/{assay}/{sample}/{quadrant}.log"
+#        ),
+#    container:
+#        config["idtrackerai"]
+#    resources:
+#        mem_mb=5000,
+#    script:
+#        "../scripts/coloured_trails.py"
+    
+rule coloured_trails_labels:
     input:
         video_object=os.path.join(
             config["working_dir"],
@@ -132,12 +156,40 @@ rule coloured_trails:
     log:
         os.path.join(
             config["working_dir"],
-            "logs/coloured_trails/{assay}/{sample}/{quadrant}.log"
+            "logs/coloured_trails_labels/{assay}/{sample}/{quadrant}.log"
         ),
+    params:
+        sample = "{sample}",
+        ref_loc = get_ref_loc,
     container:
         config["idtrackerai"]
     resources:
         mem_mb=5000,
     script:
-        "../scripts/coloured_trails.py"
-    
+        "../scripts/coloured_trails_labels.py"
+
+rule stich_tracked_vids:
+    input:
+        expand(os.path.join(
+            config["working_dir"],
+            "tracked/{assay}/{{sample}}_{quadrant}.avi",
+            ),
+            assay = ASSAYS,
+            quadrant = QUADRANTS
+        ),
+    output:
+        os.path.join(
+            config["working_dir"],
+            "stiched/{sample}.avi",
+        ),
+    log:
+        os.path.join(
+            config["working_dir"],
+            "logs/stich_tracked_vids/{sample}.log"
+        ),
+    container:
+        config["opencv"]
+    resources:
+        mem_mb=5000,
+    script:
+        "../scripts/stich_tracked_vids.py"

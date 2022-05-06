@@ -76,11 +76,11 @@ rule all:
 #        ),
 ## tracking_success
 #                "config/tracking_success.csv",
-        expand(rules.coloured_trails.output,
+        expand(rules.coloured_trails_labels.output,
                 zip,
-                assay = ASSAYS[0],
-                sample = SAMPLES[0],
-                quadrant = QUADRANTS[0]   
+                assay = ASSAYS,
+                sample = SAMPLES,
+                quadrant = QUADRANTS
         ),
 #####################
 # 04_hmm.smk

@@ -39,23 +39,23 @@
 
 # Send stdout and stderr to log file
 import sys,os
-#import logging, traceback
-#logging.basicConfig(filename=snakemake.log[0],
-#                    level=logging.INFO,
-#                    format='%(asctime)s %(message)s',
-#                    datefmt='%Y-%m-%d %H:%M:%S',
-#                    )
-#def handle_exception(exc_type, exc_value, exc_traceback):
-#    if issubclass(exc_type, KeyboardInterrupt):
-#        sys.__excepthook__(exc_type, exc_value, exc_traceback)
-#        return
-#
-#    logger.error(''.join(["Uncaught exception: ",
-#                         *traceback.format_exception(exc_type, exc_value, exc_traceback)
-#                         ])
-#                 )
-## Install exception handler
-#sys.excepthook = handle_exception
+import logging, traceback
+logging.basicConfig(filename=snakemake.log[0],
+                    level=logging.INFO,
+                    format='%(asctime)s %(message)s',
+                    datefmt='%Y-%m-%d %H:%M:%S',
+                    )
+def handle_exception(exc_type, exc_value, exc_traceback):
+    if issubclass(exc_type, KeyboardInterrupt):
+        sys.__excepthook__(exc_type, exc_value, exc_traceback)
+        return
+
+    logger.error(''.join(["Uncaught exception: ",
+                         *traceback.format_exception(exc_type, exc_value, exc_traceback)
+                         ])
+                 )
+# Install exception handler
+sys.excepthook = handle_exception
 
 # Import libraries
 
@@ -65,11 +65,39 @@ from tqdm import tqdm
 from idtrackerai.utils.py_utils import get_spaced_colors_util
 
 ## Debug
-video_object_path = "/hps/nobackup/birney/users/ian/pilot/split/open_field/session_20190611_1331_icab_icab_R_q1/video_object.npy"
-trajectories_path = "/hps/nobackup/birney/users/ian/pilot/split/open_field/session_20190611_1331_icab_icab_R_q1/trajectories_wo_gaps/trajectories_wo_gaps.npy"
-path_to_save_video = "/hps/nobackup/birney/users/ian/pilot/tmp.avi"
+#video_object_path = "/hps/nobackup/birney/users/ian/pilot/split/open_field/session_20190611_1331_icab_icab_R_q1/video_object.npy"
+#trajectories_path = "/hps/nobackup/birney/users/ian/pilot/split/open_field/session_20190611_1331_icab_icab_R_q1/trajectories_wo_gaps/trajectories_wo_gaps.npy"
+#path_to_save_video = "/hps/nobackup/birney/users/ian/pilot/tmp.avi"
+#SAMPLE = "20190611_1331_icab_icab_R"
+#REF_LOC = "NA"
+
+## True
+video_object_path = snakemake.input.video_object
+trajectories_path = snakemake.input.trajectories
+path_to_save_video = snakemake.output[0]
+SAMPLE = snakemake.params.sample
+REF_LOC = snakemake.params.ref_loc
+
+
+# Get identity of test fish
+TEST_FISH = SAMPLE.split('_')[3]
+
+# Recode line
+recode_dict = {
+    "icab" : "iCab",
+    "hdr" : "HdrR",
+    "hni" : "HNI",
+    "kaga" : "Kaga",
+    "ho5" : "HO5"
+}
+
+TEST_FISH = recode_dict[TEST_FISH]
 
 # From `main()`
+
+########################
+# Read in video object and trajectories
+########################
 
 ## Load video object
 video_object = np.load(
@@ -81,27 +109,18 @@ trajectories = np.load(
     trajectories_path, allow_pickle=True, encoding="latin1"
 ).item()["trajectories"]
 
-# From `generate_trajectories_video()`
+########################
+# Set colours
+########################
 
-## args
-centroid_trace_length=10
-starting_frame=0
-ending_frame=None
-
-ending_frame=300 # HASH OUT
-
-## Get colours
-#colors = get_spaced_colors_util(
-#    video_object.number_of_animals, black=False
-#)
 pal_dict_hex = {
-    'icab' : '#F1BB7B',
-    'hdr' : '#FA796C',
-    'hni' : '#AC3E3F',
-    'kaga' : '#79301F',
-    'ho5' : '#D67236',
-    'icab_ref' : '#F1BB7B',
-    'icab_test' : '#AB7535'
+    'iCab' : '#F1BB7B',
+    'HdrR' : '#FA796C',
+    'HNI' : '#AC3E3F',
+    'Kaga' : '#79301F',
+    'HO5' : '#D67236',
+    'iCab_ref' : '#F1BB7B',
+    'iCab_test' : '#AB7535'
     }
 
 # Convert to RGB
@@ -116,7 +135,71 @@ def hex2bgr(hex):
     bgr = tuple(int(hex[i:i+2], 16) for i in (4, 2, 0)) + (0,)
     return bgr
 
-pal_dict_bgr = pal_dict_hex
+bgr_values = [hex2bgr(i) for i in pal_dict_hex.values()]
+pal_dict_bgr = {list(pal_dict_hex.keys())[i] : bgr_values[i] for i in range(len(pal_dict_hex))}
+
+########################
+# Assign line ID and colours to trajectories object
+########################
+
+# Remove all frames with NA from the start
+na_list = []
+# Get list with "False" for all frames with NA
+for i in range(len(trajectories)):
+    na_list.append(np.isnan(trajectories[i]).any() == False)
+## Filter trajectories file so that first frame is not NaN
+first_frame = trajectories[na_list][0]
+
+if REF_LOC == "Left" or "Right":
+    # Pull out x coordinates
+    x_coords = [first_frame[0][0], first_frame[1][0]] 
+    # Get column index with min or max value based on REF location
+    if REF_LOC == "Left":
+        ref_col = np.argmin(x_coords)
+    elif REF_LOC == "Right":
+        ref_col = np.argmax(x_coords)
+
+if REF_LOC == "Top" or "Bottom":
+    # Pull out y coordinates
+    y_coords = [first_frame[0][1], first_frame[1][1]] 
+    # Get column index with min or max value based on REF location
+    if REF_LOC == "Top":
+        ref_col = np.argmin(y_coords)
+    elif REF_LOC == "Bottom":
+        ref_col = np.argmax(y_coords)
+
+# If both fishes are from the same line, make the first object the reference 
+if REF_LOC == "NA":
+    ref_col = 0
+
+# Create `cur_id_str` and `colors`` lists
+if TEST_FISH == "iCab":
+    cur_id_list = ["iCab_ref", "iCab_test"]
+    colors = [pal_dict_bgr["iCab_ref"], pal_dict_bgr["iCab_test"]]
+else:
+    if ref_col == 0:
+        cur_id_list = ["iCab", TEST_FISH]
+        colors = [pal_dict_bgr["iCab"], pal_dict_bgr[TEST_FISH]]
+    elif ref_col == 1:
+        cur_id_list = [TEST_FISH, "iCab"]
+        colors = [pal_dict_bgr[TEST_FISH], pal_dict_bgr["iCab"]]
+
+
+# From `generate_trajectories_video()`
+
+## args
+centroid_trace_length=10
+starting_frame=0
+ending_frame=None
+
+#ending_frame=300 # HASH OUT
+
+## Get colours
+#colors = get_spaced_colors_util(
+#    video_object.number_of_animals, black=False
+#)
+
+
 
 ## Set up fourcc
 fourcc = cv2.VideoWriter_fourcc(*"XVID")
@@ -176,8 +259,8 @@ for frame_number in tqdm(
 
         ordered_centroid = trajectories[frame_number]
         font = cv2.FONT_HERSHEY_SIMPLEX
-        font_size = 1 * video_object.resolution_reduction
-        font_width = int(3 * video_object.resolution_reduction)
+        font_size = 0.5 * video_object.resolution_reduction
+        font_width = int(1 * video_object.resolution_reduction)
         font_width = 1 if font_width == 0 else font_width
         circle_size = int(2 * video_object.resolution_reduction)
 
@@ -189,7 +272,7 @@ for frame_number in tqdm(
                     ]
                 else:
                     centroids_trace = trajectories[:frame_number, cur_id]
-                cur_id_str = str(cur_id + 1)
+                cur_id_str = cur_id_list[cur_id]
                 int_centroid = np.asarray(centroid).astype("int")
                 cv2.circle(
                     frame, tuple(int_centroid), circle_size, colors[cur_id], -1
