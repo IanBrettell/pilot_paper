@@ -35,7 +35,7 @@ rule all:
 #                sample = SAMPLES,
 #                quadrant = QUADRANTS
 #        ),
-        rules.get_split_video_dims.output,
+#        rules.get_split_video_dims.output,
 #####################
 # 02_tracking.smk
 #####################
@@ -76,11 +76,15 @@ rule all:
 #        ),
 ## tracking_success
 #                "config/tracking_success.csv",
-        expand(rules.coloured_trails_labels.output,
-                zip,
-                assay = ASSAYS,
-                sample = SAMPLES,
-                quadrant = QUADRANTS
+#        expand(rules.coloured_trails_labels.output,
+#                zip,
+#                assay = ASSAYS,
+#                sample = SAMPLES,
+#                quadrant = QUADRANTS
+#        ),
+        expand(rules.stitch_tracked_vids.output,
+                assay = ASSAYS_ALL[0],
+                sample = SAMPLES_ALL[5]
         ),
 #####################
 # 04_hmm.smk
@@ -137,27 +141,27 @@ rule all:
 #                variables = ["dist_angle", "dist_angle", "dist_angle"],
 #                n_states = [15, 16, 18]
 #        ),
-        expand(rules.spatial_dependence.output,
-                interval = 0.08,
-                variables = "dist_angle",
-                n_states = 15
-        ),
-        expand(rules.time_dependence.output,
-                interval = 0.08,
-                variables = "dist_angle",
-                n_states = 15
-        ),
+#        expand(rules.spatial_dependence.output,
+#                interval = 0.08,
+#                variables = "dist_angle",
+#                n_states = 15
+#        ),
+#        expand(rules.time_dependence.output,
+#                interval = 0.08,
+#                variables = "dist_angle",
+#                n_states = 15
+#        ),
 #        expand(rules.path_plots.output,
 #                interval = 0.08,
 #                variables = "dist_angle",
 #                n_states = 15,
 #                sample = list(set(SAMPLES))
 #        ),
-#####################
-# 07_sge_analysis.smk
-#####################
-        expand(rules.sge_co_occupancy.output,
-                interval = 0.08,
-                variables = "dist_angle",
-                n_states = 15
-        ),
+######################
+## 07_sge_analysis.smk
+######################
+#        expand(rules.sge_co_occupancy.output,
+#                interval = 0.08,
+#                variables = "dist_angle",
+#                n_states = 15
+#        ),

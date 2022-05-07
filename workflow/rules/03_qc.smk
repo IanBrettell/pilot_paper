@@ -168,28 +168,29 @@ rule coloured_trails_labels:
     script:
         "../scripts/coloured_trails_labels.py"
 
-rule stich_tracked_vids:
+rule stitch_tracked_vids:
     input:
         expand(os.path.join(
             config["working_dir"],
-            "tracked/{assay}/{{sample}}_{quadrant}.avi",
+            "tracked/{{assay}}/{{sample}}_{quadrant}.avi"
             ),
-            assay = ASSAYS,
-            quadrant = QUADRANTS
+                quadrant = QUADRANTS_ALL
         ),
     output:
         os.path.join(
             config["working_dir"],
-            "stiched/{sample}.avi",
+            "stiched/{assay}/{sample}.avi",
         ),
     log:
         os.path.join(
             config["working_dir"],
-            "logs/stich_tracked_vids/{sample}.log"
+            "logs/stich_tracked_vids/{assay}/{sample}.log"
         ),
+    params:
+        fps = get_fps,
     container:
         config["opencv"]
     resources:
         mem_mb=5000,
     script:
-        "../scripts/stich_tracked_vids.py"
+        "../scripts/stitch_tracked_vids.py"

@@ -19,15 +19,15 @@ configfile: "config/config.yaml"
 
 samples_df = pd.read_csv(config["samples_file"], comment = '#')
 
-SAMPLES = samples_df["sample"]
-ASSAYS = ["open_field", "novel_object"]
-QUADRANTS = ["q1", "q2", "q3", "q4"]
+SAMPLES_ALL = samples_df["sample"]
+ASSAYS_ALL = ["open_field", "novel_object"]
+QUADRANTS_ALL = ["q1", "q2", "q3", "q4"]
 
 # Read in videos to be excluded
 excl_df = pd.read_csv(config["excluded_videos"], comment = "#")
 
 ## Create list of variable lists
-full_list = [SAMPLES, ASSAYS, QUADRANTS]
+full_list = [SAMPLES_ALL, ASSAYS_ALL, QUADRANTS_ALL]
 ## Create list of tuple combinations
 combos = list(itertools.product(*full_list))
 
