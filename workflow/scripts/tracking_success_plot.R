@@ -44,5 +44,5 @@ df %>%
   cowplot::theme_cowplot() +
   scale_fill_manual(values = pal) +
   xlab("proportion of frames tracked") +
-  labs(fill = "test fish")
+  labs(fill = "test fi")
   

@@ -1,5 +1,27 @@
 # Notebook
 
+## 4 May 2022
+
+Discussion with Ewan re: paper:
+
+* Time + spatial dependence: plot time dependance of iCab control vs iCab/HdrR -- states 1:3?
+
+* How to show we tracked fish properly? Check random sample. 
+
+* Time dependence -- calculate densities so that they sum to 1 for every second
+
+* Choose subset of states re: time and spatial dependence, then DGE
+
+* Variance explained: inverse-normalise proportion of time spent in each state, then use additive model (state ~ quadrant + time). Run separately on assays.
+
+* Discussion: 
+
+    - Read Hideaki's papers
+
+    - Cite Cornelius's HMM paper
+
+    - Say going to run over the MIKK panel
+
 ## 29 April 2022
 
 Ewan's ideas for figures:

@@ -48,3 +48,11 @@ ASSAYS_INT = ASSAYS * n_intervals
 QUADRANTS_INT = QUADRANTS * n_intervals
 ## Multiply each element of `seconds_intervals` by length of original SAMPLES list
 INTERVALS_INT = np.repeat(config["seconds_interval"], len(SAMPLES))
+
+# Create combinations of assay and sample, excluding 20190616_1227_icab_kaga_R
+assay_sample_list = [SAMPLES_ALL, ASSAYS_ALL]
+assay_sample_combos = list(itertools.product(*assay_sample_list))
+for index, row in excl_df.iterrows():
+    assay_sample_combos.remove((row['sample'], row['assay']))
+AS_SAMPLES = [i[0] for i in assay_sample_combos]
+AS_ASSAYS = [i[1] for i in assay_sample_combos]

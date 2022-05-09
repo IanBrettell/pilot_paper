@@ -83,8 +83,9 @@ rule all:
 #                quadrant = QUADRANTS
 #        ),
         expand(rules.stitch_tracked_vids.output,
-                assay = ASSAYS_ALL[0],
-                sample = SAMPLES_ALL[5]
+                zip,
+                assay = AS_ASSAYS,
+                sample = AS_SAMPLES
         ),
 #####################
 # 04_hmm.smk
