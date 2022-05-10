@@ -1,0 +1,131 @@
+# Model proportion of time spent in HMM states
+
+```{r, message = F, warning = F}
+library(tidyverse)
+library(DT)
+```
+
+## Read in data
+
+```{r}
+IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/15.csv"
+N_STATES = 15
+```
+
+```{r}
+# Read 
+
+raw = readr::read_csv(IN)
+
+# Create line recode vector
+line_vec = c("iCab", "HdrR", "HNI", "Kaga", "HO5")
+names(line_vec) = c("icab", "hdr", "hni", "kaga", "ho5")
+
+# DGE data frame
+
+df = raw %>% 
+  # remove iCab when paired with a different test fish
+  dplyr::filter(!(fish == "ref" & test_fish != "icab")) %>% 
+  # Get individual
+  tidyr::unite(date, time, quadrant, fish,
+               col = "indiv", 
+               remove = F) %>% 
+  # add `line` %>% 
+  dplyr::mutate(line = dplyr::case_when(fish == "ref" ~ ref_fish,
+                                        fish == "test" ~ test_fish)) %>% 
+  # recode and order `assay` 
+  dplyr::mutate(assay = stringr::str_replace(assay, pattern = "_", " "),
+                assay = factor(assay, levels = c("open field", "novel object"))) %>% 
+  # recode and order `line`
+  dplyr::mutate(line = dplyr::recode(line, !!!line_vec),
+                line = factor(line, levels = line_vec)) %>% 
+  # convert `date` to factor
+  dplyr::mutate(date = factor(date))
+
+# Recode states by mean distance
+
+rank_df = df %>% 
+  dplyr::group_by(state) %>% 
+  dplyr::summarise(mean_dist = mean(distance)) %>% 
+  # rank
+  dplyr::arrange(mean_dist) %>% 
+  dplyr::mutate(rank = 1:nrow(.))
+
+recode_vec = rank_df %>% 
+  dplyr::pull(rank)
+names(recode_vec) = rank_df %>% 
+  dplyr::pull(state)
+
+# Recode `state`
+
+df = df %>% 
+  dplyr::mutate(state_recode = dplyr::recode(state, !!!recode_vec),
+                state_recode = factor(state_recode, levels = recode_vec))
+
+# Get proportion of time each fish spent in each state
+df_dge = df %>% 
+  ## count rows per fish per state
+  dplyr::count(indiv, assay, line, date, time, quadrant, tank_side, state_recode) %>% 
+  # add total row count per fish
+  dplyr::add_count(indiv, assay, line, date, time, quadrant, tank_side, wt = n, name = "nn") %>% 
+  # get proportion of time fish spent in each state
+  dplyr::mutate(state_freq = n / nn)
+
+# Split by assay
+
+df_dge %>% 
+  ggplot() + 
+  geom_histogram(aes(state_freq, fill = state_recode),
+                 bins = 40) +
+  facet_grid(rows = vars(state_recode),
+             cols = vars(assay)) +
+  theme_bw() +
+  scale_fill_viridis_d() +
+  guides(fill = "none")
+```
+
+
+## Inverse-normalise
+
+```{r}
+# Add function
+invnorm = function(x) {
+  res = rank(x)
+  res = qnorm(res/(length(res)+0.5))
+  return(res)
+}
+
+df_dge = df_dge %>% 
+  dplyr::group_by(assay, state_recode) %>% 
+  dplyr::mutate(state_freq_invnorm = invnorm(state_freq)) %>% 
+  dplyr::ungroup() %>% 
+  dplyr::arrange(indiv, assay, line, date, time, quadrant, tank_side, state_recode)
+
+df_dge %>% 
+  ggplot() + 
+  geom_histogram(aes(state_freq_invnorm, fill = state_recode),
+                 bins = 40) +
+  facet_grid(rows = vars(state_recode),
+             cols = vars(assay)) +
+  theme_bw() +
+  scale_fill_viridis_d() +
+  guides(fill = "none")
+```
+
+## Calculate variance explained
+
+```{r}
+aov_dge = df_dge %>% 
+  dplyr::group_by(assay, state_recode) %>% 
+  tidyr::nest() %>%
+  dplyr::mutate(model = purrr::map(data, ~aov(state_freq_invnorm ~ date + time + quadrant + tank_side + line, data = .))) %>%
+  select(-data) %>% 
+  dplyr::mutate(model_tidy = purrr::map(model, broom::tidy)) %>%
+  tidyr::unnest(model_tidy) %>% 
+  rstatix::add_significance(p.col = "p.value")
+
+DT::datatable(aov_dge %>% 
+                dplyr::select(-model),
+              options = list(pageLength = nrow(aov_dge)))
+```
+

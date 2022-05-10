@@ -87,6 +87,7 @@ rule all:
                 assay = AS_ASSAYS,
                 sample = AS_SAMPLES
         ),
+        rules.pull_visual_check_sample.output,
 #####################
 # 04_hmm.smk
 #####################
@@ -158,6 +159,21 @@ rule all:
 #                n_states = 15,
 #                sample = list(set(SAMPLES))
 #        ),
+        expand(rules.path_videos.output,
+                interval = 0.08,
+                variables = "dist_angle",
+                n_states = 15,
+                assay = ASSAYS_ALL,
+                sample = list(set(AS_SAMPLES)),
+        ),
+        expand(rules.hmm_path_videos.output,
+                interval = 0.08,
+                variables = "dist_angle",
+                n_states = 15,
+                assay = ASSAYS_ALL,
+                sample = list(set(AS_SAMPLES)),
+                ref_test = REF_TEST
+        ),
 ######################
 ## 07_sge_analysis.smk
 ######################
@@ -166,3 +182,4 @@ rule all:
 #                variables = "dist_angle",
 #                n_states = 15
 #        ),
+

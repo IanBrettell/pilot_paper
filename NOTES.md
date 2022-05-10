@@ -12,7 +12,7 @@ Discussion with Ewan re: paper:
 
 * Choose subset of states re: time and spatial dependence, then DGE
 
-* Variance explained: inverse-normalise proportion of time spent in each state, then use additive model (state ~ quadrant + time). Run separately on assays.
+* Variance explained: inverse-normalise proportion of time spent in each state, then use additive model (e.g. state ~ quadrant + time). Run separately on assays.
 
 * Discussion: 
 

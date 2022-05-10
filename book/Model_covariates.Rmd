@@ -32,6 +32,7 @@ df_control = df %>%
   # Make date a factor
   dplyr::mutate(date = as.factor(date))
 
+
 # DGE data frame
 
 df_dge = df %>% 
@@ -48,7 +49,9 @@ df_dge = df %>%
   dplyr::group_by(assay, date, time, quadrant, line, indiv) %>% 
   # Calculate mean speed
   dplyr::summarise(mean_speed = mean(distance)) %>% 
-  dplyr::ungroup()
+  dplyr::ungroup() %>% 
+  # Convert `date` to factor
+  dplyr::mutate(date = factor(date, levels = unique(df$date)))
 
 # SGE data frame 
 
@@ -75,36 +78,45 @@ df_sge = df %>%
 ## Controls
 
 ```{r}
-model_fit = lm(mean_speed ~ assay + date + time + quadrant, data = df_control)
+# Separate by assay
+df_control_of = df_control %>% 
+  dplyr::filter(assay == "open_field")
 
-summary(model_fit)
+df_control_no = df_control %>% 
+  dplyr::filter(assay == "novel_object")
+
+model_fit_of = lm(mean_speed ~ date + time + quadrant, data = df_control_of)
+
+model_fit_no = lm(mean_speed ~ date + time + quadrant, data = df_control_no)
+
+summary(model_fit_of)
+summary(model_fit_no)
 ```
-
 
 ## DGE
 
 ```{r}
 ## All variables with interactions
-model_dge = aov(mean_speed ~ assay * date * time * quadrant * line, data = df_dge)
+model_dge_of = aov(mean_speed ~ date + time + quadrant + line,
+                   data = df_dge %>% 
+                     dplyr::filter(assay == "open_field"))
 
-dge_vars = summary(model_dge)[[1]] %>% 
+model_dge_no = aov(mean_speed ~ date + time + quadrant + line,
+                   data = df_dge %>% 
+                     dplyr::filter(assay == "novel_object"))
+
+dge_vars_of = summary(model_dge_of)[[1]] %>% 
   dplyr::mutate(TOT_SS = sum(`Sum Sq`),
                 PROP_SS = `Sum Sq` / TOT_SS,
                 VAR_EXP = PROP_SS * 100)
 
-DT::datatable(dge_vars)
-```
-
-```{r}
-## No interactions
-model_dge_noint = aov(mean_speed ~ assay + date + time + quadrant + line, data = df_dge)
-
-dge_vars_noint = summary(model_dge_noint)[[1]] %>% 
+dge_vars_no = summary(model_dge_no)[[1]] %>% 
   dplyr::mutate(TOT_SS = sum(`Sum Sq`),
                 PROP_SS = `Sum Sq` / TOT_SS,
                 VAR_EXP = PROP_SS * 100)
 
-DT::datatable(dge_vars_noint)
+DT::datatable(dge_vars_of)
+DT::datatable(dge_vars_no)
 ```
 
 

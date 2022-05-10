@@ -78,29 +78,6 @@ rule time_dependence:
     script:
         "../scripts/time_dependence.R"
 
-rule path_plots:
-    input:
-        data = rules.run_hmm.output,
-        dims = rules.get_split_video_dims.output,
-        screenshots = expand("results/split_coord_images/{assay}/{{sample}}.png",
-            assay = list(set(ASSAYS))
-        ),
-    output:
-        paths = "book/figs/path_plots/{interval}/{variables}/{n_states}/{sample}.png",
-    log:
-        os.path.join(
-            config["working_dir"],
-            "logs/path_plots/{interval}/{variables}/{n_states}/{sample}.log"
-        ),
-    params:
-        sample = "{sample}"
-    resources:
-        mem_mb = 3000
-    container:
-        config["R_4.2.0"]
-    script:
-        "../scripts/path_plots.R"
-
 rule tracking_success_plot:
     input:
         rules.tracking_success.output,
@@ -120,3 +97,81 @@ rule tracking_success_plot:
         config["R_4.2.0"]
     script:
         "../scripts/tracking_success_plot.R"
+
+rule path_videos:
+    input:
+        hmm = rules.run_hmm.output,
+        dims = rules.get_split_video_dims.output,
+    output:
+        os.path.join(
+            config["working_dir"],
+            "path_videos/{interval}/{variables}/{n_states}/{assay}/{sample}.avi"
+        ),
+    log:
+        os.path.join(
+            config["working_dir"],
+            "logs/path_videos/{interval}/{variables}/{n_states}/{assay}/{sample}.log"
+        ),
+    params:
+        assay = "{assay}",
+        sample = "{sample}",
+        interval = "{interval}"
+    resources:
+        mem_mb = 80000
+    container:
+        config["R_4.2.0"]
+    script:
+        "../scripts/path_videos.R"
+
+rule hmm_path_videos:
+    input:
+        hmm = rules.run_hmm.output,
+        dims = rules.get_split_video_dims.output,
+    output:
+        os.path.join(
+            config["working_dir"],
+            "hmm_path_videos/{interval}/{variables}/{n_states}/{assay}/{sample}_{ref_test}.avi"
+        ),
+    log:
+        os.path.join(
+            config["working_dir"],
+            "logs/hmm_path_videos/{interval}/{variables}/{n_states}/{assay}/{sample}_{ref_test}.log"
+        ),
+    params:
+        assay = "{assay}",
+        sample = "{sample}",
+        ref_test = "{ref_test}",
+        interval = "{interval}"
+    resources:
+        mem_mb = 80000
+    container:
+        config["R_4.2.0"]
+    script:
+        "../scripts/hmm_path_videos.R"
+
+#rule combine_tracked_and_path_vids:
+#    input:
+#        vid = rules.stitch_tracked_vids.output,
+#        path = rules.path_videos.output,
+#        hmm = expand(os.path.join(
+#            config["working_dir"],
+#            "hmm_path_videos/{interval}/{variables}/{n_states}/{assay}/{sample}_{ref_test}.avi"
+#            ),
+#                ref_test = REF_TEST
+#        ),
+#    output:
+#        os.path.join(
+#            config["working_dir"],
+#            "combined_videos/{interval}/{variables}/{n_states}/{assay}/{sample}.avi"
+#        ),        
+#    log:
+#        os.path.join(
+#            config["working_dir"],
+#            "logs/combine_tracked_and_path_vids/{interval}/{variables}/{n_states}/{assay}/{sample}.log"
+#        ),
+#    resources:
+#        mem_mb = 20000
+#    container:
+#        config["opencv"]
+#    script:
+#        "../scripts/combine_tracked_and_path_vids.py"    

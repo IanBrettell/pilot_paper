@@ -194,3 +194,40 @@ rule stitch_tracked_vids:
         mem_mb=5000,
     script:
         "../scripts/stitch_tracked_vids.py"
+
+rule pull_visual_check_sample:
+    input:
+        config["samples_file"],
+    output:
+        csv = "config/random_visual_check_sample.csv",
+    log:
+        os.path.join(
+            config["working_dir"],
+            "logs/pull_visual_check_sample/all.log"
+        ),
+    params:
+        n_samples = 20,
+        seed_sample = 5,
+        seed_assay = 10
+    resources:
+        mem_mb = 200,
+    run:
+        # Set up log
+        with open(log[0], "w") as f:
+            sys.stderr = sys.stdout = f
+        import random
+        # Read in samples file
+        df = pd.read_csv(input[0])
+        # Pull out sample names
+        VIDEOS = df['sample'].values
+        # Get random sample of videos
+        random.seed(params.seed_sample)
+        rand_vids = random.sample(sorted(VIDEOS), params.n_samples)
+        # Get random sample of assays
+        ASSAYS = ["open_field", "novel_object"]
+        random.seed(params.seed_assay)
+        rand_ass = [random.choice(ASSAYS) for i in range(params.n_samples)]
+        # Combine into output DF
+        out = pd.DataFrame({'sample': rand_vids, 'assay': rand_ass})
+        # Write to file
+        out.to_csv(output[0], index=False)

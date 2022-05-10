@@ -22,6 +22,7 @@ samples_df = pd.read_csv(config["samples_file"], comment = '#')
 SAMPLES_ALL = samples_df["sample"]
 ASSAYS_ALL = ["open_field", "novel_object"]
 QUADRANTS_ALL = ["q1", "q2", "q3", "q4"]
+REF_TEST = ["ref", "test"]
 
 # Read in videos to be excluded
 excl_df = pd.read_csv(config["excluded_videos"], comment = "#")

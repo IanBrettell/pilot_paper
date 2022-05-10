@@ -13,8 +13,8 @@ library(ggridges)
 # Get variables
 
 ## Debug
-#IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/15.csv"
-#N_STATES = 15
+IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/15.csv"
+N_STATES = 15
 
 ## True
 IN = snakemake@input[[1]]
@@ -84,6 +84,12 @@ df = df %>%
   # factorise to order
   dplyr::mutate(line = factor(line, levels = line_vec))
 
+# Recode `test_fish` and order
+
+df = df %>% 
+  dplyr::mutate(test_fish = dplyr::recode(test_fish, !!!line_vec),
+                test_fish = factor(test_fish, levels = line_vec))
+
 
 ############################
 # Plot polar
@@ -91,7 +97,9 @@ df = df %>%
 
 FONT_SIZE = 10
 
-polar_plot = df %>% 
+polar_dge = df %>% 
+  # remove iCab when paired with a different test fish
+  dplyr::filter(!(fish == "ref" & test_fish != "icab")) %>% 
   # select random sample of 1e5 rows
   dplyr::slice_sample(n = 1e5) %>% 
   ggplot() +
@@ -105,30 +113,96 @@ polar_plot = df %>%
   guides(colour = "none") +
   xlab("angle of travel") +
   ylab(expression(log[10]("distance travelled in pixels"))) +
-  ggtitle("distance and angle") +
+  ggtitle("HMM states") +
   cowplot::theme_cowplot(font_size = FONT_SIZE) +
   theme(plot.title = element_text(hjust = 0.5)) +
   facet_wrap(~state_recode, nrow = N_ROWS)
+
+polar_sge = df %>% 
+  # remove iCab when paired with a different test fish
+  dplyr::filter(fish == "ref") %>% 
+  # select random sample of 1e5 rows
+  dplyr::slice_sample(n = 1e5) %>% 
+  ggplot() +
+  geom_point(aes(angle_recode, log10(distance), colour = state_recode),
+             alpha = 0.3, size = 0.2) +
+  coord_polar() +
+  facet_wrap(~state_recode, nrow = N_ROWS) +
+  scale_x_continuous(labels = c(0, 90, 180, 270),
+                     breaks = c(0, 90, 180, 270)) +
+  scale_color_viridis_c(option = "inferno") +
+  guides(colour = "none") +
+  xlab("angle of travel") +
+  ylab(expression(log[10]("distance travelled in pixels"))) +
+  #ggtitle("HMM states") +
+  cowplot::theme_cowplot(font_size = FONT_SIZE) +
+  #theme(plot.title = element_text(hjust = 0.5)) +
+  facet_wrap(~state_recode, nrow = N_ROWS)
+
 
 ############################
 # Plot ridges
 ############################
 
-ridge_plot = df %>% 
+#ridge_plot = df %>% 
+#  # remove iCab when paired with a different test fish
+#  dplyr::filter(!(fish == "ref" & test_fish != "icab")) %>% 
+#  # filter for target assay
+#  #dplyr::filter(assay == ASSAY) %>% 
+#  dplyr::mutate(state_recode = factor(state_recode, levels = 1:N_STATES)) %>% 
+#  ggplot() +
+#  ggridges::geom_density_ridges(aes(x = seconds, y = state_recode, fill = state_recode)) +
+#  scale_y_discrete(limits = rev) +
+#  facet_grid(rows = vars(assay),
+#             cols = vars(line)) +
+#  scale_fill_viridis_d() +
+#  cowplot::theme_cowplot(font_size = FONT_SIZE) +
+#  guides(fill = "none") +
+#  ylab("HMM state") +
+#  scale_x_continuous(breaks = c(0,200,400,600))
+
+time_dens_dge = df %>% 
   # remove iCab when paired with a different test fish
-  dplyr::filter(!(fish == "ref" & ref_fish == "icab" & test_fish != "icab")) %>% 
+  dplyr::filter(!(fish == "ref" & test_fish != "icab")) %>% 
   # filter for target assay
   #dplyr::filter(assay == ASSAY) %>% 
   dplyr::mutate(state_recode = factor(state_recode, levels = 1:N_STATES)) %>% 
   ggplot() +
-  ggridges::geom_density_ridges(aes(x = seconds, y = state_recode, fill = state_recode)) +
-  scale_y_discrete(limits = rev) +
-  facet_grid(rows = vars(assay),
-             cols = vars(line)) +
+  geom_density(aes(seconds, after_stat(count), fill = state_recode),
+               position = "fill") +
+  #ggridges::geom_density_ridges(aes(x = seconds, y = state_recode, group = seconds, fill = state_recode)) +
+  #scale_y_continuous(limits = rev) +
+  #facet_grid(rows = vars(assay),
+  #           cols = vars(line)) +
+  facet_grid(rows = vars(line),
+             cols = vars(assay)) + 
   scale_fill_viridis_d() +
-  cowplot::theme_cowplot(font_size = FONT_SIZE) +
+  cowplot::theme_cowplot() +
+  theme(strip.background = element_blank(),
+        strip.text = element_text(face = "bold")) +
   guides(fill = "none") +
-  ylab("HMM state") +
+  scale_x_continuous(breaks = c(0,200,400,600))
+
+time_dens_sge = df %>% 
+  # remove iCab when paired with a different test fish
+  dplyr::filter(fish == "ref") %>% 
+  # filter for target assay
+  #dplyr::filter(assay == ASSAY) %>% 
+  dplyr::mutate(state_recode = factor(state_recode, levels = 1:N_STATES)) %>% 
+  ggplot() +
+  geom_density(aes(seconds, after_stat(count), fill = state_recode),
+               position = "fill") +
+  #ggridges::geom_density_ridges(aes(x = seconds, y = state_recode, group = seconds, fill = state_recode)) +
+  #scale_y_continuous(limits = rev) +
+  #facet_grid(rows = vars(assay),
+  #           cols = vars(line)) +
+  facet_grid(rows = vars(test_fish),
+             cols = vars(assay)) + 
+  scale_fill_viridis_d(option = "inferno") +
+  cowplot::theme_cowplot() +
+  theme(strip.background = element_blank(),
+        strip.text.x = element_blank()) +
+  guides(fill = "none") +
   scale_x_continuous(breaks = c(0,200,400,600))
   
   
@@ -136,13 +210,28 @@ ridge_plot = df %>%
 # Combine and save
 ############################
 
-final = cowplot::ggdraw() +
-  cowplot::draw_plot(polar_plot,
-                     x = 0, y = 0,
-                     width = 0.4, height = 1) +
-  cowplot::draw_plot(ridge_plot,
-                     x = 0.4, y = 0,
-                     width = 0.6, height = 1) 
+#final = cowplot::ggdraw() +
+#  cowplot::draw_plot(polar_plot,
+#                     x = 0, y = 0,
+#                     width = 0.4, height = 1) +
+#  cowplot::draw_plot(ridge_plot,
+#                     x = 0.4, y = 0,
+#                     width = 0.6, height = 1) 
+
+top = cowplot::plot_grid(polar_dge, time_dens_dge,
+                         rel_widths = c(0.333, 0.666),
+                         axis = c("bt"),
+                         align = c("hv"))
+
+bottom = cowplot::plot_grid(polar_sge, time_dens_sge,
+                            rel_widths = c(0.333, 0.666),
+                            axis = c("bt"),
+                            align = c("hv"))
+
+final = cowplot::plot_grid(top, bottom,
+                           rel_widths = c(1,1),
+                           rel_heights = c(0.5, 0.5),
+                           nrow = 2)
 
 ggsave(OUT,
        final,
