@@ -14,12 +14,12 @@ library(gganimate)
 
 ## Debug
 
-#IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/15.csv"
-#ASSAY = "open_field"
-#SAMPLE = "20190613_1307_icab_hdr_R"
-#REF_TEST = "test"
-#INTERVAL = 0.08
-#DIMS = here::here("config/split_video_dims.csv")
+IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/15.csv"
+ASSAY = "novel_object"
+SAMPLE = "20190613_0953_icab_hni_R"
+REF_TEST = "test"
+INTERVAL = 0.08
+DIMS = here::here("config/split_video_dims.csv")
 
 ## True
 
@@ -59,6 +59,11 @@ df = readr::read_csv(IN) %>%
   dplyr::mutate(angle_recode = ifelse(angle < 0,
                                       180 + (180 + angle),
                                       angle)) %>% 
+  # convert `time` to character and add 0 to the front if only 3 characters
+  dplyr::mutate(time = as.character(time),
+                time = if_else(stringr::str_length(time) == 3,
+                               paste("0", time, sep = ""),
+                               time)) %>% 
   # create `sample` column
   tidyr::unite(col = "sample",
                date, time, ref_fish, test_fish, tank_side,

@@ -117,7 +117,7 @@ rule path_videos:
         sample = "{sample}",
         interval = "{interval}"
     resources:
-        mem_mb = 80000
+        mem_mb = 100000
     container:
         config["R_4.2.0"]
     script:

@@ -3,9 +3,10 @@
 ```{r, message = F, warning = F}
 library(tidyverse)
 library(DT)
+library()
 ```
 
-## Read in data
+## Read in and clean data
 
 ```{r}
 IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/15.csv"
@@ -21,11 +22,9 @@ raw = readr::read_csv(IN)
 line_vec = c("iCab", "HdrR", "HNI", "Kaga", "HO5")
 names(line_vec) = c("icab", "hdr", "hni", "kaga", "ho5")
 
-# DGE data frame
+# Clean
 
 df = raw %>% 
-  # remove iCab when paired with a different test fish
-  dplyr::filter(!(fish == "ref" & test_fish != "icab")) %>% 
   # Get individual
   tidyr::unite(date, time, quadrant, fish,
                col = "indiv", 
@@ -62,8 +61,15 @@ df = df %>%
   dplyr::mutate(state_recode = dplyr::recode(state, !!!recode_vec),
                 state_recode = factor(state_recode, levels = recode_vec))
 
+```
+
+## DGE
+
+```{r}
 # Get proportion of time each fish spent in each state
 df_dge = df %>% 
+  # remove iCab when paired with a different test fish
+  dplyr::filter(!(fish == "ref" & test_fish != "icab")) %>% 
   ## count rows per fish per state
   dplyr::count(indiv, assay, line, date, time, quadrant, tank_side, state_recode) %>% 
   # add total row count per fish
@@ -85,7 +91,7 @@ df_dge %>%
 ```
 
 
-## Inverse-normalise
+### Inverse-normalise
 
 ```{r}
 # Add function
@@ -112,13 +118,15 @@ df_dge %>%
   guides(fill = "none")
 ```
 
-## Calculate variance explained
+### Calculate variance explained
 
 ```{r}
 aov_dge = df_dge %>% 
   dplyr::group_by(assay, state_recode) %>% 
   tidyr::nest() %>%
-  dplyr::mutate(model = purrr::map(data, ~aov(state_freq_invnorm ~ date + time + quadrant + tank_side + line, data = .))) %>%
+  dplyr::mutate(model = purrr::map(data, ~aov(
+    state_freq_invnorm ~ date + time + quadrant + tank_side + line,
+    data = .))) %>%
   select(-data) %>% 
   dplyr::mutate(model_tidy = purrr::map(model, broom::tidy)) %>%
   tidyr::unnest(model_tidy) %>% 
@@ -129,3 +137,103 @@ DT::datatable(aov_dge %>%
               options = list(pageLength = nrow(aov_dge)))
 ```
 
+### Save to Google Drive
+
+To `aov_state_freq` here: https://docs.google.com/spreadsheets/d/1_l72BZkmWyNAOfCUI8WGP4UfQuIPQtPZZmlRjQffvEs
+
+```{r}
+aov_dge %>% 
+  dplyr::select(-model) %>% 
+  # add variance explained
+  dplyr::group_by(assay, state_recode) %>% 
+  dplyr::mutate(tot_ss = sum(sumsq)) %>% 
+  dplyr::ungroup() %>% 
+  dplyr::mutate(var_expl_perc = (sumsq / tot_ss) * 100 ) %>%
+  googlesheets4::write_sheet(
+    ss = "https://docs.google.com/spreadsheets/d/1_l72BZkmWyNAOfCUI8WGP4UfQuIPQtPZZmlRjQffvEs",
+    sheet = "DGE")
+```
+
+## SGE
+
+```{r}
+# Get proportion of time each fish spent in each state
+df_sge = df %>% 
+  # take all iCab fishes
+  dplyr::filter(line == "iCab") %>% 
+  ## count rows per fish per state
+  dplyr::count(indiv, assay, test_fish, date, time, quadrant, tank_side, state_recode) %>% 
+  # add total row count per fish
+  dplyr::add_count(indiv, assay, test_fish, date, time, quadrant, tank_side, wt = n, name = "nn") %>% 
+  # get proportion of time fish spent in each state
+  dplyr::mutate(state_freq = n / nn)
+
+# Split by assay
+
+df_sge %>% 
+  ggplot() + 
+  geom_histogram(aes(state_freq, fill = state_recode),
+                 bins = 40) +
+  facet_grid(rows = vars(state_recode),
+             cols = vars(assay)) +
+  theme_bw() +
+  scale_fill_viridis_d(option = "inferno") +
+  guides(fill = "none")
+```
+
+
+### Inverse-normalise
+
+```{r}
+df_sge = df_sge %>% 
+  dplyr::group_by(assay, state_recode) %>% 
+  dplyr::mutate(state_freq_invnorm = invnorm(state_freq)) %>% 
+  dplyr::ungroup() %>% 
+  dplyr::arrange(indiv, assay, test_fish, date, time, quadrant, tank_side, state_recode)
+
+df_sge %>% 
+  ggplot() + 
+  geom_histogram(aes(state_freq_invnorm, fill = state_recode),
+                 bins = 40) +
+  facet_grid(rows = vars(state_recode),
+             cols = vars(assay)) +
+  theme_bw() +
+  scale_fill_viridis_d(option = "inferno") +
+  guides(fill = "none")
+```
+
+### Calculate variance explained
+
+```{r}
+aov_sge = df_sge %>% 
+  dplyr::group_by(assay, state_recode) %>% 
+  tidyr::nest() %>%
+  dplyr::mutate(model = purrr::map(data, ~aov(
+    state_freq_invnorm ~ date + time + quadrant + tank_side + test_fish,
+    data = .))) %>%
+  select(-data) %>% 
+  dplyr::mutate(model_tidy = purrr::map(model, broom::tidy)) %>%
+  tidyr::unnest(model_tidy) %>% 
+  rstatix::add_significance(p.col = "p.value")
+
+DT::datatable(aov_sge %>% 
+                dplyr::select(-model),
+              options = list(pageLength = nrow(aov_sge)))
+```
+
+### Save to Google Drive
+
+To `aov_state_freq` here: https://docs.google.com/spreadsheets/d/1_l72BZkmWyNAOfCUI8WGP4UfQuIPQtPZZmlRjQffvEs
+
+```{r}
+aov_sge %>% 
+  dplyr::select(-model) %>% 
+  # add variance explained
+  dplyr::group_by(assay, state_recode) %>% 
+  dplyr::mutate(tot_ss = sum(sumsq)) %>% 
+  dplyr::ungroup() %>% 
+  dplyr::mutate(var_expl_perc = (sumsq / tot_ss) * 100 ) %>%
+  googlesheets4::write_sheet(
+    ss = "https://docs.google.com/spreadsheets/d/1_l72BZkmWyNAOfCUI8WGP4UfQuIPQtPZZmlRjQffvEs",
+    sheet = "SGE")
+```

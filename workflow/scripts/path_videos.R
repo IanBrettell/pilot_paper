@@ -35,6 +35,10 @@ OUT = snakemake@output[[1]]
 # Set plotting parameters
 #######################
 
+# Get lighter() and darker() functions
+
+devtools::source_gist("c5015ee666cdf8d9f7e25fa3c8063c99")
+
 # Get ref and test
 
 split_samp = stringr::str_split(SAMPLE, pattern = "_", simplify = T)
@@ -72,6 +76,11 @@ df = readr::read_csv(IN) %>%
   dplyr::mutate(angle_recode = ifelse(angle < 0,
                                       180 + (180 + angle),
                                       angle)) %>% 
+  # convert `time` to character and add 0 to the front if only 3 characters
+  dplyr::mutate(time = as.character(time),
+                time = if_else(stringr::str_length(time) == 3,
+                               paste("0", time, sep = ""),
+                               time)) %>% 
   # create `sample` column
   tidyr::unite(col = "sample",
                date, time, ref_fish, test_fish, tank_side,
