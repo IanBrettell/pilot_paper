@@ -10,6 +10,8 @@ raw_data_dir:
     /nfs/research/birney/projects/indigene/raw_data/ian_videos/ian_pilot/all
 working_dir:
     /hps/nobackup/birney/users/ian/pilot
+tmpdir:
+    /hps/nobackup/birney/users/ian/tmp
 data_store_dir:
     /nfs/research/birney/users/ian/pilot
 samples_file:

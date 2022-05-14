@@ -19,6 +19,7 @@ rule hmm_final:
     input:
         rules.run_hmm.output
     output:
+        polar_all = "book/figs/paper_final/{interval}/{variables}/{n_states}/polar_all.png",
         polar_box_dge = "book/figs/paper_final/{interval}/{variables}/{n_states}/polar_box_dge.png",
         polar_box_sge = "book/figs/paper_final/{interval}/{variables}/{n_states}/polar_box_sge.png",
         polar_box_dge_sge = "book/figs/paper_final/{interval}/{variables}/{n_states}/polar_box_dge_sge.png",
@@ -117,7 +118,8 @@ rule path_videos:
         sample = "{sample}",
         interval = "{interval}"
     resources:
-        mem_mb = 100000
+        mem_mb = 200000,
+        tmpdir = config["tmpdir"]
     container:
         config["R_4.2.0"]
     script:
