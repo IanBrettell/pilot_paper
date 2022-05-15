@@ -145,7 +145,8 @@ rule hmm_path_videos:
         ref_test = "{ref_test}",
         interval = "{interval}"
     resources:
-        mem_mb = 80000
+        mem_mb = 80000,
+        tmpdir = config["tmpdir"]
     container:
         config["R_4.2.0"]
     script:
