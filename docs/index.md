@@ -1,7 +1,7 @@
 --- 
 title: "Medaka behaviour pilot study"
 author: "Ian Brettell"
-date: "2022-04-29"
+date: "2022-05-16"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]

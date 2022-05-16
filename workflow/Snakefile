@@ -137,12 +137,12 @@ rule all:
 #                variables = ["dist_angle", "dist_angle", "dist_angle"],
 #                n_states = [15, 16, 18]
 #        ),
-#        expand(rules.hmm_final.output,
-#                zip,
-#                interval = [0.08, 0.05, 0.05],
-#                variables = ["dist_angle", "dist_angle", "dist_angle"],
-#                n_states = [15, 16, 18]
-#        ),
+        expand(rules.hmm_final.output,
+                zip,
+                interval = [0.08, 0.05, 0.05],
+                variables = ["dist_angle", "dist_angle", "dist_angle"],
+                n_states = [15, 16, 18]
+        ),
 #        expand(rules.spatial_dependence.output,
 #                interval = 0.08,
 #                variables = "dist_angle",

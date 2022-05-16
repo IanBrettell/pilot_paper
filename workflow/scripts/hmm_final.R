@@ -28,6 +28,7 @@ N_STATES = snakemake@params[["n_states"]] %>%
 INTERVAL = snakemake@params[["interval"]] %>% 
   as.numeric()
 VARIABLES = "distance and angle of travel"
+POLAR_ALL = snakemake@output[["polar_all"]]
 POLAR_BOX_DGE = snakemake@output[["polar_box_dge"]]
 POLAR_BOX_SGE = snakemake@output[["polar_box_sge"]]
 POLAR_BOX_DGE_SGE = snakemake@output[["polar_box_dge_sge"]]
@@ -97,6 +98,33 @@ TITLE = paste("N states: ",
               "\nInterval: ",
               INTERVAL, " seconds",
               sep = "")
+
+polar_all = df %>% 
+  # select random sample of 1e5 rows
+  dplyr::slice_sample(n = 1e5) %>% 
+  # factorise `state_recode`
+  #dplyr::mutate(state_recode = factor(state_recode, levels = recode_vec)) %>% 
+  ggplot() +
+  geom_point(aes(angle_recode, log10(distance), colour = state_recode),
+             alpha = 0.3, size = 0.2) +
+  coord_polar() +
+  facet_wrap(~state_recode, nrow = N_ROWS) +
+  theme_dark(base_size = 8) +
+  scale_x_continuous(labels = c(0, 90, 180, 270),
+                     breaks = c(0, 90, 180, 270)) +
+  scale_color_viridis_c() +
+  guides(colour = "none") +
+  xlab("angle of travel") +
+  ylab(expression(log[10]("distance travelled in pixels"))) +
+  ggtitle(TITLE)
+
+ggsave(POLAR_ALL,
+       polar_all,
+       device = "png",
+       width = 16.8,
+       height = HEIGHT*2,
+       units = "in",
+       dpi = 400)
 
 polar_dge = df %>% 
   # remove iCab when paired with a different test fish
