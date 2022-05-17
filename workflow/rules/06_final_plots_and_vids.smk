@@ -64,7 +64,8 @@ rule time_dependence:
     input:
         rules.run_hmm.output,
     output:
-        fig = "book/figs/time_dependence/{variables}/{interval}_{n_states}_time_dependence.png",
+        dge = "book/figs/time_dependence/{variables}/{interval}_{n_states}_dge.png",
+        sge = "book/figs/time_dependence/{variables}/{interval}_{n_states}_sge.png",
     log:
         os.path.join(
             config["working_dir"],
@@ -99,31 +100,109 @@ rule tracking_success_plot:
     script:
         "../scripts/tracking_success_plot.R"
 
-rule path_videos:
+rule path_frames:
     input:
         hmm = rules.run_hmm.output,
         dims = rules.get_split_video_dims.output,
     output:
         os.path.join(
             config["working_dir"],
-            "path_videos/{interval}/{variables}/{n_states}/{assay}/{sample}.avi"
+            "path_frames/{interval}/{variables}/{n_states}/{assay}/{sample}/1.png"
         ),
     log:
         os.path.join(
             config["working_dir"],
-            "logs/path_videos/{interval}/{variables}/{n_states}/{assay}/{sample}.log"
+            "logs/path_frames/{interval}/{variables}/{n_states}/{assay}/{sample}.log"
         ),
     params:
         assay = "{assay}",
-        sample = "{sample}",
-        interval = "{interval}"
+        sample = "{sample}"
     resources:
-        mem_mb = 200000,
+        mem_mb = 5000,
         tmpdir = config["tmpdir"]
     container:
         config["R_4.2.0"]
     script:
-        "../scripts/path_videos.R"
+        "../scripts/path_frames.R"
+
+rule hmm_path_frames:
+    input:
+        hmm = rules.run_hmm.output,
+        dims = rules.get_split_video_dims.output,
+    output:
+        os.path.join(
+            config["working_dir"],
+            "hmm_path_frames/{interval}/{variables}/{n_states}/{assay}/{sample}_{ref_test}/1.png"
+        ),
+    log:
+        os.path.join(
+            config["working_dir"],
+            "logs/hmm_path_frames/{interval}/{variables}/{n_states}/{assay}/{sample}_{ref_test}.log"
+        ),
+    params:
+        assay = "{assay}",
+        sample = "{sample}",
+        ref_test = "{ref_test}"
+    resources:
+        mem_mb = 5000,
+        tmpdir = config["tmpdir"]
+    container:
+        config["R_4.2.0"]
+    script:
+        "../scripts/hmm_path_frames.R"
+
+rule path_frames_to_vid:
+    input:
+        hmm = rules.run_hmm.output,
+        dims = rules.get_split_video_dims.output,
+    output:
+        os.path.join(
+            config["working_dir"],
+            "path_vids/{interval}/{variables}/{n_states}/{assay}/{sample}.avi"
+        ),
+    log:
+        os.path.join(
+            config["working_dir"],
+            "logs/path_frames_to_vid/{interval}/{variables}/{n_states}/{assay}/{sample}.log"
+        ),
+    params:
+        assay = "{assay}",
+        sample = "{sample}",
+        fps = get_fps,
+    resources:
+        mem_mb = 5000,
+        tmpdir = config["tmpdir"]
+    container:
+        config["R_4.2.0"]
+    script:
+        "../scripts/path_frames_to_vid.py"
+
+
+#rule path_videos:
+#    input:
+#        hmm = rules.run_hmm.output,
+#        dims = rules.get_split_video_dims.output,
+#    output:
+#        os.path.join(
+#            config["working_dir"],
+#            "path_videos/{interval}/{variables}/{n_states}/{assay}/{sample}.avi"
+#        ),
+#    log:
+#        os.path.join(
+#            config["working_dir"],
+#            "logs/path_videos/{interval}/{variables}/{n_states}/{assay}/{sample}.log"
+#        ),
+#    params:
+#        assay = "{assay}",
+#        sample = "{sample}",
+#        interval = "{interval}"
+#    resources:
+#        mem_mb = 200000,
+#        tmpdir = config["tmpdir"]
+#    container:
+#        config["R_4.2.0"]
+#    script:
+#        "../scripts/path_videos.R"
 
 rule hmm_path_videos:
     input:

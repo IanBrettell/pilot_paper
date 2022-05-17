@@ -42,12 +42,13 @@ IN = sorted(IN)
 file = open(OUT, 'w')
 
 # write header
-file.writelines("assay,sample,quadrant,wid,hei\n")
+file.writelines("assay,sample,quadrant,wid,hei,n_frames\n")
 
 for VID in IN:
     cap = cv.VideoCapture(VID)
     wid = str(int(cap.get(cv.CAP_PROP_FRAME_WIDTH)))
     hei = str(int(cap.get(cv.CAP_PROP_FRAME_HEIGHT)))
+    n_frames = str(int(cap.get(cv.CAP_PROP_FRAME_COUNT)))
     # get sample
     sample = '_'.join(os.path.basename(VID).replace('.avi', '').split('_')[:-1])
     # get quadrant
@@ -55,7 +56,7 @@ for VID in IN:
     # get assay
     assay = os.path.dirname(VID).split('/')[-1]
     # compose full line
-    line_to_write = ','.join([assay,sample,quadrant,wid,hei]) + '\n'
+    line_to_write = ','.join([assay,sample,quadrant,wid,hei,n_frames]) + '\n'
     file.writelines(line_to_write)
 
 file.close()

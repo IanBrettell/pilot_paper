@@ -109,20 +109,21 @@ polar_all = df %>%
              alpha = 0.3, size = 0.2) +
   coord_polar() +
   facet_wrap(~state_recode, nrow = N_ROWS) +
-  theme_dark(base_size = 8) +
+  #theme_dark(base_size = 8) +
+  cowplot::theme_cowplot() +
   scale_x_continuous(labels = c(0, 90, 180, 270),
                      breaks = c(0, 90, 180, 270)) +
   scale_color_viridis_c() +
   guides(colour = "none") +
   xlab("angle of travel") +
-  ylab(expression(log[10]("distance travelled in pixels"))) +
-  ggtitle(TITLE)
+  ylab(expression(log[10]("distance travelled in pixels"))) #+
+  #ggtitle(TITLE)
 
 ggsave(POLAR_ALL,
        polar_all,
        device = "png",
-       width = 16.8,
-       height = HEIGHT*2,
+       width = 7.5,
+       height = 10,
        units = "in",
        dpi = 400)
 

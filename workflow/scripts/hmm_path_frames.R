@@ -8,18 +8,17 @@ sink(log, type = "message")
 
 library(tidyverse)
 library(cowplot)
-library(gganimate)
+#library(gganimate)
 
 # Get variables
 
 ## Debug
 
-IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/15.csv"
-ASSAY = "novel_object"
-SAMPLE = "20190613_0953_icab_hni_R"
-REF_TEST = "test"
-INTERVAL = 0.08
-DIMS = here::here("config/split_video_dims.csv")
+#IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/15.csv"
+#ASSAY = "novel_object"
+#SAMPLE = "20190613_0953_icab_hni_R"
+#REF_TEST = "test"
+#DIMS = here::here("config/split_video_dims.csv")
 
 ## True
 
@@ -28,8 +27,8 @@ DIMS = snakemake@input[["dims"]]
 ASSAY = snakemake@params[["assay"]]
 SAMPLE = snakemake@params[["sample"]]
 REF_TEST = snakemake@params[["ref_test"]]
-INTERVAL = snakemake@params[["interval"]] %>% 
-  as.numeric()
+#INTERVAL = snakemake@params[["interval"]] %>% 
+#  as.numeric()
 OUT = snakemake@output[[1]]
 
 #######################
@@ -42,7 +41,7 @@ if (REF_TEST == "test"){
   pal_option = "inferno"
 }
 
-FPS = 1/INTERVAL
+DIRNAME = dirname(OUT)
 
 #######################
 # Read in data
@@ -98,6 +97,28 @@ df = df %>%
 dims = readr::read_csv(DIMS) %>% 
   dplyr::filter(sample == SAMPLE & assay == ASSAY)
 
+## Get max frames
+N_FRAMES = max(dims$n_frames)
+
+# Fill empty values
+
+## Create DF with frame column with all frames
+
+all_frames = tibble::tibble(frame = 1:N_FRAMES)
+
+## Select columns from main df and fill
+
+new_df = df %>% 
+  dplyr::select(frame, quadrant, x, y, state_recode) %>% 
+  split(~ quadrant) %>% 
+  purrr::map_dfr(., function(FISH){
+    out = dplyr::left_join(all_frames,
+                           FISH,
+                           by = "frame") %>% 
+      # fill empties
+      tidyr::fill(everything(),
+                  .direction = "updown")
+  })
 
 #######################
 # Plot
@@ -128,40 +149,48 @@ TOT_HEI = dims %>%
   dplyr::pull(hei) %>% 
   sum()
 
-# Get total number of frames
+# Plot
 
-N_FRAMES = df %>% 
-  dplyr::distinct(seconds) %>% 
-  nrow()
+lapply(1:N_FRAMES, function(FRAME){
+  out = new_df %>% 
+    # Filter for frames before target frame
+    dplyr::filter(frame <= FRAME) %>% 
+    dplyr::mutate(quadrant = factor(quadrant, levels = QUADRANT_ORDER)) %>% 
+    ggplot() +
+    geom_point(aes(x, y, colour = state_recode),
+               alpha = 0.8) +
+    facet_wrap(~quadrant, nrow = 2) +
+    scale_color_viridis_d(option = pal_option) +
+    scale_x_continuous(limits = c(0,wid)) +
+    scale_y_reverse(limits = c(hei,0)) +
+    guides(colour = "none") +
+    cowplot::theme_cowplot(font_size = 10) +
+    theme(aspect.ratio = 1,
+          strip.background = element_blank(),
+          strip.text = element_blank(),
+          axis.line = element_blank(),
+          axis.text = element_blank(),
+          axis.title = element_blank(),
+          axis.ticks = element_blank()) 
+  
+  ggsave(file.path(DIRNAME, paste(FRAME, ".png", sep = "")),
+         out,
+         width = 9,
+         height = 9,
+         units = "in",
+         dpi = 400,
+         bg = "white")
+})
+#+ gganimate::transition_reveal(seconds, keep_last = T)
 
-out = df %>% 
-  dplyr::mutate(quadrant = factor(quadrant, levels = QUADRANT_ORDER)) %>% 
-  ggplot() +
-  geom_point(aes(x, y, colour = state_recode, group = seconds),
-             alpha = 0.8) +
-  facet_wrap(~quadrant, nrow = 2) +
-  scale_color_viridis_d(option = pal_option) +
-  scale_x_continuous(limits = c(0,wid)) +
-  scale_y_reverse(limits = c(hei,0)) +
-  guides(colour = "none") +
-  cowplot::theme_cowplot(font_size = 10) +
-  theme(aspect.ratio = 1,
-        strip.background = element_blank(),
-        strip.text = element_blank(),
-        axis.line = element_blank(),
-        axis.text = element_blank(),
-        axis.title = element_blank(),
-        axis.ticks = element_blank()) +
-  gganimate::transition_reveal(seconds, keep_last = T)
-
-gganimate::animate(
-  out,
-  width = 9,
-  height = 9,
-  units = "in",
-  res = 400,
-  nframes = N_FRAMES,
-  fps = FPS,
-  renderer = gganimate::av_renderer(OUT),
-  device = "png"
-)
+#gganimate::animate(
+#  out,
+#  width = 9,
+#  height = 9,
+#  units = "in",
+#  res = 400,
+#  nframes = N_FRAMES,
+#  fps = FPS,
+#  renderer = gganimate::av_renderer(OUT),
+#  device = "png"
+#)

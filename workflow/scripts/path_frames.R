@@ -8,18 +8,19 @@ sink(log, type = "message")
 
 library(tidyverse)
 library(cowplot)
-library(gganimate)
+#library(gganimate)
 library(wesanderson)
 
 # Get variables
 
 ## Debug
 
-IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/15.csv"
-ASSAY = "open_field"
-SAMPLE = "20190613_1307_icab_hdr_R"
-INTERVAL = 0.08
-DIMS = here::here("config/split_video_dims.csv")
+#IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/15.csv"
+#ASSAY = "open_field"
+#SAMPLE = "20190615_1452_icab_hdr_L"
+#INTERVAL = 0.08
+#DIMS = here::here("config/split_video_dims.csv")
+#OUT = "/hps/nobackup/birney/users/ian/pilot/path_frames/0.08/dist_angle/15/open_field/20190615_1452_icab_hdr_L/1.png"
 
 ## True
 
@@ -27,8 +28,8 @@ IN = snakemake@input[["hmm"]]
 DIMS = snakemake@input[["dims"]]
 ASSAY = snakemake@params[["assay"]]
 SAMPLE = snakemake@params[["sample"]]
-INTERVAL = snakemake@params[["interval"]] %>% 
-  as.numeric()
+#INTERVAL = snakemake@params[["interval"]] %>% 
+#  as.numeric()
 OUT = snakemake@output[[1]]
 
 #######################
@@ -63,7 +64,9 @@ if (ref == test) {
   pal = pal[target_ind]
 }
 
-FPS = 1/INTERVAL
+#FPS = 1/INTERVAL
+
+DIRNAME = dirname(OUT)
 
 #######################
 # Read in data
@@ -130,6 +133,29 @@ if (ref == test){
 dims = readr::read_csv(DIMS) %>% 
   dplyr::filter(sample == SAMPLE & assay == ASSAY)
 
+## Get max frames
+N_FRAMES = max(dims$n_frames)
+
+# Fill empty values
+
+## Create DF with frame column with all frames
+
+all_frames = tibble::tibble(frame = 1:N_FRAMES)
+
+## Select columns from main df and fill
+
+new_df = df %>% 
+  dplyr::select(frame, quadrant, x, y, line) %>% 
+  split(~ quadrant + line) %>% 
+  purrr::map_dfr(., function(FISH){
+    out = dplyr::left_join(all_frames,
+                           FISH,
+                           by = "frame") %>% 
+      # fill empties
+      tidyr::fill(everything(),
+                  .direction = "updown")
+  })
+
 #######################
 # Plot
 #######################
@@ -149,51 +175,59 @@ hei = dims %>%
 
 # Get total height and width in pixels (to match with the raw videos)
 
-TOT_WID = dims %>%
-  dplyr::filter(quadrant %in% c("q1", "q2")) %>% 
-  dplyr::pull(wid) %>% 
-  sum()
+#TOT_WID = dims %>%
+#  dplyr::filter(quadrant %in% c("q1", "q2")) %>% 
+#  dplyr::pull(wid) %>% 
+#  sum()
+#
+#TOT_HEI = dims %>%
+#  dplyr::filter(quadrant %in% c("q1", "q4")) %>% 
+#  dplyr::pull(hei) %>% 
+#  sum()
 
-TOT_HEI = dims %>%
-  dplyr::filter(quadrant %in% c("q1", "q4")) %>% 
-  dplyr::pull(hei) %>% 
-  sum()
+# Loop over each frame and plot
 
-# Get total number of frames
+lapply(1:N_FRAMES, function(FRAME){
+  out = new_df %>% 
+    # Filter for frames before target frame
+    dplyr::filter(frame <= FRAME) %>% 
+    dplyr::mutate(quadrant = factor(quadrant, levels = QUADRANT_ORDER)) %>% 
+    ggplot() +
+    geom_path(aes(x, y, colour = line)) +
+    facet_wrap(~quadrant, nrow = 2) +
+    scale_colour_manual(values = pal) +
+    scale_x_continuous(limits = c(0,wid)) +
+    scale_y_reverse(limits = c(hei,0)) +
+    guides(colour = "none") +
+    cowplot::theme_cowplot(font_size = 10) +
+    theme(aspect.ratio = 1,
+          strip.background = element_blank(),
+          strip.text = element_blank(),
+          axis.line = element_blank(),
+          axis.text = element_blank(),
+          axis.title = element_blank(),
+          axis.ticks = element_blank()
+    )
+  
+  ggsave(file.path(DIRNAME, paste(FRAME, ".png", sep = "")),
+         out,
+         width = 9,
+         height = 9,
+         units = "in",
+         dpi = 400,
+         bg = "white")
+})
 
-N_FRAMES = df %>% 
-  dplyr::distinct(seconds) %>% 
-  nrow()
-
-out = df %>% 
-  #dplyr::filter(seconds < 30) %>% 
-  dplyr::mutate(quadrant = factor(quadrant, levels = QUADRANT_ORDER)) %>% 
-  ggplot() +
-  geom_path(aes(x, y, colour = line)) +
-  facet_wrap(~quadrant, nrow = 2) +
-  scale_colour_manual(values = pal) +
-  scale_x_continuous(limits = c(0,wid)) +
-  scale_y_reverse(limits = c(hei,0)) +
-  guides(colour = "none") +
-  cowplot::theme_cowplot(font_size = 10) +
-  theme(aspect.ratio = 1,
-        strip.background = element_blank(),
-        strip.text = element_blank(),
-        axis.line = element_blank(),
-        axis.text = element_blank(),
-        axis.title = element_blank(),
-        axis.ticks = element_blank()
-        ) +
-  gganimate::transition_reveal(seconds, keep_last = T)
-
-gganimate::animate(
-  out,
-  width = 9,
-  height = 9,
-  units = "in",
-  res = 400,
-  nframes = N_FRAMES,
-  fps = FPS,
-  renderer = gganimate::av_renderer(OUT),
-  device = "png"
-)
+#  gganimate::transition_reveal(seconds, keep_last = T)
+#
+#gganimate::animate(
+#  out,
+#  width = 9,
+#  height = 9,
+#  units = "in",
+#  res = 400,
+#  nframes = N_FRAMES,
+#  fps = FPS,
+#  renderer = gganimate::av_renderer(OUT),
+#  device = "png"
+#)
