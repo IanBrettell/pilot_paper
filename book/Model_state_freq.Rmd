@@ -142,16 +142,53 @@ DT::datatable(aov_dge %>%
 To `aov_state_freq` here: https://docs.google.com/spreadsheets/d/1_l72BZkmWyNAOfCUI8WGP4UfQuIPQtPZZmlRjQffvEs
 
 ```{r}
+# Open field
 aov_dge %>% 
-  dplyr::select(-model) %>% 
+  dplyr::filter(assay == "open field") %>% 
   # add variance explained
   dplyr::group_by(assay, state_recode) %>% 
   dplyr::mutate(tot_ss = sum(sumsq)) %>% 
   dplyr::ungroup() %>% 
   dplyr::mutate(var_expl_perc = (sumsq / tot_ss) * 100 ) %>%
+  # select and rename key columns
+  dplyr::select(State = state_recode,
+                Variable = term,
+                Statistic = statistic,
+                `p-value` = p.value,
+                Significance = p.value.signif,
+                `Variance explained (%)` = var_expl_perc) %>% 
+  # show only 2 decimals
+  dplyr::mutate(dplyr::across(c("Statistic", 
+                                #"p-value", 
+                                "Variance explained (%)"),
+                              ~ format(round(.x, 2), nsmall = 2))) %>% 
   googlesheets4::write_sheet(
     ss = "https://docs.google.com/spreadsheets/d/1_l72BZkmWyNAOfCUI8WGP4UfQuIPQtPZZmlRjQffvEs",
-    sheet = "DGE")
+    sheet = "DGE_OF")
+
+# Novel object
+aov_dge %>% 
+  dplyr::filter(assay == "novel object") %>% 
+  # add variance explained
+  dplyr::group_by(assay, state_recode) %>% 
+  dplyr::mutate(tot_ss = sum(sumsq)) %>% 
+  dplyr::ungroup() %>% 
+  dplyr::mutate(var_expl_perc = (sumsq / tot_ss) * 100 ) %>%
+  # select and rename key columns
+  dplyr::select(State = state_recode,
+                Variable = term,
+                Statistic = statistic,
+                `p-value` = p.value,
+                Significance = p.value.signif,
+                `Variance explained (%)` = var_expl_perc) %>% 
+  # show only 2 decimals
+  dplyr::mutate(dplyr::across(c("Statistic", 
+                                #"p-value", 
+                                "Variance explained (%)"),
+                              ~ format(round(.x, 2), nsmall = 2))) %>% 
+  googlesheets4::write_sheet(
+    ss = "https://docs.google.com/spreadsheets/d/1_l72BZkmWyNAOfCUI8WGP4UfQuIPQtPZZmlRjQffvEs",
+    sheet = "DGE_NO")
 ```
 
 ## SGE
@@ -226,14 +263,53 @@ DT::datatable(aov_sge %>%
 To `aov_state_freq` here: https://docs.google.com/spreadsheets/d/1_l72BZkmWyNAOfCUI8WGP4UfQuIPQtPZZmlRjQffvEs
 
 ```{r}
+# Open field
 aov_sge %>% 
+  dplyr::filter(assay == "open field") %>% 
   dplyr::select(-model) %>% 
   # add variance explained
   dplyr::group_by(assay, state_recode) %>% 
   dplyr::mutate(tot_ss = sum(sumsq)) %>% 
   dplyr::ungroup() %>% 
   dplyr::mutate(var_expl_perc = (sumsq / tot_ss) * 100 ) %>%
+  # select and rename key columns
+  dplyr::select(State = state_recode,
+                Variable = term,
+                Statistic = statistic,
+                `p-value` = p.value,
+                Significance = p.value.signif,
+                `Variance explained (%)` = var_expl_perc) %>% 
+  # show only 2 decimals
+  dplyr::mutate(dplyr::across(c("Statistic", 
+                                #"p-value", 
+                                "Variance explained (%)"),
+                              ~ format(round(.x, 2), nsmall = 2))) %>% 
   googlesheets4::write_sheet(
     ss = "https://docs.google.com/spreadsheets/d/1_l72BZkmWyNAOfCUI8WGP4UfQuIPQtPZZmlRjQffvEs",
-    sheet = "SGE")
+    sheet = "SGE_OF")
+
+# Novel object
+aov_sge %>% 
+  dplyr::filter(assay == "novel object") %>% 
+  dplyr::select(-model) %>% 
+  # add variance explained
+  dplyr::group_by(assay, state_recode) %>% 
+  dplyr::mutate(tot_ss = sum(sumsq)) %>% 
+  dplyr::ungroup() %>% 
+  dplyr::mutate(var_expl_perc = (sumsq / tot_ss) * 100 ) %>%
+  # select and rename key columns
+  dplyr::select(State = state_recode,
+                Variable = term,
+                Statistic = statistic,
+                `p-value` = p.value,
+                Significance = p.value.signif,
+                `Variance explained (%)` = var_expl_perc) %>% 
+  # show only 2 decimals
+  dplyr::mutate(dplyr::across(c("Statistic", 
+                                #"p-value", 
+                                "Variance explained (%)"),
+                              ~ format(round(.x, 2), nsmall = 2))) %>% 
+  googlesheets4::write_sheet(
+    ss = "https://docs.google.com/spreadsheets/d/1_l72BZkmWyNAOfCUI8WGP4UfQuIPQtPZZmlRjQffvEs",
+    sheet = "SGE_NO")
 ```

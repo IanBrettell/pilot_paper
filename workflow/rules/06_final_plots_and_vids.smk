@@ -2,7 +2,8 @@ rule covariate_effects:
     input:
         rules.merge_csvs.output,
     output:
-        fig = "book/figs/covariate_effects/{interval}/{variables}/{n_states}/covariate_effects.png",
+        of = "book/figs/covariate_effects/{interval}/{variables}/{n_states}/covariate_effects_of.png",
+        no = "book/figs/covariate_effects/{interval}/{variables}/{n_states}/covariate_effects_no.png",
     log:
         os.path.join(
             config["working_dir"],
@@ -151,9 +152,25 @@ rule hmm_path_frames:
     script:
         "../scripts/hmm_path_frames.R"
 
+# Get final frame to use as outputs/inputs
+def get_final_frame_for_path(wildcards):
+    fps = int(samples_df.loc[samples_df["sample"] == wildcards.sample, "fps"])
+    final_frame = str(fps*600)
+    final_frame_path = os.path.join(
+        config["working_dir"],
+        "path_frames",
+        wildcards.interval,
+        wildcards.variables,
+        wildcards.n_states,
+        wildcards.assay,
+        wildcards.sample,
+        final_frame + ".png"
+    )
+    return(final_frame_path)
+
 rule path_frames_to_vid:
     input:
-        hmm = rules.run_hmm.output,
+        frame_path = get_final_frame_for_path,
         dims = rules.get_split_video_dims.output,
     output:
         os.path.join(
@@ -173,10 +190,51 @@ rule path_frames_to_vid:
         mem_mb = 5000,
         tmpdir = config["tmpdir"]
     container:
-        config["R_4.2.0"]
+        config["opencv"]
     script:
         "../scripts/path_frames_to_vid.py"
 
+## Get final frame to use as outputs/inputs
+#def get_final_frame_for_hmm_path(wildcards):
+#    fps = int(samples_df.loc[samples_df["sample"] == wildcards.sample, "fps"])
+#    final_frame = str(fps*600)
+#    final_frame_path = os.path.join(
+#        config["working_dir"],
+#        "path_frames",
+#        wildcards.interval,
+#        wildcards.variables,
+#        wildcards.n_states,
+#        wildcards.assay,
+#        wildcards.sample + "_" + wildcards.ref_test,
+#        final_frame + ".png"
+#    )
+#    return(final_frame_path)
+
+rule hmm_path_frames_to_vid:
+    input:
+        frame_path = get_final_frame_for_path,
+        dims = rules.get_split_video_dims.output,
+    output:
+        os.path.join(
+            config["working_dir"],
+            "path_vids/{interval}/{variables}/{n_states}/{assay}/{sample}.avi"
+        ),
+    log:
+        os.path.join(
+            config["working_dir"],
+            "logs/path_frames_to_vid/{interval}/{variables}/{n_states}/{assay}/{sample}.log"
+        ),
+    params:
+        assay = "{assay}",
+        sample = "{sample}",
+        fps = get_fps,
+    resources:
+        mem_mb = 5000,
+        tmpdir = config["tmpdir"]
+    container:
+        config["opencv"]
+    script:
+        "../scripts/hmm_path_frames_to_vid.py"
 
 #rule path_videos:
 #    input:
@@ -203,34 +261,34 @@ rule path_frames_to_vid:
 #        config["R_4.2.0"]
 #    script:
 #        "../scripts/path_videos.R"
-
-rule hmm_path_videos:
-    input:
-        hmm = rules.run_hmm.output,
-        dims = rules.get_split_video_dims.output,
-    output:
-        os.path.join(
-            config["working_dir"],
-            "hmm_path_videos/{interval}/{variables}/{n_states}/{assay}/{sample}_{ref_test}.avi"
-        ),
-    log:
-        os.path.join(
-            config["working_dir"],
-            "logs/hmm_path_videos/{interval}/{variables}/{n_states}/{assay}/{sample}_{ref_test}.log"
-        ),
-    params:
-        assay = "{assay}",
-        sample = "{sample}",
-        ref_test = "{ref_test}",
-        interval = "{interval}"
-    resources:
-        mem_mb = 80000,
-        tmpdir = config["tmpdir"]
-    container:
-        config["R_4.2.0"]
-    script:
-        "../scripts/hmm_path_videos.R"
-
+#
+#rule hmm_path_videos:
+#    input:
+#        hmm = rules.run_hmm.output,
+#        dims = rules.get_split_video_dims.output,
+#    output:
+#        os.path.join(
+#            config["working_dir"],
+#            "hmm_path_videos/{interval}/{variables}/{n_states}/{assay}/{sample}_{ref_test}.avi"
+#        ),
+#    log:
+#        os.path.join(
+#            config["working_dir"],
+#            "logs/hmm_path_videos/{interval}/{variables}/{n_states}/{assay}/{sample}_{ref_test}.log"
+#        ),
+#    params:
+#        assay = "{assay}",
+#        sample = "{sample}",
+#        ref_test = "{ref_test}",
+#        interval = "{interval}"
+#    resources:
+#        mem_mb = 80000,
+#        tmpdir = config["tmpdir"]
+#    container:
+#        config["R_4.2.0"]
+#    script:
+#        "../scripts/hmm_path_videos.R"
+#
 #rule combine_tracked_and_path_vids:
 #    input:
 #        vid = rules.stitch_tracked_vids.output,

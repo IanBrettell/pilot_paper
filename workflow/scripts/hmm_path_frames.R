@@ -14,11 +14,11 @@ library(cowplot)
 
 ## Debug
 
-#IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/15.csv"
-#ASSAY = "novel_object"
-#SAMPLE = "20190613_0953_icab_hni_R"
-#REF_TEST = "test"
-#DIMS = here::here("config/split_video_dims.csv")
+IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/15.csv"
+ASSAY = "novel_object"
+SAMPLE = "20190613_0953_icab_hni_R"
+REF_TEST = "test"
+DIMS = here::here("config/split_video_dims.csv")
 
 ## True
 
@@ -99,6 +99,7 @@ dims = readr::read_csv(DIMS) %>%
 
 ## Get max frames
 N_FRAMES = max(dims$n_frames)
+
 
 # Fill empty values
 

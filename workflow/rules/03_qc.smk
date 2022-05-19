@@ -27,7 +27,7 @@ def get_final_csvs(wildcards):
 
 # Get frames-per-second
 def get_fps(wildcards):
-    fps = int(samples_df.loc[samples_df["sample"] == wildcards.sample, "fps"])
+    fps = samples_df.loc[samples_df["sample"] == wildcards.sample, "fps"]
     return(fps)
 
 # Get relative location of reference iCab fish

@@ -1,4 +1,4 @@
-# Send stdout and stderr to log file
+# Send log
 import sys,os
 import logging, traceback
 logging.basicConfig(filename=snakemake.log[0],
@@ -28,17 +28,17 @@ import cv2
 
 ## Debug
 
-IN = "/hps/nobackup/birney/users/ian/pilot/path_frames/0.08/dist_angle/15/open_field/20190615_1452_icab_hdr_L/1.png"
-DIMS = "/hps/software/users/birney/ian/repos/pilot_paper/config/split_video_dims.csv"
-FPS = 30
-ASSAY = "open_field"
-SAMPLE = "20190615_1452_icab_hdr_L"
+#IN = "/hps/nobackup/birney/users/ian/pilot/path_frames/0.08/dist_angle/15/open_field/20190612_1236_icab_kaga_R/18000.png"
+#DIMS = "/hps/software/users/birney/ian/repos/pilot_paper/config/split_video_dims.csv"
+#FPS = 30
+#ASSAY = "open_field"
+#SAMPLE = "20190612_1236_icab_kaga_R"
 
 ## True
 
-IN = snakemake.input[0]
-DIMS = snakemake.input.dims
-FPS = snakemake.params.fps
+IN = snakemake.input.frame_path
+DIMS = snakemake.input.dims[0]
+FPS = int(snakemake.params.fps)
 ASSAY = snakemake.params.assay
 SAMPLE = snakemake.params.sample
 OUT = snakemake.output[0]
@@ -47,7 +47,7 @@ OUT = snakemake.output[0]
 
 dims = pd.read_csv(DIMS)
 
-## Filter for target assay and sample
+## Filter for target assay and sample (creates 4 rows, 1 per quadrant)
 
 dims_filt = dims.loc[(dims["assay"] == ASSAY) & (dims["sample"] == SAMPLE)]
 
