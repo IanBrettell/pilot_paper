@@ -1,5 +1,15 @@
 # Notebook
 
+## 23 May 2022
+
+Noticed all the fishes were incorrectly labelled, and corrected.
+
+Double-check:
+
+- 20190611_1552_icab_hni_R NO
+- 20190616_1227_icab_kaga_R NO (q1)
+- 20190616_1506_icab_hni_L NO (q1)
+
 ## 4 May 2022
 
 Discussion with Ewan re: paper:

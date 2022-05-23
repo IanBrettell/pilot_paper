@@ -1,22 +1,22 @@
-## Send stdout and stderr to log file
-#import sys,os
-#import logging, traceback
-#logging.basicConfig(filename=snakemake.log[0],
-#                    level=logging.INFO,
-#                    format='%(asctime)s %(message)s',
-#                    datefmt='%Y-%m-%d %H:%M:%S',
-#                    )
-#def handle_exception(exc_type, exc_value, exc_traceback):
-#    if issubclass(exc_type, KeyboardInterrupt):
-#        sys.__excepthook__(exc_type, exc_value, exc_traceback)
-#        return
-#
-#    logger.error(''.join(["Uncaught exception: ",
-#                         *traceback.format_exception(exc_type, exc_value, exc_traceback)
-#                         ])
-#                 )
-## Install exception handler
-#sys.excepthook = handle_exception
+# Send stdout and stderr to log file
+import sys,os
+import logging, traceback
+logging.basicConfig(filename=snakemake.log[0],
+                    level=logging.INFO,
+                    format='%(asctime)s %(message)s',
+                    datefmt='%Y-%m-%d %H:%M:%S',
+                    )
+def handle_exception(exc_type, exc_value, exc_traceback):
+    if issubclass(exc_type, KeyboardInterrupt):
+        sys.__excepthook__(exc_type, exc_value, exc_traceback)
+        return
+
+    logger.error(''.join(["Uncaught exception: ",
+                         *traceback.format_exception(exc_type, exc_value, exc_traceback)
+                         ])
+                 )
+# Install exception handler
+sys.excepthook = handle_exception
 
 # Import libraries
 
@@ -25,16 +25,28 @@ import pandas as pd
 import cv2
 from plotnine import *
 import os
+import shutil
 
 # Get variables
 
-IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/15.csv"
-ASSAY = "novel_object"
-SAMPLE = "20190613_0953_icab_hni_R"
-REF_TEST = "test"
-DIMS = "config/split_video_dims.csv"
-TMP = "/hps/nobackup/birney/users/ian/pilot/tmp"
-FPS = 30
+## Debug
+#IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/15.csv"
+#DIMS = "config/split_video_dims.csv"
+#ASSAY = "novel_object"
+#SAMPLE = "20190613_0953_icab_hni_R"
+#REF_TEST = "test"
+#FPS = 30
+#TMP = "/hps/nobackup/birney/users/ian/pilot/tmp"
+
+## True
+IN = snakemake.input.hmm[0]
+DIMS = snakemake.input.dims[0]
+OUT = snakemake.output[0]
+ASSAY = snakemake.params.assay
+SAMPLE = snakemake.params.sample
+REF_TEST = snakemake.params.ref_test
+FPS = int(snakemake.params.fps)
+TMP = snakemake.resources.tmpdir
 
 #######################
 # Set plotting parameters
@@ -118,8 +130,16 @@ TOT_HEI = dims.loc[dims['quadrant'].isin(['q1', 'q4'])]['hei'].sum()
 fourcc = cv2.VideoWriter_fourcc('h', '2', '6', '4')
 
 ## Debug
+#video_writer = cv2.VideoWriter(
+#    "/hps/nobackup/birney/users/ian/pilot/tmp_out.avi",
+#    fourcc,
+#    FPS,
+#    (TOT_WID, TOT_HEI),
+#    isColor = True
+#)
+
 video_writer = cv2.VideoWriter(
-    "/hps/nobackup/birney/users/ian/pilot/tmp_out.avi",
+    OUT,
     fourcc,
     FPS,
     (TOT_WID, TOT_HEI),
@@ -127,7 +147,7 @@ video_writer = cv2.VideoWriter(
 )
 
 #######################
-# Create a dictionary of missing frames
+# Plot frames and write to video
 #######################
 
 # Get all available frames
@@ -137,7 +157,7 @@ all_frames = list(range(1, N_FRAMES + 1))
 rec_frames = df_filt['frame'].unique().tolist()
 rec_frames.sort()
 
-for i in all_frames[0:500]:
+for i in all_frames:
     # If the frame is not included in the frames we have data for...
     if i not in rec_frames:
         # get the next frame we do have
@@ -150,7 +170,14 @@ for i in all_frames[0:500]:
         plot_frame = i
     print(plot_frame)
     # If file already exists, write directly to file
-    out_path = os.path.join(TMP, SAMPLE, REF_TEST, str(plot_frame) + ".png")
+    out_path = os.path.join(
+        TMP,
+        "hmm_path_frames",
+        ASSAY,
+        SAMPLE, 
+        REF_TEST, 
+        str(plot_frame) + ".png"
+    )
     # Make directory
     os.makedirs(os.path.dirname(out_path), exist_ok = True)
     # If the plot .png is already there, read it in and write
@@ -187,7 +214,7 @@ for i in all_frames[0:500]:
                 )
         )
         # Save
-        out_path = os.path.join(TMP, SAMPLE, REF_TEST, str(plot_frame) + ".png")
+        #out_path = os.path.join(TMP, SAMPLE, REF_TEST, str(plot_frame) + ".png")
         plot.save(out_path, width = 9, height = 9)
         # Write to video
         ## read image
@@ -201,4 +228,6 @@ for i in all_frames[0:500]:
 
 video_writer.release()
 
+# remove temp folder
 
+shutil.rmtree(os.path.dirname(out_path))

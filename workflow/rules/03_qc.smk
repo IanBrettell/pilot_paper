@@ -50,7 +50,7 @@ rule assign_ref_test:
         get_final_csvs,
     output:
         os.path.join(
-            config["data_store_dir"],
+            config["working_dir"],
             "final_tracks/{assay}/{sample}_{quadrant}.csv"
         ),
     log:

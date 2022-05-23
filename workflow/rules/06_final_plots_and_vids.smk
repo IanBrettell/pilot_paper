@@ -170,7 +170,7 @@ def get_final_frame_for_path(wildcards):
 
 rule path_frames_to_vid:
     input:
-        frame_path = get_final_frame_for_path,
+        hmm = rules.run_hmm.output,
         dims = rules.get_split_video_dims.output,
     output:
         os.path.join(
@@ -212,21 +212,22 @@ rule path_frames_to_vid:
 
 rule hmm_path_frames_to_vid:
     input:
-        frame_path = get_final_frame_for_path,
+        hmm = rules.run_hmm.output,
         dims = rules.get_split_video_dims.output,
     output:
         os.path.join(
             config["working_dir"],
-            "path_vids/{interval}/{variables}/{n_states}/{assay}/{sample}.avi"
+            "hmm_path_vids/{interval}/{variables}/{n_states}/{assay}/{sample}_{ref_test}.avi"
         ),
     log:
         os.path.join(
             config["working_dir"],
-            "logs/path_frames_to_vid/{interval}/{variables}/{n_states}/{assay}/{sample}.log"
+            "logs/hmm_path_frames_to_vid/{interval}/{variables}/{n_states}/{assay}/{sample}_{ref_test}.log"
         ),
     params:
         assay = "{assay}",
         sample = "{sample}",
+        ref_test = "{ref_test}",
         fps = get_fps,
     resources:
         mem_mb = 5000,

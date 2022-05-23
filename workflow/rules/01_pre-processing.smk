@@ -1,5 +1,5 @@
 # When tank_side == "R", video is flipped 180 degrees (camera was upside-down)
-# This rule flips those videos back in the process of creating .mp4 copies of all videos
+# This rule flips those videos back in the process of creating .avi copies of all videos
 rule adjust_orientation:
     input:
         os.path.join(config["raw_data_dir"], "{sample}.avi"),
