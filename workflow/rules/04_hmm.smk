@@ -43,7 +43,7 @@ rule merge_csvs:
             "logs/merge_csvs/{interval}.log"
         ),
     resources:
-        mem_mb = lambda wildcards, attempt: attempt * 5000
+        mem_mb = lambda wildcards, attempt: attempt * 15000
     container:
         config["rocker_tidyverse"]
     script:
