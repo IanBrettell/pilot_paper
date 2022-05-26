@@ -300,3 +300,4 @@ for frame_number in tqdm(
 
         video_writer.write(frame)
 
+video_writer.release()

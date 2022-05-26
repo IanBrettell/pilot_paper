@@ -185,7 +185,7 @@ all_frames = list(range(1, N_FRAMES + 1))
 rec_frames = df_filt['frame'].unique().tolist()
 rec_frames.sort()
 
-for i in all_frames[0:500]:
+for i in all_frames:
     # If the frame is not included in the frames we have data for...
     if i not in rec_frames:
         # get the next frame we do have

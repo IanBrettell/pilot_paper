@@ -30,13 +30,14 @@ import shutil
 # Get variables
 
 ## Debug
-#IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/15.csv"
-#DIMS = "config/split_video_dims.csv"
-#ASSAY = "novel_object"
-#SAMPLE = "20190613_0953_icab_hni_R"
-#REF_TEST = "test"
-#FPS = 30
-#TMP = "/hps/nobackup/birney/users/ian/pilot/tmp"
+IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/15.csv"
+DIMS = "config/split_video_dims.csv"
+OUT = "/hps/nobackup/birney/users/ian/pilot/hmm_path_vids/0.08/dist_angle/15/open_field/20190611_1552_icab_hni_R_test.avi"
+ASSAY = "open_field"
+SAMPLE = "20190611_1552_icab_hni_R"
+REF_TEST = "test"
+FPS = 30
+TMP = "/hps/nobackup/birney/users/ian/pilot/tmp_frames/0.08/dist_angle/15"
 
 ## True
 IN = snakemake.input.hmm[0]
@@ -46,7 +47,11 @@ ASSAY = snakemake.params.assay
 SAMPLE = snakemake.params.sample
 REF_TEST = snakemake.params.ref_test
 FPS = int(snakemake.params.fps)
-TMP = snakemake.resources.tmpdir
+TMP = snakemake.params.tmpdir
+
+# Make the tmp dir to house the plot images
+
+os.makedirs(TMP, exist_ok = True)
 
 #######################
 # Set plotting parameters
@@ -129,14 +134,14 @@ TOT_HEI = dims.loc[dims['quadrant'].isin(['q1', 'q4'])]['hei'].sum()
 
 fourcc = cv2.VideoWriter_fourcc('h', '2', '6', '4')
 
-## Debug
-#video_writer = cv2.VideoWriter(
-#    "/hps/nobackup/birney/users/ian/pilot/tmp_out.avi",
-#    fourcc,
-#    FPS,
-#    (TOT_WID, TOT_HEI),
-#    isColor = True
-#)
+# Debug
+video_writer = cv2.VideoWriter(
+    "/hps/nobackup/birney/users/ian/pilot/tmp_out.avi",
+    fourcc,
+    FPS,
+    (TOT_WID, TOT_HEI),
+    isColor = True
+)
 
 video_writer = cv2.VideoWriter(
     OUT,
@@ -169,7 +174,8 @@ for i in all_frames:
     elif i in rec_frames:
         plot_frame = i
     print(plot_frame)
-    # If file already exists, write directly to file
+    print(i)
+    # Set path to write frame
     out_path = os.path.join(
         TMP,
         "hmm_path_frames",
@@ -214,7 +220,6 @@ for i in all_frames:
                 )
         )
         # Save
-        #out_path = os.path.join(TMP, SAMPLE, REF_TEST, str(plot_frame) + ".png")
         plot.save(out_path, width = 9, height = 9)
         # Write to video
         ## read image

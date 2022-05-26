@@ -27,10 +27,10 @@ import numpy as np
 
 ## Debug
 
-IN = ["/hps/nobackup/birney/users/ian/pilot/tracked/novel_object/20190616_1717_icab_icab_L_q1.avi",
-      "/hps/nobackup/birney/users/ian/pilot/tracked/novel_object/20190616_1717_icab_icab_L_q3.avi",
-      "/hps/nobackup/birney/users/ian/pilot/tracked/novel_object/20190616_1717_icab_icab_L_q2.avi",
-      "/hps/nobackup/birney/users/ian/pilot/tracked/novel_object/20190616_1717_icab_icab_L_q4.avi"
+IN = ["/hps/nobackup/birney/users/ian/pilot/tracked/novel_object/20190616_1045_icab_icab_L_q1.avi",
+      "/hps/nobackup/birney/users/ian/pilot/tracked/novel_object/20190616_1045_icab_icab_L_q3.avi",
+      "/hps/nobackup/birney/users/ian/pilot/tracked/novel_object/20190616_1045_icab_icab_L_q2.avi",
+      "/hps/nobackup/birney/users/ian/pilot/tracked/novel_object/20190616_1045_icab_icab_L_q4.avi"
 ]
 #FPS = 30
 #OUT = "/hps/nobackup/birney/users/ian/pilot/tmp.avi"
@@ -38,7 +38,11 @@ IN = ["/hps/nobackup/birney/users/ian/pilot/tracked/novel_object/20190616_1717_i
 ## True
 IN = snakemake.input
 OUT = snakemake.output[0]
-FPS = snakemake.params.fps
+FPS = int(snakemake.params.fps)
+
+# Sort order to ensure q1 is first, etc.
+
+IN = sorted(IN)
 
 # Capture videos
 

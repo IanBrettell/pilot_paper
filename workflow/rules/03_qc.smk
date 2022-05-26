@@ -179,12 +179,12 @@ rule stitch_tracked_vids:
     output:
         os.path.join(
             config["working_dir"],
-            "stiched/{assay}/{sample}.avi",
+            "stitched/{assay}/{sample}.avi",
         ),
     log:
         os.path.join(
             config["working_dir"],
-            "logs/stich_tracked_vids/{assay}/{sample}.log"
+            "logs/stitch_tracked_vids/{assay}/{sample}.log"
         ),
     params:
         fps = get_fps,

@@ -55,7 +55,7 @@ rule spatial_dependence:
     params:
         n_states = "{n_states}",
     resources:
-        mem_mb = 3000
+        mem_mb = 10000
     container:
         config["R_4.2.0"]
     script:
@@ -210,6 +210,8 @@ rule path_frames_to_vid:
 #    )
 #    return(final_frame_path)
 
+# Creates point/path plots for each ref/test fish
+# With each point coloured by HMM state
 rule hmm_path_frames_to_vid:
     input:
         hmm = rules.run_hmm.output,
@@ -229,14 +231,49 @@ rule hmm_path_frames_to_vid:
         sample = "{sample}",
         ref_test = "{ref_test}",
         fps = get_fps,
+        tmpdir = os.path.join(
+            config["working_dir"],
+            "tmp_frames/{interval}/{variables}/{n_states}"
+        ),
     resources:
         mem_mb = 5000,
-        tmpdir = config["tmpdir"]
     container:
         config["opencv"]
     script:
         "../scripts/hmm_path_frames_to_vid.py"
 
+rule compile_four_panel_vid:
+    input:
+        labels = rules.stitch_tracked_vids.output,
+        paths = rules.path_frames_to_vid.output,
+        hmm_ref = os.path.join(
+            config["working_dir"],
+            "hmm_path_vids/{interval}/{variables}/{n_states}/{assay}/{sample}_ref.avi"
+        ),
+        hmm_test = os.path.join(
+            config["working_dir"],
+            "hmm_path_vids/{interval}/{variables}/{n_states}/{assay}/{sample}_test.avi"
+        ),
+        dims = rules.get_split_video_dims.output,
+    output:
+        os.path.join(
+            config["working_dir"],
+            "four_panel_vids/{interval}/{variables}/{n_states}/{assay}/{sample}.avi"
+        ),
+    log:
+        os.path.join(
+            config["working_dir"],
+            "logs/compile_four_panel_vid/{interval}/{variables}/{n_states}/{assay}/{sample}.log"
+        ),
+    params:
+        fps = get_fps,
+    resources:
+        mem_mb = 5000,
+    container:
+        config["opencv"]
+    script:
+        "../scripts/compile_four_panel_vid.py"  
+  
 #rule path_videos:
 #    input:
 #        hmm = rules.run_hmm.output,

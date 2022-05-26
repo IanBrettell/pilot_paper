@@ -110,7 +110,7 @@ polar_all = df %>%
   coord_polar() +
   facet_wrap(~state_recode, nrow = N_ROWS) +
   #theme_dark(base_size = 8) +
-  cowplot::theme_cowplot() +
+  cowplot::theme_cowplot(font_size = 10) +
   scale_x_continuous(labels = c(0, 90, 180, 270),
                      breaks = c(0, 90, 180, 270)) +
   scale_color_viridis_c() +

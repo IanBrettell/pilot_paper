@@ -180,7 +180,7 @@ dens_dge_df = df %>%
 
 # Run Kruskal-Wallis test
 
-kruskal.test(dens_df_dge$density, dens_df_dge$line)
+kruskal.test(dens_dge_df$density, dens_dge_df$line)
 
 dens_dge = dens_dge_df %>% 
   # take only states 1:4
