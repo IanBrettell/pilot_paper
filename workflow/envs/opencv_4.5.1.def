@@ -2,4 +2,6 @@ Bootstrap: docker
 From: opencvcourses/opencv-docker:4.5.1
 
 %post
-    pip install pandas plotnine wesanderson
+    apt update
+    apt install -y gifsicle
+    pip install pandas plotnine wesanderson imageio pygifsicle

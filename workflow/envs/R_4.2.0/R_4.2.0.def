@@ -5,7 +5,7 @@ From: rocker/tidyverse:4.2.0
 
     # Install packages required for R packages
     apt update 
-    apt install -y libxt6 libmagick++-dev libavfilter-dev ffmpeg
+    apt install -y libxt6 libmagick++-dev libavfilter-dev ffmpeg libpoppler-cpp-dev
 
     # Install CRAN packages
     install2.r --error \
@@ -22,4 +22,5 @@ From: rocker/tidyverse:4.2.0
         ggridges \
         magick \
         gganimate \
-        av
+        av \
+        pdftools

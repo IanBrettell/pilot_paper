@@ -16,6 +16,8 @@ data_store_dir:
     /nfs/research/birney/users/ian/pilot
 samples_file:
     config/samples.csv
+google_drive_dir:
+    EBI_Google_Drive:pilot_paper/figs
 ####################
 # Parameters
 ####################

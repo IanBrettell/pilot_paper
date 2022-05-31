@@ -20,7 +20,8 @@ rule hmm_final:
     input:
         rules.run_hmm.output
     output:
-        polar_all = "book/figs/paper_final/{interval}/{variables}/{n_states}/polar_all.png",
+        polar_all_dge = "book/figs/paper_final/{interval}/{variables}/{n_states}/polar_all_dge.png",
+        polar_all_sge = "book/figs/paper_final/{interval}/{variables}/{n_states}/polar_all_sge.png",
         polar_box_dge = "book/figs/paper_final/{interval}/{variables}/{n_states}/polar_box_dge.png",
         polar_box_sge = "book/figs/paper_final/{interval}/{variables}/{n_states}/polar_box_sge.png",
         polar_box_dge_sge = "book/figs/paper_final/{interval}/{variables}/{n_states}/polar_box_dge_sge.png",
@@ -75,7 +76,7 @@ rule time_dependence:
     params:
         n_states = "{n_states}",
     resources:
-        mem_mb = 5000
+        mem_mb = 10000
     container:
         config["R_4.2.0"]
     script:
@@ -244,8 +245,8 @@ rule hmm_path_frames_to_vid:
 
 rule compile_four_panel_vid:
     input:
-        labels = rules.stitch_tracked_vids.output,
-        paths = rules.path_frames_to_vid.output,
+        labels = rules.stitch_tracked_vids.output[0],
+        paths = rules.path_frames_to_vid.output[0],
         hmm_ref = os.path.join(
             config["working_dir"],
             "hmm_path_vids/{interval}/{variables}/{n_states}/{assay}/{sample}_ref.avi"
@@ -254,7 +255,6 @@ rule compile_four_panel_vid:
             config["working_dir"],
             "hmm_path_vids/{interval}/{variables}/{n_states}/{assay}/{sample}_test.avi"
         ),
-        dims = rules.get_split_video_dims.output,
     output:
         os.path.join(
             config["working_dir"],
@@ -272,8 +272,68 @@ rule compile_four_panel_vid:
     container:
         config["opencv"]
     script:
-        "../scripts/compile_four_panel_vid.py"  
-  
+        "../scripts/compile_four_panel_vid.py"
+
+rule four_panel_short:
+    input:
+        rules.compile_four_panel_vid.output,
+    output:
+        avi = os.path.join(
+            config["working_dir"],
+            "four_panel_short_vids/{interval}/{variables}/{n_states}/{assay}/{sample}.avi"
+        ),
+    log:
+        os.path.join(
+            config["working_dir"],
+            "logs/four_panel_short/{interval}/{variables}/{n_states}/{assay}/{sample}.log"
+        ),
+    params:
+        tot_sec = 60,
+    resources:
+        mem_mb = 5000,
+    container:
+        config["opencv"]
+    script:
+        "../scripts/four_panel_short.py"         
+
+# Pull single frame with labeled video on left and paths on right
+rule get_labels_and_paths_frame_grab:
+    input:
+        labels = rules.stitch_tracked_vids.output[0],
+        paths = rules.path_frames_to_vid.output[0],
+    output:
+        fig = "book/figs/labs_and_paths_frame_grabs/{interval}/{variables}/{n_states}/{assay}/{sample}_{second}.png"
+    log:
+        os.path.join(
+            config["working_dir"],
+            "logs/get_labels_and_paths_frame_grab/{interval}/{variables}/{n_states}/{assay}/{sample}_{second}.log"
+        ),
+    params:
+        target_second = "{second}"
+    resources:
+        mem_mb = 500,
+    container:
+        config["opencv"]
+    script:
+        "../scripts/get_labels_and_paths_frame_grab.py"
+
+rule compose_setup_figure:
+    input:
+        frame_grab = rules.get_labels_and_paths_frame_grab.output,
+        setup_pic = "book/figs/misc/setup_picture.pdf",
+    output:
+        fig = "book/figs/misc/setup_fig/{interval}/{variables}/{n_states}/{assay}/{sample}/setup_pic_with_frame_{second}.png",
+    log:
+        os.path.join(
+            config["working_dir"],
+            "logs/get_labels_and_paths_frame_grab/{interval}/{variables}/{n_states}/{assay}/{sample}_{second}.log"
+        ),    
+    resources:
+        mem_mb = 5000,
+    container:
+        config["R_4.2.0"]
+    script:
+        "../scripts/compose_setup_figure.R"
 #rule path_videos:
 #    input:
 #        hmm = rules.run_hmm.output,
@@ -353,3 +413,56 @@ rule compile_four_panel_vid:
 #        config["opencv"]
 #    script:
 #        "../scripts/combine_tracked_and_path_vids.py"    
+
+rule send_plots_to_google_drive:
+    input:
+        setup = expand(rules.compose_setup_figure.output.fig,
+                interval = 0.08,
+                variables = "dist_angle",
+                n_states = 15,
+                assay = "open_field",
+                sample = "20190613_1054_icab_hdr_R",
+                second = 110         
+        ),
+        compare_params = rules.compare_params.output.png,
+        polar = expand(rules.hmm_final.output.polar_all_dge,
+                interval = 0.08,
+                variables = "dist_angle",
+                n_states = 15,        
+        ),
+        time_dge = expand(rules.time_dependence.output.dge,
+                interval = 0.08,
+                variables = "dist_angle",
+                n_states = 15            
+        ),
+        time_sge = expand(rules.time_dependence.output.sge,
+                interval = 0.08,
+                variables = "dist_angle",
+                n_states = 15            
+        ),        
+    output:
+        touch(
+            os.path.join(
+                config["working_dir"],
+                "logs/send_plots_to_google_drive/all.done"
+            )
+        )
+    log:
+        os.path.join(
+            config["working_dir"],
+            "logs/send_plots_to_google_drive/all.log"
+        ),
+    params:
+        drive_dir = config["google_drive_dir"]
+    conda:
+        "../envs/rclone.yaml"
+    resources:
+        mem_mb = 1000
+    shell:
+        """
+        rclone copy {input.setup} {params.drive_dir}/ & \
+        rclone copy {input.compare_params} {params.drive_dir}/ & \
+        rclone copy {input.polar} {params.drive_dir}/ & \
+        rclone copy {input.time_dge} {params.drive_dir}/ & \
+        rclone copy {input.time_sge} {params.drive_dir}/
+        """

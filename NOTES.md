@@ -1,5 +1,15 @@
 # Notebook
 
+## 30 May 2022
+
+Candidate video for frame grab for paper:
+
+- open field, 20190613_1054_icab_hdr_R
+
+Error found here due to HNI moving to the right before the labels start. Now corrected, but will need to run entire process again:
+
+- novel_object/20190611_1552_icab_hni_R
+
 ## 23 May 2022
 
 Noticed all the fishes were incorrectly labelled, and corrected.

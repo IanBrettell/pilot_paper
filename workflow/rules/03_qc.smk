@@ -115,6 +115,8 @@ def get_trajectories_file(wildcards):
         return(traj_wo_gaps_file)
     elif os.path.exists(traj_file):
         return(traj_file)
+    else:
+        raise Exception('No trajectories file found.')
 
 # Generate videos with coloured trails superimposed
 #rule coloured_trails:
@@ -207,7 +209,7 @@ rule pull_visual_check_sample:
         ),
     params:
         n_samples = 20,
-        seed_sample = 5,
+        seed = 5,
         seed_assay = 10
     resources:
         mem_mb = 200,
@@ -221,13 +223,10 @@ rule pull_visual_check_sample:
         # Pull out sample names
         VIDEOS = df['sample'].values
         # Get random sample of videos
-        random.seed(params.seed_sample)
-        rand_vids = random.sample(sorted(VIDEOS), params.n_samples)
-        # Get random sample of assays
-        ASSAYS = ["open_field", "novel_object"]
-        random.seed(params.seed_assay)
-        rand_ass = [random.choice(ASSAYS) for i in range(params.n_samples)]
-        # Combine into output DF
-        out = pd.DataFrame({'sample': rand_vids, 'assay': rand_ass})
+        random.seed(params.seed)
+        # NOTE: need to sort VIDEOS because `random` only takes a sequence
+        rand_vids = sorted(random.sample(sorted(VIDEOS), params.n_samples))
+        # Create DF
+        out = pd.DataFrame({'sample': rand_vids})
         # Write to file
         out.to_csv(output[0], index=False)

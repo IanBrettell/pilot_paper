@@ -2,9 +2,14 @@
 # This rule flips those videos back in the process of creating .avi copies of all videos
 rule adjust_orientation:
     input:
-        os.path.join(config["raw_data_dir"], "{sample}.avi"),
+        os.path.join(
+            config["raw_data_dir"],
+            "{sample}.avi"),
     output:
-        os.path.join(config["working_dir"], "flipped/{sample}.avi"),
+        os.path.join(
+            config["working_dir"],
+            "flipped/{sample}.avi"
+        ),
     log:
         os.path.join(config["working_dir"], "logs/adjust_orientation/{sample}.log")
     params:

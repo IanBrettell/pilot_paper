@@ -28,10 +28,10 @@ import os
 # Get variables
 
 ## Debug
-LABELS = "/hps/nobackup/birney/users/ian/pilot/stitched/open_field/20190612_1425_icab_kaga_R.avi"
-PATHS = "/hps/nobackup/birney/users/ian/pilot/path_vids/0.08/dist_angle/15/open_field/20190612_1425_icab_kaga_R.avi"
-HMM_TEST = "/hps/nobackup/birney/users/ian/pilot/hmm_path_vids/0.08/dist_angle/15/open_field/20190612_1425_icab_kaga_R_ref.avi"
-HMM_REF = "/hps/nobackup/birney/users/ian/pilot/hmm_path_vids/0.08/dist_angle/15/open_field/20190612_1425_icab_kaga_R_test.avi"
+LABELS = "/hps/nobackup/birney/users/ian/pilot/stitched/novel_object/20190612_1636_icab_icab_R.avi"
+PATHS = "/hps/nobackup/birney/users/ian/pilot/path_vids/0.08/dist_angle/15/novel_object/20190612_1636_icab_icab_R.avi"
+HMM_TEST = "/hps/nobackup/birney/users/ian/pilot/hmm_path_vids/0.08/dist_angle/15/novel_object/20190612_1636_icab_icab_R_test.avi"
+HMM_REF = "/hps/nobackup/birney/users/ian/pilot/hmm_path_vids/0.08/dist_angle/15/novel_object/20190612_1636_icab_icab_R_ref.avi"
 DIMS = "config/split_video_dims.csv"
 OUT = "/hps/nobackup/birney/users/ian/pilot/tmp_out.avi"
 FPS = 30
