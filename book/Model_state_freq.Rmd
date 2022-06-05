@@ -130,7 +130,8 @@ aov_dge = df_dge %>%
   select(-data) %>% 
   dplyr::mutate(model_tidy = purrr::map(model, broom::tidy)) %>%
   tidyr::unnest(model_tidy) %>% 
-  rstatix::add_significance(p.col = "p.value")
+  rstatix::adjust_pvalue(p.col = "p.value", method = "fdr") %>% 
+  rstatix::add_significance(p.col = "p.value.adj")
 
 DT::datatable(aov_dge %>% 
                 dplyr::select(-model),
@@ -155,7 +156,8 @@ aov_dge %>%
                 Variable = term,
                 Statistic = statistic,
                 `p-value` = p.value,
-                Significance = p.value.signif,
+                `p-value FDR-adj` = p.value.adj,
+                `Significance (p-value FDR-adj)` = p.value.adj.signif,
                 `Variance explained (%)` = var_expl_perc) %>% 
   # show only 2 decimals
   dplyr::mutate(dplyr::across(c("Statistic", 
@@ -179,7 +181,8 @@ aov_dge %>%
                 Variable = term,
                 Statistic = statistic,
                 `p-value` = p.value,
-                Significance = p.value.signif,
+                `p-value FDR-adj` = p.value.adj,
+                `Significance (p-value FDR-adj)` = p.value.adj.signif,
                 `Variance explained (%)` = var_expl_perc) %>% 
   # show only 2 decimals
   dplyr::mutate(dplyr::across(c("Statistic", 
@@ -251,7 +254,8 @@ aov_sge = df_sge %>%
   select(-data) %>% 
   dplyr::mutate(model_tidy = purrr::map(model, broom::tidy)) %>%
   tidyr::unnest(model_tidy) %>% 
-  rstatix::add_significance(p.col = "p.value")
+  rstatix::adjust_pvalue(p.col = "p.value", method = "fdr") %>% 
+  rstatix::add_significance(p.col = "p.value.adj")
 
 DT::datatable(aov_sge %>% 
                 dplyr::select(-model),
@@ -277,7 +281,8 @@ aov_sge %>%
                 Variable = term,
                 Statistic = statistic,
                 `p-value` = p.value,
-                Significance = p.value.signif,
+                `p-value FDR-adj` = p.value.adj,
+                `Significance (p-value FDR-adj)` = p.value.adj.signif,
                 `Variance explained (%)` = var_expl_perc) %>% 
   # show only 2 decimals
   dplyr::mutate(dplyr::across(c("Statistic", 
@@ -302,7 +307,8 @@ aov_sge %>%
                 Variable = term,
                 Statistic = statistic,
                 `p-value` = p.value,
-                Significance = p.value.signif,
+                `p-value FDR-adj` = p.value.adj,
+                `Significance (p-value FDR-adj)` = p.value.adj.signif,
                 `Variance explained (%)` = var_expl_perc) %>% 
   # show only 2 decimals
   dplyr::mutate(dplyr::across(c("Statistic", 

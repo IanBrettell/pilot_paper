@@ -17,6 +17,7 @@ data_store_dir:
 samples_file:
     config/samples.csv
 google_drive_dir:
+    # NOTE: you need to set up this (or some other) drive with `rclone config` first
     EBI_Google_Drive:pilot_paper/figs
 ####################
 # Parameters

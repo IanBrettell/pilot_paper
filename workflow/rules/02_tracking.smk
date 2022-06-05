@@ -61,9 +61,13 @@ rule track_videos:
     input:
         rules.split_videos.output
     output:
-        os.path.join(
+        trajectories = os.path.join(
             config["working_dir"],
             "split/{assay}/session_{sample}_{quadrant}/trajectories/trajectories.npy"
+        ),
+        video_obj = os.path.join(
+            config["working_dir"],
+            "split/{assay}/session_{sample}_{quadrant}/video_object.npy"
         ),
     log:
         os.path.join(

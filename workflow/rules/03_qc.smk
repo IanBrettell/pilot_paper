@@ -145,10 +145,7 @@ def get_trajectories_file(wildcards):
     
 rule coloured_trails_labels:
     input:
-        video_object=os.path.join(
-            config["working_dir"],
-            "split/{assay}/session_{sample}_{quadrant}/video_object.npy",
-        ),
+        video_object=rules.track_videos.output.video_obj,
         trajectories=get_trajectories_file,
     output:
         os.path.join(

@@ -44,7 +44,7 @@ OUT = snakemake.output[0]
 ASSAY = snakemake.params.assay
 SAMPLE = snakemake.params.sample
 FPS = int(snakemake.params.fps)
-TMP = snakemake.resources.tmpdir
+TMP = snakemake.params.tmpdir
 
 #######################
 # Set plotting parameters

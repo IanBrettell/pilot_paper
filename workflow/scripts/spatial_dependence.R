@@ -14,6 +14,7 @@ library(cowplot)
 ## Debug
 IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/15.csv"
 N_STATES = 15
+AOV_SHEET = "https://docs.google.com/spreadsheets/d/1_l72BZkmWyNAOfCUI8WGP4UfQuIPQtPZZmlRjQffvEs"
 
 ## True
 IN = snakemake@input[[1]]
@@ -86,73 +87,83 @@ df = df %>%
                 test_fish = factor(test_fish, levels = line_vec))
 
 ############################
-# Plot polar
+# Read in google sheets to get significant states
 ############################
 
-FONT_SIZE = 10
+# DGE OF
 
-polar_plot = df %>% 
-  # select random sample of 1e5 rows
-  dplyr::slice_sample(n = 1e5) %>% 
-  ggplot() +
-  geom_point(aes(angle_recode, log10(distance), colour = state_recode),
-             alpha = 0.3, size = 0.2) +
-  coord_polar() +
-  facet_wrap(~state_recode, nrow = N_ROWS) +
-  scale_x_continuous(labels = c(0, 90, 180, 270),
-                     breaks = c(0, 90, 180, 270)) +
-  scale_color_viridis_c() +
-  guides(colour = "none") +
-  xlab("angle of travel") +
-  ylab(expression(log[10]("distance travelled in pixels"))) +
-  ggtitle("distance and angle") +
-  cowplot::theme_cowplot(font_size = FONT_SIZE) +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  facet_wrap(~state_recode, nrow = N_ROWS)
+aov_dge_of = googlesheets4::read_sheet(AOV_SHEET, sheet = "DGE_OF")
 
-############################
-# Plot OF
-############################
+# DGE NO
 
-ASSAY = "open field"
-spatial_of = df %>% 
-  dplyr::filter(assay == ASSAY) %>% 
-  dplyr::slice_sample(n = 1e5) %>% 
-  ggplot() +
-  geom_point(aes(x, y, colour = state_recode),
-             alpha = 0.2, size = 0.2) +
-  facet_wrap(facets = vars(state_recode),
-             nrow = N_ROWS) +
-  scale_colour_viridis_c() +
-  cowplot::theme_cowplot(font_size = FONT_SIZE) +
-  theme(aspect.ratio = 1) +
-  ggtitle(ASSAY) +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  guides(colour = "none") +
-  xlab("x coordinate") +
-  ylab("y coordinate")
-
-############################
-# Plot NO
-############################
-
-ASSAY = "novel object"
-spatial_no = df %>% 
-  dplyr::filter(assay == ASSAY) %>% 
-  dplyr::slice_sample(n = 1e5) %>% 
-  ggplot() +
-  geom_point(aes(x, y, colour = state_recode),
-             alpha = 0.2, size = 0.2) +
-  facet_wrap(facets = vars(state_recode),
-             nrow = N_ROWS) +
-  scale_colour_viridis_c() +
-  cowplot::theme_cowplot(font_size = FONT_SIZE) +
-  theme(aspect.ratio = 1) +
-  ggtitle(ASSAY) +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  guides(colour = "none") +
-  xlab("x coordinate") +
-  ylab("y coordinate")
+#############################
+## Plot polar
+#############################
+#
+#FONT_SIZE = 10
+#
+#polar_plot = df %>% 
+#  # select random sample of 1e5 rows
+#  dplyr::slice_sample(n = 1e5) %>% 
+#  ggplot() +
+#  geom_point(aes(angle_recode, log10(distance), colour = state_recode),
+#             alpha = 0.3, size = 0.2) +
+#  coord_polar() +
+#  facet_wrap(~state_recode, nrow = N_ROWS) +
+#  scale_x_continuous(labels = c(0, 90, 180, 270),
+#                     breaks = c(0, 90, 180, 270)) +
+#  scale_color_viridis_c() +
+#  guides(colour = "none") +
+#  xlab("angle of travel") +
+#  ylab(expression(log[10]("distance travelled in pixels"))) +
+#  ggtitle("distance and angle") +
+#  cowplot::theme_cowplot(font_size = FONT_SIZE) +
+#  theme(plot.title = element_text(hjust = 0.5)) +
+#  facet_wrap(~state_recode, nrow = N_ROWS)
+#
+#############################
+## Plot OF
+#############################
+#
+#ASSAY = "open field"
+#spatial_of = df %>% 
+#  dplyr::filter(assay == ASSAY) %>% 
+#  dplyr::slice_sample(n = 1e5) %>% 
+#  ggplot() +
+#  geom_point(aes(x, y, colour = state_recode),
+#             alpha = 0.2, size = 0.2) +
+#  facet_wrap(facets = vars(state_recode),
+#             nrow = N_ROWS) +
+#  scale_colour_viridis_c() +
+#  cowplot::theme_cowplot(font_size = FONT_SIZE) +
+#  theme(aspect.ratio = 1) +
+#  ggtitle(ASSAY) +
+#  theme(plot.title = element_text(hjust = 0.5)) +
+#  guides(colour = "none") +
+#  xlab("x coordinate") +
+#  ylab("y coordinate")
+#
+#############################
+## Plot NO
+#############################
+#
+#ASSAY = "novel object"
+#spatial_no = df %>% 
+#  dplyr::filter(assay == ASSAY) %>% 
+#  dplyr::slice_sample(n = 1e5) %>% 
+#  ggplot() +
+#  geom_point(aes(x, y, colour = state_recode),
+#             alpha = 0.2, size = 0.2) +
+#  facet_wrap(facets = vars(state_recode),
+#             nrow = N_ROWS) +
+#  scale_colour_viridis_c() +
+#  cowplot::theme_cowplot(font_size = FONT_SIZE) +
+#  theme(aspect.ratio = 1) +
+#  ggtitle(ASSAY) +
+#  theme(plot.title = element_text(hjust = 0.5)) +
+#  guides(colour = "none") +
+#  xlab("x coordinate") +
+#  ylab("y coordinate")
 
 
 ############################
@@ -178,9 +189,7 @@ dens_dge_df = df %>%
   # get densities
   dplyr::mutate(density = get_density(x, y, n = 30))
 
-# Run Kruskal-Wallis test
-
-kruskal.test(dens_dge_df$density, dens_dge_df$line)
+# Plot
 
 dens_dge = dens_dge_df %>% 
   # take only states 1:4

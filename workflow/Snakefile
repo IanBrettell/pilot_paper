@@ -28,26 +28,26 @@ rule all:
 #                assay = ASSAYS,
 #                sample = SAMPLES
 #        ),
-## split_videos
-#        expand(os.path.join(config["working_dir"], "split/{assay}/{sample}_{quadrant}.avi"),
-#                 zip,
-#                assay = ASSAYS,
-#                sample = SAMPLES,
-#                quadrant = QUADRANTS
-#        ),
-#        rules.get_split_video_dims.output,
+# split_videos
+        expand(os.path.join(config["working_dir"], "split/{assay}/{sample}_{quadrant}.avi"),
+                 zip,
+                assay = ASSAYS,
+                sample = SAMPLES,
+                quadrant = QUADRANTS
+        ),
+        rules.get_split_video_dims.output,
 #####################
 # 02_tracking.smk
 #####################
-## track_videos
-#        expand(os.path.join(
-#                config["working_dir"],
-#                "split/{assay}/session_{sample}_{quadrant}/trajectories/trajectories.npy"),
-#                        zip,
-#                        assay = ASSAYS,
-#                        sample = SAMPLES,
-#                        quadrant = QUADRANTS        
-#        ),
+# track_videos
+        expand(os.path.join(
+                config["working_dir"],
+                "split/{assay}/session_{sample}_{quadrant}/trajectories/trajectories.npy"),
+                        zip,
+                        assay = ASSAYS,
+                        sample = SAMPLES,
+                        quadrant = QUADRANTS        
+        ),
 ## coloured_trails
 #        expand(os.path.join(config["working_dir"], "split/{assay}/{sample}_{quadrant}_tracked.avi"),
 #                zip,
@@ -55,8 +55,8 @@ rule all:
 #                sample = SAMPLES,
 #                quadrant = QUADRANTS    
 #        ),
-## trajectories_to_csv
-#        expand(os.path.join(config["data_store_dir"], "split/{assay}/session_{sample}_{quadrant}/trajectories/trajectories.trajectories.csv"),
+# trajectories_to_csv
+#        expand(rules.trajectories_to_csv.output,
 #                zip,
 #                assay = ASSAYS,
 #                sample = SAMPLES,
@@ -65,21 +65,21 @@ rule all:
 #####################
 # 03_qc.smk
 #####################
-## assign_ref_test
-#        expand(rules.assign_ref_test.output,
-#                zip,
-#                assay = ASSAYS,
-#                sample = SAMPLES,
-#                quadrant = QUADRANTS              
-#        ),
-## tracking_success
-#        rules.tracking_success.output,
-#        expand(rules.coloured_trails_labels.output,
-#                zip,
-#                assay = ASSAYS,
-#                sample = SAMPLES,
-#                quadrant = QUADRANTS
-#        ),
+# assign_ref_test
+        expand(rules.assign_ref_test.output,
+                zip,
+                assay = ASSAYS,
+                sample = SAMPLES,
+                quadrant = QUADRANTS              
+        ),
+# tracking_success
+        rules.tracking_success.output,
+        expand(rules.coloured_trails_labels.output,
+                zip,
+                assay = ASSAYS,
+                sample = SAMPLES,
+                quadrant = QUADRANTS
+        ),
         expand(rules.stitch_tracked_vids.output,
                 zip,
                 assay = AS_ASSAYS,
@@ -89,36 +89,36 @@ rule all:
 #####################
 # 04_hmm.smk
 #####################
-#        expand(rules.movement_metrics.output,
-#                zip,
-#                assay = ASSAYS_INT,
-#                sample = SAMPLES_INT,
-#                quadrant = QUADRANTS_INT,
-#                interval = INTERVALS_INT   
-#        ),
-#        expand(rules.merge_csvs.output,
-#                interval = config["seconds_interval"]
-#        ),
-#        expand(rules.run_hmm.output,
-#                interval = config["seconds_interval"],
-#                variables = config["hmm_variables"],
-#                n_states = config["n_states"]
-#        ),
-#        expand(rules.hmm_concordance_out.output,
-#                interval = config["seconds_interval"],
-#                variables = config["hmm_variables"],
-#                n_states = config["n_states"]               
-#        ),  
+        expand(rules.movement_metrics.output,
+                zip,
+                assay = ASSAYS_INT,
+                sample = SAMPLES_INT,
+                quadrant = QUADRANTS_INT,
+                interval = INTERVALS_INT   
+        ),
+        expand(rules.merge_csvs.output,
+                interval = config["seconds_interval"]
+        ),
+        expand(rules.run_hmm.output,
+                interval = config["seconds_interval"],
+                variables = config["hmm_variables"],
+                n_states = config["n_states"]
+        ),
+        expand(rules.hmm_concordance_out.output,
+                interval = config["seconds_interval"],
+                variables = config["hmm_variables"],
+                n_states = config["n_states"]               
+        ),  
 ######################
 ## 05_param_optim.smk
 ######################
-#        expand(rules.recode_concordance.output,
-#                interval = config["seconds_interval"],
-#                variables = config["hmm_variables"],
-#                n_states = config["n_states"]
-#        ),
-#        rules.run_kruskal_wallis.output,
-#        rules.compare_params.output,
+        expand(rules.recode_concordance.output,
+                interval = config["seconds_interval"],
+                variables = config["hmm_variables"],
+                n_states = config["n_states"]
+        ),
+        rules.run_kruskal_wallis.output,
+        rules.compare_params.output,
 #####################
 # 06_final_plots_and_vids.smk
 #####################
@@ -144,63 +144,28 @@ rule all:
                 variables = "dist_angle",
                 n_states = 15
         ),
-#        expand(rules.path_plots.output,
-#                interval = 0.08,
-#                variables = "dist_angle",
-#                n_states = 15,
-#                sample = list(set(SAMPLES))
-#        ),
-#        expand(rules.path_frames.output,
-#                interval = 0.08,
-#                variables = "dist_angle",
-#                n_states = 15,
-#                assay = ASSAYS_ALL,
-#                sample = list(set(AS_SAMPLES)),
-#        ),
-#        expand(rules.hmm_path_frames.output,
-#                interval = 0.08,
-#                variables = "dist_angle",
-#                n_states = 15,
-#                assay = ASSAYS_ALL,
-#                sample = list(set(AS_SAMPLES)),
-#                ref_test = REF_TEST
-#        ),
-#        expand(rules.path_frames_to_vid.output,
-#                interval = 0.08,
-#                variables = "dist_angle",
-#                n_states = 15,
-#                assay = ASSAYS_ALL[0],
-#                sample = list(set(AS_SAMPLES))[0],
-#        ),
-#        expand(rules.path_videos.output,
-#                interval = 0.08,
-#                variables = "dist_angle",
-#                n_states = 15,
-#                assay = ASSAYS_ALL,
-#                sample = list(set(AS_SAMPLES)),
-#        ),
-#        expand(rules.path_frames_to_vid.output,
-#                interval = 0.08,
-#                variables = "dist_angle",
-#                n_states = 15,
-#                assay = ASSAYS_ALL,
-#                sample = list(set(AS_SAMPLES))
-#        ),
-#        expand(rules.hmm_path_frames_to_vid.output,
-#                interval = 0.08,
-#                variables = "dist_angle",
-#                n_states = 15,
-#                assay = ASSAYS_ALL,
-#                sample = list(set(AS_SAMPLES)),
-#                ref_test = REF_TEST
-#        ),
-#        expand(rules.compile_four_panel_vid.output,
-#                interval = 0.08,
-#                variables = "dist_angle",
-#                n_states = 15,
-#                assay = ASSAYS_ALL,
-#                sample = list(set(AS_SAMPLES))
-#        ),
+        expand(rules.path_frames_to_vid.output,
+                interval = 0.08,
+                variables = "dist_angle",
+                n_states = 15,
+                assay = ASSAYS_ALL,
+                sample = list(set(AS_SAMPLES)),
+        ),
+        expand(rules.hmm_path_frames_to_vid.output,
+                interval = 0.08,
+                variables = "dist_angle",
+                n_states = 15,
+                assay = ASSAYS_ALL,
+                sample = list(set(AS_SAMPLES)),
+                ref_test = REF_TEST
+        ),
+        expand(rules.compile_four_panel_vid.output,
+                interval = 0.08,
+                variables = "dist_angle",
+                n_states = 15,
+                assay = ASSAYS_ALL,
+                sample = list(set(AS_SAMPLES))
+        ),
         expand(rules.four_panel_short.output,
                 interval = 0.08,
                 variables = "dist_angle",

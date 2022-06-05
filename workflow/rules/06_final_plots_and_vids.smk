@@ -1,3 +1,4 @@
+# Create plots for covariate effects with p-values
 rule covariate_effects:
     input:
         rules.merge_csvs.output,
@@ -16,6 +17,7 @@ rule covariate_effects:
     script:
         "../scripts/covariate_effects.R"
 
+# Create polar plots
 rule hmm_final:
     input:
         rules.run_hmm.output
@@ -102,73 +104,7 @@ rule tracking_success_plot:
     script:
         "../scripts/tracking_success_plot.R"
 
-rule path_frames:
-    input:
-        hmm = rules.run_hmm.output,
-        dims = rules.get_split_video_dims.output,
-    output:
-        os.path.join(
-            config["working_dir"],
-            "path_frames/{interval}/{variables}/{n_states}/{assay}/{sample}/1.png"
-        ),
-    log:
-        os.path.join(
-            config["working_dir"],
-            "logs/path_frames/{interval}/{variables}/{n_states}/{assay}/{sample}.log"
-        ),
-    params:
-        assay = "{assay}",
-        sample = "{sample}"
-    resources:
-        mem_mb = 5000,
-        tmpdir = config["tmpdir"]
-    container:
-        config["R_4.2.0"]
-    script:
-        "../scripts/path_frames.R"
-
-rule hmm_path_frames:
-    input:
-        hmm = rules.run_hmm.output,
-        dims = rules.get_split_video_dims.output,
-    output:
-        os.path.join(
-            config["working_dir"],
-            "hmm_path_frames/{interval}/{variables}/{n_states}/{assay}/{sample}_{ref_test}/1.png"
-        ),
-    log:
-        os.path.join(
-            config["working_dir"],
-            "logs/hmm_path_frames/{interval}/{variables}/{n_states}/{assay}/{sample}_{ref_test}.log"
-        ),
-    params:
-        assay = "{assay}",
-        sample = "{sample}",
-        ref_test = "{ref_test}"
-    resources:
-        mem_mb = 5000,
-        tmpdir = config["tmpdir"]
-    container:
-        config["R_4.2.0"]
-    script:
-        "../scripts/hmm_path_frames.R"
-
-# Get final frame to use as outputs/inputs
-def get_final_frame_for_path(wildcards):
-    fps = int(samples_df.loc[samples_df["sample"] == wildcards.sample, "fps"])
-    final_frame = str(fps*600)
-    final_frame_path = os.path.join(
-        config["working_dir"],
-        "path_frames",
-        wildcards.interval,
-        wildcards.variables,
-        wildcards.n_states,
-        wildcards.assay,
-        wildcards.sample,
-        final_frame + ".png"
-    )
-    return(final_frame_path)
-
+# Create path videos for both fishes
 rule path_frames_to_vid:
     input:
         hmm = rules.run_hmm.output,
@@ -187,29 +123,13 @@ rule path_frames_to_vid:
         assay = "{assay}",
         sample = "{sample}",
         fps = get_fps,
+        tmpdir = config["tmpdir"]
     resources:
         mem_mb = 5000,
-        tmpdir = config["tmpdir"]
     container:
         config["opencv"]
     script:
         "../scripts/path_frames_to_vid.py"
-
-## Get final frame to use as outputs/inputs
-#def get_final_frame_for_hmm_path(wildcards):
-#    fps = int(samples_df.loc[samples_df["sample"] == wildcards.sample, "fps"])
-#    final_frame = str(fps*600)
-#    final_frame_path = os.path.join(
-#        config["working_dir"],
-#        "path_frames",
-#        wildcards.interval,
-#        wildcards.variables,
-#        wildcards.n_states,
-#        wildcards.assay,
-#        wildcards.sample + "_" + wildcards.ref_test,
-#        final_frame + ".png"
-#    )
-#    return(final_frame_path)
 
 # Creates point/path plots for each ref/test fish
 # With each point coloured by HMM state
@@ -243,6 +163,8 @@ rule hmm_path_frames_to_vid:
     script:
         "../scripts/hmm_path_frames_to_vid.py"
 
+# Create four-panel videos with labelled videos (TL), path videos (TR),
+# and HMM path videos for test (BL) and ref (BR) fishes.
 rule compile_four_panel_vid:
     input:
         labels = rules.stitch_tracked_vids.output[0],
@@ -334,86 +256,8 @@ rule compose_setup_figure:
         config["R_4.2.0"]
     script:
         "../scripts/compose_setup_figure.R"
-#rule path_videos:
-#    input:
-#        hmm = rules.run_hmm.output,
-#        dims = rules.get_split_video_dims.output,
-#    output:
-#        os.path.join(
-#            config["working_dir"],
-#            "path_videos/{interval}/{variables}/{n_states}/{assay}/{sample}.avi"
-#        ),
-#    log:
-#        os.path.join(
-#            config["working_dir"],
-#            "logs/path_videos/{interval}/{variables}/{n_states}/{assay}/{sample}.log"
-#        ),
-#    params:
-#        assay = "{assay}",
-#        sample = "{sample}",
-#        interval = "{interval}"
-#    resources:
-#        mem_mb = 200000,
-#        tmpdir = config["tmpdir"]
-#    container:
-#        config["R_4.2.0"]
-#    script:
-#        "../scripts/path_videos.R"
-#
-#rule hmm_path_videos:
-#    input:
-#        hmm = rules.run_hmm.output,
-#        dims = rules.get_split_video_dims.output,
-#    output:
-#        os.path.join(
-#            config["working_dir"],
-#            "hmm_path_videos/{interval}/{variables}/{n_states}/{assay}/{sample}_{ref_test}.avi"
-#        ),
-#    log:
-#        os.path.join(
-#            config["working_dir"],
-#            "logs/hmm_path_videos/{interval}/{variables}/{n_states}/{assay}/{sample}_{ref_test}.log"
-#        ),
-#    params:
-#        assay = "{assay}",
-#        sample = "{sample}",
-#        ref_test = "{ref_test}",
-#        interval = "{interval}"
-#    resources:
-#        mem_mb = 80000,
-#        tmpdir = config["tmpdir"]
-#    container:
-#        config["R_4.2.0"]
-#    script:
-#        "../scripts/hmm_path_videos.R"
-#
-#rule combine_tracked_and_path_vids:
-#    input:
-#        vid = rules.stitch_tracked_vids.output,
-#        path = rules.path_videos.output,
-#        hmm = expand(os.path.join(
-#            config["working_dir"],
-#            "hmm_path_videos/{interval}/{variables}/{n_states}/{assay}/{sample}_{ref_test}.avi"
-#            ),
-#                ref_test = REF_TEST
-#        ),
-#    output:
-#        os.path.join(
-#            config["working_dir"],
-#            "combined_videos/{interval}/{variables}/{n_states}/{assay}/{sample}.avi"
-#        ),        
-#    log:
-#        os.path.join(
-#            config["working_dir"],
-#            "logs/combine_tracked_and_path_vids/{interval}/{variables}/{n_states}/{assay}/{sample}.log"
-#        ),
-#    resources:
-#        mem_mb = 20000
-#    container:
-#        config["opencv"]
-#    script:
-#        "../scripts/combine_tracked_and_path_vids.py"    
 
+# Send plots to be used for the paper to the Google Drive
 rule send_plots_to_google_drive:
     input:
         setup = expand(rules.compose_setup_figure.output.fig,
@@ -460,9 +304,7 @@ rule send_plots_to_google_drive:
         mem_mb = 1000
     shell:
         """
-        rclone copy {input.setup} {params.drive_dir}/ & \
-        rclone copy {input.compare_params} {params.drive_dir}/ & \
-        rclone copy {input.polar} {params.drive_dir}/ & \
-        rclone copy {input.time_dge} {params.drive_dir}/ & \
-        rclone copy {input.time_sge} {params.drive_dir}/
+        for i in $(echo {input}); do \
+            rclone copy $i {params.drive_dir}/ ; \
+        done
         """

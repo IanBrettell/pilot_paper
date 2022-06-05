@@ -119,3 +119,19 @@ ssh -L 8787:hl-codon-37-04:8787 proxy-codon
 
 # To set tracking parameters
 rsync -aP brettell@codon:/nfs/research/birney/users/ian/pilot/split ~/Desktop/pilot_videos
+
+####################
+# Convert to .mp4 to include in presentations
+####################
+
+# Convert entire video 
+
+ffmpeg -i $in_vid.avi -vcodec libx264 $out_vid.mp4
+
+# Copy segment and speed up video 
+
+ffmpeg -i $in_vid.avi -ss 00:00:05 -t 00:01:00 -vcodec libx264 $out_vid.mp4
+
+# NOTE: 
+# -ss is start time (in sped-up time)
+# -t is total vid length (in sped-up time)

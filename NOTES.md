@@ -10,6 +10,12 @@ Error found here due to HNI moving to the right before the labels start. Now cor
 
 - novel_object/20190611_1552_icab_hni_R
 
+Also noticed this video is too short.
+
+- open_field/20190612_1236_icab_kaga_R_of
+
+Removed all split videos and need to re-run.
+
 ## 23 May 2022
 
 Noticed all the fishes were incorrectly labelled, and corrected.

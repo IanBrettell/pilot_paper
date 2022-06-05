@@ -10,12 +10,16 @@ library(tidyverse)
 library(cowplot)
 library(ggridges)
 library(viridisLite)
+library(googlesheets4)
 
 # Get variables
 
 ## Debug
 IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/15.csv"
+AOV_SHEET = "https://docs.google.com/spreadsheets/d/1_l72BZkmWyNAOfCUI8WGP4UfQuIPQtPZZmlRjQffvEs"
 N_STATES = 15
+
+gs4_deauth()
 
 ## True
 IN = snakemake@input[[1]]
@@ -93,6 +97,30 @@ df = df %>%
   dplyr::mutate(test_fish = dplyr::recode(test_fish, !!!line_vec),
                 test_fish = factor(test_fish, levels = line_vec))
 
+
+############################
+# Get significant states
+############################
+
+SIGS_DGE_OF = googlesheets4::read_sheet(AOV_SHEET, sheet = "DGE_OF") %>% 
+  dplyr::filter(`p-value FDR-adj` < 0.05 & `Variable` == "line") %>% 
+  dplyr::pull(State) %>% 
+  as.integer()
+
+SIGS_DGE_NO = googlesheets4::read_sheet(AOV_SHEET, sheet = "DGE_NO") %>% 
+  dplyr::filter(`p-value FDR-adj` < 0.05 & `Variable` == "line") %>% 
+  dplyr::pull(State)%>% 
+  as.integer()
+
+SIGS_SGE_OF = googlesheets4::read_sheet(AOV_SHEET, sheet = "SGE_OF") %>% 
+  dplyr::filter(`p-value FDR-adj` < 0.05 & `Variable` == "test_fish") %>% 
+  dplyr::pull(State)%>% 
+  as.integer()
+
+SIGS_SGE_NO = googlesheets4::read_sheet(AOV_SHEET, sheet = "SGE_NO") %>% 
+  dplyr::filter(`p-value FDR-adj` < 0.05 & `Variable` == "test_fish") %>% 
+  dplyr::pull(State)%>% 
+  as.integer()
 
 ############################
 # Plot polar
@@ -292,9 +320,6 @@ sge_tile_no = sge_tile_df %>%
 # Time density - DGE
 ##########################
 
-SIGS_DGE_OF = c(1,2,3,5)
-SIGS_DGE_NO = c(1,2,3)
-
 # Take viridis colours for significant states and add grey
 pal_dge_of = viridisLite::viridis(n = N_STATES)
 pal_dge_of = c(pal_dge_of[SIGS_DGE_OF], "#9da2ab")
@@ -357,8 +382,6 @@ time_dens_dge_no = df %>%
 # Time density: SGE
 ##########################
 
-SIGS_SGE_OF = 1:3
-SIGS_SGE_NO = 1:3
 
 # Take viridis colours for significant states and add grey
 pal_sge_of = viridisLite::viridis(n = N_STATES, option = "inferno")
@@ -446,8 +469,8 @@ sdens_dge_df = df %>%
 
   # Plot
 sdens_dge_of = sdens_dge_df %>% 
-  # take only states 1:4
-  dplyr::filter(state_recode %in% SIGS_DGE_OF & assay == "open field") %>% 
+  ## take only states 1:4
+  dplyr::filter(assay == "open field") %>% 
   ggplot() +
   geom_point(aes(x, y, colour = density),
              alpha = 0.1, size = 0.2) +
@@ -466,7 +489,7 @@ sdens_dge_of = sdens_dge_df %>%
 # NO
 
 sdens_dge_no = sdens_dge_df %>% 
-  dplyr::filter(state_recode %in% SIGS_DGE_NO & assay == "novel object") %>% 
+  dplyr::filter(assay == "novel object") %>% 
   # Plot
   ggplot() +
   geom_point(aes(x, y, colour = density),
@@ -503,7 +526,7 @@ sdens_sge_df = df %>%
 # Plot
 sdens_sge_of = sdens_sge_df %>% 
   # take only states 1:4
-  dplyr::filter(state_recode %in% SIGS_SGE_OF & assay == "open field") %>% 
+  dplyr::filter(assay == "open field") %>% 
   ggplot() +
   geom_point(aes(x, y, colour = density),
              alpha = 0.1, size = 0.2) +
@@ -522,7 +545,7 @@ sdens_sge_of = sdens_sge_df %>%
 # NO
 
 sdens_sge_no = sdens_sge_df %>% 
-  dplyr::filter(state_recode %in% SIGS_SGE_NO & assay == "novel object") %>% 
+  dplyr::filter(assay == "novel object") %>% 
   # Plot
   ggplot() +
   geom_point(aes(x, y, colour = density),
