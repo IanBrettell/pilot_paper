@@ -16,10 +16,10 @@ library(cowplot)
 # Get variables
 
 ## Debug
-#IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/15.csv"
-#N_STATES = 15
-#VARIABLES = "distance and angle of travel"
-#INTERVAL = 0.08
+IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/15.csv"
+N_STATES = 15
+VARIABLES = "distance and angle of travel"
+INTERVAL = 0.08
 
 ## True
 IN = snakemake@input[[1]]
@@ -199,7 +199,7 @@ polar = df %>%
   facet_wrap(~state_recode, nrow = N_ROWS) +
   scale_x_continuous(labels = c(0, 90, 180, 270),
                      breaks = c(0, 90, 180, 270)) +
-  scale_color_viridis_c(option = "magma") +
+  scale_color_viridis_c(option = "inferno") +
   guides(colour = "none") +
   xlab("angle of travel") +
   ylab(expression(log[10]("distance travelled in pixels"))) +
@@ -217,7 +217,7 @@ box_per_state_of = cooc_per_state %>%
   facet_wrap(vars(ref), nrow = N_ROWS) +
   geom_text(data = kw_per_state %>% 
               dplyr::filter(assay == ASSAY),
-            aes(x = "iCab", y = 0.3, label = p_final),
+            aes(x = "HdrR", y = 0.2, label = p_final),
             size = 3) +
   cowplot::theme_cowplot(font_size = FONT_SIZE) +
   scale_colour_manual(values = pal) +
@@ -237,7 +237,7 @@ box_per_state_no = cooc_per_state %>%
   facet_wrap(vars(ref), nrow = N_ROWS) +
   geom_text(data = kw_per_state %>% 
               dplyr::filter(assay == ASSAY),
-            aes(x = "iCab", y = 0.3, label = p_final),
+            aes(x = "iCab", y = 0.2, label = p_final),
             size = 3) +
   cowplot::theme_cowplot(font_size = FONT_SIZE) +
   scale_colour_manual(values = pal) +

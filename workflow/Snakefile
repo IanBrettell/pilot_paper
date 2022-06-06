@@ -5,7 +5,6 @@ include: "rules/03_qc.smk"
 include: "rules/04_hmm.smk"
 include: "rules/05_param_optim.smk"
 include: "rules/06_final_plots_and_vids.smk"
-include: "rules/07_sge_analysis.smk"
 
 ##### Target rules #####
 
@@ -122,12 +121,12 @@ rule all:
 #####################
 # 06_final_plots_and_vids.smk
 #####################
-#        expand(rules.covariate_effects.output,
-#                zip,
-#                interval = [0.08, 0.05, 0.05],
-#                variables = ["dist_angle", "dist_angle", "dist_angle"],
-#                n_states = [15, 16, 18]
-#        ),
+        expand(rules.covariate_effects.output,
+                zip,
+                interval = 0.08,
+                variables = "dist_angle",
+                n_states = 15
+        ),
         expand(rules.hmm_final.output,
                 zip,
                 interval = [0.08, 0.05, 0.05],
@@ -139,55 +138,53 @@ rule all:
 #                variables = "dist_angle",
 #                n_states = 15
 #        ),
-        expand(rules.time_dependence.output,
-                interval = 0.08,
-                variables = "dist_angle",
-                n_states = 15
-        ),
-        expand(rules.path_frames_to_vid.output,
-                interval = 0.08,
-                variables = "dist_angle",
-                n_states = 15,
-                assay = ASSAYS_ALL,
-                sample = list(set(AS_SAMPLES)),
-        ),
-        expand(rules.hmm_path_frames_to_vid.output,
-                interval = 0.08,
-                variables = "dist_angle",
-                n_states = 15,
-                assay = ASSAYS_ALL,
-                sample = list(set(AS_SAMPLES)),
-                ref_test = REF_TEST
-        ),
-        expand(rules.compile_four_panel_vid.output,
-                interval = 0.08,
-                variables = "dist_angle",
-                n_states = 15,
-                assay = ASSAYS_ALL,
-                sample = list(set(AS_SAMPLES))
-        ),
-        expand(rules.four_panel_short.output,
-                interval = 0.08,
-                variables = "dist_angle",
-                n_states = 15,
-                assay = ASSAYS_ALL,
-                sample = list(set(AS_SAMPLES)),
-        ),
-        expand(rules.get_labels_and_paths_frame_grab.output,
-                interval = 0.08,
-                variables = "dist_angle",
-                n_states = 15,
-                assay = "open_field",
-                sample = "20190613_1054_icab_hdr_R",
-                second = 110 
-        ),
-        rules.send_plots_to_google_drive.output,
-######################
-## 07_sge_analysis.smk
-######################
+#        expand(rules.time_dependence.output,
+#                interval = 0.08,
+#                variables = "dist_angle",
+#                n_states = 15
+#        ),
 #        expand(rules.sge_co_occupancy.output,
 #                interval = 0.08,
 #                variables = "dist_angle",
 #                n_states = 15
 #        ),
+#        expand(rules.path_frames_to_vid.output,
+#                interval = 0.08,
+#                variables = "dist_angle",
+#                n_states = 15,
+#                assay = ASSAYS_ALL,
+#                sample = list(set(AS_SAMPLES)),
+#        ),
+#        expand(rules.hmm_path_frames_to_vid.output,
+#                interval = 0.08,
+#                variables = "dist_angle",
+#                n_states = 15,
+#                assay = ASSAYS_ALL,
+#                sample = list(set(AS_SAMPLES)),
+#                ref_test = REF_TEST
+#        ),
+#        expand(rules.compile_four_panel_vid.output,
+#                interval = 0.08,
+#                variables = "dist_angle",
+#                n_states = 15,
+#                assay = ASSAYS_ALL,
+#                sample = list(set(AS_SAMPLES))
+#        ),
+#        expand(rules.four_panel_short.output,
+#                interval = 0.08,
+#                variables = "dist_angle",
+#                n_states = 15,
+#                assay = ASSAYS_ALL,
+#                sample = list(set(AS_SAMPLES)),
+#        ),
+#        expand(rules.get_labels_and_paths_frame_grab.output,
+#                interval = 0.08,
+#                variables = "dist_angle",
+#                n_states = 15,
+#                assay = "open_field",
+#                sample = "20190613_1054_icab_hdr_R",
+#                second = 110 
+#        ),
+        rules.send_plots_to_google_drive.output,
+
 

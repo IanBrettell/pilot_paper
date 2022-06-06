@@ -5,6 +5,7 @@ rule covariate_effects:
     output:
         of = "book/figs/covariate_effects/{interval}/{variables}/{n_states}/covariate_effects_of.png",
         no = "book/figs/covariate_effects/{interval}/{variables}/{n_states}/covariate_effects_no.png",
+        no_split_by_assay = "book/figs/covariate_effects/{interval}/{variables}/{n_states}/covariate_effects_no-split-by-assay.png",
     log:
         os.path.join(
             config["working_dir"],
@@ -103,6 +104,26 @@ rule tracking_success_plot:
         config["R_4.2.0"]
     script:
         "../scripts/tracking_success_plot.R"
+
+rule sge_co_occupancy:
+    input:
+        rules.run_hmm.output,
+    output:
+        boxplot_all = "book/figs/sge/co-occupancy/{variables}/{interval}_{n_states}_cooc_box_all.png",
+        box_and_heat_per_state = "book/figs/sge/co-occupancy/{variables}/{interval}_{n_states}_cooc_box_heat_per-state.png",
+    log:
+        os.path.join(
+            config["working_dir"],
+            "logs/sge_co_occupancy/{interval}/{variables}/{n_states}.log"
+        ),
+    params:
+        n_states = "{n_states}",
+    resources:
+        mem_mb = 3000
+    container:
+        config["R_4.2.0"]
+    script:
+        "../scripts/sge_co_occupancy.R"
 
 # Create path videos for both fishes
 rule path_frames_to_vid:
@@ -249,7 +270,9 @@ rule compose_setup_figure:
         os.path.join(
             config["working_dir"],
             "logs/get_labels_and_paths_frame_grab/{interval}/{variables}/{n_states}/{assay}/{sample}_{second}.log"
-        ),    
+        ),
+    params:
+        setup_png = "book/figs/misc/setup_picture.png",
     resources:
         mem_mb = 5000,
     container:
@@ -267,6 +290,11 @@ rule send_plots_to_google_drive:
                 assay = "open_field",
                 sample = "20190613_1054_icab_hdr_R",
                 second = 110         
+        ),
+        covariates = expand(rules.covariate_effects.output.no_split_by_assay,
+                interval = 0.08,
+                variables = "dist_angle",
+                n_states = 15,            
         ),
         compare_params = rules.compare_params.output.png,
         polar = expand(rules.hmm_final.output.polar_all_dge,
