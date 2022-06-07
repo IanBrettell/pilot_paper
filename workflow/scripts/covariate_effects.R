@@ -24,9 +24,7 @@ OUT_OF = snakemake@output[["of"]]
 OUT_NO = snakemake@output[["no"]]
 OUT_NOASSAY = snakemake@output[["no_split_by_assay"]]
 
-# Get lighter/darker functions
 
-devtools::source_gist("c5015ee666cdf8d9f7e25fa3c8063c99")
 
 # Read in file
 

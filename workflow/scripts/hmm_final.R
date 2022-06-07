@@ -16,8 +16,8 @@ library(cowplot)
 # Get variables
 
 ## Debug
-IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/15.csv"
-N_STATES = 15
+IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/14.csv"
+N_STATES = 14
 VARIABLES = "distance and angle of travel"
 INTERVAL = 0.08
 
@@ -45,10 +45,21 @@ TILE_DGE_SGE = snakemake@output[["tile_dge_sge"]]
 
 if (N_STATES == 15){
   N_ROWS = 5
-} else if (N_STATES == 12 | 16) {
+} else if (N_STATES == 12 | N_STATES == 16) {
   N_ROWS = 4
-} else if (N_STATES == 17 | 18){
+} else if (N_STATES == 17 | N_STATES == 18){
   N_ROWS = 6
+} else if (N_STATES == 14){
+  N_ROWS = 2
+}
+
+# And dimensions of `polar_all...` figs
+if (N_STATES == 14){
+  POL_ALL_WID = 12
+  POL_ALL_HEI = 7
+} else {
+  POL_ALL_WID = 7.5
+  POL_ALL_HEI = 10
 }
 
 # Get figure height
@@ -123,8 +134,8 @@ polar_all_dge = df %>%
 ggsave(POLAR_ALL_DGE,
        polar_all_dge,
        device = "png",
-       width = 7.5,
-       height = 10,
+       width = POL_ALL_WID,
+       height = POL_ALL_HEI,
        units = "in",
        dpi = 400)
 
@@ -150,8 +161,8 @@ polar_all_sge = df %>%
 ggsave(POLAR_ALL_SGE,
        polar_all_sge,
        device = "png",
-       width = 7.5,
-       height = 10,
+       width = POL_ALL_WID,
+       height = POL_ALL_HEI,
        units = "in",
        dpi = 400)
 

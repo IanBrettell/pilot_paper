@@ -2,20 +2,28 @@
 
 ```{r, message = F, warning = F}
 library(tidyverse)
-library(DT)
+library(ggbeeswarm)
+library(devtools)
+library(cowplot)
+library(ggpubr)
 ```
-## Read in data
+
+## Input file paths
 
 ```{r}
 IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.05/dist_angle/18.csv"
+
+# Get lighter/darker functions
+
+devtools::source_gist("c5015ee666cdf8d9f7e25fa3c8063c99")
 ```
 
+## Read in file
+
 ```{r}
-# Read 
+# Read in file
 
-df = readr::read_csv(IN)
-
-# Controls (iCab-iCab pairings only)
+df = readr::read_csv(IN) 
 
 df_control = df %>% 
   # Filter for only iCabs paired with iCabs
@@ -25,111 +33,31 @@ df_control = df %>%
                col = "indiv", 
                remove = F) %>% 
   # Group by assay and individual to get mean speed
-  dplyr::group_by(assay, date, time, quadrant, indiv) %>% 
+  dplyr::group_by(assay, date, time, quadrant, tank_side, indiv) %>% 
   # Calculate mean speed
   dplyr::summarise(mean_speed = mean(distance)) %>% 
   dplyr::ungroup() %>% 
   # Make date a factor
   dplyr::mutate(date = as.factor(date))
 
+# Get mean speed over both assays for each individual
 
-# DGE data frame
-
-df_dge = df %>% 
-  # remove iCab when paired with a different test fish
-  dplyr::filter(!(fish == "ref" & test_fish != "icab")) %>% 
+df_control_noassay = df %>% 
+  # Filter for only iCabs paired with iCabs
+  dplyr::filter(test_fish == "icab") %>% 
   # Get individual
   tidyr::unite(date, time, quadrant, fish,
                col = "indiv", 
                remove = F) %>% 
-  # add `line` %>% 
-  dplyr::mutate(line = dplyr::case_when(fish == "ref" ~ ref_fish,
-                                        fish == "test" ~ test_fish))  %>% 
   # Group by assay and individual to get mean speed
-  dplyr::group_by(assay, date, time, quadrant, line, indiv) %>% 
+  dplyr::group_by(date, time, quadrant, tank_side, indiv) %>% 
   # Calculate mean speed
   dplyr::summarise(mean_speed = mean(distance)) %>% 
   dplyr::ungroup() %>% 
-  # Convert `date` to factor
-  dplyr::mutate(date = factor(date, levels = unique(df$date)))
+  # Make date a factor
+  dplyr::mutate(date = as.factor(date))
 
-# SGE data frame 
-
-df_sge = df %>% 
-  # keep only iCabs
-  ## add `line`
-  dplyr::mutate(line = dplyr::case_when(fish == "ref" ~ ref_fish,
-                                        fish == "test" ~ test_fish)) %>% 
-  # keep only iCab test fishes
-  dplyr::filter(line == "icab") %>% 
-  # Get individual
-  tidyr::unite(date, time, quadrant, fish,
-               col = "indiv", 
-               remove = F) %>% 
-  # Group by assay and individual to get mean speed
-  dplyr::group_by(assay, date, time, quadrant, test_fish, indiv) %>% 
-  # Calculate mean speed
-  dplyr::summarise(mean_speed = mean(distance)) %>% 
-  dplyr::ungroup()
-
+###
 ```
 
-
-## Controls
-
-```{r}
-# Separate by assay
-df_control_of = df_control %>% 
-  dplyr::filter(assay == "open_field")
-
-df_control_no = df_control %>% 
-  dplyr::filter(assay == "novel_object")
-
-model_fit_of = lm(mean_speed ~ date + time + quadrant, data = df_control_of)
-
-model_fit_no = lm(mean_speed ~ date + time + quadrant, data = df_control_no)
-
-summary(model_fit_of)
-summary(model_fit_no)
-```
-
-## DGE
-
-```{r}
-## All variables with interactions
-model_dge_of = aov(mean_speed ~ date + time + quadrant + line,
-                   data = df_dge %>% 
-                     dplyr::filter(assay == "open_field"))
-
-model_dge_no = aov(mean_speed ~ date + time + quadrant + line,
-                   data = df_dge %>% 
-                     dplyr::filter(assay == "novel_object"))
-
-dge_vars_of = summary(model_dge_of)[[1]] %>% 
-  dplyr::mutate(TOT_SS = sum(`Sum Sq`),
-                PROP_SS = `Sum Sq` / TOT_SS,
-                VAR_EXP = PROP_SS * 100)
-
-dge_vars_no = summary(model_dge_no)[[1]] %>% 
-  dplyr::mutate(TOT_SS = sum(`Sum Sq`),
-                PROP_SS = `Sum Sq` / TOT_SS,
-                VAR_EXP = PROP_SS * 100)
-
-DT::datatable(dge_vars_of)
-DT::datatable(dge_vars_no)
-```
-
-
-## SGE
-
-```{r}
-model_sge = aov(mean_speed ~ assay * date * time * quadrant * test_fish, data = df_sge)
-
-sge_vars = summary(model_sge)[[1]] %>% 
-  dplyr::mutate(TOT_SS = sum(`Sum Sq`),
-                PROP_SS = `Sum Sq` / TOT_SS,
-                VAR_EXP = PROP_SS * 100)
-
-DT::datatable(sge_vars)
-```
 

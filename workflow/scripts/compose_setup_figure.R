@@ -73,7 +73,7 @@ out = cowplot::ggdraw() +
 
 ggsave(OUT,
        device = "png",
-       width = 8,
-       height = 10,
+       width = 9,
+       height = 11.3,
        units = "in",
        dpi = 400)
