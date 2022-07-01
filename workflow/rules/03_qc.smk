@@ -22,7 +22,7 @@ def get_final_csvs(wildcards):
     # If there is no "without gaps" file, return the "trajectories" file
     if os.path.exists(traj_wo_gaps_file):
         return(traj_wo_gaps_file)
-    elif os.path.exists(traj_file):
+    else:
         return(traj_file)
 
 # Get frames-per-second

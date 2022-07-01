@@ -13,10 +13,10 @@ library(cowplot)
 library(ggpubr)
 
 ## Debug
-IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.05/dist_angle/18.csv"
-OUT_OF = "book/figs/covariate_effects/0.08/dist_angle/15/covariate_effects_of.png"
-OUT_NO = "book/figs/covariate_effects/0.08/dist_angle/15/covariate_effects_no.png"
-OUT_NOASSAY = "book/figs/covariate_effects/0.08/dist_angle/15/covariate_effects_no-split-by-assay.png"
+IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/14.csv"
+OUT_OF = "book/figs/covariate_effects/0.08/dist_angle/14/covariate_effects_of.png"
+OUT_NO = "book/figs/covariate_effects/0.08/dist_angle/14/covariate_effects_no.png"
+OUT_NOASSAY = "book/figs/covariate_effects/0.08/dist_angle/14/covariate_effects_no-split-by-assay.png"
 
 ## True
 IN = snakemake@input[[1]]
@@ -24,7 +24,9 @@ OUT_OF = snakemake@output[["of"]]
 OUT_NO = snakemake@output[["no"]]
 OUT_NOASSAY = snakemake@output[["no_split_by_assay"]]
 
+# Get lighter/darker functions
 
+devtools::source_gist("c5015ee666cdf8d9f7e25fa3c8063c99")
 
 # Read in file
 
@@ -476,6 +478,7 @@ print("Done NO")
 #########################
 # No split by assay
 #########################
+P_VAL_HEI = 4.7
 
 ## Date
 
@@ -496,7 +499,7 @@ date_fig_noassay = df_control_noassay %>%
                             colour = "#3B1F2B", alpha = 0.8) +
   geom_text(data = aov_df_noassay %>% 
               dplyr::filter(term == "date"),
-            aes(x = "20190611", y = 3, label = p_final)) +
+            aes(x = "20190611", y = P_VAL_HEI, label = p_final)) +
   #geom_text(x = "20190611", y = 3.15, label = paste("p =", kw_date)) +
   scale_fill_manual(values = date_pal) +
   scale_colour_manual(values = darker(date_pal, amount = 100)) +
@@ -523,7 +526,7 @@ time_fig_noassay = df_control_noassay %>%
                             colour = "#3B1F2B", alpha = 0.8) +
   geom_text(data = aov_df_noassay %>% 
               dplyr::filter(term == "time"),
-            aes(x = "952", y = 3, label = p_final)) +
+            aes(x = "952", y = P_VAL_HEI, label = p_final)) +
   scale_fill_manual(values = time_pal) +
   scale_colour_manual(values = darker(time_pal, amount = 100)) +
   cowplot::theme_cowplot() +
@@ -556,7 +559,7 @@ quad_fig_noassay = df_control_noassay %>%
                             colour = "#3B1F2B", alpha = 0.8) +
   geom_text(data = aov_df_noassay %>% 
               dplyr::filter(term == "quadrant"),
-            aes(x = "I", y = 3, label = p_final)) +
+            aes(x = "I", y = P_VAL_HEI, label = p_final)) +
   scale_fill_manual(values = quad_pal) +
   scale_colour_manual(values = darker(quad_pal, amount = 100)) +
   cowplot::theme_cowplot() +
@@ -580,7 +583,7 @@ tank_fig_noassay = df_control_noassay %>%
                             colour = "#3B1F2B", alpha = 0.8) +  
   geom_text(data = aov_df_noassay %>% 
               dplyr::filter(term == "tank_side"),
-            aes(x = "L", y = 3, label = p_final)) +
+            aes(x = "L", y = P_VAL_HEI, label = p_final)) +
   scale_fill_manual(values = tank_pal) +
   scale_colour_manual(values = darker(tank_pal, amount = 100)) +
   cowplot::theme_cowplot() +

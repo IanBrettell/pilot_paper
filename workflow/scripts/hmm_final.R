@@ -128,7 +128,8 @@ polar_all_dge = df %>%
   scale_color_viridis_c() +
   guides(colour = "none") +
   xlab("angle of travel") +
-  ylab(expression(log[10]("distance travelled in pixels"))) #+
+  ylab(expression(log[10]("distance travelled in pixels"))) +
+  theme(strip.background = element_rect(fill = strip_vec))
   #ggtitle(TITLE)
 
 ggsave(POLAR_ALL_DGE,
@@ -138,6 +139,71 @@ ggsave(POLAR_ALL_DGE,
        height = POL_ALL_HEI,
        units = "in",
        dpi = 400)
+
+# With significant states - OPEN FIELD
+
+## Get significant states
+sig_dge_of = googlesheets4::read_sheet(
+  ss = "https://docs.google.com/spreadsheets/d/1_l72BZkmWyNAOfCUI8WGP4UfQuIPQtPZZmlRjQffvEs",
+  sheet = "DGE_OF") %>% 
+  dplyr::filter(Variable == "line" & `p-value FDR-adj` < 0.05) %>% 
+  dplyr::pull(State)
+
+g <- ggplot_gtable(ggplot_build(polar_all_dge))
+strips <- which(startsWith(g$layout$name,'strip'))
+
+strip_vec = ifelse(1:N_STATES %in% sig_dge_of,
+                   "#ED474A",
+                   "#9EA7A9") 
+strip_vec = c(strip_vec[8:N_STATES], strip_vec[1:7])
+
+for (s in seq_along(strips)) {
+  g$grobs[[strips[s]]]$grobs[[1]]$children[[1]]$gp$fill <- strip_vec[s]
+}
+
+grid::grid.newpage()
+
+png(here::here("book/figs/paper_final/0.08/dist_angle/14/polar_all_dge_sig_of.png"),
+    width = POL_ALL_WID, 
+    height = POL_ALL_HEI, 
+    units = "in", 
+    res = 400)
+grid::grid.draw(g)
+dev.off()
+
+# With significant states -- NOVEL OBJECT
+
+## Get significant states
+sig_dge_no = googlesheets4::read_sheet(
+  ss = "https://docs.google.com/spreadsheets/d/1_l72BZkmWyNAOfCUI8WGP4UfQuIPQtPZZmlRjQffvEs",
+  sheet = "DGE_NO") %>% 
+  dplyr::filter(Variable == "line" & `p-value FDR-adj` < 0.05) %>% 
+  dplyr::pull(State)
+
+g <- ggplot_gtable(ggplot_build(polar_all_dge))
+strips <- which(startsWith(g$layout$name,'strip'))
+
+strip_vec = ifelse(1:N_STATES %in% sig_dge_no,
+                   "#ED474A",
+                   "#9EA7A9") 
+strip_vec = c(strip_vec[8:N_STATES], strip_vec[1:7])
+
+for (s in seq_along(strips)) {
+  g$grobs[[strips[s]]]$grobs[[1]]$children[[1]]$gp$fill <- strip_vec[s]
+}
+
+grid::grid.newpage()
+
+png(here::here("book/figs/paper_final/0.08/dist_angle/14/polar_all_dge_sig_no.png"),
+    width = POL_ALL_WID, 
+    height = POL_ALL_HEI, 
+    units = "in", 
+    res = 400)
+grid::grid.draw(g)
+dev.off()
+
+
+#########################
 
 polar_all_sge = df %>% 
   # select random sample of 1e5 rows
@@ -165,6 +231,70 @@ ggsave(POLAR_ALL_SGE,
        height = POL_ALL_HEI,
        units = "in",
        dpi = 400)
+
+# With significant states -- OPEN FIELD
+
+## Get significant states
+sig_sge_of = googlesheets4::read_sheet(
+  ss = "https://docs.google.com/spreadsheets/d/1_l72BZkmWyNAOfCUI8WGP4UfQuIPQtPZZmlRjQffvEs",
+  sheet = "SGE_OF") %>% 
+  dplyr::filter(Variable == "test_fish" & `p-value FDR-adj` < 0.05) %>% 
+  dplyr::pull(State)
+
+g <- ggplot_gtable(ggplot_build(polar_all_sge))
+strips <- which(startsWith(g$layout$name,'strip'))
+
+strip_vec = ifelse(1:N_STATES %in% sig_sge_of,
+                   "#ED474A",
+                   "#9EA7A9") 
+strip_vec = c(strip_vec[8:N_STATES], strip_vec[1:7])
+
+for (s in seq_along(strips)) {
+  g$grobs[[strips[s]]]$grobs[[1]]$children[[1]]$gp$fill <- strip_vec[s]
+}
+
+grid::grid.newpage()
+
+png(here::here("book/figs/paper_final/0.08/dist_angle/14/polar_all_sge_sig_of.png"),
+    width = POL_ALL_WID, 
+    height = POL_ALL_HEI, 
+    units = "in", 
+    res = 400)
+grid::grid.draw(g)
+dev.off()
+
+# With significant states -- NOVEL OBJECT
+
+## Get significant states
+sig_sge_no = googlesheets4::read_sheet(
+  ss = "https://docs.google.com/spreadsheets/d/1_l72BZkmWyNAOfCUI8WGP4UfQuIPQtPZZmlRjQffvEs",
+  sheet = "SGE_NO") %>% 
+  dplyr::filter(Variable == "test_fish" & `p-value FDR-adj` < 0.05) %>% 
+  dplyr::pull(State)
+
+g <- ggplot_gtable(ggplot_build(polar_all_sge))
+strips <- which(startsWith(g$layout$name,'strip'))
+
+strip_vec = ifelse(1:N_STATES %in% sig_sge_no,
+                   "#ED474A",
+                   "#9EA7A9") 
+strip_vec = c(strip_vec[8:N_STATES], strip_vec[1:7])
+
+for (s in seq_along(strips)) {
+  g$grobs[[strips[s]]]$grobs[[1]]$children[[1]]$gp$fill <- strip_vec[s]
+}
+
+grid::grid.newpage()
+
+png(here::here("book/figs/paper_final/0.08/dist_angle/14/polar_all_sge_sig_no.png"),
+    width = POL_ALL_WID, 
+    height = POL_ALL_HEI, 
+    units = "in", 
+    res = 400)
+grid::grid.draw(g)
+dev.off()
+
+##############################
 
 polar_dge = df %>% 
   # remove iCab when paired with a different test fish

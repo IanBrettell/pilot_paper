@@ -16,14 +16,16 @@ library(cowplot)
 # Get variables
 
 ## Debug
-IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/15.csv"
-N_STATES = 15
+IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/14.csv"
+N_STATES = 14
 VARIABLES = "distance and angle of travel"
 INTERVAL = 0.08
+OUT_PER_STATE = here::here("book/figs/sge/co-occupancy/dist_angle/0.08_14_cooc_box_heat_per-state.png")
+OUT_BOX_ALL = here::here("book/figs/sge/co-occupancy/dist_angle/0.08_14_cooc_box_all.png")
 
 ## True
 IN = snakemake@input[[1]]
-N_STATES = 15
+N_STATES = snakemake@params[["n_states"]]
 OUT_HEAT = snakemake@output[["heatmaps"]]
 OUT_BOX_ALL = snakemake@output[["boxplot_all"]]
 OUT_PER_STATE = snakemake@output[["box_and_heat_per_state"]]
@@ -43,10 +45,12 @@ names(pal) = line_vec
 
 if (N_STATES == 15){
   N_ROWS = 5
-} else if (N_STATES == 12 | 16) {
+} else if (N_STATES == 12 | N_STATES == 16) {
   N_ROWS = 4
-} else if (N_STATES == 17 | 18){
+} else if (N_STATES == 17 | N_STATES == 18){
   N_ROWS = 6
+} else if (N_STATES == 14){
+  N_ROWS = 2
 }
 
 # Read in file
@@ -79,7 +83,6 @@ df = df %>%
 # Get SGE df
 
 sge_df = df %>% 
-  # keep only iCabs
   ## add `line`
   dplyr::mutate(line = dplyr::case_when(fish == "ref" ~ ref_fish,
                                         fish == "test" ~ test_fish)) %>% 
@@ -122,26 +125,27 @@ kw_all = cooc %>%
   dplyr::group_by(assay) %>% 
   rstatix::kruskal_test(FREQ_CONC ~ test_fish) %>% 
   rstatix::adjust_pvalue(method = "fdr") %>% 
-  dplyr::mutate(p.adj = signif(p.adj, digits = 3)) %>% 
   rstatix::add_significance(p.col = "p.adj") %>% 
+  #dplyr::mutate(p.adj = as.character(signif(p.adj, digits = 3))) %>% 
   # paste p-value and significance together
-  dplyr::mutate(p_final = dplyr::case_when(p.adj.signif == "ns" ~ paste("p =", p.adj),
-                                           TRUE ~ paste("p =", p.adj, p.adj.signif)))
+  dplyr::mutate(p_final = dplyr::case_when(p.adj.signif == "ns" ~ paste("p =", scales::scientific(p.adj, digits = 2)),
+                                           TRUE ~ paste("p =", scales::scientific(p.adj, digits = 2), p.adj.signif)))
 
 # Plot
 
 box_all = cooc %>% 
   ggplot() +
-  geom_boxplot(aes(test_fish, FREQ_CONC, colour = test_fish), notch = T) +
+  geom_boxplot(aes(test_fish, FREQ_CONC, fill = test_fish), notch = T) +
   facet_grid(cols = vars(assay)) +
   geom_text(data = kw_all,
-            aes(x = "iCab", y = 0.375, label = p_final),
-            size = 3) +
+            aes(x = "HdrR", y = 0.375, label = p_final),
+            size = 4) +
   cowplot::theme_cowplot() +
-  scale_colour_manual(values = pal) +
-  guides(colour = "none") +
+  scale_fill_manual(values = pal) +
+  guides(fill = "none") +
   xlab("test fish") +
-  ylab("frequency of state co-occupancy")
+  ylab("frequency of state co-occupancy") +
+  labs(fill = "test fish")
   
   
 ggsave(OUT_BOX_ALL,
@@ -178,11 +182,10 @@ kw_per_state = cooc_per_state %>%
   dplyr::group_by(assay, ref, test) %>% 
   rstatix::kruskal_test(FREQ_COOC ~ test_fish) %>% 
   rstatix::adjust_pvalue(method = "fdr") %>% 
-  dplyr::mutate(p.adj = signif(p.adj, digits = 3)) %>% 
   rstatix::add_significance(p.col = "p.adj") %>% 
   # paste p-value and significance together
-  dplyr::mutate(p_final = dplyr::case_when(p.adj.signif == "ns" ~ paste("p =", p.adj),
-                                           TRUE ~ paste("p =", p.adj, p.adj.signif)))
+  dplyr::mutate(p_final = dplyr::case_when(p.adj.signif == "ns" ~ paste("p =", scales::scientific(p.adj, digits = 2)),
+                                           TRUE ~ paste("p =", scales::scientific(p.adj, digits = 2), p.adj.signif)))
 
 # Plot
 
@@ -203,7 +206,7 @@ polar = df %>%
   guides(colour = "none") +
   xlab("angle of travel") +
   ylab(expression(log[10]("distance travelled in pixels"))) +
-  ggtitle("HMM states") +
+  #ggtitle("HMM states") +
   cowplot::theme_cowplot(font_size = FONT_SIZE) +
   theme(plot.title = element_text(hjust = 0.5))
 
@@ -213,15 +216,15 @@ ASSAY = "open field"
 box_per_state_of = cooc_per_state %>% 
   dplyr::filter(assay == ASSAY) %>% 
   ggplot() +
-  geom_boxplot(aes(test_fish, FREQ_COOC, colour = test_fish), notch = T) +
+  geom_boxplot(aes(test_fish, FREQ_COOC, fill = test_fish), notch = T) +
   facet_wrap(vars(ref), nrow = N_ROWS) +
   geom_text(data = kw_per_state %>% 
               dplyr::filter(assay == ASSAY),
-            aes(x = "HdrR", y = 0.2, label = p_final),
+            aes(x = "HNI", y = 0.2, label = p_final),
             size = 3) +
-  cowplot::theme_cowplot(font_size = FONT_SIZE) +
-  scale_colour_manual(values = pal) +
-  guides(colour = "none") +
+  cowplot::theme_cowplot(font_size = 8) +
+  scale_fill_manual(values = pal) +
+  guides(fill = "none") +
   xlab("test fish") +
   ylab("frequency of state co-occupancy") +
   ggtitle(ASSAY) +
@@ -233,15 +236,15 @@ ASSAY = "novel object"
 box_per_state_no = cooc_per_state %>% 
   dplyr::filter(assay == ASSAY) %>% 
   ggplot() +
-  geom_boxplot(aes(test_fish, FREQ_COOC, colour = test_fish), notch = T) +
+  geom_boxplot(aes(test_fish, FREQ_COOC, fill = test_fish), notch = T) +
   facet_wrap(vars(ref), nrow = N_ROWS) +
   geom_text(data = kw_per_state %>% 
               dplyr::filter(assay == ASSAY),
-            aes(x = "iCab", y = 0.2, label = p_final),
+            aes(x = "HNI", y = 0.2, label = p_final),
             size = 3) +
-  cowplot::theme_cowplot(font_size = FONT_SIZE) +
-  scale_colour_manual(values = pal) +
-  guides(colour = "none") +
+  cowplot::theme_cowplot(font_size = 8) +
+  scale_fill_manual(values = pal) +
+  guides(fill = "none") +
   xlab("test fish") +
   ylab("frequency of state co-occupancy") +
   ggtitle(ASSAY) +
@@ -292,31 +295,33 @@ cooc_heat_plot = cooc_heat %>%
 # Final figure
 #######################
 
-
 # Put together
 final = cowplot::ggdraw() +
   cowplot::draw_plot(polar,
-                     x = 0, y= 0.3,
-                     width = 0.4, height = 0.7) +
+                     x = 0, y= 0.7,
+                     width = 1, height = 0.3) +
   cowplot::draw_plot(box_per_state_of,
-                     x = 0.4, y = 0.3,
-                     width = 0.3, height = 0.7) +
+                     x = 0, y = 0.3,
+                     width = 0.5, height = 0.4) +
   cowplot::draw_plot(box_per_state_no +
                        theme(axis.text.y=element_blank(),
                              axis.ticks.y=element_blank(),
                              axis.line.y = element_blank()) +
                        ylab(NULL),
-                     x = 0.7, y = 0.3,
-                     width = 0.3, height = 0.7) +
+                     x = 0.5, y = 0.3,
+                     width = 0.5, height = 0.4) +
   cowplot::draw_plot(cooc_heat_plot,
                      x = 0, y = 0,
-                     width = 1, height = 0.3)   
+                     width = 1, height = 0.3) +
+  cowplot::draw_plot_label(c("A", "B", "C"),
+                           x = c(0,0,0),
+                           y = c(1, 0.7, 0.3))
 
 ggsave(OUT_PER_STATE,
        final,
        device = "png",
-       width = 21,
-       height = 21,
+       width = 18,
+       height = 20,
        units = "in",
        dpi = 400)
 

@@ -3,14 +3,13 @@
 ```{r, message = F, warning = F}
 library(tidyverse)
 library(DT)
-library()
 ```
 
 ## Read in and clean data
 
 ```{r}
-IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/15.csv"
-N_STATES = 15
+IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/14.csv"
+N_STATES = 14
 ```
 
 ```{r}
