@@ -42,9 +42,15 @@ out = cowplot::ggdraw() +
   cowplot::draw_image(FRAME,
                       x = 0, y = 0,
                       width = 1, height = 0.4) +
+  # add labels
   cowplot::draw_plot_label(c("A", "B", "C"),
                            x = c(0,0,0.5),
-                           y = c(1, 0.4, 0.4))
+                           y = c(1, 0.4, 0.4)) + 
+  # add quadrant labels
+  cowplot::draw_plot_label(c("I", "II", "III", "IV"),
+                           x = c(0.46,0.22,0.22,0.46),
+                           y = c(0.22,0.22,0.03,0.03),
+                           color = "blueviolet",size = 8)   
 
 ## resize `frame` to make it the same width as `setup`
 #

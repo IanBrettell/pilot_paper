@@ -162,16 +162,17 @@ aov_df_noassay_nofirstday = df_control_noassay %>%
 #  
 #
 #
-#kw = tibble::tibble("covariate" = c("date", "time", "quadrant"),
-#                    "p" = c(kruskal.test(df_control$mean_speed, g = df_control$date)$p.value,
-#                             kruskal.test(df_control$mean_speed, g = df_control$time)$p.value,
-#                             kruskal.test(df_control$mean_speed, g = df_control$quadrant)$p.value)) %>% 
-#  rstatix::adjust_pvalue(method = "fdr") %>% 
-#  dplyr::mutate(p.adj = signif(p.adj, digits = 3)) %>% 
-#  rstatix::add_significance(p.col = "p.adj") %>% 
-#  # paste p-value and significance together
-#  dplyr::mutate(p_final = dplyr::case_when(p.adj.signif == "ns" ~ paste("p =", p.adj),
-#                                           TRUE ~ paste("p =", p.adj, p.adj.signif)))
+kw = tibble::tibble("covariate" = c("date", "time", "quadrant", "tank_side"),
+                    "p" = c(kruskal.test(df_control_noassay$mean_speed, g = df_control_noassay$date)$p.value,
+                            kruskal.test(df_control_noassay$mean_speed, g = df_control_noassay$time)$p.value,
+                            kruskal.test(df_control_noassay$mean_speed, g = df_control_noassay$quadrant)$p.value,
+                            kruskal.test(df_control_noassay$mean_speed, g = df_control_noassay$tank_side)$p.value)) %>% 
+  rstatix::adjust_pvalue(method = "fdr") %>% 
+  dplyr::mutate(p.adj = signif(p.adj, digits = 3)) %>% 
+  rstatix::add_significance(p.col = "p.adj") %>% 
+  # paste p-value and significance together
+  dplyr::mutate(p_final = dplyr::case_when(p.adj.signif == "ns" ~ paste("p =", p.adj),
+                                           TRUE ~ paste("p =", p.adj, p.adj.signif)))
 
 
 #########################
