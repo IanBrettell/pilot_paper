@@ -1,9 +1,11 @@
 # Experimental setup
 
+Our behavioural assay is 20 minutes long, comprising two consecutively-run 10-minute components: a) an 'open field' component, where the fishes are introduced to the test tank and left to swim around freely; and b) a 'novel object' component, where a small black plastic cylinder is added to the tank at the beginning of the second 10-minute period, after which the fishes are again left to swim around freely. The assay is run on pairs of fish. We used only female fish to avoid confounding from aggressive interactions between males, and from mating behaviours between males and females. To increase the throughput of the assay, we constructed a test tank that was divided into four quadrants with barriers, allowing us to run the assay on four pairs of fish at a time. In addition, we used two test tanks situated side-by-side, so that we could run the assay on 8 pairs concurrently. The experimental setup used is shown in \@ref(fig:exp-setup). 
+
 (ref:exp-setup) **A**: Experimental setup, with two test boxes side-by-side (denoted as "L" for left and "R" for right). Each test box contains one test tank, separated by removable barriers into quadrants, allowing for the simultaneous assay of four pairs of fish per test tank. The interior of the box is ambiently illuminated by LED lights, and a camera is suspended over the centre of each test tank to record the videos. **B**: Four pairs of fishes in a test tank with labelled quadrants (I, II, III, IV) and lines (iCab or HdrR). **C**: Paths of iCab reference fish and HdrR test fish from the video at panel (B) at 110 seconds. 
 
 <div class="figure">
-<img src="figs/misc/setup_fig/0.08/dist_angle/15/open_field/20190613_1054_icab_hdr_R/setup_pic_with_frame_110.png" alt="(ref:exp-setup)" width="1800" />
+<img src="figs/misc/setup_fig/0.08/dist_angle/15/open_field/20190613_1054_icab_hdr_R/setup_pic_with_frame_110.png" alt="(ref:exp-setup)" width="100%" />
 <p class="caption">(\#fig:exp-setup)(ref:exp-setup)</p>
 </div>
 

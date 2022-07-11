@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>3 Effect of covariates | Medaka behaviour pilot study</title>
+<meta name="author" content="Ian Brettell">
+<meta name="description" content="3.1 Setup  3.1.1 Load libraries library(tidyverse) library(ggbeeswarm) library(devtools) library(cowplot) library(ggpubr)  3.1.2 Set variables IN =...">
+<meta name="generator" content="bookdown 0.26 with bs4_book()">
+<meta property="og:title" content="3 Effect of covariates | Medaka behaviour pilot study">
+<meta property="og:type" content="book">
+<meta property="og:description" content="3.1 Setup  3.1.1 Load libraries library(tidyverse) library(ggbeeswarm) library(devtools) library(cowplot) library(ggpubr)  3.1.2 Set variables IN =...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="3 Effect of covariates | Medaka behaviour pilot study">
+<meta name="twitter:description" content="3.1 Setup  3.1.1 Load libraries library(tidyverse) library(ggbeeswarm) library(devtools) library(cowplot) library(ggpubr)  3.1.2 Set variables IN =...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><link href="libs/vembedr-0.1.5/css/vembedr.css" rel="stylesheet">
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.22/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><style>
+    #content {
+        font-size: 0.9rem;
+    }
+    </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Medaka behaviour pilot study</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> About</a></li>
+<li><a class="" href="experimental-setup.html"><span class="header-section-number">2</span> Experimental setup</a></li>
+<li><a class="active" href="effect-of-covariates.html"><span class="header-section-number">3</span> Effect of covariates</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/brettellebi/pilot_paper">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="effect-of-covariates" class="section level1" number="3">
+<h1>
+<span class="header-section-number">3</span> Effect of covariates<a class="anchor" aria-label="anchor" href="#effect-of-covariates"><i class="fas fa-link"></i></a>
+</h1>
+<div id="setup" class="section level2" number="3.1">
+<h2>
+<span class="header-section-number">3.1</span> Setup<a class="anchor" aria-label="anchor" href="#setup"><i class="fas fa-link"></i></a>
+</h2>
+<div id="load-libraries" class="section level3" number="3.1.1">
+<h3>
+<span class="header-section-number">3.1.1</span> Load libraries<a class="anchor" aria-label="anchor" href="#load-libraries"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/eclarke/ggbeeswarm">ggbeeswarm</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/">devtools</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/cowplot/">cowplot</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rpkgs.datanovia.com/ggpubr/">ggpubr</a></span><span class="op">)</span></code></pre></div>
+</div>
+<div id="set-variables" class="section level3" number="3.1.2">
+<h3>
+<span class="header-section-number">3.1.2</span> Set variables<a class="anchor" aria-label="anchor" href="#set-variables"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">IN</span> <span class="op">=</span> <span class="st">"/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/14.csv"</span>
+<span class="va">OUT_OF</span> <span class="op">=</span> <span class="st">"book/figs/covariate_effects/0.08/dist_angle/14/covariate_effects_of.png"</span>
+<span class="va">OUT_NO</span> <span class="op">=</span> <span class="st">"book/figs/covariate_effects/0.08/dist_angle/14/covariate_effects_no.png"</span>
+<span class="va">OUT_NOASSAY</span> <span class="op">=</span> <span class="st">"book/figs/covariate_effects/0.08/dist_angle/14/covariate_effects_no-split-by-assay.png"</span></code></pre></div>
+</div>
+<div id="source-lighterdarker-functions" class="section level3" number="3.1.3">
+<h3>
+<span class="header-section-number">3.1.3</span> Source lighter/darker functions<a class="anchor" aria-label="anchor" href="#source-lighterdarker-functions"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/source_gist.html">source_gist</a></span><span class="op">(</span><span class="st">"c5015ee666cdf8d9f7e25fa3c8063c99"</span><span class="op">)</span>
+<span class="co">#&gt; ℹ Sourcing https://gist.githubusercontent.com/brettellebi/c5015ee666cdf8d9f7e25fa3c8063c99/raw/15832e2684e4c08a652eb82d4b559bea4e8994e4/karyoploteR_lighter_darker.R</span>
+<span class="co">#&gt; ℹ SHA-1 hash of file is 3d840ff655bd54f4b19517cf99ec4bd3640a30c5</span></code></pre></div>
+</div>
+</div>
+<div id="read-and-process-data" class="section level2" number="3.2">
+<h2>
+<span class="header-section-number">3.2</span> Read and process data<a class="anchor" aria-label="anchor" href="#read-and-process-data"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span> <span class="op">=</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">IN</span><span class="op">)</span> 
+<span class="co">#&gt; Rows: 9152328 Columns: 15</span>
+<span class="co">#&gt; ── Column specification ────────────────────────────────────</span>
+<span class="co">#&gt; Delimiter: ","</span>
+<span class="co">#&gt; chr (6): assay, ref_fish, test_fish, tank_side, quadrant...</span>
+<span class="co">#&gt; dbl (9): date, time, frame, seconds, x, y, distance, ang...</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span>
+<span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
+
+<span class="va">df_control</span> <span class="op">=</span> <span class="va">df</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
+  <span class="co"># Filter for only iCabs paired with iCabs</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">test_fish</span> <span class="op">==</span> <span class="st">"icab"</span><span class="op">)</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
+  <span class="co"># Get individual</span>
+  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/unite.html">unite</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">time</span>, <span class="va">quadrant</span>, <span class="va">fish</span>,
+               col <span class="op">=</span> <span class="st">"indiv"</span>, 
+               remove <span class="op">=</span> <span class="cn">F</span><span class="op">)</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
+  <span class="co"># Group by assay and individual to get mean speed</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">assay</span>, <span class="va">date</span>, <span class="va">time</span>, <span class="va">quadrant</span>, <span class="va">tank_side</span>, <span class="va">indiv</span><span class="op">)</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
+  <span class="co"># Calculate mean speed</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>mean_speed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">distance</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
+  <span class="co"># Make date a factor</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; `summarise()` has grouped output by 'assay', 'date',</span>
+<span class="co">#&gt; 'time', 'quadrant', 'tank_side'. You can override using the</span>
+<span class="co">#&gt; `.groups` argument.</span></code></pre></div>
+<div id="calculate-mean-speed-across-both-assays-for-each-individual" class="section level3" number="3.2.1">
+<h3>
+<span class="header-section-number">3.2.1</span> Calculate mean speed across both assays for each individual<a class="anchor" aria-label="anchor" href="#calculate-mean-speed-across-both-assays-for-each-individual"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df_control_noassay</span> <span class="op">=</span> <span class="va">df</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
+  <span class="co"># Filter for only iCabs paired with iCabs</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">test_fish</span> <span class="op">==</span> <span class="st">"icab"</span><span class="op">)</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
+  <span class="co"># Get individual</span>
+  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/unite.html">unite</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">time</span>, <span class="va">quadrant</span>, <span class="va">fish</span>,
+               col <span class="op">=</span> <span class="st">"indiv"</span>, 
+               remove <span class="op">=</span> <span class="cn">F</span><span class="op">)</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
+  <span class="co"># Group by assay and individual to get mean speed</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">time</span>, <span class="va">quadrant</span>, <span class="va">tank_side</span>, <span class="va">indiv</span><span class="op">)</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
+  <span class="co"># Calculate mean speed</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>mean_speed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">distance</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
+  <span class="co"># Make date a factor</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; `summarise()` has grouped output by 'date', 'time',</span>
+<span class="co">#&gt; 'quadrant', 'tank_side'. You can override using the</span>
+<span class="co">#&gt; `.groups` argument.</span></code></pre></div>
+</div>
+</div>
+<div id="anova" class="section level2" number="3.3">
+<h2>
+<span class="header-section-number">3.3</span> ANOVA<a class="anchor" aria-label="anchor" href="#anova"><i class="fas fa-link"></i></a>
+</h2>
+<div id="all-days" class="section level3" number="3.3.1">
+<h3>
+<span class="header-section-number">3.3.1</span> All days<a class="anchor" aria-label="anchor" href="#all-days"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">aov_df_noassay</span> <span class="op">=</span> <span class="va">df_control_noassay</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/aov.html">aov</a></span><span class="op">(</span><span class="va">mean_speed</span> <span class="op">~</span> <span class="va">date</span> <span class="op">+</span> <span class="va">time</span> <span class="op">+</span> <span class="va">quadrant</span> <span class="op">+</span> <span class="va">tank_side</span>,
+      data <span class="op">=</span> <span class="va">.</span><span class="op">)</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu">rstatix</span><span class="fu">::</span><span class="fu"><a href="https://rpkgs.datanovia.com/rstatix/reference/add_significance.html">add_significance</a></span><span class="op">(</span>p.col <span class="op">=</span> <span class="st">"p.value"</span><span class="op">)</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
+  <span class="co"># reduce to 3 digits</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>p.value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">signif</a></span><span class="op">(</span><span class="va">p.value</span>, digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
+  <span class="co"># paste p-value with significance</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>p_final <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">p.value.signif</span> <span class="op">==</span> <span class="st">"ns"</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"p ="</span>, <span class="va">p.value</span><span class="op">)</span>,
+                                           <span class="cn">TRUE</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"p ="</span>, <span class="va">p.value</span>, <span class="va">p.value.signif</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+
+<span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/datatable.html">datatable</a></span><span class="op">(</span><span class="va">aov_df_noassay</span><span class="op">)</span></code></pre></div>
+<div id="htmlwidget-91745c4595329c8ead50" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-91745c4595329c8ead50">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5"],["date","time","quadrant","tank_side","Residuals"],[4,1,3,1,126],[7.79652089276827,0.185218990978015,6.96319070165793,1.73529203913128,75.9689938136899],[1.94913022319207,0.185218990978015,2.32106356721931,1.73529203913128,0.602928522330872],[3.23277163212795,0.307198920133971,3.84964963715147,2.87810573701636,null],[0.0146,0.58,0.0112,0.0923,null],["*","ns","*","ns",""],["p = 0.0146 *","p = 0.58","p = 0.0112 *","p = 0.0923","p = NA "]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>term<\/th>\n      <th>df<\/th>\n      <th>sumsq<\/th>\n      <th>meansq<\/th>\n      <th>statistic<\/th>\n      <th>p.value<\/th>\n      <th>p.value.signif<\/th>\n      <th>p_final<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="excluding-the-first-day" class="section level3" number="3.3.2">
+<h3>
+<span class="header-section-number">3.3.2</span> Excluding the first day<a class="anchor" aria-label="anchor" href="#excluding-the-first-day"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">aov_df_noassay_nofirstday</span> <span class="op">=</span> <span class="va">df_control_noassay</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">date</span> <span class="op">!=</span> <span class="st">"20190611"</span><span class="op">)</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/aov.html">aov</a></span><span class="op">(</span><span class="va">mean_speed</span> <span class="op">~</span> <span class="va">date</span> <span class="op">+</span> <span class="va">time</span> <span class="op">+</span> <span class="va">quadrant</span> <span class="op">+</span> <span class="va">tank_side</span>,
+      data <span class="op">=</span> <span class="va">.</span><span class="op">)</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu">rstatix</span><span class="fu">::</span><span class="fu"><a href="https://rpkgs.datanovia.com/rstatix/reference/add_significance.html">add_significance</a></span><span class="op">(</span>p.col <span class="op">=</span> <span class="st">"p.value"</span><span class="op">)</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
+  <span class="co"># reduce to 3 digits</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>p.value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">signif</a></span><span class="op">(</span><span class="va">p.value</span>, digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
+  <span class="co"># paste p-value with significance</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>p_final <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">p.value.signif</span> <span class="op">==</span> <span class="st">"ns"</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"p ="</span>, <span class="va">p.value</span><span class="op">)</span>,
+                                           <span class="cn">TRUE</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"p ="</span>, <span class="va">p.value</span>, <span class="va">p.value.signif</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+
+<span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/datatable.html">datatable</a></span><span class="op">(</span><span class="va">aov_df_noassay_nofirstday</span><span class="op">)</span></code></pre></div>
+<div id="htmlwidget-badd20e407bc8686f20c" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-badd20e407bc8686f20c">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5"],["date","time","quadrant","tank_side","Residuals"],[3,1,3,1,119],[4.96437835905576,0.185218990978017,4.98833533259768,1.73529203913128,72.4487194908567],[1.65479278635192,0.185218990978017,1.66277844419923,1.73529203913128,0.608812768830728],[2.71806517713167,0.304229806700251,2.73118194842188,2.85028850900096,null],[0.0477,0.582,0.0469,0.094,null],["*","ns","*","ns",""],["p = 0.0477 *","p = 0.582","p = 0.0469 *","p = 0.094","p = NA "]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>term<\/th>\n      <th>df<\/th>\n      <th>sumsq<\/th>\n      <th>meansq<\/th>\n      <th>statistic<\/th>\n      <th>p.value<\/th>\n      <th>p.value.signif<\/th>\n      <th>p_final<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div id="plot" class="section level2" number="3.4">
+<h2>
+<span class="header-section-number">3.4</span> Plot<a class="anchor" aria-label="anchor" href="#plot"><i class="fas fa-link"></i></a>
+</h2>
+<div id="set-height-to-plot-p-value" class="section level3" number="3.4.1">
+<h3>
+<span class="header-section-number">3.4.1</span> Set height to plot p-value<a class="anchor" aria-label="anchor" href="#set-height-to-plot-p-value"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">P_VAL_HEI</span> <span class="op">=</span> <span class="fl">4.7</span></code></pre></div>
+</div>
+<div id="date" class="section level3" number="3.4.2">
+<h3>
+<span class="header-section-number">3.4.2</span> Date<a class="anchor" aria-label="anchor" href="#date"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">date_pal</span> <span class="op">=</span> <span class="fu">colorspace</span><span class="fu">::</span><span class="fu"><a href="https://colorspace.R-Forge.R-project.org/reference/hcl_palettes.html">sequential_hcl</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">df_control_noassay</span><span class="op">$</span><span class="va">date</span><span class="op">)</span><span class="op">)</span>,
+                                      palette <span class="op">=</span> <span class="st">"OrYel"</span><span class="op">)</span>
+
+<span class="va">date_fig_noassay</span> <span class="op">=</span> <span class="va">df_control_noassay</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">date</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
+  <span class="co">#ggplot(aes(date, mean_speed, fill = date)) +</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_violin.html">geom_violin</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">mean_speed</span>, fill <span class="op">=</span> <span class="va">date</span>, colour <span class="op">=</span> <span class="va">date</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">mean_speed</span>, fill <span class="op">=</span> <span class="va">date</span>, colour <span class="op">=</span> <span class="va">date</span><span class="op">)</span>,
+               width <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggbeeswarm</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggbeeswarm/man/geom_beeswarm.html">geom_beeswarm</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">mean_speed</span><span class="op">)</span>,
+                            colour <span class="op">=</span> <span class="st">"#3B1F2B"</span>, alpha <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">aov_df_noassay</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
+              <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">term</span> <span class="op">==</span> <span class="st">"date"</span><span class="op">)</span>,
+            <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"20190611"</span>, y <span class="op">=</span> <span class="va">P_VAL_HEI</span>, label <span class="op">=</span> <span class="va">p_final</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="co">#geom_text(x = "20190611", y = 3.15, label = paste("p =", kw_date)) +</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">date_pal</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_colour_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu">darker</span><span class="op">(</span><span class="va">date_pal</span>, amount <span class="op">=</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html">guides</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"none"</span>,
+         colour <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"mean speed"</span><span class="op">)</span> </code></pre></div>
+</div>
+<div id="time" class="section level3" number="3.4.3">
+<h3>
+<span class="header-section-number">3.4.3</span> Time<a class="anchor" aria-label="anchor" href="#time"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">time_pal</span> <span class="op">=</span> <span class="fu">colorspace</span><span class="fu">::</span><span class="fu"><a href="https://colorspace.R-Forge.R-project.org/reference/hcl_palettes.html">sequential_hcl</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">df_control_noassay</span><span class="op">$</span><span class="va">time</span><span class="op">)</span><span class="op">)</span>,
+                                      palette <span class="op">=</span> <span class="st">"ag_GrnYl"</span><span class="op">)</span>
+
+<span class="va">time_fig_noassay</span> <span class="op">=</span> <span class="va">df_control_noassay</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">time</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_violin.html">geom_violin</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">time</span>, <span class="va">mean_speed</span>, fill <span class="op">=</span> <span class="va">time</span>, colour <span class="op">=</span> <span class="va">time</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">time</span>, <span class="va">mean_speed</span>, fill <span class="op">=</span> <span class="va">time</span>, colour <span class="op">=</span> <span class="va">time</span><span class="op">)</span>,
+               width <span class="op">=</span> <span class="fl">0.15</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggbeeswarm</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggbeeswarm/man/geom_beeswarm.html">geom_beeswarm</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">time</span>, <span class="va">mean_speed</span><span class="op">)</span>,
+                            colour <span class="op">=</span> <span class="st">"#3B1F2B"</span>, alpha <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">aov_df_noassay</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
+              <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">term</span> <span class="op">==</span> <span class="st">"time"</span><span class="op">)</span>,
+            <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"952"</span>, y <span class="op">=</span> <span class="va">P_VAL_HEI</span>, label <span class="op">=</span> <span class="va">p_final</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">time_pal</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_colour_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu">darker</span><span class="op">(</span><span class="va">time_pal</span>, amount <span class="op">=</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html">guides</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"none"</span>,
+         fill <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"mean speed"</span><span class="op">)</span> </code></pre></div>
+</div>
+<div id="quadrant" class="section level3" number="3.4.4">
+<h3>
+<span class="header-section-number">3.4.4</span> Quadrant<a class="anchor" aria-label="anchor" href="#quadrant"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">quad_pal</span> <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/hue_pal.html">hue_pal</a></span><span class="op">(</span><span class="op">)</span><span class="op">(</span><span class="fl">4</span><span class="op">)</span>
+
+<span class="va">quad_fig_noassay</span> <span class="op">=</span> <span class="va">df_control_noassay</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>quadrant <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/recode.html">recode</a></span><span class="op">(</span><span class="va">quadrant</span>,
+                                         <span class="st">"q1"</span> <span class="op">=</span> <span class="st">"I"</span>,
+                                         <span class="st">"q2"</span> <span class="op">=</span> <span class="st">"II"</span>,
+                                         <span class="st">"q3"</span> <span class="op">=</span> <span class="st">"III"</span>,
+                                         <span class="st">"q4"</span> <span class="op">=</span> <span class="st">"IV"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>quadrant <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">quadrant</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"I"</span>, <span class="st">"II"</span>, <span class="st">"III"</span>, <span class="st">"IV"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
+  <span class="co">#ggplot(aes(quadrant, mean_speed, fill = quadrant)) +</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_violin.html">geom_violin</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">quadrant</span>, <span class="va">mean_speed</span>, fill <span class="op">=</span> <span class="va">quadrant</span>, colour <span class="op">=</span> <span class="va">quadrant</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">quadrant</span>, <span class="va">mean_speed</span>, fill <span class="op">=</span> <span class="va">quadrant</span>, colour <span class="op">=</span> <span class="va">quadrant</span><span class="op">)</span>,
+               width <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggbeeswarm</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggbeeswarm/man/geom_beeswarm.html">geom_beeswarm</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">quadrant</span>, <span class="va">mean_speed</span><span class="op">)</span>,
+                            colour <span class="op">=</span> <span class="st">"#3B1F2B"</span>, alpha <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">aov_df_noassay</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
+              <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">term</span> <span class="op">==</span> <span class="st">"quadrant"</span><span class="op">)</span>,
+            <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"I"</span>, y <span class="op">=</span> <span class="va">P_VAL_HEI</span>, label <span class="op">=</span> <span class="va">p_final</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">quad_pal</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_colour_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu">darker</span><span class="op">(</span><span class="va">quad_pal</span>, amount <span class="op">=</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html">guides</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"none"</span>,
+         fill <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"mean speed"</span><span class="op">)</span> </code></pre></div>
+</div>
+<div id="tank-side" class="section level3" number="3.4.5">
+<h3>
+<span class="header-section-number">3.4.5</span> Tank side<a class="anchor" aria-label="anchor" href="#tank-side"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">tank_pal</span> <span class="op">=</span> <span class="fu">colorspace</span><span class="fu">::</span><span class="fu"><a href="https://colorspace.R-Forge.R-project.org/reference/hcl_palettes.html">diverging_hcl</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">df_control_noassay</span><span class="op">$</span><span class="va">tank_side</span><span class="op">)</span><span class="op">)</span>,
+                                     palette <span class="op">=</span> <span class="st">"Red-Green"</span><span class="op">)</span>
+
+<span class="va">tank_fig_noassay</span> <span class="op">=</span> <span class="va">df_control_noassay</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>tank_side <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">tank_side</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"L"</span>, <span class="st">"R"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
+  <span class="co">#ggplot(aes(tank_side, mean_speed, fill = tank_side)) +]</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_violin.html">geom_violin</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">tank_side</span>, <span class="va">mean_speed</span>, fill <span class="op">=</span> <span class="va">tank_side</span>, colour <span class="op">=</span> <span class="va">tank_side</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">tank_side</span>, <span class="va">mean_speed</span>, fill <span class="op">=</span> <span class="va">tank_side</span>, colour <span class="op">=</span> <span class="va">tank_side</span><span class="op">)</span>,
+               width <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggbeeswarm</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggbeeswarm/man/geom_beeswarm.html">geom_beeswarm</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">tank_side</span>, <span class="va">mean_speed</span><span class="op">)</span>,
+                            colour <span class="op">=</span> <span class="st">"#3B1F2B"</span>, alpha <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span>  
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">aov_df_noassay</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
+              <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">term</span> <span class="op">==</span> <span class="st">"tank_side"</span><span class="op">)</span>,
+            <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"L"</span>, y <span class="op">=</span> <span class="va">P_VAL_HEI</span>, label <span class="op">=</span> <span class="va">p_final</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">tank_pal</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_colour_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu">darker</span><span class="op">(</span><span class="va">tank_pal</span>, amount <span class="op">=</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html">guides</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"none"</span>,
+         fill <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"mean speed"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"tank side"</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="compile" class="section level3" number="3.4.6">
+<h3>
+<span class="header-section-number">3.4.6</span> Compile<a class="anchor" aria-label="anchor" href="#compile"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">final_noassay</span> <span class="op">=</span> <span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/ggdraw.html">ggdraw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/draw_plot.html">draw_plot</a></span><span class="op">(</span><span class="va">date_fig_noassay</span>,
+                     x <span class="op">=</span> <span class="fl">0</span>, y <span class="op">=</span> <span class="fl">0.5</span>,
+                     width <span class="op">=</span> <span class="fl">0.55</span>, height <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/draw_plot.html">draw_plot</a></span><span class="op">(</span><span class="va">quad_fig_noassay</span>,
+                     x <span class="op">=</span> <span class="fl">0.55</span>, y <span class="op">=</span> <span class="fl">0.5</span>,
+                     width <span class="op">=</span> <span class="fl">0.45</span>, height <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/draw_plot.html">draw_plot</a></span><span class="op">(</span><span class="va">time_fig_noassay</span>,
+                     x <span class="op">=</span> <span class="fl">0</span>, y <span class="op">=</span> <span class="fl">0</span>,
+                     width <span class="op">=</span> <span class="fl">0.6</span>, height <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/draw_plot.html">draw_plot</a></span><span class="op">(</span><span class="va">tank_fig_noassay</span>,
+                     x <span class="op">=</span> <span class="fl">0.6</span>, y <span class="op">=</span> <span class="fl">0</span>,
+                     width <span class="op">=</span> <span class="fl">0.4</span>, height <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/draw_plot_label.html">draw_plot_label</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span><span class="op">)</span>,
+                           x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.55</span>, <span class="fl">0</span>, <span class="fl">0.6</span><span class="op">)</span>,
+                           y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Save</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="va">OUT_NOASSAY</span><span class="op">)</span>,
+       <span class="va">final_noassay</span>,
+       device <span class="op">=</span> <span class="st">"png"</span>,
+       width <span class="op">=</span> <span class="fl">15</span>,
+       height <span class="op">=</span> <span class="fl">9</span>,
+       units <span class="op">=</span> <span class="st">"in"</span>,
+       dpi <span class="op">=</span> <span class="fl">400</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="va">OUT_NOASSAY</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="figs/covariate_effects/0.08/dist_angle/14/covariate_effects_no-split-by-assay.png" width="100%"></div>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="experimental-setup.html"><span class="header-section-number">2</span> Experimental setup</a></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#effect-of-covariates"><span class="header-section-number">3</span> Effect of covariates</a></li>
+<li>
+<a class="nav-link" href="#setup"><span class="header-section-number">3.1</span> Setup</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#load-libraries"><span class="header-section-number">3.1.1</span> Load libraries</a></li>
+<li><a class="nav-link" href="#set-variables"><span class="header-section-number">3.1.2</span> Set variables</a></li>
+<li><a class="nav-link" href="#source-lighterdarker-functions"><span class="header-section-number">3.1.3</span> Source lighter/darker functions</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#read-and-process-data"><span class="header-section-number">3.2</span> Read and process data</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#calculate-mean-speed-across-both-assays-for-each-individual"><span class="header-section-number">3.2.1</span> Calculate mean speed across both assays for each individual</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#anova"><span class="header-section-number">3.3</span> ANOVA</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#all-days"><span class="header-section-number">3.3.1</span> All days</a></li>
+<li><a class="nav-link" href="#excluding-the-first-day"><span class="header-section-number">3.3.2</span> Excluding the first day</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#plot"><span class="header-section-number">3.4</span> Plot</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#set-height-to-plot-p-value"><span class="header-section-number">3.4.1</span> Set height to plot p-value</a></li>
+<li><a class="nav-link" href="#date"><span class="header-section-number">3.4.2</span> Date</a></li>
+<li><a class="nav-link" href="#time"><span class="header-section-number">3.4.3</span> Time</a></li>
+<li><a class="nav-link" href="#quadrant"><span class="header-section-number">3.4.4</span> Quadrant</a></li>
+<li><a class="nav-link" href="#tank-side"><span class="header-section-number">3.4.5</span> Tank side</a></li>
+<li><a class="nav-link" href="#compile"><span class="header-section-number">3.4.6</span> Compile</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/brettellebi/pilot_paper/blob/master/book/Effect_of_covariates.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/brettellebi/pilot_paper/edit/master/book/Effect_of_covariates.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Medaka behaviour pilot study</strong>" was written by Ian Brettell. It was last built on 2022-07-11.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>
