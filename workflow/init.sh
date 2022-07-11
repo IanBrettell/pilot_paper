@@ -84,7 +84,7 @@ singularity build --remote \
 ####################
 
 ssh proxy-codon
-bsub -M 50000 -Is bash
+bsub -M 50000 -q short -Is bash
 module load singularity-3.7.0-gcc-9.3.0-dp5ffrp
 cd /hps/software/users/birney/ian/repos/pilot_paper
 RCONT=/hps/nobackup/birney/users/ian/containers/pilot_paper/R_4.2.0.sif
