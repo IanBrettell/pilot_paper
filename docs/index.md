@@ -1,7 +1,7 @@
 --- 
 title: "Medaka behaviour pilot study"
 author: "Ian Brettell"
-date: "2022-05-16"
+date: "2022-07-11"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
@@ -19,3 +19,7 @@ csl: chicago-fullnote-bibliography.csl
 This book sets out the analysis of medaka approach/avoidance behaviour using 5 established inbred strains.
 
 
+
+<video width="320" height="240" controls>
+  <source src="movie.mp4" type="/hps/software/users/birney/ian/repos/pilot_paper/book/figs/videos/20191117_1122_22-1_L_B.mp4">
+</video>
