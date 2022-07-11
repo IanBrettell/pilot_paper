@@ -18,3 +18,6 @@ sge-1
 inverse-normalise-1
 calculate-variance-explained-1
 save-to-google-drive-1
+icab
+hdrr
+kaga

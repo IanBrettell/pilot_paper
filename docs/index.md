@@ -20,7 +20,15 @@ This book sets out the analysis of medaka approach/avoidance behaviour using 5 e
 
 
 
+
+## *iCab*
+
+
+
+## *HdrR*
+
 (ref:hdrr) *HdrR*
+
 
 ```{=html}
 <div class="vembedr">
@@ -30,4 +38,17 @@ This book sets out the analysis of medaka approach/avoidance behaviour using 5 e
 </div>
 ```
 
+
+## *Kaga*
+
+(ref:kaga) *Kaga*
+
+
+```{=html}
+<div class="vembedr">
+<div>
+<iframe src="https://www.youtube.com/embed/FhOVaqAheKE" width="533" height="300" frameborder="0" allowfullscreen="" data-external="1"></iframe>
+</div>
+</div>
+```
 

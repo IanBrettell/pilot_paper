@@ -25,9 +25,25 @@ knitr::write_bib(c(
 ), 'packages.bib')
 ```
 
+
+## *iCab*
+
+
+
+## *HdrR*
+
 (ref:hdrr) *HdrR*
+
 ```{r, fig.cap = '(ref:hdrr)', out.width = '100%', echo = F}
 vembedr::embed_url("https://www.youtube.com/watch?v=boieErstoKo")
 ```
 
+
+## *Kaga*
+
+(ref:kaga) *Kaga*
+
+```{r, fig.cap = '(ref:kaga)', out.width = '100%', echo = F}
+vembedr::embed_url("https://www.youtube.com/watch?v=FhOVaqAheKE")
+```
 
