@@ -59,8 +59,14 @@ and classification of behaviours with HMMs.&lt;/p&gt;">
         <ul class="book-toc list-unstyled">
 <li><a class="active" href="index.html"><span class="header-section-number">1</span> About</a></li>
 <li><a class="" href="experimental-setup.html"><span class="header-section-number">2</span> Experimental setup</a></li>
-<li><a class="" href="effect-of-covariates.html"><span class="header-section-number">3</span> Effect of covariates</a></li>
-<li><a class="" href="hmm-parameter-optimisation.html"><span class="header-section-number">4</span> HMM parameter optimisation</a></li>
+<li><a class="" href="data-collection.html"><span class="header-section-number">3</span> Data collection</a></li>
+<li><a class="" href="effect-of-covariates.html"><span class="header-section-number">4</span> Effect of covariates</a></li>
+<li><a class="" href="hmm-parameter-optimisation.html"><span class="header-section-number">5</span> HMM parameter optimisation</a></li>
+<li><a class="" href="hmm-states.html"><span class="header-section-number">6</span> HMM states</a></li>
+<li><a class="" href="model-proportion-of-time-spent-in-hmm-states.html"><span class="header-section-number">7</span> Model proportion of time spent in HMM states</a></li>
+<li><a class="" href="time-dependence-of-hmm-states-dge.html"><span class="header-section-number">8</span> Time dependence of HMM states (DGE)</a></li>
+<li><a class="" href="time-dependence-of-hmm-states-sge.html"><span class="header-section-number">9</span> Time dependence of HMM states (SGE)</a></li>
+<li><a class="" href="sge-co-occupancy.html"><span class="header-section-number">10</span> SGE co-occupancy</a></li>
 </ul>
 
         <div class="book-extra">
@@ -179,6 +185,34 @@ and classification of behaviours with HMMs.&lt;/p&gt;">
   </div>
 
 </div></div>
-</footer>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
 </body>
 </html>

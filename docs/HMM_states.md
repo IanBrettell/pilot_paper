@@ -6,22 +6,30 @@ The HMMs were trained on distance and angle variables. **Figure \@ref(fig:polar-
 
 (ref:polar-example) Distance (in log[10](pixels)) and angle of travel between a time interval of 0.2 seconds from points B → C for distance, and points A → B → C for angle. Each point represents the distance and angle at point C, and A → B is aligned vertically along the 0-180° radial axis. The figure shows only an illustrative 10,000 points, randomly selected from the full dataset. States are sorted in ascending order by mean distance.
 
-```{r polar-example, fig.cap = '(ref:polar-example)', out.width='100%'}
+
+```r
 knitr::include_graphics(here::here("book/figs/misc/dist_angle_polar_example.png"))
 ```
+
+<div class="figure">
+<img src="figs/misc/dist_angle_polar_example.png" alt="(ref:polar-example)" width="100%" />
+<p class="caption">(\#fig:polar-example)(ref:polar-example)</p>
+</div>
 
 ## Setup
 
 ### Load libraries
 
-```{r, message = F, warning = F}
+
+```r
 library(tidyverse)
 library(wesanderson)
 library(rstatix)
 library(cowplot)
 ```
 
-```{r}
+
+```r
 # Variables included in HMM
 VARIABLES = "dist_angle"
 
@@ -64,7 +72,8 @@ Based a visualisation of the polar plots for the each state-number/interval comb
 
 #### Variables
 
-```{r}
+
+```r
 N_STATES = 16
 INTERVAL = 0.05
 IN = file.path("/hps/nobackup/birney/users/ian/pilot/hmm_out",
@@ -81,17 +90,25 @@ POLAR_ALL_DGE = here::here("book/figs/paper_final",
                            N_STATES,
                            "polar_all_dge.png")
 
-
 ```
 
 #### Read data and process
 
-```{r}
+
+```r
 df = readr::read_csv(IN) %>% 
   # recode angle to sit between 0 and 360
   dplyr::mutate(angle_recode = ifelse(angle < 0,
                                       180 + (180 + angle),
                                       angle))
+#> Rows: 14649781 Columns: 15
+#> ── Column specification ────────────────────────────────────
+#> Delimiter: ","
+#> chr (6): assay, ref_fish, test_fish, tank_side, quadrant...
+#> dbl (9): date, time, frame, seconds, x, y, distance, ang...
+#> 
+#> ℹ Use `spec()` to retrieve the full column specification for this data.
+#> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 
 # Recode states by mean distance
 
@@ -111,12 +128,12 @@ names(recode_vec) = rank_df %>%
 
 df = df %>% 
   dplyr::mutate(state_recode = dplyr::recode(state, !!!recode_vec))
-
 ```
 
 #### Plot
 
-```{r}
+
+```r
 polar_all_dge = df %>% 
   # select random sample of 1e5 rows
   dplyr::slice_sample(n = 1e5) %>% 
@@ -137,7 +154,8 @@ polar_all_dge = df %>%
   ylab(expression(log[10]("distance travelled in pixels")))
 ```
 
-```{r, eval = F}
+
+```r
 # Save
 ggsave(POLAR_ALL_DGE,
        polar_all_dge,
@@ -148,16 +166,20 @@ ggsave(POLAR_ALL_DGE,
        dpi = 400)
 ```
 
-```{r polar-asym, out.width = "100%"}
+
+```r
 knitr::include_graphics(POLAR_ALL_DGE)
 ```
+
+<img src="figs/paper_final/0.05/dist_angle/16/polar_all_dge.png" width="100%" />
 
 
 ## Best optimisation with state symmetry: 14 states; 0.08 second interval
 
 For the downstream analysis we selected the combination of 14 states with a 0.08-second interval between time points, because out of the remaining combinations it appeared to optimally balance the level of overfitting and detection of differences between lines (**Figure \@ref(fig:polar-sym)**). 
 
-```{r}
+
+```r
 N_STATES = 14
 INTERVAL = 0.08
 IN = file.path("/hps/nobackup/birney/users/ian/pilot/hmm_out",
@@ -174,17 +196,25 @@ POLAR_ALL_DGE = here::here("book/figs/paper_final",
                            N_STATES,
                            "polar_all_dge.png")
 
-
 ```
 
 #### Read data and process
 
-```{r}
+
+```r
 df = readr::read_csv(IN) %>% 
   # recode angle to sit between 0 and 360
   dplyr::mutate(angle_recode = ifelse(angle < 0,
                                       180 + (180 + angle),
                                       angle))
+#> Rows: 9152328 Columns: 15
+#> ── Column specification ────────────────────────────────────
+#> Delimiter: ","
+#> chr (6): assay, ref_fish, test_fish, tank_side, quadrant...
+#> dbl (9): date, time, frame, seconds, x, y, distance, ang...
+#> 
+#> ℹ Use `spec()` to retrieve the full column specification for this data.
+#> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 
 # Recode states by mean distance
 
@@ -204,12 +234,12 @@ names(recode_vec) = rank_df %>%
 
 df = df %>% 
   dplyr::mutate(state_recode = dplyr::recode(state, !!!recode_vec))
-
 ```
 
 #### Plot
 
-```{r}
+
+```r
 polar_all_dge = df %>% 
   # select random sample of 1e5 rows
   dplyr::slice_sample(n = 1e5) %>% 
@@ -227,7 +257,8 @@ polar_all_dge = df %>%
   ylab(expression(log[10]("distance travelled in pixels")))
 ```
 
-```{r, eval = F}
+
+```r
 # Save
 ggsave(POLAR_ALL_DGE,
        polar_all_dge,
@@ -238,6 +269,9 @@ ggsave(POLAR_ALL_DGE,
        dpi = 400)
 ```
 
-```{r polar-sym, out.width = "100%"}
+
+```r
 knitr::include_graphics(POLAR_ALL_DGE)
 ```
+
+<img src="figs/paper_final/0.08/dist_angle/14/polar_all_dge.png" width="100%" />

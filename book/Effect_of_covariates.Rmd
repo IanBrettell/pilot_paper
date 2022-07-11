@@ -1,5 +1,7 @@
 # Effect of covariates
 
+We examined the effects of several covariates, including date of assay, time of assay, tank quadrant, and tank side. To achieve this, we calculated the mean speed of individuals in iCab-iCab pairings (N = 136) over the course of the entire 20-minute video (including both open field and novel object assays), and ran a multi-way ANOVA with all covariates (Figure \@ref(fig:covariates)). 
+
 ## Setup
 
 ### Load libraries
@@ -69,6 +71,17 @@ df_control_noassay = df %>%
 
 ## ANOVA
 
+### Model
+
+```{r, echo = F}
+model = aov(mean_speed ~ date + time + quadrant + tank_side, data = df_control_noassay) 
+
+equatiomatic::extract_eq(model)
+```
+$$
+\operatorname{mean\_speed} = \beta_{1}(\operatorname{date}) + \beta_{2}(\operatorname{time}) + \beta_{3}(\operatorname{quadrant}) + \beta_{4}(\operatorname{tank\_side}) + \epsilon
+$$
+
 ### All days
 
 ```{r}
@@ -86,6 +99,8 @@ aov_df_noassay = df_control_noassay %>%
 
 DT::datatable(aov_df_noassay)
 ```
+
+As shown above, we found significant differences for date of assay and and tank quadrant (p = 0.0139 and 0.0108), but not for time of assay or tank side. This may have been caused by a difference in the way the assay was performed on the first day of the experiment (11 June 2019), where we used a thick fabric sheet to cover the front of the box rather than the wooden doors shown in Figure 1, as they were only installed the following day. The greater level of external light and sound permeating through the fabric may have caused the fishes to exhibit slower movement on that first day. The model below excludes the data collected on that first day.
 
 ### Excluding the first day
 
@@ -105,6 +120,8 @@ aov_df_noassay_nofirstday = df_control_noassay %>%
 
 DT::datatable(aov_df_noassay_nofirstday)
 ```
+
+When the data from the first day is excluded, the p-values for date of assay and tank quadrant increase to 0.0477 and 0.0469 respectively.
 
 ## Plot
 
@@ -254,7 +271,7 @@ ggsave(here::here(OUT_NOASSAY),
        dpi = 400)
 ```
 
-```{r, out.width='100%'}
+```{r covariates, out.width='100%'}
 knitr::include_graphics(here::here(OUT_NOASSAY))
 ```
 
