@@ -20,20 +20,14 @@ This book sets out the analysis of medaka approach/avoidance behaviour using 5 e
 
 
 
-<video width="320" height="240" autoplay>
-  <source src="/hps/software/users/birney/ian/repos/pilot_paper/book/figs/videos/20191117_1122_22-1_L_B.mp4" type="video/mp4">
-</video>
+(ref:hdrr) *HdrR*
 
-<iframe width="720" height="480" src="/hps/software/users/birney/ian/repos/pilot_paper/book/figs/videos/20191117_1122_22-1_L_B.mp4" align="middle" frameborder="0" allowfullscreen></iframe>
+```{=html}
+<div class="vembedr">
+<div>
+<iframe src="https://www.youtube.com/embed/boieErstoKo" width="533" height="300" frameborder="0" allowfullscreen="" data-external="1"></iframe>
+</div>
+</div>
+```
 
-<iframe width="560" height="315" 
-  src="/hps/software/users/birney/ian/repos/pilot_paper/book/figs/videos/20191117_1122_22-1_L_B.mp4"
-  frameborder="0" allow="accelerometer; autoplay; encrypted-media;
-  gyroscope; picture-in-picture" allowfullscreen>
-  </iframe>
-  
-![](https://www.youtube.com/watch?v=boieErstoKo)
-
-
-![](https://www.youtube.com/watch?v=zNzZ1PfUDNk)
 
