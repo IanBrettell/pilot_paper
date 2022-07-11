@@ -82,7 +82,7 @@ vembedr::embed_url("https://www.youtube.com/watch?v=ldd7vI7J3JE")
 </div>
 ```
 
-### *HO5* (northern Japan)
+### *HO5* (southern Japan)
 
 
 ```{=html}

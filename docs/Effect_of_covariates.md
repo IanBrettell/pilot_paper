@@ -100,7 +100,8 @@ aov_df_noassay = df_control_noassay %>%
   broom::tidy(.) %>% 
   rstatix::add_significance(p.col = "p.value") %>% 
   # reduce to 3 digits
-  dplyr::mutate(p.value = signif(p.value, digits = 3)) %>% 
+  dplyr::mutate(dplyr::across(c("sumsq", "meansq", "statistic", "p.value"),
+                              ~signif(.x, digits = 3))) %>% 
   # paste p-value with significance
   dplyr::mutate(p_final = dplyr::case_when(p.value.signif == "ns" ~ paste("p =", p.value),
                                            TRUE ~ paste("p =", p.value, p.value.signif)))
@@ -109,8 +110,8 @@ DT::datatable(aov_df_noassay)
 ```
 
 ```{=html}
-<div id="htmlwidget-91745c4595329c8ead50" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-91745c4595329c8ead50">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5"],["date","time","quadrant","tank_side","Residuals"],[4,1,3,1,126],[7.79652089276827,0.185218990978015,6.96319070165793,1.73529203913128,75.9689938136899],[1.94913022319207,0.185218990978015,2.32106356721931,1.73529203913128,0.602928522330872],[3.23277163212795,0.307198920133971,3.84964963715147,2.87810573701636,null],[0.0146,0.58,0.0112,0.0923,null],["*","ns","*","ns",""],["p = 0.0146 *","p = 0.58","p = 0.0112 *","p = 0.0923","p = NA "]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>term<\/th>\n      <th>df<\/th>\n      <th>sumsq<\/th>\n      <th>meansq<\/th>\n      <th>statistic<\/th>\n      <th>p.value<\/th>\n      <th>p.value.signif<\/th>\n      <th>p_final<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-d722fc69cc43d1078432" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d722fc69cc43d1078432">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5"],["date","time","quadrant","tank_side","Residuals"],[4,1,3,1,126],[7.8,0.185,6.96,1.74,76],[1.95,0.185,2.32,1.74,0.603],[3.23,0.307,3.85,2.88,null],[0.0146,0.58,0.0112,0.0923,null],["*","ns","*","ns",""],["p = 0.0146 *","p = 0.58","p = 0.0112 *","p = 0.0923","p = NA "]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>term<\/th>\n      <th>df<\/th>\n      <th>sumsq<\/th>\n      <th>meansq<\/th>\n      <th>statistic<\/th>\n      <th>p.value<\/th>\n      <th>p.value.signif<\/th>\n      <th>p_final<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 ```
 
 ### Excluding the first day
@@ -124,7 +125,8 @@ aov_df_noassay_nofirstday = df_control_noassay %>%
   broom::tidy(.) %>% 
   rstatix::add_significance(p.col = "p.value") %>% 
   # reduce to 3 digits
-  dplyr::mutate(p.value = signif(p.value, digits = 3)) %>% 
+  dplyr::mutate(dplyr::across(c("sumsq", "meansq", "statistic", "p.value"),
+                              ~signif(.x, digits = 3))) %>% 
   # paste p-value with significance
   dplyr::mutate(p_final = dplyr::case_when(p.value.signif == "ns" ~ paste("p =", p.value),
                                            TRUE ~ paste("p =", p.value, p.value.signif)))
@@ -133,14 +135,11 @@ DT::datatable(aov_df_noassay_nofirstday)
 ```
 
 ```{=html}
-<div id="htmlwidget-badd20e407bc8686f20c" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-badd20e407bc8686f20c">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5"],["date","time","quadrant","tank_side","Residuals"],[3,1,3,1,119],[4.96437835905576,0.185218990978017,4.98833533259768,1.73529203913128,72.4487194908567],[1.65479278635192,0.185218990978017,1.66277844419923,1.73529203913128,0.608812768830728],[2.71806517713167,0.304229806700251,2.73118194842188,2.85028850900096,null],[0.0477,0.582,0.0469,0.094,null],["*","ns","*","ns",""],["p = 0.0477 *","p = 0.582","p = 0.0469 *","p = 0.094","p = NA "]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>term<\/th>\n      <th>df<\/th>\n      <th>sumsq<\/th>\n      <th>meansq<\/th>\n      <th>statistic<\/th>\n      <th>p.value<\/th>\n      <th>p.value.signif<\/th>\n      <th>p_final<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-ba1e892713c91eb470d0" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ba1e892713c91eb470d0">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5"],["date","time","quadrant","tank_side","Residuals"],[3,1,3,1,119],[4.96,0.185,4.99,1.74,72.4],[1.65,0.185,1.66,1.74,0.609],[2.72,0.304,2.73,2.85,null],[0.0477,0.582,0.0469,0.094,null],["*","ns","*","ns",""],["p = 0.0477 *","p = 0.582","p = 0.0469 *","p = 0.094","p = NA "]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>term<\/th>\n      <th>df<\/th>\n      <th>sumsq<\/th>\n      <th>meansq<\/th>\n      <th>statistic<\/th>\n      <th>p.value<\/th>\n      <th>p.value.signif<\/th>\n      <th>p_final<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 ```
 
-
 ## Plot
-
-### Set height to plot p-value
 
 
 ```r

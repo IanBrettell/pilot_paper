@@ -22,7 +22,8 @@
 <script src="libs/datatables-binding-0.22/datatables.js"></script><link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
 <script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
-<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><style>
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script><script src="libs/plotly-binding-4.10.0/plotly.js"></script><script src="libs/typedarray-0.1/typedarray.min.js"></script><link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script><style>
     #content {
         font-size: 0.9rem;
     }
@@ -56,6 +57,7 @@
 <li><a class="" href="index.html"><span class="header-section-number">1</span> About</a></li>
 <li><a class="" href="experimental-setup.html"><span class="header-section-number">2</span> Experimental setup</a></li>
 <li><a class="active" href="effect-of-covariates.html"><span class="header-section-number">3</span> Effect of covariates</a></li>
+<li><a class="" href="hmm-parameter-optimisation.html"><span class="header-section-number">4</span> HMM parameter optimisation</a></li>
 </ul>
 
         <div class="book-extra">
@@ -173,14 +175,15 @@
   <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu">rstatix</span><span class="fu">::</span><span class="fu"><a href="https://rpkgs.datanovia.com/rstatix/reference/add_significance.html">add_significance</a></span><span class="op">(</span>p.col <span class="op">=</span> <span class="st">"p.value"</span><span class="op">)</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
   <span class="co"># reduce to 3 digits</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>p.value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">signif</a></span><span class="op">(</span><span class="va">p.value</span>, digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"sumsq"</span>, <span class="st">"meansq"</span>, <span class="st">"statistic"</span>, <span class="st">"p.value"</span><span class="op">)</span>,
+                              <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">signif</a></span><span class="op">(</span><span class="va">.x</span>, digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
   <span class="co"># paste p-value with significance</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>p_final <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">p.value.signif</span> <span class="op">==</span> <span class="st">"ns"</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"p ="</span>, <span class="va">p.value</span><span class="op">)</span>,
                                            <span class="cn">TRUE</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"p ="</span>, <span class="va">p.value</span>, <span class="va">p.value.signif</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 
 <span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/datatable.html">datatable</a></span><span class="op">(</span><span class="va">aov_df_noassay</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-91745c4595329c8ead50" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-91745c4595329c8ead50">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5"],["date","time","quadrant","tank_side","Residuals"],[4,1,3,1,126],[7.79652089276827,0.185218990978015,6.96319070165793,1.73529203913128,75.9689938136899],[1.94913022319207,0.185218990978015,2.32106356721931,1.73529203913128,0.602928522330872],[3.23277163212795,0.307198920133971,3.84964963715147,2.87810573701636,null],[0.0146,0.58,0.0112,0.0923,null],["*","ns","*","ns",""],["p = 0.0146 *","p = 0.58","p = 0.0112 *","p = 0.0923","p = NA "]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>term<\/th>\n      <th>df<\/th>\n      <th>sumsq<\/th>\n      <th>meansq<\/th>\n      <th>statistic<\/th>\n      <th>p.value<\/th>\n      <th>p.value.signif<\/th>\n      <th>p_final<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-d722fc69cc43d1078432" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d722fc69cc43d1078432">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5"],["date","time","quadrant","tank_side","Residuals"],[4,1,3,1,126],[7.8,0.185,6.96,1.74,76],[1.95,0.185,2.32,1.74,0.603],[3.23,0.307,3.85,2.88,null],[0.0146,0.58,0.0112,0.0923,null],["*","ns","*","ns",""],["p = 0.0146 *","p = 0.58","p = 0.0112 *","p = 0.0923","p = NA "]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>term<\/th>\n      <th>df<\/th>\n      <th>sumsq<\/th>\n      <th>meansq<\/th>\n      <th>statistic<\/th>\n      <th>p.value<\/th>\n      <th>p.value.signif<\/th>\n      <th>p_final<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="excluding-the-first-day" class="section level3" number="3.3.2">
 <h3>
@@ -194,30 +197,26 @@
   <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu">rstatix</span><span class="fu">::</span><span class="fu"><a href="https://rpkgs.datanovia.com/rstatix/reference/add_significance.html">add_significance</a></span><span class="op">(</span>p.col <span class="op">=</span> <span class="st">"p.value"</span><span class="op">)</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
   <span class="co"># reduce to 3 digits</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>p.value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">signif</a></span><span class="op">(</span><span class="va">p.value</span>, digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"sumsq"</span>, <span class="st">"meansq"</span>, <span class="st">"statistic"</span>, <span class="st">"p.value"</span><span class="op">)</span>,
+                              <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">signif</a></span><span class="op">(</span><span class="va">.x</span>, digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rpkgs.datanovia.com/ggpubr/reference/pipe.html">%&gt;%</a></span> 
   <span class="co"># paste p-value with significance</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>p_final <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">p.value.signif</span> <span class="op">==</span> <span class="st">"ns"</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"p ="</span>, <span class="va">p.value</span><span class="op">)</span>,
                                            <span class="cn">TRUE</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"p ="</span>, <span class="va">p.value</span>, <span class="va">p.value.signif</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 
 <span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/datatable.html">datatable</a></span><span class="op">(</span><span class="va">aov_df_noassay_nofirstday</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-badd20e407bc8686f20c" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-badd20e407bc8686f20c">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5"],["date","time","quadrant","tank_side","Residuals"],[3,1,3,1,119],[4.96437835905576,0.185218990978017,4.98833533259768,1.73529203913128,72.4487194908567],[1.65479278635192,0.185218990978017,1.66277844419923,1.73529203913128,0.608812768830728],[2.71806517713167,0.304229806700251,2.73118194842188,2.85028850900096,null],[0.0477,0.582,0.0469,0.094,null],["*","ns","*","ns",""],["p = 0.0477 *","p = 0.582","p = 0.0469 *","p = 0.094","p = NA "]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>term<\/th>\n      <th>df<\/th>\n      <th>sumsq<\/th>\n      <th>meansq<\/th>\n      <th>statistic<\/th>\n      <th>p.value<\/th>\n      <th>p.value.signif<\/th>\n      <th>p_final<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-ba1e892713c91eb470d0" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ba1e892713c91eb470d0">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5"],["date","time","quadrant","tank_side","Residuals"],[3,1,3,1,119],[4.96,0.185,4.99,1.74,72.4],[1.65,0.185,1.66,1.74,0.609],[2.72,0.304,2.73,2.85,null],[0.0477,0.582,0.0469,0.094,null],["*","ns","*","ns",""],["p = 0.0477 *","p = 0.582","p = 0.0469 *","p = 0.094","p = NA "]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>term<\/th>\n      <th>df<\/th>\n      <th>sumsq<\/th>\n      <th>meansq<\/th>\n      <th>statistic<\/th>\n      <th>p.value<\/th>\n      <th>p.value.signif<\/th>\n      <th>p_final<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div id="plot" class="section level2" number="3.4">
 <h2>
 <span class="header-section-number">3.4</span> Plot<a class="anchor" aria-label="anchor" href="#plot"><i class="fas fa-link"></i></a>
 </h2>
-<div id="set-height-to-plot-p-value" class="section level3" number="3.4.1">
-<h3>
-<span class="header-section-number">3.4.1</span> Set height to plot p-value<a class="anchor" aria-label="anchor" href="#set-height-to-plot-p-value"><i class="fas fa-link"></i></a>
-</h3>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">P_VAL_HEI</span> <span class="op">=</span> <span class="fl">4.7</span></code></pre></div>
-</div>
-<div id="date" class="section level3" number="3.4.2">
+<div id="date" class="section level3" number="3.4.1">
 <h3>
-<span class="header-section-number">3.4.2</span> Date<a class="anchor" aria-label="anchor" href="#date"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.4.1</span> Date<a class="anchor" aria-label="anchor" href="#date"><i class="fas fa-link"></i></a>
 </h3>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">date_pal</span> <span class="op">=</span> <span class="fu">colorspace</span><span class="fu">::</span><span class="fu"><a href="https://colorspace.R-Forge.R-project.org/reference/hcl_palettes.html">sequential_hcl</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">df_control_noassay</span><span class="op">$</span><span class="va">date</span><span class="op">)</span><span class="op">)</span>,
@@ -243,9 +242,9 @@
          colour <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"mean speed"</span><span class="op">)</span> </code></pre></div>
 </div>
-<div id="time" class="section level3" number="3.4.3">
+<div id="time" class="section level3" number="3.4.2">
 <h3>
-<span class="header-section-number">3.4.3</span> Time<a class="anchor" aria-label="anchor" href="#time"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.4.2</span> Time<a class="anchor" aria-label="anchor" href="#time"><i class="fas fa-link"></i></a>
 </h3>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">time_pal</span> <span class="op">=</span> <span class="fu">colorspace</span><span class="fu">::</span><span class="fu"><a href="https://colorspace.R-Forge.R-project.org/reference/hcl_palettes.html">sequential_hcl</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">df_control_noassay</span><span class="op">$</span><span class="va">time</span><span class="op">)</span><span class="op">)</span>,
@@ -269,9 +268,9 @@
          fill <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"mean speed"</span><span class="op">)</span> </code></pre></div>
 </div>
-<div id="quadrant" class="section level3" number="3.4.4">
+<div id="quadrant" class="section level3" number="3.4.3">
 <h3>
-<span class="header-section-number">3.4.4</span> Quadrant<a class="anchor" aria-label="anchor" href="#quadrant"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.4.3</span> Quadrant<a class="anchor" aria-label="anchor" href="#quadrant"><i class="fas fa-link"></i></a>
 </h3>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">quad_pal</span> <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/hue_pal.html">hue_pal</a></span><span class="op">(</span><span class="op">)</span><span class="op">(</span><span class="fl">4</span><span class="op">)</span>
@@ -300,9 +299,9 @@
          fill <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"mean speed"</span><span class="op">)</span> </code></pre></div>
 </div>
-<div id="tank-side" class="section level3" number="3.4.5">
+<div id="tank-side" class="section level3" number="3.4.4">
 <h3>
-<span class="header-section-number">3.4.5</span> Tank side<a class="anchor" aria-label="anchor" href="#tank-side"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.4.4</span> Tank side<a class="anchor" aria-label="anchor" href="#tank-side"><i class="fas fa-link"></i></a>
 </h3>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tank_pal</span> <span class="op">=</span> <span class="fu">colorspace</span><span class="fu">::</span><span class="fu"><a href="https://colorspace.R-Forge.R-project.org/reference/hcl_palettes.html">diverging_hcl</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">df_control_noassay</span><span class="op">$</span><span class="va">tank_side</span><span class="op">)</span><span class="op">)</span>,
@@ -328,9 +327,9 @@
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"mean speed"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"tank side"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="compile" class="section level3" number="3.4.6">
+<div id="compile" class="section level3" number="3.4.5">
 <h3>
-<span class="header-section-number">3.4.6</span> Compile<a class="anchor" aria-label="anchor" href="#compile"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.4.5</span> Compile<a class="anchor" aria-label="anchor" href="#compile"><i class="fas fa-link"></i></a>
 </h3>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">final_noassay</span> <span class="op">=</span> <span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/ggdraw.html">ggdraw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
@@ -367,7 +366,7 @@
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="experimental-setup.html"><span class="header-section-number">2</span> Experimental setup</a></div>
-<div class="empty"></div>
+<div class="next"><a href="hmm-parameter-optimisation.html"><span class="header-section-number">4</span> HMM parameter optimisation</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -390,12 +389,11 @@
 </li>
 <li>
 <a class="nav-link" href="#plot"><span class="header-section-number">3.4</span> Plot</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#set-height-to-plot-p-value"><span class="header-section-number">3.4.1</span> Set height to plot p-value</a></li>
-<li><a class="nav-link" href="#date"><span class="header-section-number">3.4.2</span> Date</a></li>
-<li><a class="nav-link" href="#time"><span class="header-section-number">3.4.3</span> Time</a></li>
-<li><a class="nav-link" href="#quadrant"><span class="header-section-number">3.4.4</span> Quadrant</a></li>
-<li><a class="nav-link" href="#tank-side"><span class="header-section-number">3.4.5</span> Tank side</a></li>
-<li><a class="nav-link" href="#compile"><span class="header-section-number">3.4.6</span> Compile</a></li>
+<li><a class="nav-link" href="#date"><span class="header-section-number">3.4.1</span> Date</a></li>
+<li><a class="nav-link" href="#time"><span class="header-section-number">3.4.2</span> Time</a></li>
+<li><a class="nav-link" href="#quadrant"><span class="header-section-number">3.4.3</span> Quadrant</a></li>
+<li><a class="nav-link" href="#tank-side"><span class="header-section-number">3.4.4</span> Tank side</a></li>
+<li><a class="nav-link" href="#compile"><span class="header-section-number">3.4.5</span> Compile</a></li>
 </ul>
 </li>
 </ul>

@@ -63,7 +63,7 @@ vembedr::embed_url("https://www.youtube.com/watch?v=FhOVaqAheKE")
 vembedr::embed_url("https://www.youtube.com/watch?v=4hqGCLpj5G0")
 ```
 
-### *HO5* (northern Japan)
+### *HO5* (southern Japan)
 
 ```{r, out.width = '100%', echo = F}
 vembedr::embed_url("https://www.youtube.com/watch?v=TO0VTr1EoCI")

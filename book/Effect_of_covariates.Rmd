@@ -78,7 +78,8 @@ aov_df_noassay = df_control_noassay %>%
   broom::tidy(.) %>% 
   rstatix::add_significance(p.col = "p.value") %>% 
   # reduce to 3 digits
-  dplyr::mutate(p.value = signif(p.value, digits = 3)) %>% 
+  dplyr::mutate(dplyr::across(c("sumsq", "meansq", "statistic", "p.value"),
+                              ~signif(.x, digits = 3))) %>% 
   # paste p-value with significance
   dplyr::mutate(p_final = dplyr::case_when(p.value.signif == "ns" ~ paste("p =", p.value),
                                            TRUE ~ paste("p =", p.value, p.value.signif)))
@@ -96,7 +97,8 @@ aov_df_noassay_nofirstday = df_control_noassay %>%
   broom::tidy(.) %>% 
   rstatix::add_significance(p.col = "p.value") %>% 
   # reduce to 3 digits
-  dplyr::mutate(p.value = signif(p.value, digits = 3)) %>% 
+  dplyr::mutate(dplyr::across(c("sumsq", "meansq", "statistic", "p.value"),
+                              ~signif(.x, digits = 3))) %>% 
   # paste p-value with significance
   dplyr::mutate(p_final = dplyr::case_when(p.value.signif == "ns" ~ paste("p =", p.value),
                                            TRUE ~ paste("p =", p.value, p.value.signif)))
@@ -104,10 +106,7 @@ aov_df_noassay_nofirstday = df_control_noassay %>%
 DT::datatable(aov_df_noassay_nofirstday)
 ```
 
-
 ## Plot
-
-### Set height to plot p-value
 
 ```{r}
 P_VAL_HEI = 4.7
