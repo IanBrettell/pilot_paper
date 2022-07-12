@@ -76,14 +76,14 @@
 <span class="header-section-number">6</span> HMM states<a class="anchor" aria-label="anchor" href="#hmm-states"><i class="fas fa-link"></i></a>
 </h1>
 <p>Here we show how using a higher number of states in the HMM appeared to optimise the balance between the ability to discern differences between lines and model overfitting, yet produced asymmetries in the classified states that would impede biological interpretation.</p>
-<p>The HMMs were trained on distance and angle variables. <strong>Figure <a href="hmm-states.html#fig:polar-example">6.1</a></strong> depicts how the distance and angle of travel of the movements are depicted in the polar plots.</p>
+<p>The HMMs were trained on distance and angle variables. <strong>Figure <a href="hmm-states.html#fig:polar-example">6.1</a></strong> depicts how the distance and angle of travel of the movements are represented in the polar plots.</p>
 
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"book/figs/misc/dist_angle_polar_example.png"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:polar-example"></span>
-<img src="figs/misc/dist_angle_polar_example.png" alt="Distance (in log10) and angle of travel between a time interval of 0.2 seconds from points B → C for distance, and points A → B → C for angle. Each point represents the distance and angle at point C, and A → B is aligned vertically along the 0-180° radial axis. The figure shows only an illustrative 10,000 points, randomly selected from the full dataset. States are sorted in ascending order by mean distance." width="100%"><p class="caption">
-Figure 6.1: Distance (in log<a href="pixels">10</a>) and angle of travel between a time interval of 0.2 seconds from points B → C for distance, and points A → B → C for angle. Each point represents the distance and angle at point C, and A → B is aligned vertically along the 0-180° radial axis. The figure shows only an illustrative 10,000 points, randomly selected from the full dataset. States are sorted in ascending order by mean distance.
+<img src="figs/misc/dist_angle_polar_example.png" alt="Distance (in log10(pixels)) and angle of travel between a time interval of 0.2 seconds from points B → C for distance, and points A → B → C for angle. Each point represents the distance and angle at point C, and A → B is aligned vertically along the 0-180° radial axis. The figure shows only an illustrative 10,000 points, randomly selected from the full dataset. States are sorted in ascending order by mean distance." width="100%"><p class="caption">
+Figure 6.1: Distance (in log<sub>10</sub>(pixels)) and angle of travel between a time interval of 0.2 seconds from points B → C for distance, and points A → B → C for angle. Each point represents the distance and angle at point C, and A → B is aligned vertically along the 0-180° radial axis. The figure shows only an illustrative 10,000 points, randomly selected from the full dataset. States are sorted in ascending order by mean distance.
 </p>
 </div>
 <div id="setup-2" class="section level2" number="6.1">
@@ -234,17 +234,22 @@ Figure 6.1: Distance (in log<a href="pixels">10</a>) and angle of travel between
        height <span class="op">=</span> <span class="va">POL_DIMS</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,
        units <span class="op">=</span> <span class="st">"in"</span>,
        dpi <span class="op">=</span> <span class="fl">400</span><span class="op">)</span></code></pre></div>
+
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span><span class="op">(</span><span class="va">POLAR_ALL_DGE</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="figs/paper_final/0.05/dist_angle/16/polar_all_dge.png" width="100%"></div>
 </div>
 </div>
 </div>
-<div id="best-optimisation-with-state-symmetry-14-states-0.08-second-interval" class="section level2" number="6.3">
+<div id="best-optimisation-with-state-symmetry" class="section level2" number="6.3">
 <h2>
-<span class="header-section-number">6.3</span> Best optimisation with state symmetry: 14 states; 0.08 second interval<a class="anchor" aria-label="anchor" href="#best-optimisation-with-state-symmetry-14-states-0.08-second-interval"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.3</span> Best optimisation with state symmetry<a class="anchor" aria-label="anchor" href="#best-optimisation-with-state-symmetry"><i class="fas fa-link"></i></a>
 </h2>
-<p>For the downstream analysis we selected the combination of 14 states with a 0.08-second interval between time points, because out of the remaining combinations it appeared to optimally balance the level of overfitting and detection of differences between lines (<strong>Figure <a href="#fig:polar-sym"><strong>??</strong></a></strong>).</p>
+<div id="states-0.08-second-interval" class="section level3" number="6.3.1">
+<h3>
+<span class="header-section-number">6.3.1</span> 14 states; 0.08 second interval<a class="anchor" aria-label="anchor" href="#states-0.08-second-interval"><i class="fas fa-link"></i></a>
+</h3>
+<p>For the downstream analysis we selected the combination of 14 states with a 0.08-second interval between time points, because out of the remaining combinations it appeared to optimally balance the level of overfitting and detection of differences between lines (<strong>Figure <a href="hmm-states.html#fig:polar-example">6.1</a></strong>).</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">N_STATES</span> <span class="op">=</span> <span class="fl">14</span>
 <span class="va">INTERVAL</span> <span class="op">=</span> <span class="fl">0.08</span>
@@ -261,9 +266,9 @@ Figure 6.1: Distance (in log<a href="pixels">10</a>) and angle of travel between
                            <span class="va">VARIABLES</span>,
                            <span class="va">N_STATES</span>,
                            <span class="st">"polar_all_dge.png"</span><span class="op">)</span></code></pre></div>
-<div id="read-data-and-process-2" class="section level4" number="6.3.0.1">
+<div id="read-data-and-process-2" class="section level4" number="6.3.1.1">
 <h4>
-<span class="header-section-number">6.3.0.1</span> Read data and process<a class="anchor" aria-label="anchor" href="#read-data-and-process-2"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.3.1.1</span> Read data and process<a class="anchor" aria-label="anchor" href="#read-data-and-process-2"><i class="fas fa-link"></i></a>
 </h4>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span> <span class="op">=</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">IN</span><span class="op">)</span> <span class="op"><a href="https://rpkgs.datanovia.com/rstatix/reference/pipe.html">%&gt;%</a></span> 
@@ -299,9 +304,9 @@ Figure 6.1: Distance (in log<a href="pixels">10</a>) and angle of travel between
 <span class="va">df</span> <span class="op">=</span> <span class="va">df</span> <span class="op"><a href="https://rpkgs.datanovia.com/rstatix/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>state_recode <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/recode.html">recode</a></span><span class="op">(</span><span class="va">state</span>, <span class="op">!</span><span class="op">!</span><span class="op">!</span><span class="va">recode_vec</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="plot-3" class="section level4" number="6.3.0.2">
+<div id="plot-3" class="section level4" number="6.3.1.2">
 <h4>
-<span class="header-section-number">6.3.0.2</span> Plot<a class="anchor" aria-label="anchor" href="#plot-3"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.3.1.2</span> Plot<a class="anchor" aria-label="anchor" href="#plot-3"><i class="fas fa-link"></i></a>
 </h4>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">polar_all_dge</span> <span class="op">=</span> <span class="va">df</span> <span class="op"><a href="https://rpkgs.datanovia.com/rstatix/reference/pipe.html">%&gt;%</a></span> 
@@ -328,10 +333,10 @@ Figure 6.1: Distance (in log<a href="pixels">10</a>) and angle of travel between
        height <span class="op">=</span> <span class="va">POL_DIMS</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,
        units <span class="op">=</span> <span class="st">"in"</span>,
        dpi <span class="op">=</span> <span class="fl">400</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span><span class="op">(</span><span class="va">POLAR_ALL_DGE</span><span class="op">)</span></code></pre></div>
+
 <div class="inline-figure"><img src="figs/paper_final/0.08/dist_angle/14/polar_all_dge.png" width="100%"></div>
 
+</div>
 </div>
 </div>
 </div>
@@ -348,7 +353,9 @@ Figure 6.1: Distance (in log<a href="pixels">10</a>) and angle of travel between
 <li>
 <a class="nav-link" href="#unfavourable-asymmetry-with-higher-numbers-of-states"><span class="header-section-number">6.2</span> Unfavourable asymmetry with higher numbers of states</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#states-0.05-second-interval"><span class="header-section-number">6.2.1</span> 16 states; 0.05 second interval</a></li></ul>
 </li>
-<li><a class="nav-link" href="#best-optimisation-with-state-symmetry-14-states-0.08-second-interval"><span class="header-section-number">6.3</span> Best optimisation with state symmetry: 14 states; 0.08 second interval</a></li>
+<li>
+<a class="nav-link" href="#best-optimisation-with-state-symmetry"><span class="header-section-number">6.3</span> Best optimisation with state symmetry</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#states-0.08-second-interval"><span class="header-section-number">6.3.1</span> 14 states; 0.08 second interval</a></li></ul>
+</li>
 </ul>
 
       <div class="book-extra">

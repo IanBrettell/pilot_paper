@@ -124,22 +124,22 @@ rule all:
 #                variables = "dist_angle",
 #                n_states = 14
 #        ),
-#        expand(rules.hmm_final.output,
-#                zip,
-#                interval = [0.08, 0.08, 0.05, 0.08, 0.1],
-#                variables = ["dist_angle", "dist_angle", "dist_angle", "dist_angle", "dist_angle"],
-#                n_states = [14, 15, 16, 16, 17]
-#        ),
+        expand(rules.hmm_final.output,
+                zip,
+                interval = [0.08, 0.08, 0.05, 0.08, 0.1],
+                variables = ["dist_angle", "dist_angle", "dist_angle", "dist_angle", "dist_angle"],
+                n_states = [14, 15, 16, 16, 17]
+        ),
 #        expand(rules.spatial_dependence.output,
 #                interval = 0.08,
 #                variables = "dist_angle",
 #                n_states = 15
 #        ),
-        expand(rules.time_dependence.output,
-                interval = 0.08,
-                variables = "dist_angle",
-                n_states = 14
-        ),
+#        expand(rules.time_dependence.output,
+#                interval = 0.08,
+#                variables = "dist_angle",
+#                n_states = 14
+#        ),
 #        expand(rules.sge_co_occupancy.output,
 #                interval = 0.08,
 #                variables = "dist_angle",

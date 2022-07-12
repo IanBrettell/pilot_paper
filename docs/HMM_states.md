@@ -2,9 +2,9 @@
 
 Here we show how using a higher number of states in the HMM appeared to optimise the balance between the ability to discern differences between lines and model overfitting, yet produced asymmetries in the classified states that would impede biological interpretation.
 
-The HMMs were trained on distance and angle variables. **Figure \@ref(fig:polar-example)** depicts how the distance and angle of travel of the movements are depicted in the polar plots.
+The HMMs were trained on distance and angle variables. **Figure \@ref(fig:polar-example)** depicts how the distance and angle of travel of the movements are represented in the polar plots.
 
-(ref:polar-example) Distance (in log[10](pixels)) and angle of travel between a time interval of 0.2 seconds from points B → C for distance, and points A → B → C for angle. Each point represents the distance and angle at point C, and A → B is aligned vertically along the 0-180° radial axis. The figure shows only an illustrative 10,000 points, randomly selected from the full dataset. States are sorted in ascending order by mean distance.
+(ref:polar-example) Distance (in log~10~(pixels)) and angle of travel between a time interval of 0.2 seconds from points B → C for distance, and points A → B → C for angle. Each point represents the distance and angle at point C, and A → B is aligned vertically along the 0-180° radial axis. The figure shows only an illustrative 10,000 points, randomly selected from the full dataset. States are sorted in ascending order by mean distance.
 
 
 ```r
@@ -166,6 +166,8 @@ ggsave(POLAR_ALL_DGE,
        dpi = 400)
 ```
 
+(ref:polar-asym) Polar plots for the combination of 16 states and a 0.05-second interval. Note the asymmetry between states 1 and 3.
+
 
 ```r
 knitr::include_graphics(POLAR_ALL_DGE)
@@ -174,9 +176,11 @@ knitr::include_graphics(POLAR_ALL_DGE)
 <img src="figs/paper_final/0.05/dist_angle/16/polar_all_dge.png" width="100%" />
 
 
-## Best optimisation with state symmetry: 14 states; 0.08 second interval
+## Best optimisation with state symmetry
 
-For the downstream analysis we selected the combination of 14 states with a 0.08-second interval between time points, because out of the remaining combinations it appeared to optimally balance the level of overfitting and detection of differences between lines (**Figure \@ref(fig:polar-sym)**). 
+### 14 states; 0.08 second interval
+
+For the downstream analysis we selected the combination of 14 states with a 0.08-second interval between time points, because out of the remaining combinations it appeared to optimally balance the level of overfitting and detection of differences between lines (**Figure \@ref(fig:polar-example)**). 
 
 
 ```r
@@ -269,9 +273,6 @@ ggsave(POLAR_ALL_DGE,
        dpi = 400)
 ```
 
-
-```r
-knitr::include_graphics(POLAR_ALL_DGE)
-```
+(ref:polar-sym) Polar plots for the combination of 14 states and a 0.08-second interval. Note the symmetry across angle (e.g. left- or right-turning movements) for states 1 and 3.
 
 <img src="figs/paper_final/0.08/dist_angle/14/polar_all_dge.png" width="100%" />

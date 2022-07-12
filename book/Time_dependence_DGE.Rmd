@@ -4,7 +4,7 @@
 
 ### Load libraries
 
-```{r}
+```{r, message = F, warning = F}
 library(tidyverse)
 library(cowplot)
 library(ggridges)

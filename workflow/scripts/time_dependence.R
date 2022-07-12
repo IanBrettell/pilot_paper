@@ -18,8 +18,13 @@ library(googlesheets4)
 IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/15.csv"
 AOV_SHEET = "https://docs.google.com/spreadsheets/d/1_l72BZkmWyNAOfCUI8WGP4UfQuIPQtPZZmlRjQffvEs"
 N_STATES = 15
+POLAR_ALL_DGE_SIG_OF = here::here("book/figs/paper_final/0.08/dist_angle/14/polar_all_dge_sig_of.png")
+POLAR_ALL_DGE_SIG_NO = here::here("book/figs/paper_final/0.08/dist_angle/14/polar_all_dge_sig_no.png")
+POLAR_ALL_SGE_SIG_OF = here::here("book/figs/paper_final/0.08/dist_angle/14/polar_all_sge_sig_of.png")
+POLAR_ALL_SGE_SIG_NO = here::here("book/figs/paper_final/0.08/dist_angle/14/polar_all_sge_sig_no.png")
 
-gs4_deauth()
+# Deauthorise google sheets so that it doesn't ask for prompt
+googlesheets4::gs4_deauth()
 
 ## True
 IN = snakemake@input[[1]]
@@ -27,7 +32,10 @@ OUT_DGE = snakemake@output[["dge"]]
 OUT_SGE = snakemake@output[["sge"]]
 N_STATES = snakemake@params[["n_states"]] %>% 
   as.numeric()
-
+POLAR_ALL_DGE_SIG_OF = snakemake@input[["polar_all_dge_sig_of"]]
+POLAR_ALL_DGE_SIG_NO = snakemake@input[["polar_all_dge_sig_no"]]
+POLAR_ALL_SGE_SIG_OF = snakemake@input[["polar_all_sge_sig_of"]]
+POLAR_ALL_SGE_SIG_NO = snakemake@input[["polar_all_sge_sig_no"]]
 
 #######################
 # Read in data
@@ -121,78 +129,6 @@ SIGS_SGE_NO = googlesheets4::read_sheet(AOV_SHEET, sheet = "SGE_NO") %>%
   dplyr::filter(`p-value FDR-adj` < 0.05 & `Variable` == "test_fish") %>% 
   dplyr::pull(State)%>% 
   as.integer()
-
-############################
-# Plot polar
-############################
-
-#FONT_SIZE = 10
-#
-#polar_dge = df %>% 
-#  # remove iCab when paired with a different test fish
-#  dplyr::filter(!(fish == "ref" & test_fish != "icab")) %>% 
-#  # select random sample of 1e5 rows
-#  dplyr::slice_sample(n = 1e5) %>% 
-#  ggplot() +
-#  geom_point(aes(angle_recode, log10(distance), colour = state_recode),
-#             alpha = 0.3, size = 0.2) +
-#  coord_polar() +
-#  facet_wrap(~state_recode, nrow = N_ROWS) +
-#  scale_x_continuous(labels = c(0, 90, 180, 270),
-#                     breaks = c(0, 90, 180, 270)) +
-#  scale_color_viridis_c() +
-#  guides(colour = "none") +
-#  xlab("angle of travel") +
-#  ylab(expression(log[10]("distance travelled in pixels"))) +
-#  ggtitle("HMM states") +
-#  cowplot::theme_cowplot(font_size = FONT_SIZE) +
-#  theme(plot.title = element_text(hjust = 0.5)) +
-#  facet_wrap(~state_recode, nrow = N_ROWS)
-#
-#polar_sge = df %>% 
-#  # remove iCab when paired with a different test fish
-#  dplyr::filter(fish == "ref") %>% 
-#  # select random sample of 1e5 rows
-#  dplyr::slice_sample(n = 1e5) %>% 
-#  ggplot() +
-#  geom_point(aes(angle_recode, log10(distance), colour = state_recode),
-#             alpha = 0.3, size = 0.2) +
-#  coord_polar() +
-#  facet_wrap(~state_recode, nrow = N_ROWS) +
-#  scale_x_continuous(labels = c(0, 90, 180, 270),
-#                     breaks = c(0, 90, 180, 270)) +
-#  scale_color_viridis_c(option = "inferno") +
-#  guides(colour = "none") +
-#  xlab("angle of travel") +
-#  ylab(expression(log[10]("distance travelled in pixels"))) +
-#  #ggtitle("HMM states") +
-#  cowplot::theme_cowplot(font_size = FONT_SIZE) +
-#  #theme(plot.title = element_text(hjust = 0.5)) +
-#  facet_wrap(~state_recode, nrow = N_ROWS)
-#
-
-############################
-# Plot ridges
-############################
-
-#ridge_plot = df %>% 
-#  # remove iCab when paired with a different test fish
-#  dplyr::filter(!(fish == "ref" & test_fish != "icab")) %>% 
-#  # filter for target assay
-#  #dplyr::filter(assay == ASSAY) %>% 
-#  dplyr::mutate(state_recode = factor(state_recode, levels = 1:N_STATES)) %>% 
-#  ggplot() +
-#  ggridges::geom_density_ridges(aes(x = seconds, y = state_recode, fill = state_recode)) +
-#  scale_y_discrete(limits = rev) +
-#  facet_grid(rows = vars(assay),
-#             cols = vars(line)) +
-#  scale_fill_viridis_d() +
-#  cowplot::theme_cowplot(font_size = FONT_SIZE) +
-#  guides(fill = "none") +
-#  ylab("HMM state") +
-#  scale_x_continuous(breaks = c(0,200,400,600))
-
-# Set significant states
 
 #######################
 # Medarkov matrices: DGE
@@ -609,6 +545,51 @@ final_dge = cowplot::plot_grid(dge_tile_of +
                                align = "hv",
                                labels = c('A', 'B', 'C', 'D', 'E', 'F'))
 
+####################
+# With polars coloured by significance
+###################
+final_dge_raw = cowplot::plot_grid(dge_tile_of +
+                                 theme(strip.background.y = element_blank(),
+                                       strip.text.y = element_blank(),
+                                       axis.title.y = element_text(vjust=-5)),
+                               time_dens_dge_of + 
+                                 theme(strip.background.y = element_blank(),
+                                       strip.text.y = element_blank()),
+                               sdens_dge_of,
+                               dge_tile_no +
+                                 theme(strip.background.y = element_blank(),
+                                       strip.text.y = element_blank(),
+                                       axis.title.y = element_text(vjust=-5)),
+                               time_dens_dge_no +
+                                 theme(strip.background.y = element_blank(),
+                                       strip.text.y = element_blank()),
+                               sdens_dge_no,
+                               nrow = 2, ncol = 3,
+                               rel_widths = c(1,1,0.6,1,1,0.6),
+                               align = "hv",
+                               labels = c('B', 'C', 'D', 'E', 'F', 'G'))
+
+final_dge_with_polar = ggdraw() +
+  cowplot::draw_image(POLAR_ALL_DGE_SIG_OF,
+                      x = 0, y = 0.8,
+                      width = 1, height = 0.2) +
+  cowplot::draw_plot(final_dge_raw,
+                     x = 0, y = 0.2,
+                     width = 1, height = 0.6) +
+  cowplot::draw_image(POLAR_ALL_DGE_SIG_NO,
+                      x = 0, y = 0,
+                      width = 1, height = 0.2) +
+  cowplot::draw_plot_label(c('A', 'H'),
+                           x = c(0,0), y = c(1, 0.2),
+                           size = 14)
+
+ggsave("tmp.png",
+       final_dge_with_polar,
+       device = "png",
+       width = 11.5,
+       height = 20,
+       units = "in",
+       dpi = 400)
 
 final_sge = cowplot::plot_grid(sge_tile_of +
                                  theme(strip.background.y = element_blank(),

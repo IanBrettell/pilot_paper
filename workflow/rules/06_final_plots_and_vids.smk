@@ -28,6 +28,11 @@ rule hmm_final:
         polar_box_dge = "book/figs/paper_final/{interval}/{variables}/{n_states}/polar_box_dge.png",
         polar_box_sge = "book/figs/paper_final/{interval}/{variables}/{n_states}/polar_box_sge.png",
         polar_box_dge_sge = "book/figs/paper_final/{interval}/{variables}/{n_states}/polar_box_dge_sge.png",
+        # NOTE: the next four don't work within the script, only in RStudio
+        polar_all_dge_sig_of = "book/figs/paper_final/{interval}/{variables}/{n_states}/polar_all_dge_sig_of.png",
+        polar_all_dge_sig_no = "book/figs/paper_final/{interval}/{variables}/{n_states}/polar_all_dge_sig_no.png",
+        polar_all_sge_sig_of = "book/figs/paper_final/{interval}/{variables}/{n_states}/polar_all_sge_sig_of.png",
+        polar_all_sge_sig_no = "book/figs/paper_final/{interval}/{variables}/{n_states}/polar_all_sge_sig_no.png",
         tile_dge = "book/figs/paper_final/{interval}/{variables}/{n_states}/tile_dge.png",
         tile_sge = "book/figs/paper_final/{interval}/{variables}/{n_states}/tile_sge.png",
         tile_dge_sge = "book/figs/paper_final/{interval}/{variables}/{n_states}/tile_dge_sge.png",

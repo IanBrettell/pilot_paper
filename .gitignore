@@ -3,3 +3,8 @@
 .RData
 .Ruserdata
 .snakemake
+__pycache__
+.cache
+.config
+.fontconfig
+.keras

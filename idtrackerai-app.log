@@ -1,4 +1,0 @@
-[DEBUG   ] confapp.settings_manager                 + SETTINGS: local_settings                    confapp.settings_[DEBUG   ] confapp.settings_manager                 + SETTINGS: pyforms.settings confapp.settings_manager - DEBUG -[DEBUG   ] confapp.settings_manager                 + SETTINGS: h5py._conv - DEBUG - Creating converter from 7 to 5[h5py._conv - DEBUG - Creating converter from 5 to 7
-h5py._conv - DEBUG - Creating converter from 7 to 5
-h5py._conv - DEBUG - Creating converter from 5 to 7
-idtrackerai_app.base_idtrackerai - INFO - TENSORFLOW DEVICES: [_DeviceAttributes(/job:localhost/replica:0/task:0/device:CPU:0, CPU, 268435456, 17948068693838050755), _DeviceAt[INFO    ] idtrackerai_app.base_idtrackerai         TENSORFLOW DEVICES: [_DeviceAttributes(/job:localhost/replica:0/task:0/device:CPU:0, CPU, 268435456, 17948068693838050755), _DeviceAttributes(/job:localhost/replica:0/task:0/device:XLA_CPU:0, XLA_CPU, 17179869184, 1615351645594041706)]

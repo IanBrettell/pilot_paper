@@ -7,21 +7,8 @@
 
 ```r
 library(tidyverse)
-#> ── Attaching packages ─────────────────── tidyverse 1.3.1 ──
-#> ✔ ggplot2 3.3.6     ✔ purrr   0.3.4
-#> ✔ tibble  3.1.7     ✔ dplyr   1.0.9
-#> ✔ tidyr   1.2.0     ✔ stringr 1.4.0
-#> ✔ readr   2.1.2     ✔ forcats 0.5.1
-#> ── Conflicts ────────────────────── tidyverse_conflicts() ──
-#> ✖ dplyr::filter() masks stats::filter()
-#> ✖ dplyr::lag()    masks stats::lag()
 library(wesanderson)
 library(rstatix)
-#> 
-#> Attaching package: 'rstatix'
-#> The following object is masked from 'package:stats':
-#> 
-#>     filter
 library(cowplot)
 ```
 
@@ -113,6 +100,8 @@ sge_df = df %>%
 
 ## Co-occupancy boxplots -- all states
 
+Calculating the frequency of co-occupancy across all states, compared between lines of the tank partner.
+
 
 ```r
 cooc = sge_df %>% 
@@ -174,7 +163,7 @@ ggsave(OUT_BOX_ALL,
 knitr::include_graphics(here::here("book/figs/sge/co-occupancy/dist_angle/0.08_14_cooc_box_all.png"))
 ```
 
-<img src="figs/sge/co-occupancy/dist_angle/0.08_14_cooc_box_all.png" width="1600" />
+<img src="figs/sge/co-occupancy/dist_angle/0.08_14_cooc_box_all.png" width="100%" />
 
 ## Co-occupancy boxplots -- per state
 

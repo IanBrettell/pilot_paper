@@ -20,6 +20,13 @@ IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/14.csv"
 N_STATES = 14
 VARIABLES = "distance and angle of travel"
 INTERVAL = 0.08
+POLAR_ALL_DGE_SIG_OF = here::here("book/figs/paper_final/0.08/dist_angle/14/polar_all_dge_sig_of.png")
+POLAR_ALL_DGE_SIG_NO = here::here("book/figs/paper_final/0.08/dist_angle/14/polar_all_dge_sig_no.png")
+POLAR_ALL_SGE_SIG_OF = here::here("book/figs/paper_final/0.08/dist_angle/14/polar_all_sge_sig_of.png")
+POLAR_ALL_SGE_SIG_NO = here::here("book/figs/paper_final/0.08/dist_angle/14/polar_all_sge_sig_no.png")
+
+# Deauthorise google sheets so that it doesn't ask for prompt
+googlesheets4::gs4_deauth()
 
 ## True
 IN = snakemake@input[[1]]
@@ -33,6 +40,10 @@ POLAR_ALL_SGE = snakemake@output[["polar_all_sge"]]
 POLAR_BOX_DGE = snakemake@output[["polar_box_dge"]]
 POLAR_BOX_SGE = snakemake@output[["polar_box_sge"]]
 POLAR_BOX_DGE_SGE = snakemake@output[["polar_box_dge_sge"]]
+POLAR_ALL_DGE_SIG_OF = snakemake@output[["polar_all_dge_sig_of"]]
+POLAR_ALL_DGE_SIG_NO = snakemake@output[["polar_all_dge_sig_no"]]
+POLAR_ALL_SGE_SIG_OF = snakemake@output[["polar_all_sge_sig_of"]]
+POLAR_ALL_SGE_SIG_NO = snakemake@output[["polar_all_sge_sig_no"]]
 TILE_DGE = snakemake@output[["tile_dge"]]
 TILE_SGE = snakemake@output[["tile_sge"]]
 TILE_DGE_SGE = snakemake@output[["tile_dge_sge"]]
@@ -56,7 +67,7 @@ if (N_STATES == 15){
 # And dimensions of `polar_all...` figs
 if (N_STATES == 14){
   POL_ALL_WID = 12
-  POL_ALL_HEI = 7
+  POL_ALL_HEI = 4
 } else {
   POL_ALL_WID = 7.5
   POL_ALL_HEI = 10
@@ -122,14 +133,13 @@ polar_all_dge = df %>%
   coord_polar() +
   facet_wrap(~state_recode, nrow = N_ROWS) +
   #theme_dark(base_size = 8) +
-  cowplot::theme_cowplot(font_size = 10) +
+  cowplot::theme_cowplot(font_size = 9) +
   scale_x_continuous(labels = c(0, 90, 180, 270),
                      breaks = c(0, 90, 180, 270)) +
   scale_color_viridis_c() +
   guides(colour = "none") +
   xlab("angle of travel") +
-  ylab(expression(log[10]("distance travelled in pixels"))) +
-  theme(strip.background = element_rect(fill = strip_vec))
+  ylab(expression(log[10]("distance travelled in pixels"))) 
   #ggtitle(TITLE)
 
 ggsave(POLAR_ALL_DGE,
@@ -140,7 +150,7 @@ ggsave(POLAR_ALL_DGE,
        units = "in",
        dpi = 400)
 
-# With significant states - OPEN FIELD
+# With significant states - OPEN FIELD: NOTE - this doesn't work from within the script
 
 ## Get significant states
 sig_dge_of = googlesheets4::read_sheet(
@@ -163,7 +173,7 @@ for (s in seq_along(strips)) {
 
 grid::grid.newpage()
 
-png(here::here("book/figs/paper_final/0.08/dist_angle/14/polar_all_dge_sig_of.png"),
+png(POLAR_ALL_DGE_SIG_OF,
     width = POL_ALL_WID, 
     height = POL_ALL_HEI, 
     units = "in", 
@@ -194,7 +204,7 @@ for (s in seq_along(strips)) {
 
 grid::grid.newpage()
 
-png(here::here("book/figs/paper_final/0.08/dist_angle/14/polar_all_dge_sig_no.png"),
+png(POLAR_ALL_DGE_SIG_NO,
     width = POL_ALL_WID, 
     height = POL_ALL_HEI, 
     units = "in", 
@@ -216,7 +226,7 @@ polar_all_sge = df %>%
   coord_polar() +
   facet_wrap(~state_recode, nrow = N_ROWS) +
   #theme_dark(base_size = 8) +
-  cowplot::theme_cowplot(font_size = 10) +
+  cowplot::theme_cowplot(font_size = 9) +
   scale_x_continuous(labels = c(0, 90, 180, 270),
                      breaks = c(0, 90, 180, 270)) +
   scale_color_viridis_c(option = "inferno") +
@@ -255,7 +265,7 @@ for (s in seq_along(strips)) {
 
 grid::grid.newpage()
 
-png(here::here("book/figs/paper_final/0.08/dist_angle/14/polar_all_sge_sig_of.png"),
+png(POLAR_ALL_SGE_SIG_OF,
     width = POL_ALL_WID, 
     height = POL_ALL_HEI, 
     units = "in", 
@@ -286,7 +296,7 @@ for (s in seq_along(strips)) {
 
 grid::grid.newpage()
 
-png(here::here("book/figs/paper_final/0.08/dist_angle/14/polar_all_sge_sig_no.png"),
+png(POLAR_ALL_SGE_SIG_NO,
     width = POL_ALL_WID, 
     height = POL_ALL_HEI, 
     units = "in", 

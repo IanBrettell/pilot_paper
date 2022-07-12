@@ -4,7 +4,7 @@
 
 ### Load libraries
 
-```{r}
+```{r, message = F, warning = F}
 library(tidyverse)
 library(wesanderson)
 library(rstatix)
@@ -90,6 +90,8 @@ sge_df = df %>%
 
 ## Co-occupancy boxplots -- all states
 
+Calculating the frequency of co-occupancy across all states, compared between lines of the tank partner.
+
 ```{r}
 cooc = sge_df %>% 
   # pivot wider to get cols for ref and test
@@ -142,7 +144,7 @@ ggsave(OUT_BOX_ALL,
        dpi = 400)
 ```
 
-```{r}
+```{r, out.width='100%'}
 knitr::include_graphics(here::here("book/figs/sge/co-occupancy/dist_angle/0.08_14_cooc_box_all.png"))
 ```
 

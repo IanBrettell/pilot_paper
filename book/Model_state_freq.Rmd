@@ -1,5 +1,23 @@
 # Model proportion of time spent in HMM states
 
+We used a multi-way ANOVA model to determine whether: 
+
+a) the test fish lines differed in the proportions of time they spent in each state; and
+
+b) the *iCab* reference fishes differed in the proportions of time they spent in each state depending on the line of their tank partner. 
+
+The ANOVA model we used was:
+
+$$
+\operatorname{inverse-normalised~state~frequency} = \beta_{1}(\operatorname{date}) + \beta_{2}(\operatorname{time}) + \beta_{3}(\operatorname{quadrant}) + \beta_{4}(\operatorname{tank~side}) + \beta_{4}(\operatorname{test~fish~line}) + \epsilon
+$$
+
+Where date, time, quadrant, and tank side were included as covariates.
+
+All results were written to this spreadsheet: https://docs.google.com/spreadsheets/d/1_l72BZkmWyNAOfCUI8WGP4UfQuIPQtPZZmlRjQffvEs.
+
+## Setup
+
 ```{r, message = F, warning = F}
 library(tidyverse)
 library(DT)
@@ -89,7 +107,6 @@ df_dge %>%
   guides(fill = "none")
 ```
 
-
 ### Inverse-normalise
 
 ```{r}
@@ -130,11 +147,14 @@ aov_dge = df_dge %>%
   dplyr::mutate(model_tidy = purrr::map(model, broom::tidy)) %>%
   tidyr::unnest(model_tidy) %>% 
   rstatix::adjust_pvalue(p.col = "p.value", method = "fdr") %>% 
-  rstatix::add_significance(p.col = "p.value.adj")
+  rstatix::add_significance(p.col = "p.value.adj") %>% 
+  # reduce to 3 digits
+  dplyr::mutate(dplyr::across(c("sumsq", "meansq", "statistic", "p.value", "p.value.adj"),
+                              ~signif(.x, digits = 3)))
 
 DT::datatable(aov_dge %>% 
                 dplyr::select(-model),
-              options = list(pageLength = nrow(aov_dge)))
+              options = list(pageLength = 20))
 ```
 
 ### Save to Google Drive
@@ -260,11 +280,14 @@ aov_sge = df_sge %>%
   dplyr::mutate(model_tidy = purrr::map(model, broom::tidy)) %>%
   tidyr::unnest(model_tidy) %>% 
   rstatix::adjust_pvalue(p.col = "p.value", method = "fdr") %>% 
-  rstatix::add_significance(p.col = "p.value.adj")
+  rstatix::add_significance(p.col = "p.value.adj") %>% 
+  # reduce to 3 digits
+  dplyr::mutate(dplyr::across(c("sumsq", "meansq", "statistic", "p.value", "p.value.adj"),
+                              ~signif(.x, digits = 3)))
 
 DT::datatable(aov_sge %>% 
                 dplyr::select(-model),
-              options = list(pageLength = nrow(aov_sge)))
+              options = list(pageLength = 20))
 ```
 
 ### Save to Google Drive

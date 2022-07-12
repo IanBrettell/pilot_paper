@@ -43,10 +43,12 @@ states-0.05-second-interval
 variables
 read-data-and-process-1
 plot-2
-best-optimisation-with-state-symmetry-14-states-0.08-second-interval
+best-optimisation-with-state-symmetry
+states-0.08-second-interval
 read-data-and-process-2
 plot-3
 model-proportion-of-time-spent-in-hmm-states
+setup-3
 read-in-and-clean-data
 dge
 inverse-normalise
@@ -60,7 +62,7 @@ write-final-table-with-only-significant-variables
 dge-1
 sge-1
 time-dependence-of-hmm-states-dge
-setup-3
+setup-4
 load-libraries-3
 set-variables-2
 read-and-process-data-1
@@ -70,7 +72,7 @@ density-plots
 spatial-density-plots
 combine-for-final-figure
 time-dependence-of-hmm-states-sge
-setup-4
+setup-5
 load-libraries-4
 set-variables-3
 read-and-process-data-2
@@ -80,7 +82,7 @@ density-plots-1
 spatial-density-plots-1
 combine-for-final-figure-1
 sge-co-occupancy
-setup-5
+setup-6
 load-libraries-5
 set-variables-4
 read-data-and-process-3
