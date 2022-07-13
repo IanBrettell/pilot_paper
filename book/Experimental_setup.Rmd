@@ -12,13 +12,13 @@ Our behavioural assay is 20 minutes long, comprising two consecutively-run 10-mi
 
 (ref:open-field) Start of open field assay component. Reference fishes are introduced to the tank first, followed by the test fishes.
 
-```{r open-field, echo = F}
+```{r open-field, fig.cap = '(ref:open-field)', echo = F}
 vembedr::embed_url("https://youtu.be/76x2y9sYr-8")
 ```
 
 (ref:novel-object) Start of novel object assay component.
 
-```{r novel-object, echo = F}
+```{r novel-object, fig.cap = '(ref:novel-object)', echo = F}
 vembedr::embed_url("https://youtu.be/5ec3hVcehkc")
 ```
 

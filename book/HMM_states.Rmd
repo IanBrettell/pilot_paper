@@ -150,7 +150,7 @@ ggsave(POLAR_ALL_DGE,
 
 (ref:polar-asym) Polar plots for the combination of 16 states and a 0.05-second interval. Note the asymmetry between states 1 and 3.
 
-```{r polar-asym, out.width = "100%"}
+```{r polar-asym, fig.cap = '(ref:polar-asym)', out.width = "100%"}
 knitr::include_graphics(POLAR_ALL_DGE)
 ```
 
@@ -244,6 +244,6 @@ ggsave(POLAR_ALL_DGE,
 
 (ref:polar-sym) Polar plots for the combination of 14 states and a 0.08-second interval. Note the symmetry across angle (e.g. left- or right-turning movements) for states 1 and 3.
 
-```{r polar-sym, out.width = "100%", echo = F}
+```{r polar-sym, fig.cap = '(ref:polar-sym)', out.width = "100%", echo = F}
 knitr::include_graphics(POLAR_ALL_DGE)
 ```

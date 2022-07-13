@@ -10,7 +10,7 @@ knitr::include_graphics(here::here("book/figs/misc/line_locations.png"))
 
 (ref:test-line-counts) Order of test-fish lines assayed over the course of the data-collection period. The sequence of lines to be assayed was randomised prior to data collection.
 
-```{r test-line-counts, echo = F, out.width='100%'}
+```{r test-line-counts, fig.cap = '(ref:test-line-counts)', echo = F, out.width='100%'}
 knitr::include_graphics(here::here("book/figs/misc/test_line_counts.png"))
 ```
 

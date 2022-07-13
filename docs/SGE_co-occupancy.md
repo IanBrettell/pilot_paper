@@ -1,6 +1,6 @@
 # SGE co-occupancy
 
-To develop a metric to quantify the degree to which the *iCab* reference fishes’ behaviour is influenced by the line of its tank partner, we calculated the proportions of time that the pairs of fish spent simultaneously occupying the same HMM state. **Figure \@(fig:cooc-heatmap)** shows that when paired with the slowest-moving *HdrR* line, the *iCab* reference fishes spent more time co-occupying the slow- and forward-moving state 2, whereas they tended to co-occupy the fast- and forward-moving state 11 when paired with the faster-moving northern *Kaga* and *HNI* lines. When paired with another *iCab*, they prefered to co-occupy the slow-moving and pan-directional state 4. For each combination of assay component and state, we then ran a Kruskal-Wallis test to determine whether there were differences in the frequencies of state co-occupancy under different line pairings (*p* < 0.05, FDR-adjusted), and found significant differences for states 1 to 6 for the open field component (1.1x10<sup>-8</sup> < *p* < 4.1x10<sup>-2</sup>), and states 1 to 4 and 7 for the novel object component (1.6x10<sup>-6</sup> < *p* < 2.5x10<sup>-2</sup>) (**Figure \@ref(fig:cooc-boxplots)**). As can be seen in the heatmaps, *iCab* tends to co-occupy state 4 at the highest frequency when paired with another *iCab*, which suggests that this pan-directional, slow-moving state is a more comfortable or natural state for *iCab* to occupy, particularly when under stress.
+To develop a metric to quantify the degree to which the *iCab* reference fishes’ behaviour is influenced by the line of its tank partner, we calculated the proportions of time that the pairs of fish spent simultaneously occupying the same HMM state. **Figure \@ref(fig:cooc-heatmap)** shows that when paired with the slowest-moving *HdrR* line, the *iCab* reference fishes spent more time co-occupying the slow- and forward-moving state 2, whereas they tended to co-occupy the fast- and forward-moving state 11 when paired with the faster-moving northern *Kaga* and *HNI* lines. When paired with another *iCab*, they prefered to co-occupy the slow-moving and pan-directional state 4. For each combination of assay component and state, we then ran a Kruskal-Wallis test to determine whether there were differences in the frequencies of state co-occupancy under different line pairings (*p* < 0.05, FDR-adjusted), and found significant differences for states 1 to 6 for the open field component (1.1x10<sup>-8</sup> < *p* < 4.1x10<sup>-2</sup>), and states 1 to 4 and 7 for the novel object component (1.6x10<sup>-6</sup> < *p* < 2.5x10<sup>-2</sup>) (**Figure \@ref(fig:cooc-boxplots)**). As can be seen in the heatmaps, *iCab* tends to co-occupy state 4 at the highest frequency when paired with another *iCab*, which suggests that this pan-directional, slow-moving state is a more comfortable or natural state for *iCab* to occupy, particularly when under stress.
 
 ## Setup
 
@@ -260,7 +260,10 @@ ggsave(BOXPLOTS_PER_STATE,
 knitr::include_graphics(BOXPLOTS_PER_STATE)
 ```
 
-<img src="figs/sge/co-occupancy/dist_angle/0.08_14_cooc_boxplots_per_state.png" width="100%" />
+<div class="figure">
+<img src="figs/sge/co-occupancy/dist_angle/0.08_14_cooc_boxplots_per_state.png" alt="(ref:cooc-boxplots)" width="100%" />
+<p class="caption">(\#fig:cooc-boxplots)(ref:cooc-boxplots)</p>
+</div>
 
 
 ## Co-occupancy heatmap
@@ -320,7 +323,10 @@ ggsave(OUT_HEAT,
 knitr::include_graphics(OUT_HEAT)
 ```
 
-<img src="figs/sge/co-occupancy/dist_angle/0.08_14_cooc_heatmap.png" width="100%" />
+<div class="figure">
+<img src="figs/sge/co-occupancy/dist_angle/0.08_14_cooc_heatmap.png" alt="(ref:cooc-heatmap)" width="100%" />
+<p class="caption">(\#fig:cooc-heatmap)(ref:cooc-heatmap)</p>
+</div>
 
 
 

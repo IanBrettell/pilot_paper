@@ -1,8 +1,16 @@
 fig:schema
 fig:exp-setup
 fig:line-locs
+fig:test-line-counts
+fig:covariates
 fig:hmm-param
 fig:polar-example
+fig:polar-asym
+fig:polar-sym
+fig:time-dep-dge
+fig:time-dep-sge
+fig:cooc-boxplots
+fig:cooc-heatmap
 about
 videos
 icab-southern-japan

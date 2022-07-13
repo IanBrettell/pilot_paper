@@ -369,5 +369,8 @@ ggsave(OUT_SGE,
 knitr::include_graphics(OUT_SGE)
 ```
 
-<img src="figs/time_dependence/dist_angle/0.08_14_sge.png" width="100%" />
+<div class="figure">
+<img src="figs/time_dependence/dist_angle/0.08_14_sge.png" alt="(ref:time-dep-sge)" width="100%" />
+<p class="caption">(\#fig:time-dep-sge)(ref:time-dep-sge)</p>
+</div>
 

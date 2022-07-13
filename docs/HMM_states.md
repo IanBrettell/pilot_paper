@@ -168,7 +168,10 @@ ggsave(POLAR_ALL_DGE,
 knitr::include_graphics(POLAR_ALL_DGE)
 ```
 
-<img src="figs/paper_final/0.05/dist_angle/16/polar_all_dge.png" width="100%" />
+<div class="figure">
+<img src="figs/paper_final/0.05/dist_angle/16/polar_all_dge.png" alt="(ref:polar-asym)" width="100%" />
+<p class="caption">(\#fig:polar-asym)(ref:polar-asym)</p>
+</div>
 
 
 ## Best optimisation with state symmetry
@@ -270,4 +273,7 @@ ggsave(POLAR_ALL_DGE,
 
 (ref:polar-sym) Polar plots for the combination of 14 states and a 0.08-second interval. Note the symmetry across angle (e.g. left- or right-turning movements) for states 1 and 3.
 
-<img src="figs/paper_final/0.08/dist_angle/14/polar_all_dge.png" width="100%" />
+<div class="figure">
+<img src="figs/paper_final/0.08/dist_angle/14/polar_all_dge.png" alt="(ref:polar-sym)" width="100%" />
+<p class="caption">(\#fig:polar-sym)(ref:polar-sym)</p>
+</div>

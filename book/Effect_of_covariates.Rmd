@@ -273,7 +273,7 @@ ggsave(here::here(OUT_NOASSAY),
 
 (ref:covariates) Box and violin plots for the mean speed of *iCab* fishes when paired with another *iCab*, calculated over the full 20-minute assay, across four covariates. **A**: date of assay. **B**: tank side quadrant. **C**: time of assay. **D**: test tank side. *P*-values generated from a multi-way ANOVA and adjusted for false discovery rate.    
 
-```{r covariates, out.width='100%'}
+```{r covariates, fig.cap = '(ref:covariates)', out.width='100%'}
 knitr::include_graphics(here::here(OUT_NOASSAY))
 ```
 

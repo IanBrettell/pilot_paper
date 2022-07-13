@@ -97,7 +97,7 @@
 <h1>
 <span class="header-section-number">10</span> SGE co-occupancy<a class="anchor" aria-label="anchor" href="#sge-co-occupancy"><i class="fas fa-link"></i></a>
 </h1>
-<p>To develop a metric to quantify the degree to which the <em>iCab</em> reference fishes’ behaviour is influenced by the line of its tank partner, we calculated the proportions of time that the pairs of fish spent simultaneously occupying the same HMM state. <strong>Figure @(fig:cooc-heatmap)</strong> shows that when paired with the slowest-moving <em>HdrR</em> line, the <em>iCab</em> reference fishes spent more time co-occupying the slow- and forward-moving state 2, whereas they tended to co-occupy the fast- and forward-moving state 11 when paired with the faster-moving northern <em>Kaga</em> and <em>HNI</em> lines. When paired with another <em>iCab</em>, they prefered to co-occupy the slow-moving and pan-directional state 4. For each combination of assay component and state, we then ran a Kruskal-Wallis test to determine whether there were differences in the frequencies of state co-occupancy under different line pairings (<em>p</em> &lt; 0.05, FDR-adjusted), and found significant differences for states 1 to 6 for the open field component (1.1x10<sup>-8</sup> &lt; <em>p</em> &lt; 4.1x10<sup>-2</sup>), and states 1 to 4 and 7 for the novel object component (1.6x10<sup>-6</sup> &lt; <em>p</em> &lt; 2.5x10<sup>-2</sup>) (<strong>Figure <a href="#fig:cooc-boxplots"><strong>??</strong></a></strong>). As can be seen in the heatmaps, <em>iCab</em> tends to co-occupy state 4 at the highest frequency when paired with another <em>iCab</em>, which suggests that this pan-directional, slow-moving state is a more comfortable or natural state for <em>iCab</em> to occupy, particularly when under stress.</p>
+<p>To develop a metric to quantify the degree to which the <em>iCab</em> reference fishes’ behaviour is influenced by the line of its tank partner, we calculated the proportions of time that the pairs of fish spent simultaneously occupying the same HMM state. <strong>Figure <a href="sge-co-occupancy.html#fig:cooc-heatmap">10.2</a></strong> shows that when paired with the slowest-moving <em>HdrR</em> line, the <em>iCab</em> reference fishes spent more time co-occupying the slow- and forward-moving state 2, whereas they tended to co-occupy the fast- and forward-moving state 11 when paired with the faster-moving northern <em>Kaga</em> and <em>HNI</em> lines. When paired with another <em>iCab</em>, they prefered to co-occupy the slow-moving and pan-directional state 4. For each combination of assay component and state, we then ran a Kruskal-Wallis test to determine whether there were differences in the frequencies of state co-occupancy under different line pairings (<em>p</em> &lt; 0.05, FDR-adjusted), and found significant differences for states 1 to 6 for the open field component (1.1x10<sup>-8</sup> &lt; <em>p</em> &lt; 4.1x10<sup>-2</sup>), and states 1 to 4 and 7 for the novel object component (1.6x10<sup>-6</sup> &lt; <em>p</em> &lt; 2.5x10<sup>-2</sup>) (<strong>Figure <a href="sge-co-occupancy.html#fig:cooc-boxplots">10.1</a></strong>). As can be seen in the heatmaps, <em>iCab</em> tends to co-occupy state 4 at the highest frequency when paired with another <em>iCab</em>, which suggests that this pan-directional, slow-moving state is a more comfortable or natural state for <em>iCab</em> to occupy, particularly when under stress.</p>
 <div id="setup-6" class="section level2" number="10.1">
 <h2>
 <span class="header-section-number">10.1</span> Setup<a class="anchor" aria-label="anchor" href="#setup-6"><i class="fas fa-link"></i></a>
@@ -346,7 +346,12 @@
 
 <div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span><span class="op">(</span><span class="va">BOXPLOTS_PER_STATE</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="figs/sge/co-occupancy/dist_angle/0.08_14_cooc_boxplots_per_state.png" width="100%"></div>
+<div class="figure">
+<span style="display:block;" id="fig:cooc-boxplots"></span>
+<img src="figs/sge/co-occupancy/dist_angle/0.08_14_cooc_boxplots_per_state.png" alt="Boxplots for state co-occupancy between fish pairs. P-values calculated from Kruskal-Wallis tests." width="100%"><p class="caption">
+Figure 10.1: Boxplots for state co-occupancy between fish pairs. <em>P</em>-values calculated from Kruskal-Wallis tests.
+</p>
+</div>
 </div>
 <div id="co-occupancy-heatmap" class="section level2" number="10.5">
 <h2>
@@ -399,7 +404,12 @@
 
 <div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span><span class="op">(</span><span class="va">OUT_HEAT</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="figs/sge/co-occupancy/dist_angle/0.08_14_cooc_heatmap.png" width="100%"></div>
+<div class="figure">
+<span style="display:block;" id="fig:cooc-heatmap"></span>
+<img src="figs/sge/co-occupancy/dist_angle/0.08_14_cooc_heatmap.png" alt="Frequency of HMM state co-occupancy between pairs of fish, calculated across all all videos per line-pairing." width="100%"><p class="caption">
+Figure 10.2: Frequency of HMM state co-occupancy between pairs of fish, calculated across all all videos per line-pairing.
+</p>
+</div>
 
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-spivakov2014genomic" class="csl-entry">

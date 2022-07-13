@@ -11,5 +11,8 @@ Between 11 and 16 June 2019, we ran this behavioural assay 77 times on 307 pairs
 
 (ref:test-line-counts) Order of test-fish lines assayed over the course of the data-collection period. The sequence of lines to be assayed was randomised prior to data collection.
 
-<img src="figs/misc/test_line_counts.png" width="100%" />
+<div class="figure">
+<img src="figs/misc/test_line_counts.png" alt="(ref:test-line-counts)" width="100%" />
+<p class="caption">(\#fig:test-line-counts)(ref:test-line-counts)</p>
+</div>
 
