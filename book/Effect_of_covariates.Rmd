@@ -1,6 +1,6 @@
 # Effect of covariates
 
-We examined the effects of several covariates, including date of assay, time of assay, tank quadrant, and tank side. To achieve this, we calculated the mean speed of individuals in iCab-iCab pairings (N = 136) over the course of the entire 20-minute video (including both open field and novel object assays), and ran a multi-way ANOVA with all covariates (Figure \@ref(fig:covariates)). 
+We examined the effects of several covariates, including date of assay, time of assay, tank quadrant, and tank side. To achieve this, we calculated the mean speed of individuals in iCab-iCab pairings ($N = 136$) over the course of the entire 20-minute video (including both open field and novel object assays), and ran a multi-way ANOVA with all covariates (Figure \@ref(fig:covariates)). 
 
 ## Setup
 

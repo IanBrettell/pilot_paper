@@ -341,7 +341,7 @@ ggsave(OUT_DGE,
 
 (ref:time-dep-dge) Differences between test fish lines in the HMM states they occupied during the open field (top) and novel object (bottom) assay components. **A** and **H**: 14 HMM states with panels coloured red to indicate significant differences between test fish lines in the proportion of time spent in those states during the separate assay components. **B** and **E**: Transitions between HMM states across time for each individual test fish, grouped by line. Tiles are coloured by the state most frequently occupied by each fish within 2-second intervals. **C** and **F**: Densities within each line for the occupation of states that significantly differed between lines (colour), with other states consolidated (grey). **D** and **G**: Densities of the test tank locations occupied by each line, calculated within 900 grid points (30x30).
 
-```{r time-dep-dge, fig.cap = '(ref:time-dep-dge)', out.width = '100%'}
+```{r time-dep-dge, fig.cap = '(ref:time-dep-dge)', out.width = '100%', echo = F}
 knitr::include_graphics(OUT_DGE)
 ```
 

@@ -86,6 +86,7 @@
 <li><a class="" href="time-dependence-of-hmm-states-dge.html"><span class="header-section-number">8</span> Time dependence of HMM states (DGE)</a></li>
 <li><a class="active" href="time-dependence-of-hmm-states-sge.html"><span class="header-section-number">9</span> Time dependence of HMM states (SGE)</a></li>
 <li><a class="" href="sge-co-occupancy.html"><span class="header-section-number">10</span> SGE co-occupancy</a></li>
+<li><a class="" href="references.html">References</a></li>
 </ul>
 
         <div class="book-extra">
@@ -106,7 +107,7 @@
 <h3>
 <span class="header-section-number">9.1.1</span> Load libraries<a class="anchor" aria-label="anchor" href="#load-libraries-4"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/cowplot/">cowplot</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/ggridges/">ggridges</a></span><span class="op">)</span>
@@ -117,7 +118,7 @@
 <h3>
 <span class="header-section-number">9.1.2</span> Set variables<a class="anchor" aria-label="anchor" href="#set-variables-3"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">IN</span> <span class="op">=</span> <span class="st">"/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/14.csv"</span>
 <span class="va">AOV_SHEET</span> <span class="op">=</span> <span class="st">"https://docs.google.com/spreadsheets/d/1_l72BZkmWyNAOfCUI8WGP4UfQuIPQtPZZmlRjQffvEs"</span>
 <span class="va">N_STATES</span> <span class="op">=</span> <span class="fl">15</span>
@@ -134,7 +135,7 @@
 <h2>
 <span class="header-section-number">9.2</span> Read and process data<a class="anchor" aria-label="anchor" href="#read-and-process-data-2"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span> <span class="op">=</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">IN</span><span class="op">)</span> <span class="op"><a href="https://googlesheets4.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="co"># recode angle to sit between 0 and 360</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>angle_recode <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">angle</span> <span class="op">&lt;</span> <span class="fl">0</span>,
@@ -194,7 +195,7 @@
 <h2>
 <span class="header-section-number">9.3</span> Pull significant states from spreadsheets<a class="anchor" aria-label="anchor" href="#pull-significant-states-from-spreadsheets-1"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">SIGS_SGE_OF</span> <span class="op">=</span> <span class="fu">googlesheets4</span><span class="fu">::</span><span class="fu"><a href="https://googlesheets4.tidyverse.org/reference/range_read.html">read_sheet</a></span><span class="op">(</span><span class="va">AOV_SHEET</span>, sheet <span class="op">=</span> <span class="st">"SGE_OF"</span><span class="op">)</span> <span class="op"><a href="https://googlesheets4.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">`p-value FDR-adj`</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">&amp;</span> <span class="va">`Variable`</span> <span class="op">==</span> <span class="st">"test_fish"</span><span class="op">)</span> <span class="op"><a href="https://googlesheets4.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">State</span><span class="op">)</span><span class="op"><a href="https://googlesheets4.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
@@ -221,7 +222,7 @@
 <h2>
 <span class="header-section-number">9.4</span> Tile plots<a class="anchor" aria-label="anchor" href="#tile-plots-1"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">SEC_INT</span> <span class="op">=</span> <span class="fl">2</span>
 
 <span class="va">sge_tile_df</span> <span class="op">=</span> <span class="va">df</span> <span class="op"><a href="https://googlesheets4.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
@@ -285,7 +286,7 @@
 <h2>
 <span class="header-section-number">9.5</span> Density plots<a class="anchor" aria-label="anchor" href="#density-plots-1"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Take viridis colours for significant states and add grey</span>
 <span class="va">pal_sge_of</span> <span class="op">=</span> <span class="fu">viridisLite</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html">viridis</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">N_STATES</span>, option <span class="op">=</span> <span class="st">"inferno"</span><span class="op">)</span>
 <span class="va">pal_sge_of</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">pal_sge_of</span><span class="op">[</span><span class="va">SIGS_SGE_OF</span><span class="op">]</span>, <span class="st">"#9da2ab"</span><span class="op">)</span>
@@ -347,7 +348,7 @@
 <h2>
 <span class="header-section-number">9.6</span> Spatial density plots<a class="anchor" aria-label="anchor" href="#spatial-density-plots-1"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Create density function</span>
 
 <span class="va">get_density</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
@@ -414,7 +415,7 @@
 <h2>
 <span class="header-section-number">9.7</span> Combine for final figure<a class="anchor" aria-label="anchor" href="#combine-for-final-figure-1"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">final_sge_raw</span> <span class="op">=</span> <span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/plot_grid.html">plot_grid</a></span><span class="op">(</span><span class="va">sge_tile_of</span> <span class="op">+</span>
                                      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>strip.background.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,
                                            strip.text.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,
@@ -458,8 +459,6 @@
        units <span class="op">=</span> <span class="st">"in"</span>,
        dpi <span class="op">=</span> <span class="fl">400</span><span class="op">)</span></code></pre></div>
 
-<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span><span class="op">(</span><span class="va">OUT_SGE</span><span class="op">)</span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:time-dep-sge"></span>
 <img src="figs/time_dependence/dist_angle/0.08_14_sge.png" alt="Differences between HMM states occupied by the reference fish when paired with different test fish lines during the open field (top) and novel object (bottom) assay components. A and H: 14 HMM states with panels coloured red to indicate significant differences between the reference fishes under different line-pairings in the proportion of time spent in those states during the separate assay components. The HMM states are the same as those in Figure 8.1, but coloured with a different palette. B and E: Transitions between HMM states across time for each individual iCab reference fish, grouped by the line of its tank partner. Tiles are coloured by the state most frequently occupied by each fish within 2-second intervals. C and F: Densities within each line-pairing for the occupation of states that significantly differed between line-pairings (colour), with other states consolidated (grey). D and G: Densities of the test tank locations occupied by the iCab reference fishes when paired with different lines, calculated within 900 grid points (30x30)." width="100%"><p class="caption">

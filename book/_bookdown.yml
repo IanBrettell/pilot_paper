@@ -17,7 +17,8 @@ rmd_files: [
   "Model_state_freq.Rmd",
   "Time_dependence_DGE.Rmd",
   "Time_dependence_SGE.Rmd",
-  "SGE_co-occupancy.Rmd"
+  "SGE_co-occupancy.Rmd",
+  "References.Rmd"
   #"HMM_param_optim.Rmd",
   #"Model_covariates.Rmd",
   #"Model_state_freq.Rmd"

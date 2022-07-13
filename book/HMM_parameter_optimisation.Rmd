@@ -1,5 +1,9 @@
 # HMM parameter optimisation {#param-optim}
 
+HMMs are well-suited for classifying the hidden states that generate stochastic, sequential observations. To determine the optimal parameters for the HMM’s classification of behaviours, we sought to reduce overfitting (which tends to favour using a lower number of HMM states) while maximising the ability to distinguish between lines based on the relative time they spent in each HMM state (which tends to favour a higher number of HMM states). We additionally considered the time interval between which the distance and angle of travel was measured.
+
+**Figure \@ref(fig:hmm-param)** sets out the comparison of HMM parameters on two measures designed to quantify, respectively, the level of overfitting ('mean concordance between cross-validated HMM states'), and the quantification of differences between lines ('summed Kruskal-Wallis statistic comparing frequency of time spent in each HMM state across medaka lines'). 
+
 ## Setup
 
 ### Load libraries

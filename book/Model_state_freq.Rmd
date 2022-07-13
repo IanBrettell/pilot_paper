@@ -12,7 +12,7 @@ $$
 \operatorname{frequency_{assay,state}} = \beta_{1}(\operatorname{test~fish~line}) + \beta_{2}(\operatorname{date}) + \beta_{3}(\operatorname{date}) + \beta_{4}(\operatorname{quadrant}) + \beta_{4}(\operatorname{tank~side}) + \epsilon
 $$
 
-Where $frequency$ was inverse-normalised within each combination off assay and state, and $date$, $time$, $quadrant$, and $tank side$ were included as covariates.
+Where $frequency$ was inverse-normalised within each combination of assay and state, and $date$, $time$, $quadrant$, and $tank~side$ were included as covariates.
 
 All results were written to this spreadsheet: https://docs.google.com/spreadsheets/d/1_l72BZkmWyNAOfCUI8WGP4UfQuIPQtPZZmlRjQffvEs.
 
