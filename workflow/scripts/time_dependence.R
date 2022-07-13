@@ -22,6 +22,8 @@ POLAR_ALL_DGE_SIG_OF = here::here("book/figs/paper_final/0.08/dist_angle/14/pola
 POLAR_ALL_DGE_SIG_NO = here::here("book/figs/paper_final/0.08/dist_angle/14/polar_all_dge_sig_no.png")
 POLAR_ALL_SGE_SIG_OF = here::here("book/figs/paper_final/0.08/dist_angle/14/polar_all_sge_sig_of.png")
 POLAR_ALL_SGE_SIG_NO = here::here("book/figs/paper_final/0.08/dist_angle/14/polar_all_sge_sig_no.png")
+OUT_DGE = here::here("book/figs/time_dependence/dist_angle/0.08_14_dge.png")
+OUT_SGE = here::here("book/figs/time_dependence/dist_angle/0.08_14_sge.png")
 
 # Deauthorise google sheets so that it doesn't ask for prompt
 googlesheets4::gs4_deauth()
@@ -504,30 +506,6 @@ sdens_sge_no = sdens_sge_df %>%
 # Combine and save
 ############################
 
-#final = cowplot::ggdraw() +
-#  cowplot::draw_plot(polar_plot,
-#                     x = 0, y = 0,
-#                     width = 0.4, height = 1) +
-#  cowplot::draw_plot(ridge_plot,
-#                     x = 0.4, y = 0,
-#                     width = 0.6, height = 1) 
-
-#top = cowplot::plot_grid(polar_dge, time_dens_dge,
-#                         rel_widths = c(0.333, 0.666),
-#                         axis = c("bt"),
-#                         align = c("hv"))
-#
-#bottom = cowplot::plot_grid(polar_sge, time_dens_sge,
-#                            rel_widths = c(0.333, 0.666),
-#                            axis = c("bt"),
-#                            align = c("hv"))
-#
-#final = cowplot::plot_grid(top, bottom,
-#                           rel_widths = c(1,1),
-#                           rel_heights = c(0.5, 0.5),
-#                           nrow = 2)
-
-
 final_dge = cowplot::plot_grid(dge_tile_of +
                                  theme(strip.background.y = element_blank(),
                                        strip.text.y = element_blank(),
@@ -583,7 +561,7 @@ final_dge_with_polar = ggdraw() +
                            x = c(0,0), y = c(1, 0.2),
                            size = 14)
 
-ggsave("tmp.png",
+ggsave(OUT_DGE,
        final_dge_with_polar,
        device = "png",
        width = 11.5,
@@ -591,37 +569,47 @@ ggsave("tmp.png",
        units = "in",
        dpi = 400)
 
-final_sge = cowplot::plot_grid(sge_tile_of +
-                                 theme(strip.background.y = element_blank(),
-                                       strip.text.y = element_blank(),
-                                       axis.title.y = element_text(vjust=-5)),
-                               time_dens_sge_of,
-                               sdens_sge_of,
-                               sge_tile_no +
-                                 theme(strip.background.y = element_blank(),
-                                       strip.text.y = element_blank(),
-                                       axis.title.y = element_text(vjust=-5)),
-                               time_dens_sge_no,
-                               sdens_sge_no,
-                               nrow = 2, ncol = 3,
-                               rel_widths = c(1,1,0.6,1,1,0.6),
-                               align = "hv",
-                               labels = c('A', 'B', 'C', 'D', 'E', 'F'))
+final_sge_raw = cowplot::plot_grid(sge_tile_of +
+                                     theme(strip.background.y = element_blank(),
+                                           strip.text.y = element_blank(),
+                                           axis.title.y = element_text(vjust=-5)),
+                                   time_dens_sge_of + 
+                                     theme(strip.background.y = element_blank(),
+                                           strip.text.y = element_blank()),
+                                   sdens_sge_of,
+                                   sge_tile_no +
+                                     theme(strip.background.y = element_blank(),
+                                           strip.text.y = element_blank(),
+                                           axis.title.y = element_text(vjust=-5)),
+                                   time_dens_sge_no +
+                                     theme(strip.background.y = element_blank(),
+                                           strip.text.y = element_blank()),
+                                   sdens_sge_no,
+                                   nrow = 2, ncol = 3,
+                                   rel_widths = c(1,1,0.6,1,1,0.6),
+                                   align = "hv",
+                                   labels = c('B', 'C', 'D', 'E', 'F', 'G'))
 
-
-ggsave(OUT_DGE,
-       final_dge,
-       device = "png",
-       width = 11.5,
-       height = 12,
-       units = "in",
-       dpi = 400)
+final_sge_with_polar = ggdraw() +
+  cowplot::draw_image(POLAR_ALL_SGE_SIG_OF,
+                      x = 0, y = 0.8,
+                      width = 1, height = 0.2) +
+  cowplot::draw_plot(final_sge_raw,
+                     x = 0, y = 0.2,
+                     width = 1, height = 0.6) +
+  cowplot::draw_image(POLAR_ALL_SGE_SIG_NO,
+                      x = 0, y = 0,
+                      width = 1, height = 0.2) +
+  cowplot::draw_plot_label(c('A', 'H'),
+                           x = c(0,0), y = c(1, 0.2),
+                           size = 14)
 
 ggsave(OUT_SGE,
-       final_sge,
+       final_sge_with_polar,
        device = "png",
        width = 11.5,
-       height = 12,
+       height = 20,
        units = "in",
        dpi = 400)
+
 

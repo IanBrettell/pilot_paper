@@ -495,7 +495,7 @@ date_fig_noassay = df_control_noassay %>%
   ggplot() +
   geom_violin(aes(date, mean_speed, fill = date, colour = date)) +
   geom_boxplot(aes(date, mean_speed, fill = date, colour = date),
-               width = 0.25) +
+               width = 0.15) +
   ggbeeswarm::geom_beeswarm(aes(date, mean_speed),
                             colour = "#3B1F2B", alpha = 0.8) +
   geom_text(data = aov_df_noassay %>% 
@@ -522,7 +522,7 @@ time_fig_noassay = df_control_noassay %>%
   ggplot() +
   geom_violin(aes(time, mean_speed, fill = time, colour = time)) +
   geom_boxplot(aes(time, mean_speed, fill = time, colour = time),
-               width = 0.15) +
+               width = 0.1) +
   ggbeeswarm::geom_beeswarm(aes(time, mean_speed),
                             colour = "#3B1F2B", alpha = 0.8) +
   geom_text(data = aov_df_noassay %>% 
@@ -555,7 +555,7 @@ quad_fig_noassay = df_control_noassay %>%
   ggplot() +
   geom_violin(aes(quadrant, mean_speed, fill = quadrant, colour = quadrant)) +
   geom_boxplot(aes(quadrant, mean_speed, fill = quadrant, colour = quadrant),
-               width = 0.3) +
+               width = 0.2) +
   ggbeeswarm::geom_beeswarm(aes(quadrant, mean_speed),
                             colour = "#3B1F2B", alpha = 0.8) +
   geom_text(data = aov_df_noassay %>% 

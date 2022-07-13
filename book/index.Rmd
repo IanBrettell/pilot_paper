@@ -41,7 +41,7 @@ Bottom right are the paths of the reference *iCab* fish, coloured by HMM state.
 
 ### *iCab* (southern Japan)
 
-```{r}
+```{r, out.width='100%', echo = F}
 vembedr::embed_url("https://www.youtube.com/watch?v=ldd7vI7J3JE")
 ```
 
