@@ -6,14 +6,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>9 Time dependence of HMM states (SGE) | Medaka behaviour pilot study</title>
 <meta name="author" content="Ian Brettell">
-<meta name="description" content="9.1 Setup  9.1.1 Load libraries library(tidyverse) library(cowplot) library(ggridges) library(viridisLite) library(googlesheets4)  9.1.2 Set variables IN =...">
+<meta name="description" content="Figure ?? has the same layout as Figure ??, but now displays the data from the iCab reference fishes. We observe that the proportions of time they spent in different states do differ based on the...">
 <meta name="generator" content="bookdown 0.26 with bs4_book()">
 <meta property="og:title" content="9 Time dependence of HMM states (SGE) | Medaka behaviour pilot study">
 <meta property="og:type" content="book">
-<meta property="og:description" content="9.1 Setup  9.1.1 Load libraries library(tidyverse) library(cowplot) library(ggridges) library(viridisLite) library(googlesheets4)  9.1.2 Set variables IN =...">
+<meta property="og:description" content="Figure ?? has the same layout as Figure ??, but now displays the data from the iCab reference fishes. We observe that the proportions of time they spent in different states do differ based on the...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="9 Time dependence of HMM states (SGE) | Medaka behaviour pilot study">
-<meta name="twitter:description" content="9.1 Setup  9.1.1 Load libraries library(tidyverse) library(cowplot) library(ggridges) library(viridisLite) library(googlesheets4)  9.1.2 Set variables IN =...">
+<meta name="twitter:description" content="Figure ?? has the same layout as Figure ??, but now displays the data from the iCab reference fishes. We observe that the proportions of time they spent in different states do differ based on the...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -31,6 +31,28 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
   </style>
 <link rel="stylesheet" href="style.css">
 </head>
@@ -58,7 +80,7 @@
 <li><a class="" href="experimental-setup.html"><span class="header-section-number">2</span> Experimental setup</a></li>
 <li><a class="" href="data-collection.html"><span class="header-section-number">3</span> Data collection</a></li>
 <li><a class="" href="effect-of-covariates.html"><span class="header-section-number">4</span> Effect of covariates</a></li>
-<li><a class="" href="hmm-parameter-optimisation.html"><span class="header-section-number">5</span> HMM parameter optimisation</a></li>
+<li><a class="" href="param-optim.html"><span class="header-section-number">5</span> HMM parameter optimisation</a></li>
 <li><a class="" href="hmm-states.html"><span class="header-section-number">6</span> HMM states</a></li>
 <li><a class="" href="model-proportion-of-time-spent-in-hmm-states.html"><span class="header-section-number">7</span> Model proportion of time spent in HMM states</a></li>
 <li><a class="" href="time-dependence-of-hmm-states-dge.html"><span class="header-section-number">8</span> Time dependence of HMM states (DGE)</a></li>
@@ -75,6 +97,7 @@
 <h1>
 <span class="header-section-number">9</span> Time dependence of HMM states (SGE)<a class="anchor" aria-label="anchor" href="#time-dependence-of-hmm-states-sge"><i class="fas fa-link"></i></a>
 </h1>
+<p><strong>Figure <a href="#fig:time-dep-sge"><strong>??</strong></a></strong> has the same layout as <strong>Figure <a href="#fig:time-dep-sge"><strong>??</strong></a></strong>, but now displays the data from the <em>iCab</em> reference fishes. We observe that the proportions of time they spent in different states do differ based on the lines of their tank partner, and that their behavioural patterns tend to reflect those of the test fish lines they are paired with. That is to say, the <em>iCab</em> reference fishes spend less time in the slower-moving states when in the presence of the faster-moving northern Japanese lines <em>Kaga</em> and <em>HNI</em>, which in turn shows that the test fishes are transmitting their behaviours to some degree to their <em>iCab</em> tank partners. As expected, the differences in the behaviours of <em>iCab</em> reference fishes based on the line of their tank partners are not as large as was observed between the lines of the test fishes themselves. However, unlike what was observed with the test fishes, here there is a greater number of states that show significant differences during the novel object component of the assay compared to the open field component. This suggests that when movement is restricted, or when in the presence of a potential threat, the behaviour of the test fish tank partner has more of an influence on the <em>iCab</em> reference fish’s behaviour than otherwise.</p>
 <div id="setup-5" class="section level2" number="9.1">
 <h2>
 <span class="header-section-number">9.1</span> Setup<a class="anchor" aria-label="anchor" href="#setup-5"><i class="fas fa-link"></i></a>
@@ -83,7 +106,7 @@
 <h3>
 <span class="header-section-number">9.1.1</span> Load libraries<a class="anchor" aria-label="anchor" href="#load-libraries-4"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/cowplot/">cowplot</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/ggridges/">ggridges</a></span><span class="op">)</span>
@@ -94,10 +117,12 @@
 <h3>
 <span class="header-section-number">9.1.2</span> Set variables<a class="anchor" aria-label="anchor" href="#set-variables-3"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">IN</span> <span class="op">=</span> <span class="st">"/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/14.csv"</span>
 <span class="va">AOV_SHEET</span> <span class="op">=</span> <span class="st">"https://docs.google.com/spreadsheets/d/1_l72BZkmWyNAOfCUI8WGP4UfQuIPQtPZZmlRjQffvEs"</span>
 <span class="va">N_STATES</span> <span class="op">=</span> <span class="fl">15</span>
+<span class="va">POLAR_ALL_SGE_SIG_OF</span> <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"book/figs/paper_final/0.08/dist_angle/14/polar_all_sge_sig_of.png"</span><span class="op">)</span>
+<span class="va">POLAR_ALL_SGE_SIG_NO</span> <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"book/figs/paper_final/0.08/dist_angle/14/polar_all_sge_sig_no.png"</span><span class="op">)</span>
 <span class="va">OUT_SGE</span> <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"book/figs/time_dependence/dist_angle/0.08_14_sge.png"</span><span class="op">)</span>
 
 <span class="co"># Create line recode vector</span>
@@ -109,7 +134,7 @@
 <h2>
 <span class="header-section-number">9.2</span> Read and process data<a class="anchor" aria-label="anchor" href="#read-and-process-data-2"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span> <span class="op">=</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">IN</span><span class="op">)</span> <span class="op"><a href="https://googlesheets4.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="co"># recode angle to sit between 0 and 360</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>angle_recode <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">angle</span> <span class="op">&lt;</span> <span class="fl">0</span>,
@@ -169,7 +194,7 @@
 <h2>
 <span class="header-section-number">9.3</span> Pull significant states from spreadsheets<a class="anchor" aria-label="anchor" href="#pull-significant-states-from-spreadsheets-1"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">SIGS_SGE_OF</span> <span class="op">=</span> <span class="fu">googlesheets4</span><span class="fu">::</span><span class="fu"><a href="https://googlesheets4.tidyverse.org/reference/range_read.html">read_sheet</a></span><span class="op">(</span><span class="va">AOV_SHEET</span>, sheet <span class="op">=</span> <span class="st">"SGE_OF"</span><span class="op">)</span> <span class="op"><a href="https://googlesheets4.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">`p-value FDR-adj`</span> <span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">&amp;</span> <span class="va">`Variable`</span> <span class="op">==</span> <span class="st">"test_fish"</span><span class="op">)</span> <span class="op"><a href="https://googlesheets4.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">State</span><span class="op">)</span><span class="op"><a href="https://googlesheets4.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
@@ -196,7 +221,7 @@
 <h2>
 <span class="header-section-number">9.4</span> Tile plots<a class="anchor" aria-label="anchor" href="#tile-plots-1"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">SEC_INT</span> <span class="op">=</span> <span class="fl">2</span>
 
 <span class="va">sge_tile_df</span> <span class="op">=</span> <span class="va">df</span> <span class="op"><a href="https://googlesheets4.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
@@ -260,7 +285,7 @@
 <h2>
 <span class="header-section-number">9.5</span> Density plots<a class="anchor" aria-label="anchor" href="#density-plots-1"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Take viridis colours for significant states and add grey</span>
 <span class="va">pal_sge_of</span> <span class="op">=</span> <span class="fu">viridisLite</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html">viridis</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">N_STATES</span>, option <span class="op">=</span> <span class="st">"inferno"</span><span class="op">)</span>
 <span class="va">pal_sge_of</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">pal_sge_of</span><span class="op">[</span><span class="va">SIGS_SGE_OF</span><span class="op">]</span>, <span class="st">"#9da2ab"</span><span class="op">)</span>
@@ -322,7 +347,7 @@
 <h2>
 <span class="header-section-number">9.6</span> Spatial density plots<a class="anchor" aria-label="anchor" href="#spatial-density-plots-1"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Create density function</span>
 
 <span class="va">get_density</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
@@ -389,34 +414,51 @@
 <h2>
 <span class="header-section-number">9.7</span> Combine for final figure<a class="anchor" aria-label="anchor" href="#combine-for-final-figure-1"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">final_sge</span> <span class="op">=</span> <span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/plot_grid.html">plot_grid</a></span><span class="op">(</span><span class="va">sge_tile_of</span> <span class="op">+</span>
-                                 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>strip.background.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,
-                                       strip.text.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,
-                                       axis.title.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>vjust<span class="op">=</span><span class="op">-</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span>,
-                               <span class="va">time_dens_sge_of</span>,
-                               <span class="va">sdens_sge_of</span>,
-                               <span class="va">sge_tile_no</span> <span class="op">+</span>
-                                 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>strip.background.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,
-                                       strip.text.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,
-                                       axis.title.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>vjust<span class="op">=</span><span class="op">-</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span>,
-                               <span class="va">time_dens_sge_no</span>,
-                               <span class="va">sdens_sge_no</span>,
-                               nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="fl">3</span>,
-                               rel_widths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0.6</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0.6</span><span class="op">)</span>,
-                               align <span class="op">=</span> <span class="st">"hv"</span>,
-                               labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'A'</span>, <span class="st">'B'</span>, <span class="st">'C'</span>, <span class="st">'D'</span>, <span class="st">'E'</span>, <span class="st">'F'</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Warning: Graphs cannot be vertically aligned unless the axis</span>
-<span class="co">#&gt; parameter is set. Placing graphs unaligned.</span></code></pre></div>
-<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span><span class="va">OUT_SGE</span>,
-       <span class="va">final_sge</span>,
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">final_sge_raw</span> <span class="op">=</span> <span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/plot_grid.html">plot_grid</a></span><span class="op">(</span><span class="va">sge_tile_of</span> <span class="op">+</span>
+                                     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>strip.background.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,
+                                           strip.text.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,
+                                           axis.title.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>vjust<span class="op">=</span><span class="op">-</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span>,
+                                   <span class="va">time_dens_sge_of</span> <span class="op">+</span> 
+                                     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>strip.background.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,
+                                           strip.text.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,
+                                   <span class="va">sdens_sge_of</span>,
+                                   <span class="va">sge_tile_no</span> <span class="op">+</span>
+                                     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>strip.background.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,
+                                           strip.text.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,
+                                           axis.title.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>vjust<span class="op">=</span><span class="op">-</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span>,
+                                   <span class="va">time_dens_sge_no</span> <span class="op">+</span>
+                                     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>strip.background.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,
+                                           strip.text.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,
+                                   <span class="va">sdens_sge_no</span>,
+                                   nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="fl">3</span>,
+                                   rel_widths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0.6</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0.6</span><span class="op">)</span>,
+                                   align <span class="op">=</span> <span class="st">"hv"</span>,
+                                   labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'B'</span>, <span class="st">'C'</span>, <span class="st">'D'</span>, <span class="st">'E'</span>, <span class="st">'F'</span>, <span class="st">'G'</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">final_sge_with_polar</span> <span class="op">=</span> <span class="fu"><a href="https://wilkelab.org/cowplot/reference/ggdraw.html">ggdraw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/draw_image.html">draw_image</a></span><span class="op">(</span><span class="va">POLAR_ALL_SGE_SIG_OF</span>,
+                      x <span class="op">=</span> <span class="fl">0</span>, y <span class="op">=</span> <span class="fl">0.8</span>,
+                      width <span class="op">=</span> <span class="fl">1</span>, height <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/draw_plot.html">draw_plot</a></span><span class="op">(</span><span class="va">final_sge_raw</span>,
+                     x <span class="op">=</span> <span class="fl">0</span>, y <span class="op">=</span> <span class="fl">0.2</span>,
+                     width <span class="op">=</span> <span class="fl">1</span>, height <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/draw_image.html">draw_image</a></span><span class="op">(</span><span class="va">POLAR_ALL_SGE_SIG_NO</span>,
+                      x <span class="op">=</span> <span class="fl">0</span>, y <span class="op">=</span> <span class="fl">0</span>,
+                      width <span class="op">=</span> <span class="fl">1</span>, height <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/draw_plot_label.html">draw_plot_label</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'A'</span>, <span class="st">'H'</span><span class="op">)</span>,
+                           x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.2</span><span class="op">)</span>,
+                           size <span class="op">=</span> <span class="fl">14</span><span class="op">)</span>
+
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span><span class="va">OUT_SGE</span>,
+       <span class="va">final_sge_with_polar</span>,
        device <span class="op">=</span> <span class="st">"png"</span>,
        width <span class="op">=</span> <span class="fl">11.5</span>,
-       height <span class="op">=</span> <span class="fl">12</span>,
+       height <span class="op">=</span> <span class="fl">20</span>,
        units <span class="op">=</span> <span class="st">"in"</span>,
        dpi <span class="op">=</span> <span class="fl">400</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span><span class="op">(</span><span class="va">OUT_SGE</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="figs/time_dependence/dist_angle/0.08_14_sge.png" width="100%"></div>
 
@@ -458,7 +500,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Medaka behaviour pilot study</strong>" was written by Ian Brettell. It was last built on 2022-07-11.</p>
+    <p>"<strong>Medaka behaviour pilot study</strong>" was written by Ian Brettell. It was last built on 2022-07-13.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

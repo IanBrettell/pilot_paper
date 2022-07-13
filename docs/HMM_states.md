@@ -6,11 +6,6 @@ The HMMs were trained on distance and angle variables. **Figure \@ref(fig:polar-
 
 (ref:polar-example) Distance (in log~10~(pixels)) and angle of travel between a time interval of 0.2 seconds from points B → C for distance, and points A → B → C for angle. Each point represents the distance and angle at point C, and A → B is aligned vertically along the 0-180° radial axis. The figure shows only an illustrative 10,000 points, randomly selected from the full dataset. States are sorted in ascending order by mean distance.
 
-
-```r
-knitr::include_graphics(here::here("book/figs/misc/dist_angle_polar_example.png"))
-```
-
 <div class="figure">
 <img src="figs/misc/dist_angle_polar_example.png" alt="(ref:polar-example)" width="100%" />
 <p class="caption">(\#fig:polar-example)(ref:polar-example)</p>
@@ -180,7 +175,7 @@ knitr::include_graphics(POLAR_ALL_DGE)
 
 ### 14 states; 0.08 second interval
 
-For the downstream analysis we selected the combination of 14 states with a 0.08-second interval between time points, because out of the remaining combinations it appeared to optimally balance the level of overfitting and detection of differences between lines (**Figure \@ref(fig:polar-example)**). 
+For the downstream analysis we selected the combination of 14 states with a 0.08-second interval between time points (**Figure \@ref(fig:polar-example)**), because out of the remaining combinations it appeared to optimally balance the level of overfitting and detection of differences between lines -- see Chapter \@ref(param-optim). 
 
 
 ```r

@@ -100,7 +100,7 @@ aov_df_noassay = df_control_noassay %>%
 DT::datatable(aov_df_noassay)
 ```
 
-As shown above, we found significant differences for date of assay and and tank quadrant (p = 0.0139 and 0.0108), but not for time of assay or tank side. This may have been caused by a difference in the way the assay was performed on the first day of the experiment (11 June 2019), where we used a thick fabric sheet to cover the front of the box rather than the wooden doors shown in Figure 1, as they were only installed the following day. The greater level of external light and sound permeating through the fabric may have caused the fishes to exhibit slower movement on that first day. The model below excludes the data collected on that first day.
+As shown above, we found significant differences for date of assay and and tank quadrant (*p* = 0.0139 and 0.0108), but not for time of assay or tank side. This may have been caused by a difference in the way the assay was performed on the first day of the experiment (11 June 2019), where we used a thick fabric sheet to cover the front of the box rather than the wooden doors shown in **Figure \@ref(fig:exp-setup)**, as they were only installed the following day. The greater level of external light and sound permeating through the fabric may have caused the fishes to exhibit slower movement on that first day. The model below excludes the data collected on that first day.
 
 ### Excluding the first day
 
@@ -121,7 +121,7 @@ aov_df_noassay_nofirstday = df_control_noassay %>%
 DT::datatable(aov_df_noassay_nofirstday)
 ```
 
-When the data from the first day is excluded, the p-values for date of assay and tank quadrant increase to 0.0477 and 0.0469 respectively.
+When the data from the first day is excluded, the *p*-values for date of assay and tank quadrant increase to 0.0477 and 0.0469 respectively. **Figure \@ref(fig:covariates)** shows the boxplots and p-values for each covariate.
 
 ## Plot
 
@@ -270,6 +270,8 @@ ggsave(here::here(OUT_NOASSAY),
        units = "in",
        dpi = 400)
 ```
+
+(ref:covariates) Box and violin plots for the mean speed of *iCab* fishes when paired with another *iCab*, calculated over the full 20-minute assay, across four covariates. **A**: date of assay. **B**: tank side quadrant. **C**: time of assay. **D**: test tank side. *P*-values generated from a multi-way ANOVA and adjusted for false discovery rate.    
 
 ```{r covariates, out.width='100%'}
 knitr::include_graphics(here::here(OUT_NOASSAY))

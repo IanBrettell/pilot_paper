@@ -114,7 +114,9 @@ rule sge_co_occupancy:
     input:
         rules.run_hmm.output,
     output:
+        heatmap = "book/figs/sge/co-occupancy/{variables}/{interval}_{n_states}_cooc_heatmap.png",
         boxplot_all = "book/figs/sge/co-occupancy/{variables}/{interval}_{n_states}_cooc_box_all.png",
+        boxplots = "book/figs/sge/co-occupancy/{variables}/{interval}_{n_states}_cooc_boxplots_per_state.png"
         box_and_heat_per_state = "book/figs/sge/co-occupancy/{variables}/{interval}_{n_states}_cooc_box_heat_per-state.png",
     log:
         os.path.join(

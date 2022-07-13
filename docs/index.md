@@ -1,7 +1,7 @@
 --- 
 title: "Medaka behaviour pilot study"
 author: "Ian Brettell"
-date: "2022-07-11"
+date: "2022-07-13"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
@@ -36,10 +36,6 @@ Bottom right are the paths of the reference *iCab* fish, coloured by HMM state.
 
 ### *iCab* (southern Japan)
 
-
-```r
-vembedr::embed_url("https://www.youtube.com/watch?v=ldd7vI7J3JE")
-```
 
 ```{=html}
 <div class="vembedr">

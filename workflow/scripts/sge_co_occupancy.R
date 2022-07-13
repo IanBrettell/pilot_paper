@@ -20,13 +20,14 @@ IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/14.csv"
 N_STATES = 14
 VARIABLES = "distance and angle of travel"
 INTERVAL = 0.08
+OUT_HEAT = here::here("book/figs/sge/co-occupancy/dist_angle/0.08_14_cooc_heatmap.png")
 OUT_PER_STATE = here::here("book/figs/sge/co-occupancy/dist_angle/0.08_14_cooc_box_heat_per-state.png")
 OUT_BOX_ALL = here::here("book/figs/sge/co-occupancy/dist_angle/0.08_14_cooc_box_all.png")
 
 ## True
 IN = snakemake@input[[1]]
 N_STATES = snakemake@params[["n_states"]]
-OUT_HEAT = snakemake@output[["heatmaps"]]
+OUT_HEAT = snakemake@output[["heatmap"]]
 OUT_BOX_ALL = snakemake@output[["boxplot_all"]]
 OUT_PER_STATE = snakemake@output[["box_and_heat_per_state"]]
 
@@ -290,6 +291,14 @@ cooc_heat_plot = cooc_heat %>%
   scale_fill_viridis_c(option = "plasma") +
   xlab("reference fish state") +
   ylab("test fish state")
+
+ggsave(OUT_HEAT,
+       cooc_heat_plot,
+       device = "png",
+       width = 18,
+       height = 7,
+       units = "in",
+       dpi = 400)
 
 #######################
 # Final figure

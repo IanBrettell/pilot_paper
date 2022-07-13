@@ -1,4 +1,6 @@
+fig:schema
 fig:exp-setup
+fig:line-locs
 fig:hmm-param
 fig:polar-example
 about
@@ -27,7 +29,7 @@ time
 quadrant
 tank-side
 compile
-hmm-parameter-optimisation
+param-optim
 setup-1
 load-libraries-1
 set-variables-1
@@ -89,4 +91,3 @@ read-data-and-process-3
 co-occupancy-boxplots-all-states
 co-occupancy-boxplots-per-state
 co-occupancy-heatmap
-compose-final-figure

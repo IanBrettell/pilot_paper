@@ -94,11 +94,9 @@ df_control_noassay = df %>%
 
 ### Model
 
+
 $$
-\operatorname{mean\_speed} = \beta_{1}(\operatorname{date}) + \beta_{2}(\operatorname{time}) + \beta_{3}(\operatorname{quadrant}) + \beta_{4}(\operatorname{tank\_side}) + \beta_{5}() + \epsilon
-$$
-$$
-\operatorname{mean\_speed} = \beta_{1}(\operatorname{date}) + \beta_{2}(\operatorname{time}) + \beta_{3}(\operatorname{quadrant}) + \beta_{4}(\operatorname{tank\_side}) + \epsilon
+\operatorname{mean\ speed} = \beta_{1}(\operatorname{date}) + \beta_{2}(\operatorname{time}) + \beta_{3}(\operatorname{quadrant}) + \beta_{4}(\operatorname{tank\_side}) + \epsilon
 $$
 
 ### All days
@@ -121,11 +119,11 @@ DT::datatable(aov_df_noassay)
 ```
 
 ```{=html}
-<div id="htmlwidget-53c7e85625059c108cf5" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-53c7e85625059c108cf5">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5"],["date","time","quadrant","tank_side","Residuals"],[4,1,3,1,126],[7.8,0.185,6.96,1.74,76],[1.95,0.185,2.32,1.74,0.603],[3.23,0.307,3.85,2.88,null],[0.0146,0.58,0.0112,0.0923,null],["*","ns","*","ns",""],["p = 0.0146 *","p = 0.58","p = 0.0112 *","p = 0.0923","p = NA "]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>term<\/th>\n      <th>df<\/th>\n      <th>sumsq<\/th>\n      <th>meansq<\/th>\n      <th>statistic<\/th>\n      <th>p.value<\/th>\n      <th>p.value.signif<\/th>\n      <th>p_final<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-db608fe6cc4baae5125b" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-db608fe6cc4baae5125b">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5"],["date","time","quadrant","tank_side","Residuals"],[4,1,3,1,126],[7.8,0.185,6.96,1.74,76],[1.95,0.185,2.32,1.74,0.603],[3.23,0.307,3.85,2.88,null],[0.0146,0.58,0.0112,0.0923,null],["*","ns","*","ns",""],["p = 0.0146 *","p = 0.58","p = 0.0112 *","p = 0.0923","p = NA "]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>term<\/th>\n      <th>df<\/th>\n      <th>sumsq<\/th>\n      <th>meansq<\/th>\n      <th>statistic<\/th>\n      <th>p.value<\/th>\n      <th>p.value.signif<\/th>\n      <th>p_final<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 ```
 
-As shown above, we found significant differences for date of assay and and tank quadrant (p = 0.0139 and 0.0108), but not for time of assay or tank side. This may have been caused by a difference in the way the assay was performed on the first day of the experiment (11 June 2019), where we used a thick fabric sheet to cover the front of the box rather than the wooden doors shown in Figure 1, as they were only installed the following day. The greater level of external light and sound permeating through the fabric may have caused the fishes to exhibit slower movement on that first day. The model below excludes the data collected on that first day.
+As shown above, we found significant differences for date of assay and and tank quadrant (*p* = 0.0139 and 0.0108), but not for time of assay or tank side. This may have been caused by a difference in the way the assay was performed on the first day of the experiment (11 June 2019), where we used a thick fabric sheet to cover the front of the box rather than the wooden doors shown in **Figure \@ref(fig:exp-setup)**, as they were only installed the following day. The greater level of external light and sound permeating through the fabric may have caused the fishes to exhibit slower movement on that first day. The model below excludes the data collected on that first day.
 
 ### Excluding the first day
 
@@ -148,11 +146,11 @@ DT::datatable(aov_df_noassay_nofirstday)
 ```
 
 ```{=html}
-<div id="htmlwidget-dc650f8d82c96200a31c" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-dc650f8d82c96200a31c">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5"],["date","time","quadrant","tank_side","Residuals"],[3,1,3,1,119],[4.96,0.185,4.99,1.74,72.4],[1.65,0.185,1.66,1.74,0.609],[2.72,0.304,2.73,2.85,null],[0.0477,0.582,0.0469,0.094,null],["*","ns","*","ns",""],["p = 0.0477 *","p = 0.582","p = 0.0469 *","p = 0.094","p = NA "]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>term<\/th>\n      <th>df<\/th>\n      <th>sumsq<\/th>\n      <th>meansq<\/th>\n      <th>statistic<\/th>\n      <th>p.value<\/th>\n      <th>p.value.signif<\/th>\n      <th>p_final<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-ffb0277d5cbc1b7ca1f4" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ffb0277d5cbc1b7ca1f4">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5"],["date","time","quadrant","tank_side","Residuals"],[3,1,3,1,119],[4.96,0.185,4.99,1.74,72.4],[1.65,0.185,1.66,1.74,0.609],[2.72,0.304,2.73,2.85,null],[0.0477,0.582,0.0469,0.094,null],["*","ns","*","ns",""],["p = 0.0477 *","p = 0.582","p = 0.0469 *","p = 0.094","p = NA "]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>term<\/th>\n      <th>df<\/th>\n      <th>sumsq<\/th>\n      <th>meansq<\/th>\n      <th>statistic<\/th>\n      <th>p.value<\/th>\n      <th>p.value.signif<\/th>\n      <th>p_final<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 ```
 
-When the data from the first day is excluded, the p-values for date of assay and tank quadrant increase to 0.0477 and 0.0469 respectively.
+When the data from the first day is excluded, the *p*-values for date of assay and tank quadrant increase to 0.0477 and 0.0469 respectively. **Figure \@ref(fig:covariates)** shows the boxplots and p-values for each covariate.
 
 ## Plot
 
@@ -174,7 +172,7 @@ date_fig_noassay = df_control_noassay %>%
   ggplot() +
   geom_violin(aes(date, mean_speed, fill = date, colour = date)) +
   geom_boxplot(aes(date, mean_speed, fill = date, colour = date),
-               width = 0.25) +
+               width = 0.15) +
   ggbeeswarm::geom_beeswarm(aes(date, mean_speed),
                             colour = "#3B1F2B", alpha = 0.8) +
   geom_text(data = aov_df_noassay %>% 
@@ -201,7 +199,7 @@ time_fig_noassay = df_control_noassay %>%
   ggplot() +
   geom_violin(aes(time, mean_speed, fill = time, colour = time)) +
   geom_boxplot(aes(time, mean_speed, fill = time, colour = time),
-               width = 0.15) +
+               width = 0.1) +
   ggbeeswarm::geom_beeswarm(aes(time, mean_speed),
                             colour = "#3B1F2B", alpha = 0.8) +
   geom_text(data = aov_df_noassay %>% 
@@ -232,7 +230,7 @@ quad_fig_noassay = df_control_noassay %>%
   ggplot() +
   geom_violin(aes(quadrant, mean_speed, fill = quadrant, colour = quadrant)) +
   geom_boxplot(aes(quadrant, mean_speed, fill = quadrant, colour = quadrant),
-               width = 0.3) +
+               width = 0.2) +
   ggbeeswarm::geom_beeswarm(aes(quadrant, mean_speed),
                             colour = "#3B1F2B", alpha = 0.8) +
   geom_text(data = aov_df_noassay %>% 
@@ -307,6 +305,8 @@ ggsave(here::here(OUT_NOASSAY),
        units = "in",
        dpi = 400)
 ```
+
+(ref:covariates) Box and violin plots for the mean speed of *iCab* fishes when paired with another *iCab*, calculated over the full 20-minute assay, across four covariates. **A**: date of assay. **B**: tank side quadrant. **C**: time of assay. **D**: test tank side. *P*-values generated from a multi-way ANOVA and adjusted for false discovery rate.    
 
 
 ```r

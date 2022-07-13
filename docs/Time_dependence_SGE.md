@@ -1,5 +1,7 @@
 # Time dependence of HMM states (SGE)
 
+**Figure \@ref(fig:time-dep-sge)** has the same layout as **Figure \@ref(fig:time-dep-sge)**, but now displays the data from the *iCab* reference fishes. We observe that the proportions of time they spent in different states do differ based on the lines of their tank partner, and that their behavioural patterns tend to reflect those of the test fish lines they are paired with. That is to say, the *iCab* reference fishes spend less time in the slower-moving states when in the presence of the faster-moving northern Japanese lines *Kaga* and *HNI*, which in turn shows that the test fishes are transmitting their behaviours to some degree to their *iCab* tank partners. As expected, the differences in the behaviours of *iCab* reference fishes based on the line of their tank partners are not as large as was observed between the lines of the test fishes themselves. However, unlike what was observed with the test fishes, here there is a greater number of states that show significant differences during the novel object component of the assay compared to the open field component. This suggests that when movement is restricted, or when in the presence of a potential threat, the behaviour of the test fish tank partner has more of an influence on the *iCab* reference fish’s behaviour than otherwise.
+
 ## Setup
 
 ### Load libraries
@@ -20,6 +22,8 @@ library(googlesheets4)
 IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/14.csv"
 AOV_SHEET = "https://docs.google.com/spreadsheets/d/1_l72BZkmWyNAOfCUI8WGP4UfQuIPQtPZZmlRjQffvEs"
 N_STATES = 15
+POLAR_ALL_SGE_SIG_OF = here::here("book/figs/paper_final/0.08/dist_angle/14/polar_all_sge_sig_of.png")
+POLAR_ALL_SGE_SIG_NO = here::here("book/figs/paper_final/0.08/dist_angle/14/polar_all_sge_sig_no.png")
 OUT_SGE = here::here("book/figs/time_dependence/dist_angle/0.08_14_sge.png")
 
 # Create line recode vector
@@ -313,37 +317,52 @@ sdens_sge_no = sdens_sge_df %>%
 
 
 ```r
-final_sge = cowplot::plot_grid(sge_tile_of +
-                                 theme(strip.background.y = element_blank(),
-                                       strip.text.y = element_blank(),
-                                       axis.title.y = element_text(vjust=-5)),
-                               time_dens_sge_of,
-                               sdens_sge_of,
-                               sge_tile_no +
-                                 theme(strip.background.y = element_blank(),
-                                       strip.text.y = element_blank(),
-                                       axis.title.y = element_text(vjust=-5)),
-                               time_dens_sge_no,
-                               sdens_sge_no,
-                               nrow = 2, ncol = 3,
-                               rel_widths = c(1,1,0.6,1,1,0.6),
-                               align = "hv",
-                               labels = c('A', 'B', 'C', 'D', 'E', 'F'))
-#> Warning: Graphs cannot be vertically aligned unless the axis
-#> parameter is set. Placing graphs unaligned.
-```
+final_sge_raw = cowplot::plot_grid(sge_tile_of +
+                                     theme(strip.background.y = element_blank(),
+                                           strip.text.y = element_blank(),
+                                           axis.title.y = element_text(vjust=-5)),
+                                   time_dens_sge_of + 
+                                     theme(strip.background.y = element_blank(),
+                                           strip.text.y = element_blank()),
+                                   sdens_sge_of,
+                                   sge_tile_no +
+                                     theme(strip.background.y = element_blank(),
+                                           strip.text.y = element_blank(),
+                                           axis.title.y = element_text(vjust=-5)),
+                                   time_dens_sge_no +
+                                     theme(strip.background.y = element_blank(),
+                                           strip.text.y = element_blank()),
+                                   sdens_sge_no,
+                                   nrow = 2, ncol = 3,
+                                   rel_widths = c(1,1,0.6,1,1,0.6),
+                                   align = "hv",
+                                   labels = c('B', 'C', 'D', 'E', 'F', 'G'))
 
+final_sge_with_polar = ggdraw() +
+  cowplot::draw_image(POLAR_ALL_SGE_SIG_OF,
+                      x = 0, y = 0.8,
+                      width = 1, height = 0.2) +
+  cowplot::draw_plot(final_sge_raw,
+                     x = 0, y = 0.2,
+                     width = 1, height = 0.6) +
+  cowplot::draw_image(POLAR_ALL_SGE_SIG_NO,
+                      x = 0, y = 0,
+                      width = 1, height = 0.2) +
+  cowplot::draw_plot_label(c('A', 'H'),
+                           x = c(0,0), y = c(1, 0.2),
+                           size = 14)
 
-```r
 ggsave(OUT_SGE,
-       final_sge,
+       final_sge_with_polar,
        device = "png",
        width = 11.5,
-       height = 12,
+       height = 20,
        units = "in",
        dpi = 400)
 
 ```
+
+(ref:time-dep-sge) Differences between HMM states occupied by the reference fish when paired with different test fish lines during the open field (top) and novel object (bottom) assay components. **A** and **H**: 14 HMM states with panels coloured red to indicate significant differences between the reference fishes under different line-pairings in the proportion of time spent in those states during the separate assay components. The HMM states are the same as those in Figure \@ref(time-dep-dge), but coloured with a different palette. **B** and **E**: Transitions between HMM states across time for each individual *iCab* reference fish, grouped by the line of its tank partner. Tiles are coloured by the state most frequently occupied by each fish within 2-second intervals. **C** and **F**: Densities within each line-pairing for the occupation of states that significantly differed between line-pairings (colour), with other states consolidated (grey). **D** and **G**: Densities of the test tank locations occupied by the *iCab* reference fishes when paired with different lines, calculated within 900 grid points (30x30).
 
 
 ```r

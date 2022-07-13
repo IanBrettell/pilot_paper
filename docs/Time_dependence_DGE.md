@@ -1,5 +1,9 @@
 # Time dependence of HMM states (DGE)
 
+**Figure \@ref(fig:time-dep-dge)** depicts the time dependence of HMM states over the course of the video, and the regions of the test tank that were most frequently occupied by the different lines. There is an especially clear difference between lines in the proportions of time spent in the slowest-moving states (i.e. states 1 to 3) at the beginning of each assay component, with an increase across all lines in the novel object assay, likely as a consequence of having less room to move, as well as the fear response that the novel object was designed to elicit. The differences are clearest when comparing the southern Japanese medaka lines (*iCab*, *HdrR*, and *HO5*) against the northern Japanese lines (*Kaga* and *HNI*). 
+
+In addition, we note that *Kaga* tends to spend more time in the fast- and forward-moving state 13 at the beginning of the assay than at other times, which suggests that for that line, such movements may be the manifestation of a stress response. Figures **\@ref(fig:time-dep-dge)D** and **\@ref(fig:time-dep-dge)G** show, as densities, the regions of the tank that were most frequently occupied by each line. Although the northern Japanese lines *Kaga* and *HNI* were similarly fast-moving relative to the southern Japanese lines, in the open field assay component they appear to favour different regions of the tank – where *HNI* occupied the central regions of the tank with more frequency, *Kaga* tended to prefer swimming along the boundaries of the tank.
+
 ## Setup
 
 ### Load libraries
@@ -20,6 +24,8 @@ library(googlesheets4)
 IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/14.csv"
 AOV_SHEET = "https://docs.google.com/spreadsheets/d/1_l72BZkmWyNAOfCUI8WGP4UfQuIPQtPZZmlRjQffvEs"
 N_STATES = 15
+POLAR_ALL_DGE_SIG_OF = here::here("book/figs/paper_final/0.08/dist_angle/14/polar_all_dge_sig_of.png")
+POLAR_ALL_DGE_SIG_NO = here::here("book/figs/paper_final/0.08/dist_angle/14/polar_all_dge_sig_no.png")
 OUT_DGE = here::here("book/figs/time_dependence/dist_angle/0.08_14_dge.png")
 
 # Create line recode vector
@@ -312,36 +318,51 @@ sdens_dge_no = sdens_dge_df %>%
 
 
 ```r
-final_dge = cowplot::plot_grid(dge_tile_of +
+final_dge_raw = cowplot::plot_grid(dge_tile_of +
                                  theme(strip.background.y = element_blank(),
                                        strip.text.y = element_blank(),
                                        axis.title.y = element_text(vjust=-5)),
-                               time_dens_dge_of,
+                               time_dens_dge_of + 
+                                 theme(strip.background.y = element_blank(),
+                                       strip.text.y = element_blank()),
                                sdens_dge_of,
                                dge_tile_no +
                                  theme(strip.background.y = element_blank(),
                                        strip.text.y = element_blank(),
                                        axis.title.y = element_text(vjust=-5)),
-                               time_dens_dge_no,
+                               time_dens_dge_no +
+                                 theme(strip.background.y = element_blank(),
+                                       strip.text.y = element_blank()),
                                sdens_dge_no,
                                nrow = 2, ncol = 3,
                                rel_widths = c(1,1,0.6,1,1,0.6),
                                align = "hv",
-                               labels = c('A', 'B', 'C', 'D', 'E', 'F'))
-#> Warning: Graphs cannot be vertically aligned unless the axis
-#> parameter is set. Placing graphs unaligned.
-```
+                               labels = c('B', 'C', 'D', 'E', 'F', 'G'))
 
+final_dge_with_polar = ggdraw() +
+  cowplot::draw_image(POLAR_ALL_DGE_SIG_OF,
+                      x = 0, y = 0.8,
+                      width = 1, height = 0.2) +
+  cowplot::draw_plot(final_dge_raw,
+                     x = 0, y = 0.2,
+                     width = 1, height = 0.6) +
+  cowplot::draw_image(POLAR_ALL_DGE_SIG_NO,
+                      x = 0, y = 0,
+                      width = 1, height = 0.2) +
+  cowplot::draw_plot_label(c('A', 'H'),
+                           x = c(0,0), y = c(1, 0.2),
+                           size = 14)
 
-```r
 ggsave(OUT_DGE,
-       final_dge,
+       final_dge_with_polar,
        device = "png",
        width = 11.5,
-       height = 12,
+       height = 20,
        units = "in",
        dpi = 400)
 ```
+
+(ref:time-dep-dge) Differences between test fish lines in the HMM states they occupied during the open field (top) and novel object (bottom) assay components. **A** and **H**: 14 HMM states with panels coloured red to indicate significant differences between test fish lines in the proportion of time spent in those states during the separate assay components. **B** and **E**: Transitions between HMM states across time for each individual test fish, grouped by line. Tiles are coloured by the state most frequently occupied by each fish within 2-second intervals. **C** and **F**: Densities within each line for the occupation of states that significantly differed between lines (colour), with other states consolidated (grey). **D** and **G**: Densities of the test tank locations occupied by each line, calculated within 900 grid points (30x30).
 
 
 ```r

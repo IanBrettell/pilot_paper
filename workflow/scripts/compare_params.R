@@ -13,8 +13,10 @@ library(cowplot)
 # Get variables
 
 ## Debug
-#CONC = as.list(list.files("/hps/nobackup/birney/users/ian/pilot/hmm_concordance_recode/",full.names = T, recursive = T))
-#KW = "/hps/nobackup/birney/users/ian/pilot/kruskal_wallis/out.rds"
+CONC = as.list(list.files("/hps/nobackup/birney/users/ian/pilot/hmm_concordance_recode/",full.names = T, recursive = T))
+KW = "/hps/nobackup/birney/users/ian/pilot/kruskal_wallis/out.rds"
+OUT_PNG = here::here("book/figs/compare_params/compare_params.png")
+OUT_PDF = here::here("book/figs/compare_params/compare_params.pdf")
 
 ## True
 CONC = snakemake@input[["conc"]]
@@ -56,7 +58,7 @@ out_plot = df %>%
     ggrepel::geom_text_repel(aes(label = INT_STATE),
               size = 2,
               ) +
-    theme_bw() +
+    cowplot::theme_cowplot() +
     guides(size = guide_legend(title = "Interval\n(seconds)"),
            colour = guide_legend(title = "N states")) +
     scale_colour_manual(values = pal) +

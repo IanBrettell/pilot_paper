@@ -1,5 +1,7 @@
 # SGE co-occupancy
 
+To develop a metric to quantify the degree to which the *iCab* reference fishes’ behaviour is influenced by the line of its tank partner, we calculated the proportions of time that the pairs of fish spent simultaneously occupying the same HMM state. **Figure \@(fig:cooc-heatmap)** shows that when paired with the slowest-moving *HdrR* line, the *iCab* reference fishes spent more time co-occupying the slow- and forward-moving state 2, whereas they tended to co-occupy the fast- and forward-moving state 11 when paired with the faster-moving northern *Kaga* and *HNI* lines. When paired with another *iCab*, they prefered to co-occupy the slow-moving and pan-directional state 4. For each combination of assay component and state, we then ran a Kruskal-Wallis test to determine whether there were differences in the frequencies of state co-occupancy under different line pairings (*p* < 0.05, FDR-adjusted), and found significant differences for states 1 to 6 for the open field component (1.1x10<sup>-8</sup> < *p* < 4.1x10<sup>-2</sup>), and states 1 to 4 and 7 for the novel object component (1.6x10<sup>-6</sup> < *p* < 2.5x10<sup>-2</sup>) (**Figure \@ref(fig:cooc-boxplots)**). As can be seen in the heatmaps, *iCab* tends to co-occupy state 4 at the highest frequency when paired with another *iCab*, which suggests that this pan-directional, slow-moving state is a more comfortable or natural state for *iCab* to occupy, particularly when under stress.
+
 ## Setup
 
 ### Load libraries
@@ -20,8 +22,9 @@ IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/14.csv"
 N_STATES = 14
 VARIABLES = "distance and angle of travel"
 INTERVAL = 0.08
-OUT_PER_STATE = here::here("book/figs/sge/co-occupancy/dist_angle/0.08_14_cooc_box_heat_per-state.png")
 OUT_BOX_ALL = here::here("book/figs/sge/co-occupancy/dist_angle/0.08_14_cooc_box_all.png")
+BOXPLOTS_PER_STATE = here::here("book/figs/sge/co-occupancy/dist_angle/0.08_14_cooc_boxplots_per_state.png")
+OUT_HEAT = here::here("book/figs/sge/co-occupancy/dist_angle/0.08_14_cooc_heatmap.png")
 
 # Create line recode vector
 line_vec = c("iCab", "HdrR", "HNI", "Kaga", "HO5")
@@ -197,28 +200,6 @@ kw_per_state = cooc_per_state %>%
 
 # Plot
 
-## Polar
-polar = df %>% 
-  # select random sample of 1e5 rows
-  dplyr::slice_sample(n = 1e5) %>% 
-  # factorise `state_recode`
-  #dplyr::mutate(state_recode = factor(state_recode, levels = recode_vec)) %>% 
-  ggplot() +
-  geom_point(aes(angle_recode, log10(distance), colour = state_recode),
-             alpha = 0.3, size = 0.2) +
-  coord_polar() +
-  facet_wrap(~state_recode, nrow = N_ROWS) +
-  scale_x_continuous(labels = c(0, 90, 180, 270),
-                     breaks = c(0, 90, 180, 270)) +
-  scale_color_viridis_c(option = "inferno") +
-  guides(colour = "none") +
-  xlab("angle of travel") +
-  ylab(expression(log[10]("distance travelled in pixels"))) +
-  #ggtitle("HMM states") +
-  cowplot::theme_cowplot(font_size = FONT_SIZE) +
-  theme(plot.title = element_text(hjust = 0.5))
-
-
 ## OF
 ASSAY = "open field"
 box_per_state_of = cooc_per_state %>% 
@@ -258,7 +239,29 @@ box_per_state_no = cooc_per_state %>%
   ggtitle(ASSAY) +
   theme(plot.title = element_text(hjust = 0.5)) +
   ylim(0,max(cooc_per_state$FREQ_COOC))
+
+final_per_state = cowplot::plot_grid(box_per_state_of,
+                                     box_per_state_no,
+                                     nrow = 2)
+
+ggsave(BOXPLOTS_PER_STATE,
+       final_per_state,
+       device = "png",
+       width = 15,
+       height = 15,
+       units = "in",
+       dpi = 400)
 ```
+
+(ref:cooc-boxplots) Boxplots for state co-occupancy between fish pairs. *P*-values calculated from Kruskal-Wallis tests.
+
+
+```r
+knitr::include_graphics(BOXPLOTS_PER_STATE)
+```
+
+<img src="figs/sge/co-occupancy/dist_angle/0.08_14_cooc_boxplots_per_state.png" width="100%" />
+
 
 ## Co-occupancy heatmap
 
@@ -299,77 +302,25 @@ cooc_heat_plot = cooc_heat %>%
   scale_fill_viridis_c(option = "plasma") +
   xlab("reference fish state") +
   ylab("test fish state")
-```
 
-## Compose final figure
-
-
-```r
-final = cowplot::ggdraw() +
-  cowplot::draw_plot(polar,
-                     x = 0, y= 0.7,
-                     width = 1, height = 0.3) +
-  cowplot::draw_plot(box_per_state_of,
-                     x = 0, y = 0.3,
-                     width = 0.5, height = 0.4) +
-  cowplot::draw_plot(box_per_state_no +
-                       theme(axis.text.y=element_blank(),
-                             axis.ticks.y=element_blank(),
-                             axis.line.y = element_blank()) +
-                       ylab(NULL),
-                     x = 0.5, y = 0.3,
-                     width = 0.5, height = 0.4) +
-  cowplot::draw_plot(cooc_heat_plot,
-                     x = 0, y = 0,
-                     width = 1, height = 0.3) +
-  cowplot::draw_plot_label(c("A", "B", "C"),
-                           x = c(0,0,0),
-                           y = c(1, 0.7, 0.3))
-#> notch went outside hinges. Try setting notch=FALSE.
-#> notch went outside hinges. Try setting notch=FALSE.
-#> notch went outside hinges. Try setting notch=FALSE.
-#> notch went outside hinges. Try setting notch=FALSE.
-#> notch went outside hinges. Try setting notch=FALSE.
-#> notch went outside hinges. Try setting notch=FALSE.
-#> notch went outside hinges. Try setting notch=FALSE.
-#> notch went outside hinges. Try setting notch=FALSE.
-#> notch went outside hinges. Try setting notch=FALSE.
-#> notch went outside hinges. Try setting notch=FALSE.
-#> notch went outside hinges. Try setting notch=FALSE.
-#> notch went outside hinges. Try setting notch=FALSE.
-#> notch went outside hinges. Try setting notch=FALSE.
-#> notch went outside hinges. Try setting notch=FALSE.
-#> notch went outside hinges. Try setting notch=FALSE.
-#> notch went outside hinges. Try setting notch=FALSE.
-#> notch went outside hinges. Try setting notch=FALSE.
-#> notch went outside hinges. Try setting notch=FALSE.
-#> notch went outside hinges. Try setting notch=FALSE.
-#> notch went outside hinges. Try setting notch=FALSE.
-#> notch went outside hinges. Try setting notch=FALSE.
-#> notch went outside hinges. Try setting notch=FALSE.
-#> notch went outside hinges. Try setting notch=FALSE.
-#> notch went outside hinges. Try setting notch=FALSE.
-#> notch went outside hinges. Try setting notch=FALSE.
-#> notch went outside hinges. Try setting notch=FALSE.
-```
-
-
-```r
-ggsave(OUT_PER_STATE,
-       final,
+ggsave(OUT_HEAT,
+       cooc_heat_plot,
        device = "png",
        width = 18,
-       height = 20,
+       height = 7,
        units = "in",
        dpi = 400)
 ```
 
 
+(ref:cooc-heatmap) Frequency of HMM state co-occupancy between pairs of fish, calculated across all all videos per line-pairing.
+
+
 ```r
-knitr::include_graphics(here::here("book/figs/sge/co-occupancy/dist_angle/0.08_14_cooc_box_heat_per-state.png"))
+knitr::include_graphics(OUT_HEAT)
 ```
 
-<img src="figs/sge/co-occupancy/dist_angle/0.08_14_cooc_box_heat_per-state.png" width="100%" />
+<img src="figs/sge/co-occupancy/dist_angle/0.08_14_cooc_heatmap.png" width="100%" />
 
 
 

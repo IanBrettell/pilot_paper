@@ -1,4 +1,4 @@
-# HMM parameter optimisation
+# HMM parameter optimisation {#param-optim}
 
 ## Setup
 

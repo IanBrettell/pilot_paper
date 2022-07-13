@@ -4,10 +4,14 @@ In this study we used a combined open-field and novel-object assay to determine:
 
 (ref:schema) Schema for experimental plan. *iCab*-*iCab* pairings are the control condition. To explore direct genetic effects on behaviour, we compare the behaviours of test fishes from different lines, and infer that the differences between lines are caused by the differences in their genetics (direct genetic effects). To explore social genetic effects, we use the same data but turn our focus to the reference fish, and infer that the differences we observe between their behaviours are caused by the differences in their social environments, which are in turn driven by the different genetics in the test fish lines (social genetic effects).
 
-<img src="figs/misc/experimental_schema.png" width="100%" />
-
+<div class="figure">
+<img src="figs/misc/experimental_schema.png" alt="(ref:schema)" width="100%" />
+<p class="caption">(\#fig:schema)(ref:schema)</p>
+</div>
 
 Our behavioural assay is 20 minutes long, comprising two consecutively-run 10-minute components: a) an 'open field' component, where the fishes are introduced to the test tank and left to swim around freely (\@ref(fig:open-field)); and b) a 'novel object' component, where a small black plastic cylinder is added to the tank at the beginning of the second 10-minute period, after which the fishes are again left to swim around freely (\@ref(fig:novel-object)). 
+
+(ref:open-field) Start of open field assay component. Reference fishes are introduced to the tank first, followed by the test fishes.
 
 
 ```{=html}
@@ -17,6 +21,8 @@ Our behavioural assay is 20 minutes long, comprising two consecutively-run 10-mi
 </div>
 </div>
 ```
+
+(ref:novel-object) Start of novel object assay component.
 
 
 ```{=html}
