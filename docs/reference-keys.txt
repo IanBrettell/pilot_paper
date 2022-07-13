@@ -19,6 +19,9 @@ kaga-northern-japan
 hni-northern-japan
 ho5-southern-japan
 experimental-setup
+schema
+assay
+experimental-setup-1
 data-collection
 effect-of-covariates
 setup
