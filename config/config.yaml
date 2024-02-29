@@ -45,6 +45,14 @@ n_states:
     - 17
     - 18
     - 20
+palette:
+    iCab_ref: "#F1BB7B"
+    iCab_test: "#AB7535"
+    iCab: "#F1BB7B"
+    HdrR: "#FA796C"
+    HNI : "#AC3E3F"
+    Kaga: "#79301F"
+    HO5: "#D67236"
 ####################
 # Containers
 ####################

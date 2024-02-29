@@ -20,14 +20,16 @@ IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/14.csv"
 N_STATES = 14
 VARIABLES = "distance and angle of travel"
 INTERVAL = 0.08
-OUT_HEAT = here::here("book/figs/sge/co-occupancy/dist_angle/0.08_14_cooc_heatmap.png")
+OUT_HEAT_PNG = here::here("book/figs/sge/co-occupancy/dist_angle/0.08_14_cooc_heatmap.png")
+OUT_HEAT_PDF = here::here("book/figs/sge/co-occupancy/dist_angle/0.08_14_cooc_heatmap.pdf")
 OUT_PER_STATE = here::here("book/figs/sge/co-occupancy/dist_angle/0.08_14_cooc_box_heat_per-state.png")
 OUT_BOX_ALL = here::here("book/figs/sge/co-occupancy/dist_angle/0.08_14_cooc_box_all.png")
 
 ## True
 IN = snakemake@input[[1]]
 N_STATES = snakemake@params[["n_states"]]
-OUT_HEAT = snakemake@output[["heatmap"]]
+OUT_HEAT_PNG = snakemake@output[["heatmap_png"]]
+OUT_HEAT_PDF = snakemake@output[["heatmap_pdf"]]
 OUT_BOX_ALL = snakemake@output[["boxplot_all"]]
 OUT_PER_STATE = snakemake@output[["box_and_heat_per_state"]]
 
@@ -283,23 +285,31 @@ cooc_heat_plot = cooc_heat %>%
   geom_tile(aes(ref, test, fill = FREQ_COOC)) +
   facet_grid(cols = vars(test_fish),
              rows = vars(assay)) +
-  theme_cowplot(font_size = FONT_SIZE) +
+  theme_cowplot() +
   theme(aspect.ratio = 1) +
   #scale_x_di(breaks = unique(cooc_heat$ref)) +
   #scale_y_di(breaks = unique(cooc_heat$test))  +
   labs(fill = "Frequency\nof state\nco-occupancy\nwithin\nline-pairing") +
   scale_fill_viridis_c(option = "plasma") +
   xlab("reference fish state") +
-  ylab("test fish state")
+  ylab("test fish state") +
+  theme(axis.text = element_text(size = 9))
 
-ggsave(OUT_HEAT,
+ggsave(OUT_HEAT_PNG,
        cooc_heat_plot,
        device = "png",
-       width = 18,
-       height = 7,
+       width = 13,
+       height = 5.2,
        units = "in",
        dpi = 400)
 
+ggsave(OUT_HEAT_PDF,
+       cooc_heat_plot,
+       device = "pdf",
+       width = 13,
+       height = 5.2,
+       units = "in",
+       dpi = 400)
 #######################
 # Final figure
 #######################

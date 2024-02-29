@@ -88,9 +88,9 @@ bsub -M 50000 -q short -Is bash
 module load singularity-3.7.0-gcc-9.3.0-dp5ffrp
 cd /hps/software/users/birney/ian/repos/pilot_paper
 RCONT=/hps/nobackup/birney/users/ian/containers/pilot_paper/R_4.2.0.sif
-singularity shell --bind /hps/nobackup/birney/users/ian/rstudio_db:/var/lib/rstudio-server \
-                  --bind /hps/nobackup/birney/users/ian/tmp:/tmp \
-                  --bind /hps/nobackup/birney/users/ian/run:/run \
+singularity shell --bind /hps/nobackup/birney/users/ian/R_tmp/R_4.2.0/rstudio_db:/var/lib/rstudio-server \
+                  --bind /hps/nobackup/birney/users/ian/R_tmp/R_4.2.0/tmp:/tmp \
+                  --bind /hps/nobackup/birney/users/ian/R_tmp/R_4.2.0/run:/run \
                   $RCONT
 rstudio-server kill-all
 rserver \

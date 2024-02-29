@@ -16,7 +16,8 @@ library(ggpubr)
 IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/14.csv"
 OUT_OF = "book/figs/covariate_effects/0.08/dist_angle/14/covariate_effects_of.png"
 OUT_NO = "book/figs/covariate_effects/0.08/dist_angle/14/covariate_effects_no.png"
-OUT_NOASSAY = "book/figs/covariate_effects/0.08/dist_angle/14/covariate_effects_no-split-by-assay.png"
+OUT_NOASSAY_PNG = "book/figs/covariate_effects/0.08/dist_angle/14/covariate_effects_no-split-by-assay.png"
+OUT_NOASSAY_PDF = "book/figs/covariate_effects/0.08/dist_angle/14/covariate_effects_no-split-by-assay.pdf"
 
 ## True
 IN = snakemake@input[[1]]

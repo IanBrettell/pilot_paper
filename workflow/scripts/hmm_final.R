@@ -16,14 +16,25 @@ library(cowplot)
 # Get variables
 
 ## Debug
+####### 0.08/14
 IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.08/dist_angle/14.csv"
 N_STATES = 14
 VARIABLES = "distance and angle of travel"
 INTERVAL = 0.08
+POLAR_ALL_DGE_PNG = here::here("book/figs/paper_final/0.08/dist_angle/14/polar_all_dge.png")
+POLAR_ALL_DGE_PDF = here::here("book/figs/paper_final/0.08/dist_angle/14/polar_all_dge.pdf")
 POLAR_ALL_DGE_SIG_OF = here::here("book/figs/paper_final/0.08/dist_angle/14/polar_all_dge_sig_of.png")
 POLAR_ALL_DGE_SIG_NO = here::here("book/figs/paper_final/0.08/dist_angle/14/polar_all_dge_sig_no.png")
 POLAR_ALL_SGE_SIG_OF = here::here("book/figs/paper_final/0.08/dist_angle/14/polar_all_sge_sig_of.png")
 POLAR_ALL_SGE_SIG_NO = here::here("book/figs/paper_final/0.08/dist_angle/14/polar_all_sge_sig_no.png")
+####### 0.05/16
+IN = "/hps/nobackup/birney/users/ian/pilot/hmm_out/0.05/dist_angle/16.csv"
+N_STATES = 16
+VARIABLES = "distance and angle of travel"
+INTERVAL = 0.05
+POLAR_ALL_DGE_PNG = here::here("book/figs/paper_final/0.05/dist_angle/16/polar_all_dge.png")
+POLAR_ALL_DGE_PDF = here::here("book/figs/paper_final/0.05/dist_angle/16/polar_all_dge.pdf")
+
 
 # Deauthorise google sheets so that it doesn't ask for prompt
 googlesheets4::gs4_deauth()
@@ -68,9 +79,9 @@ if (N_STATES == 15){
 if (N_STATES == 14){
   POL_ALL_WID = 12
   POL_ALL_HEI = 4
-} else {
-  POL_ALL_WID = 7.5
-  POL_ALL_HEI = 10
+} else if (N_STATES == 16){
+  POL_ALL_WID = 7.6
+  POL_ALL_HEI = 8
 }
 
 # Get figure height
@@ -142,9 +153,17 @@ polar_all_dge = df %>%
   ylab(expression(log[10]("distance travelled in pixels"))) 
   #ggtitle(TITLE)
 
-ggsave(POLAR_ALL_DGE,
+ggsave(POLAR_ALL_DGE_PNG,
        polar_all_dge,
        device = "png",
+       width = POL_ALL_WID,
+       height = POL_ALL_HEI,
+       units = "in",
+       dpi = 400)
+
+ggsave(POLAR_ALL_DGE_PDF,
+       polar_all_dge,
+       device = "pdf",
        width = POL_ALL_WID,
        height = POL_ALL_HEI,
        units = "in",
